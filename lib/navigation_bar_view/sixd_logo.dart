@@ -12,11 +12,11 @@ Widget sixDeeLogo(double sideMenuWidth) {
           mainAxisSize: MainAxisSize.min,
           children: [
             Expanded(child: Center(child: Image.asset(sixDeeLogoPng))),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             Container(
               height: double.infinity,
               width: 1,
-              color: greyLight,
+              color: dividerColor,
             )
           ],
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sm_admin_portal/utilily/colors.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -6,13 +7,13 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.black12,
+      color: black12,
       child: Row(
         children: [
           Column(
             children: [
               Container(
-                color: Colors.red,
+                color: redColor,
                 height: 200,
                 width: 200,
               ),

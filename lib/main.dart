@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:sm_admin_portal/router/router.dart';
-import 'package:sm_admin_portal/screens/home_sceen.dart';
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:sm_admin_portal/controllers/app_controller.dart';
+import 'package:sm_admin_portal/router/router.dart';
+
+late AppController appCont;
+late SharedPreferences prefs;
 void main() {
+  initialize();
   runApp(const MyApp());
+}
+
+initialize() async {
+  appCont = Get.put(AppController());
+  prefs = await SharedPreferences.getInstance();
 }
 
 class MyApp extends StatelessWidget {

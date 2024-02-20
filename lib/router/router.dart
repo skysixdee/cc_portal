@@ -1,13 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
+
 import 'package:go_router/go_router.dart';
+import 'package:sm_admin_portal/main.dart';
 import 'package:sm_admin_portal/navigation_bar_view/navigation_bar_view.dart';
 import 'package:sm_admin_portal/router/router_name.dart';
 import 'package:sm_admin_portal/screens/home_sceen.dart';
 import 'package:sm_admin_portal/side_menu_view/side_menu_view.dart';
+import 'package:sm_admin_portal/utilily/colors.dart';
+import 'package:sm_admin_portal/utilily/constants.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _sectionNavigatorKey = GlobalKey<NavigatorState>();
@@ -51,38 +53,58 @@ Widget shellRouteIndex(
     context, state, StatefulNavigationShell navigationShell) {
   print("Selected index must be===== ${navigationShell.currentIndex}");
 
-  double sideMenuWidth = 220.0;
-  double navBarheight = 50.0;
   return GetMaterialApp(
     title: 'SM ADMIN PORTAL',
     debugShowCheckedModeBanner: false,
     home: Material(
-        color: Colors.white,
+        color: white,
         child: Stack(
           children: [
             Column(
               children: [
-                SizedBox(height: navBarheight),
-                Expanded(
-                  child: Stack(
+                const SizedBox(height: navBarheight),
+                Expanded(child: Obx(() {
+                  return Stack(
                     children: [
-                      SideMenuView(
-                        sideMenuWidth: sideMenuWidth,
-                      ),
+                      animatingSideMenu(sideMenuOpendWidth, animationTime),
                       Row(
                         children: [
-                          SizedBox(width: sideMenuWidth),
+                          enimationBufferWidthSideMenu(
+                              sideMenuOpendWidth, animationTime),
                           Expanded(child: navigationShell),
                         ],
                       ),
                     ],
-                  ),
-                ),
+                  );
+                })),
               ],
             ),
-            NavigationBarView(
-                navBarheight: navBarheight, sideMenuWidth: sideMenuWidth),
+            const NavigationBarView(
+                navBarheight: navBarheight, sideMenuWidth: sideMenuOpendWidth),
           ],
         )),
+  );
+}
+
+AnimatedContainer enimationBufferWidthSideMenu(
+    double sideMenuWidth, Duration animationTime) {
+  return AnimatedContainer(
+    width: appCont.isSideMenuHidden.value ? sideMenuClosedWidth : sideMenuWidth,
+    duration: animationTime,
+    child: SizedBox(
+        width: appCont.isSideMenuHidden.value
+            ? sideMenuClosedWidth
+            : sideMenuWidth),
+  );
+}
+
+AnimatedContainer animatingSideMenu(
+    double sideMenuWidth, Duration animationTime) {
+  return AnimatedContainer(
+    width: appCont.isSideMenuHidden.value ? sideMenuClosedWidth : sideMenuWidth,
+    duration: animationTime,
+    child: appCont.isSideMenuHidden.value
+        ? const SideMenuView(sideMenuWidth: sideMenuClosedWidth)
+        : SideMenuView(sideMenuWidth: sideMenuWidth),
   );
 }

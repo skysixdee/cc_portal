@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sm_admin_portal/utilily/colors.dart';
 
 Widget sideMenuListView() {
   return ListView.builder(
@@ -9,7 +10,7 @@ Widget sideMenuListView() {
         padding: const EdgeInsets.only(bottom: 1),
         child: Container(
           height: 40,
-          color: Colors.white,
+          color: white,
         ),
       );
     },

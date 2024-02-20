@@ -15,7 +15,7 @@ class NavigationBarView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: navBarheight,
-      color: Colors.white,
+      color: white,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -23,7 +23,7 @@ class NavigationBarView extends StatelessWidget {
           Flexible(
             child: Container(
                 height: navBarheight,
-                color: Colors.white,
+                color: white,
                 child: sixDeeLogo(sideMenuWidth)),
           ),
           Container(

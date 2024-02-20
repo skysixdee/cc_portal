@@ -4,6 +4,7 @@ import 'package:sm_admin_portal/side_menu_view/side_menu_footer_view.dart';
 import 'package:sm_admin_portal/side_menu_view/side_menu_hide_button.dart';
 import 'package:sm_admin_portal/side_menu_view/side_menu_list_view.dart';
 import 'package:sm_admin_portal/side_menu_view/side_menu_search_view.dart';
+import 'package:sm_admin_portal/utilily/colors.dart';
 
 class SideMenuView extends StatelessWidget {
   final double sideMenuWidth;
@@ -12,7 +13,7 @@ class SideMenuView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.black12,
+      color: black12,
       width: sideMenuWidth,
       child: Padding(
         padding: const EdgeInsets.only(right: 0),
@@ -32,15 +33,15 @@ class SideMenuView extends StatelessWidget {
 
   Container decorationContainer() {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.3),
+            color: sideMenuShadowColor,
             spreadRadius: 2,
             blurRadius: 7,
           )
         ],
-        color: Colors.white,
+        color: white,
       ),
       child: Column(
         children: [
@@ -60,7 +61,9 @@ class SideMenuView extends StatelessWidget {
       children: [
         Flexible(
           child: Container(
-              color: Colors.grey.withOpacity(0.2), child: sideMenuListView()),
+            color: dividerColor,
+            child: sideMenuListView(),
+          ),
         ),
       ],
     );
