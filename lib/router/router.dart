@@ -1,7 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:get/route_manager.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sm_admin_portal/navigation_bar_view/navigation_bar_view.dart';
 import 'package:sm_admin_portal/router/router_name.dart';
 import 'package:sm_admin_portal/screens/home_sceen.dart';
 import 'package:sm_admin_portal/side_menu_view/side_menu_view.dart';
@@ -48,15 +51,37 @@ Widget shellRouteIndex(
     context, state, StatefulNavigationShell navigationShell) {
   print("Selected index must be===== ${navigationShell.currentIndex}");
 
+  double sideMenuWidth = 220.0;
+  double navBarheight = 50.0;
   return GetMaterialApp(
     title: 'SM ADMIN PORTAL',
     debugShowCheckedModeBanner: false,
     home: Material(
         color: Colors.white,
-        child: Row(
+        child: Stack(
           children: [
-            const SideMenuView(),
-            Expanded(child: navigationShell),
+            Column(
+              children: [
+                SizedBox(height: navBarheight),
+                Expanded(
+                  child: Stack(
+                    children: [
+                      SideMenuView(
+                        sideMenuWidth: sideMenuWidth,
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(width: sideMenuWidth),
+                          Expanded(child: navigationShell),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            NavigationBarView(
+                navBarheight: navBarheight, sideMenuWidth: sideMenuWidth),
           ],
         )),
   );
