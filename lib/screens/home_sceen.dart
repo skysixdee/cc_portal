@@ -23,6 +23,7 @@ class HomeScreen extends StatelessWidget {
               Center(
                   child: CustomTextField(
                 addDropDown: true,
+                isTextView: true,
                 onDropDownTap: (value) {
                   print("Out side of class $value");
                 },

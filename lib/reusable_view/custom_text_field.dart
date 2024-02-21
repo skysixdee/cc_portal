@@ -7,20 +7,28 @@ class CustomTextField extends StatelessWidget {
       {super.key,
       this.rightWidget,
       this.addDropDown = false,
-      this.onDropDownTap});
+      this.onDropDownTap,
+      this.isTextView = false});
   final Widget? rightWidget;
   final bool addDropDown;
+  final bool isTextView;
   final Function(String)? onDropDownTap;
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: mainContainerDecoration(),
-      height: 40,
+      height: isTextView ? null : 40,
       width: 300,
       child: Row(
         children: [
-          Container(height: double.infinity, color: redColor, width: 2),
-          const Flexible(child: TextField()),
+          Container(
+              height: isTextView ? null : double.infinity,
+              color: redColor,
+              width: 2),
+          Flexible(
+              child: TextField(
+            maxLines: isTextView ? null : 1,
+          )),
           clearButtonWidget(),
           addDropDown ? dropDownButton() : const SizedBox(),
           rightWidget ?? const SizedBox()
