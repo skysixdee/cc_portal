@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sm_admin_portal/reusable_view/custom_text_field.dart';
 import 'package:sm_admin_portal/reusable_view/reusable_view_delete.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 
@@ -13,17 +14,19 @@ class HomeScreen extends StatelessWidget {
         children: [
           Column(
             children: [
-              delete_view(title: "Pack name"),
-              delete_view(
-                title: "CRBT Type",
+              const SizedBox(height: 30),
+              const Center(child: CustomTextField(addDropDown: true)),
+              const Center(
+                  child: CustomTextField(
+                addDropDown: false,
+              )),
+              Center(
+                  child: CustomTextField(
                 addDropDown: true,
-              ),
-              delete_view(title: "PACK Description"),
-              // Container(
-              //   color: redColor,
-              //   height: 200,
-              //   width: 200,
-              // ),
+                onDropDownTap: (value) {
+                  print("Out side of class $value");
+                },
+              )),
             ],
           ),
         ],
