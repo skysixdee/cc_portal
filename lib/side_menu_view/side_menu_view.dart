@@ -62,7 +62,7 @@ class SideMenuView extends StatelessWidget {
         Flexible(
           child: Container(
             color: dividerColor,
-            child: sideMenuListView(),
+            child: SideMenuListView(),
           ),
         ),
       ],
