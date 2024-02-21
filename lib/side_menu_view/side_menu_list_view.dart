@@ -26,27 +26,24 @@ class _SideMenuListViewState extends State<SideMenuListView> {
       itemBuilder: (context, index) {
         return Padding(
           padding: const EdgeInsets.only(bottom: 1),
-          child: GestureDetector(
+          child: InkWell(
+            onHover: (value) {
+              setState(() {
+                if (value) {
+                  hoveredIndex = index;
+                } else {
+                  hoveredIndex = -1;
+                }
+              });
+            },
             onTap: () {
               setState(() {
                 selectedIndex = index;
               });
             },
-            child: MouseRegion(
-              onEnter: (_) {
-                setState(() {
-                  hoveredIndex = index;
-                });
-              },
-              onExit: (_) {
-                setState(() {
-                  hoveredIndex = -1;
-                });
-              },
-              child: sideMenuCard(
-                text: cardTexts[index],
-                isSelected: (selectedIndex == index) || (hoveredIndex == index),
-              ),
+            child: sideMenuCard(
+              text: cardTexts[index],
+              isSelected: (selectedIndex == index) || (hoveredIndex == index),
             ),
           ),
         );
