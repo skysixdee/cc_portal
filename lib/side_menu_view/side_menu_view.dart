@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:sm_admin_portal/side_menu_view/side_menu_footer_view.dart';
@@ -45,7 +46,7 @@ class SideMenuView extends StatelessWidget {
       ),
       child: Column(
         children: [
-          sideMenuSearchView(SearchController()),
+        // sideMenuSearchView(SearchController()),
           Expanded(
             child: menuList(),
           ),

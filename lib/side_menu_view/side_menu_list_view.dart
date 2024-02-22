@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:sm_admin_portal/side_menu_view/side_menu_card.dart';
 
@@ -19,6 +21,7 @@ class _SideMenuListViewState extends State<SideMenuListView> {
     "Circle",
     "Renewal Fallback",
     "Message Template",
+    "message"
   ];
 
   List<String> filteredCards = [];
@@ -42,7 +45,6 @@ class _SideMenuListViewState extends State<SideMenuListView> {
       }
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -95,7 +97,7 @@ Widget sideMenuSearchView(TextEditingController searchController) {
           color: Colors.grey.withOpacity(0.5),
           spreadRadius: 10,
           blurRadius: 8,
-          offset: Offset(0, 2),
+          offset: const Offset(0, 2),
         ),
       ],
     ),
@@ -106,6 +108,7 @@ Widget sideMenuSearchView(TextEditingController searchController) {
         decoration: InputDecoration(
           hintText: 'Search...',
           border: InputBorder.none,
+          //iconColor: Colors.red,
           suffixIcon: Icon(Icons.search),
         ),
       ),
