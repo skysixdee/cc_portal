@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
+import 'package:sm_admin_portal/reusable_view/cross_button_controller.dart';
 
 class TextFieldView extends StatelessWidget {
   final String title;
@@ -9,21 +9,20 @@ class TextFieldView extends StatelessWidget {
   final bool isTextView;
   final bool crossButton;
   TextFieldView({
-    super.key, 
+    super.key,
     required this.hintText,
-    required this.title, 
+    required this.title,
     this.addDropDown = false,
     this.isTextView = false,
-    this.crossButton=false,
+    this.crossButton = false,
   });
 
-  
   final TextEditingController textFieldController = TextEditingController();
-
+  final CrossButtonController myController = Get.put(CrossButtonController());
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left:10),
+      padding: const EdgeInsets.only(left: 10),
       child: Container(
           height: 150,
           width: 300,
@@ -34,51 +33,55 @@ class TextFieldView extends StatelessWidget {
               children: [
                 Text(title),
                 Container(
+                  height: isTextView ? null : 45,
                   decoration: BoxDecoration(
-                    border: Border.all(
-                      color:Colors.grey,
-                      width:1
-                    ),
-                    borderRadius: BorderRadius.circular(5)
-                  ),
+                      border: Border.all(color: Colors.grey, width: 1),
+                      borderRadius: BorderRadius.circular(5)),
                   child: Row(
                     children: [
                       Container(
-                              height: isTextView ? double.minPositive : 55,
-                              color: Colors.red,
-                              width: 3
-                      ),        
+                          height: isTextView ? double.minPositive : 55,
+                          color: Colors.red,
+                          width: 3),
                       Expanded(
                         child: TextField(
-                            maxLines: isTextView?null:1,
-                            controller: textFieldController,
-                            decoration: InputDecoration(
-                                hintText: hintText,
-                                hintStyle:TextStyle(
-                                  color:Color.fromARGB(255, 196, 193, 193),
-                                ),
-                                border: InputBorder.none,
-                                suffixIcon: Builder(builder: (context) {
-                                  if (crossButton==true) {
-                                    return IconButton(
-                                           onPressed: (){
-                                          textFieldController.clear();
-                                        } , 
-                                        icon:Icon(Icons.clear));
-                                  }
-                                  else{
-                                    return SizedBox();
-                                  }
-                                })
-                                )
-                              ),         
+                          maxLines: isTextView ? null : 1,
+                          controller: textFieldController,
+                          decoration: InputDecoration(
+                              hintText: hintText,
+                              hintStyle: TextStyle(
+                                color: Color.fromARGB(255, 196, 193, 193),
+                              ),
+                              border: InputBorder.none,
+                              suffixIcon: crossButton?IconButtonWidget(textFieldController: textFieldController):SizedBox(),
+                              ),
+                        ),
                       ),
-                      addDropDown ?  DropdownWidget() : SizedBox(),
+                      addDropDown ? DropdownWidget() : SizedBox(),
+                      
                     ],
                   ),
                 )
               ])),
     );
+  }
+}
+
+class IconButtonWidget extends StatelessWidget {
+  const IconButtonWidget({
+    super.key,
+    required this.textFieldController,
+  });
+
+  final TextEditingController textFieldController;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+        onPressed: () {
+          textFieldController.clear();
+        },
+        icon: Icon(Icons.clear));
   }
 }
 
@@ -90,11 +93,10 @@ class DropdownWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-             onPressed: (){
-               print('Dropdown button pressed');                
-              }, 
-              icon:Icon(Icons.arrow_drop_down)
-    );
+        onPressed: () {
+          print('Dropdown button pressed');
+        },
+        icon: Icon(Icons.arrow_drop_down));
   }
 }
 
