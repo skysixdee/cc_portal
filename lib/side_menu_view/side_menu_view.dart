@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sm_admin_portal/side_menu_view/side_menu_footer_view.dart';
 import 'package:sm_admin_portal/side_menu_view/side_menu_hide_button.dart';
 import 'package:sm_admin_portal/side_menu_view/side_menu_list_view.dart';
-import 'package:sm_admin_portal/side_menu_view/side_menu_search_view.dart';
+//import 'package:sm_admin_portal/side_menu_view/side_menu_search_view.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 
 class SideMenuView extends StatelessWidget {
@@ -45,7 +45,7 @@ class SideMenuView extends StatelessWidget {
       ),
       child: Column(
         children: [
-          sideMenuSearchView(),
+          sideMenuSearchView(SearchController()),
           Expanded(
             child: menuList(),
           ),
