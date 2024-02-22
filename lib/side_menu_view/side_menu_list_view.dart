@@ -45,10 +45,11 @@ class _SideMenuListViewState extends State<SideMenuListView> {
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [
+      children: [SizedBox(height: 10),
         sideMenuSearchView(searchController),
         Expanded(
           child: ListView.builder(
@@ -89,27 +90,27 @@ class _SideMenuListViewState extends State<SideMenuListView> {
 
 Widget sideMenuSearchView(TextEditingController searchController) {
   return Container(
+    height: 30,
+    width: 165,
+//border: Border.all(color: black),
+    //  borderRadius: BorderRadius.circular(2));
+
     decoration: BoxDecoration(
       color: Colors.white,
-      borderRadius: BorderRadius.circular(8),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.grey.withOpacity(0.5),
-          spreadRadius: 10,
-          blurRadius: 8,
-          offset: const Offset(0, 2),
-        ),
-      ],
+      border: Border.all(color: Colors.transparent),
+      borderRadius: BorderRadius.circular(2),
+      
+      
     ),
     child: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 8),
       child: TextField(
         controller: searchController,
         decoration: InputDecoration(
-          hintText: 'Search...',
+          hintText: 'Search...',hintStyle: TextStyle(fontSize: 10) ,
           border: InputBorder.none,
           //iconColor: Colors.red,
-          suffixIcon: Icon(Icons.search),
+          suffixIcon: Icon(Icons.search,size: 15,),
         ),
       ),
     ),
