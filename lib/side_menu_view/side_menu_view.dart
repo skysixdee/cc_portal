@@ -46,7 +46,7 @@ class SideMenuView extends StatelessWidget {
       ),
       child: Column(
         children: [
-        // sideMenuSearchView(SearchController()),
+          // sideMenuSearchView(SearchController()),
           Expanded(
             child: menuList(),
           ),

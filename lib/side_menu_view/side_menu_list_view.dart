@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:sm_admin_portal/Models/side_menu_model.dart';
 import 'package:sm_admin_portal/side_menu_view/side_menu_card.dart';
 
 import 'package:flutter/material.dart';
@@ -13,8 +14,17 @@ class SideMenuListView extends StatefulWidget {
 
 class _SideMenuListViewState extends State<SideMenuListView> {
   int selectedIndex = -1;
+  String selectedRoute = '';
   int hoveredIndex = -1;
   TextEditingController searchController = TextEditingController();
+  List<SideMenuModel> modelList = [
+    SideMenuModel("Offers", "/offers"),
+    SideMenuModel("Packs", "/Packs"),
+    SideMenuModel("Circle", "/Circle"),
+    SideMenuModel("Renewal Fallback", "/Renewal_Fallback"),
+    SideMenuModel("Message Template", "/Message_Template"),
+    SideMenuModel("Message", "/message"),
+  ];
   List<String> cardTexts = [
     "Offers",
     "Packs",
@@ -49,7 +59,8 @@ class _SideMenuListViewState extends State<SideMenuListView> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [SizedBox(height: 10),
+      children: [
+        const SizedBox(height: 10),
         sideMenuSearchView(searchController),
         Expanded(
           child: ListView.builder(
@@ -99,18 +110,19 @@ Widget sideMenuSearchView(TextEditingController searchController) {
       color: Colors.white,
       border: Border.all(color: Colors.transparent),
       borderRadius: BorderRadius.circular(2),
-      
-      
     ),
     child: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 8),
       child: TextField(
         controller: searchController,
         decoration: InputDecoration(
-          hintText: 'Search...',hintStyle: TextStyle(fontSize: 10) ,
+          hintText: 'Search...', hintStyle: TextStyle(fontSize: 10),
           border: InputBorder.none,
           //iconColor: Colors.red,
-          suffixIcon: Icon(Icons.search,size: 15,),
+          suffixIcon: Icon(
+            Icons.search,
+            size: 15,
+          ),
         ),
       ),
     ),
