@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:sm_admin_portal/reusable_view/reusable_view_delete.dart';
+import 'package:sm_admin_portal/reusable_view/custom_text_field.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -11,6 +11,7 @@ class HomeScreen extends StatelessWidget {
         body: Container(
       child: Column(
         children: [
+
           CustomTextField(
             title: 'Pack Name',
             hintText: 'Enter Pack Name',
@@ -22,6 +23,7 @@ class HomeScreen extends StatelessWidget {
             hintText: 'Enter RBT Type',
             addDropDown: true,
             crossButton: true,
+
           ),
           SizedBox(height: 20),
           CustomTextField(

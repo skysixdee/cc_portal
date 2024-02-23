@@ -1,14 +1,18 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:sm_admin_portal/side_menu_view/side_menu_footer_view.dart';
 import 'package:sm_admin_portal/side_menu_view/side_menu_hide_button.dart';
 import 'package:sm_admin_portal/side_menu_view/side_menu_list_view.dart';
-import 'package:sm_admin_portal/side_menu_view/side_menu_search_view.dart';
+//import 'package:sm_admin_portal/side_menu_view/side_menu_search_view.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 
 class SideMenuView extends StatelessWidget {
   final double sideMenuWidth;
   const SideMenuView({super.key, required this.sideMenuWidth});
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +49,7 @@ class SideMenuView extends StatelessWidget {
       ),
       child: Column(
         children: [
-          sideMenuSearchView(),
+          // sideMenuSearchView(SearchController()),
           Expanded(
             child: menuList(),
           ),
@@ -62,7 +66,7 @@ class SideMenuView extends StatelessWidget {
         Flexible(
           child: Container(
             color: dividerColor,
-            child: sideMenuListView(),
+            child: SideMenuListView(),
           ),
         ),
       ],
