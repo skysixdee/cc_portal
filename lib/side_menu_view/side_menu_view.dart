@@ -11,6 +11,9 @@ class SideMenuView extends StatelessWidget {
   final double sideMenuWidth;
   const SideMenuView({super.key, required this.sideMenuWidth});
 
+
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
