@@ -1,33 +1,37 @@
 import 'package:flutter/material.dart';
+
 import 'package:sm_admin_portal/reusable_view/reusable_view_delete.dart';
-import 'package:sm_admin_portal/utilily/colors.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: black12,
-      child: Row(
+    return Scaffold(
+        body: Container(
+      child: Column(
         children: [
-          Column(
-            children: [
-              delete_view(title: "Pack name"),
-              delete_view(
-                title: "CRBT Type",
-                addDropDown: true,
-              ),
-              delete_view(title: "PACK Description"),
-              // Container(
-              //   color: redColor,
-              //   height: 200,
-              //   width: 200,
-              // ),
-            ],
+          CustomTextField(
+            title: 'Pack Name',
+            hintText: 'Enter Pack Name',
+            crossButton: true,
           ),
+          SizedBox(height: 20),
+          CustomTextField(
+            title: 'RBT Type',
+            hintText: 'Enter RBT Type',
+            addDropDown: true,
+            crossButton: true,
+          ),
+          SizedBox(height: 20),
+          CustomTextField(
+            title: 'PACK Description',
+            hintText: 'Enter Pack Description',
+            isTextView: true,
+            crossButton: true,
+          )
         ],
       ),
-    );
+    ));
   }
 }
