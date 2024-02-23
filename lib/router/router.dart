@@ -31,7 +31,10 @@ final router = GoRouter(
 );
 Widget errorWidget(BuildContext context, GoRouterState state) {
   return const Scaffold(
-    body: Center(child: Text("Error page loading")),
+    body: Center(child: Text("Error page loading",)
+   // Text()
+
+    ),
   );
 }
 
