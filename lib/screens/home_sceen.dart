@@ -8,30 +8,30 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:Container(
-        child:Column(
-          children: [
-            TextFieldView( 
-              title: 'Pack Name',
-              hintText:'Enter Pack Name',
-              crossButton: true,
-              ),
-            TextFieldView(
-              title: 'RBT Type',
-              hintText:'Enter RBT Type',
-              addDropDown: true,  
-              crossButton: true,
-            ),
-            TextFieldView(
-              title: 'PACK Description',
-              hintText:'Enter Pack Description',
-              isTextView: true,
-              crossButton: true,
-            )
-
-
-
-          ],),)
-    );
+        body: Container(
+      child: Column(
+        children: [
+          CustomTextField(
+            title: 'Pack Name',
+            hintText: 'Enter Pack Name',
+            crossButton: true,
+          ),
+          SizedBox(height: 20),
+          CustomTextField(
+            title: 'RBT Type',
+            hintText: 'Enter RBT Type',
+            addDropDown: true,
+            crossButton: true,
+          ),
+          SizedBox(height: 20),
+          CustomTextField(
+            title: 'PACK Description',
+            hintText: 'Enter Pack Description',
+            isTextView: true,
+            crossButton: true,
+          )
+        ],
+      ),
+    ));
   }
 }

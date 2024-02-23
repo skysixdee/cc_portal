@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sm_admin_portal/reusable_view/cross_button_controller.dart';
 
-class TextFieldView extends StatelessWidget {
+class CustomTextField extends StatefulWidget {
   final String title;
   final String hintText;
   final bool addDropDown;
   final bool isTextView;
   final bool crossButton;
-  TextFieldView({
+
+  CustomTextField({
     super.key,
     required this.hintText,
     required this.title,
@@ -17,6 +18,19 @@ class TextFieldView extends StatelessWidget {
     this.crossButton = false,
   });
 
+  @override
+  State<CustomTextField> createState() => _CustomTextFieldState();
+}
+
+class _CustomTextFieldState extends State<CustomTextField> {
+  bool enableClearBtn = false;
+//   @override
+//   Widget build(BuildContext context) {
+//     return const Placeholder();
+//   }
+// }
+// class TextFieldView extends StatelessWidget {
+
   final TextEditingController textFieldController = TextEditingController();
   final CrossButtonController myController = Get.put(CrossButtonController());
   @override
@@ -24,43 +38,57 @@ class TextFieldView extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 10),
       child: Container(
-          height: 150,
           width: 300,
           //color: Colors.blue,
           child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title),
+                Text(widget.title),
                 Container(
-                  height: isTextView ? null : 45,
+                  height: widget.isTextView ? null : 45,
                   decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey, width: 1),
                       borderRadius: BorderRadius.circular(5)),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                          height: isTextView ? double.minPositive : 55,
+                          height: widget.isTextView ? double.minPositive : 55,
                           color: Colors.red,
                           width: 3),
                       Expanded(
-                        child: TextField(
-                          maxLines: isTextView ? null : 1,
-                          controller: textFieldController,
-                          onChanged: (text){
-                            myController.onTextChanged(text);
-                          },
-                          decoration: InputDecoration(
-                            hintText: hintText,
-                            hintStyle: TextStyle(
-                              color: Color.fromARGB(255, 196, 193, 193),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 8),
+                          child: TextField(
+                            maxLines: widget.isTextView ? null : 1,
+                            controller: textFieldController,
+                            onChanged: (text) {
+                              setState(() {
+                                print("On Change ${textFieldController.text}");
+                                enableClearBtn =
+                                    textFieldController.text.isNotEmpty
+                                        ? true
+                                        : false;
+                              });
+                              myController.onTextChanged(text);
+                            },
+                            decoration: InputDecoration(
+                              isDense: true,
+                              hintText: widget.hintText,
+                              hintStyle: TextStyle(
+                                color: Color.fromARGB(255, 196, 193, 193),
+                              ),
+                              border: InputBorder.none,
+                              suffixIcon: enableClearBtn
+                                  ? clearButtonWidget()
+                                  : SizedBox(),
                             ),
-                            border: InputBorder.none,
-                            suffixIcon: clearButtonWidget(),
                           ),
                         ),
                       ),
-                      addDropDown ?  dropDownWidget() : SizedBox(),
+                      widget.addDropDown ? dropDownWidget() : SizedBox(),
                     ],
                   ),
                 )
@@ -73,16 +101,19 @@ class TextFieldView extends StatelessWidget {
       icon: Icon(Icons.clear),
       onPressed: () {
         textFieldController.clear();
+        setState(() {
+          enableClearBtn = textFieldController.text.isNotEmpty;
+        });
       },
-      );
+    );
   }
 
   IconButton dropDownWidget() {
     return IconButton(
-      onPressed: () {
-        print('Dropdown button pressed');
-      },
-      icon: Icon(Icons.arrow_drop_down));
+        onPressed: () {
+          print('Dropdown button pressed');
+        },
+        icon: Icon(Icons.arrow_drop_down));
   }
 }
 
