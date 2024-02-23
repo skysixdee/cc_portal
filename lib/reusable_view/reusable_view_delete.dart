@@ -47,60 +47,44 @@ class TextFieldView extends StatelessWidget {
                         child: TextField(
                           maxLines: isTextView ? null : 1,
                           controller: textFieldController,
+                          onChanged: (text){
+                            myController.onTextChanged(text);
+                          },
                           decoration: InputDecoration(
-                              hintText: hintText,
-                              hintStyle: TextStyle(
-                                color: Color.fromARGB(255, 196, 193, 193),
-                              ),
-                              border: InputBorder.none,
-                              suffixIcon: crossButton?IconButtonWidget(textFieldController: textFieldController):SizedBox(),
-                              ),
+                            hintText: hintText,
+                            hintStyle: TextStyle(
+                              color: Color.fromARGB(255, 196, 193, 193),
+                            ),
+                            border: InputBorder.none,
+                            suffixIcon: clearButtonWidget(),
+                          ),
                         ),
                       ),
-                      addDropDown ? DropdownWidget() : SizedBox(),
-                      
+                      addDropDown ?  dropDownWidget() : SizedBox(),
                     ],
                   ),
                 )
               ])),
     );
   }
-}
 
-class IconButtonWidget extends StatelessWidget {
-  const IconButtonWidget({
-    super.key,
-    required this.textFieldController,
-  });
-
-  final TextEditingController textFieldController;
-
-  @override
-  Widget build(BuildContext context) {
+  IconButton clearButtonWidget() {
     return IconButton(
-        onPressed: () {
-          textFieldController.clear();
-        },
-        icon: Icon(Icons.clear));
+      icon: Icon(Icons.clear),
+      onPressed: () {
+        textFieldController.clear();
+      },
+      );
+  }
+
+  IconButton dropDownWidget() {
+    return IconButton(
+      onPressed: () {
+        print('Dropdown button pressed');
+      },
+      icon: Icon(Icons.arrow_drop_down));
   }
 }
-
-class DropdownWidget extends StatelessWidget {
-  const DropdownWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-        onPressed: () {
-          print('Dropdown button pressed');
-        },
-        icon: Icon(Icons.arrow_drop_down));
-  }
-}
-
-
 
 
 
