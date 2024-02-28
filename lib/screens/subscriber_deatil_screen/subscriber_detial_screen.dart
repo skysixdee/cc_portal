@@ -1,11 +1,79 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:google_fonts/google_fonts.dart';
+
+import 'package:sm_admin_portal/reusable_view/custom_border_tab_view.dart';
+import 'package:sm_admin_portal/utilily/colors.dart';
+import 'package:sm_admin_portal/utilily/strings.dart';
 
 class SubscriberDetailScreen extends StatelessWidget {
-   SubscriberDetailScreen({super.key});
-  bool border=false;
+  SubscriberDetailScreen({super.key});
+  Color borderColor = grey;
+
+  double borderWidth = 2;
+  double tabButtonHeight = 45;
+  List<String> tabItems = [
+    packDetailStr,
+    toneDetailsStr,
+    packDetailStr,
+    toneDetailsStr,
+    packDetailStr,
+    toneDetailsStr
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: dividerColor,
+      child: Padding(
+        padding: const EdgeInsets.all(80.0),
+        child: Stack(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  height: tabButtonHeight,
+                ),
+                Container(
+                  height: 50,
+                  decoration: mainContainerDecoration(),
+                ),
+                Container(
+                  height: 200,
+                  color: Colors.red,
+                  //
+                )
+              ],
+            ),
+            CustomBorderTabView(
+              tabButtonHeight: tabButtonHeight,
+              tabItems: tabItems,
+              borderWidth: borderWidth,
+              borderColor: borderColor,
+              onTap: (index) {
+                print("Index tapped");
+                print("slected tab =${tabItems[index]}");
+              },
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  BoxDecoration mainContainerDecoration() {
+    return BoxDecoration(
+      border: Border(
+        top: BorderSide(
+          color: borderColor,
+          width: borderWidth,
+        ),
+      ),
+    );
+  }
+}
+
+/*
+bool border=false;
 
   @override
   Widget build(BuildContext context) {
@@ -71,4 +139,5 @@ class SubscriberDetailScreen extends StatelessWidget {
                     right:BorderSide(color:Colors.grey),
                   ) );
   }
-}
+
+*/
