@@ -5,7 +5,7 @@ import 'package:sm_admin_portal/router/router_name.dart';
 
 import '../reusable_view/reusable_view_delete.dart';
 
-/*class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
@@ -14,34 +14,40 @@ import '../reusable_view/reusable_view_delete.dart';
         body: Container(
       child: Column(
         children: [
+
           TextButton(onPressed: (){
             context.go(firstScreenRoute);
           }, child: Text("Go First screen")),
           CustomTextField(
+
+          ReusableTextField(
+
             title: 'Pack Name',
             hintText: 'Enter Pack Name',
             crossButton: true,
           ),
           SizedBox(height: 20),
-          CustomTextField(
+          ReusableTextField(
+            title: 'PACK Description',
+            hintText: 'Enter Pack Description',
+            isTextView: true,
+            crossButton: true,
+          ),
+          SizedBox(height: 20),
+          ReusableTextField(
             title: 'RBT Type',
             hintText: 'Enter RBT Type',
             addDropDown: true,
             crossButton: true,
           ),
-          SizedBox(height: 20),
-          CustomTextField(
-            title: 'PACK Description',
-            hintText: 'Enter Pack Description',
-            isTextView: true,
-            crossButton: true,
-          )
+          
+          
         ],
       ),
     ));
   }
-}*/
-
+}
+/*
 class ArrowBox extends StatelessWidget {
   final String text;
   final String arrowBoxImage = 'assets/pngs/page_indicator.png';
@@ -118,3 +124,4 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+*/

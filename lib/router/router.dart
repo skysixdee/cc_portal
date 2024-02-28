@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sm_admin_portal/main.dart';
 import 'package:sm_admin_portal/navigation_bar_view/navigation_bar_view.dart';
+import 'package:sm_admin_portal/reusable_view/reusable_view_delete.dart';
+import 'package:sm_admin_portal/reusable_view/table_view.dart';
 import 'package:sm_admin_portal/router/router_name.dart';
 import 'package:sm_admin_portal/screens/circle.dart';
 import 'package:sm_admin_portal/screens/first_screen.dart';
@@ -17,6 +19,9 @@ import 'package:sm_admin_portal/screens/renewal_screen.dart';
 import 'package:sm_admin_portal/side_menu_view/side_menu_view.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/constants.dart';
+
+import '../reusable_view/custom_text_field.dart';
+import '../reusable_view/pop_over.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _sectionNavigatorKey = GlobalKey<NavigatorState>();
@@ -62,6 +67,7 @@ StatefulShellBranch homeScreen() {
       GoRoute(
         path: homeGoRoute,
         builder: (context, state) {
+
           return  HomeScreen();
         },
       ),
@@ -161,6 +167,9 @@ StatefulShellBranch RenewalScreenScreen() {
         path: RenewalScreenRoute,
         builder: (context, state) {
           return RenewalScreen();
+
+
+
         },
       ),
     ],
