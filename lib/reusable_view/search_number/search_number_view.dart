@@ -3,17 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
 
-// class SearchNumberView extends StatelessWidget {
-//   const SearchNumberView({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       child: Text("search  number"),
-//     );
-//   }
-// }
-
 class SearchNumberView extends StatefulWidget {
   final String title;
   final String hintText;
