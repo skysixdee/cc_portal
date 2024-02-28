@@ -11,25 +11,27 @@ class HomeScreen extends StatelessWidget {
         body: Container(
       child: Column(
         children: [
-          CustomTextField(
+          ReusableTextField(
             title: 'Pack Name',
             hintText: 'Enter Pack Name',
             crossButton: true,
           ),
           SizedBox(height: 20),
-          CustomTextField(
+          ReusableTextField(
+            title: 'PACK Description',
+            hintText: 'Enter Pack Description',
+            isTextView: true,
+            crossButton: true,
+          ),
+          SizedBox(height: 20),
+          ReusableTextField(
             title: 'RBT Type',
             hintText: 'Enter RBT Type',
             addDropDown: true,
             crossButton: true,
           ),
-          SizedBox(height: 20),
-          CustomTextField(
-            title: 'PACK Description',
-            hintText: 'Enter Pack Description',
-            isTextView: true,
-            crossButton: true,
-          )
+          
+          
         ],
       ),
     ));

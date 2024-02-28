@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:popover/popover.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:sm_admin_portal/reusable_view/cross_button_controller.dart';
+//import 'popover_list.dart';
 
-class CustomTextField extends StatefulWidget {
+class ReusableTextField extends StatefulWidget {
   final String title;
   final String hintText;
   final bool addDropDown;
   final bool isTextView;
   final bool crossButton;
 
-  CustomTextField({
+  ReusableTextField({
     super.key,
     required this.hintText,
     required this.title,
@@ -19,10 +23,10 @@ class CustomTextField extends StatefulWidget {
   });
 
   @override
-  State<CustomTextField> createState() => _CustomTextFieldState();
+  State<ReusableTextField> createState() => _ReusableTextFieldState();
 }
 
-class _CustomTextFieldState extends State<CustomTextField> {
+class _ReusableTextFieldState extends State<ReusableTextField> {
   bool enableClearBtn = false;
 //   @override
 //   Widget build(BuildContext context) {
@@ -32,6 +36,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
 // class TextFieldView extends StatelessWidget {
 
   final TextEditingController textFieldController = TextEditingController();
+  String _selectedOption='';
   final CrossButtonController myController = Get.put(CrossButtonController());
   @override
   Widget build(BuildContext context) {
@@ -108,67 +113,167 @@ class _CustomTextFieldState extends State<CustomTextField> {
     );
   }
 
-  IconButton dropDownWidget() {
-    return IconButton(
+  Widget dropDownWidget() {
+    return ResponsiveBuilder(builder:(context, sizingInformation) {
+      return IconButton(
         onPressed: () {
-          print('Dropdown button pressed');
+         showPopover(
+            context: context,
+            bodyBuilder: (context) => ListItems(),
+            direction: PopoverDirection.bottom,
+            width: 200,
+           height: 200,
+            arrowHeight: 10,
+            arrowWidth: 20,
+          );
         },
         icon: Icon(Icons.arrow_drop_down));
+    },);
   }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:sm_admin_portal/utilily/colors.dart';
-
-class delete_view extends StatelessWidget {
-  final String title;
-  final bool addDropDown;
-  const delete_view({super.key, required this.title, this.addDropDown = false});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 60,
-      width: 400,
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(title),
-            Container(
-              height: 35,
-              color: redColor,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      color: sixdColor,
-                    ),
-                  ),
-                  addDropDown ? Icon(Icons.arrow_drop_down) : Icon(Icons.close)
-                ],
+  
+  ListItems() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Column(
+        children: [
+          Flexible(
+            child: ListView(
+              shrinkWrap: true,
+              padding: const EdgeInsets.only(
+                left: 5,
+                right: 5,
               ),
-            )
-          ],
-        ),
+              children: [
+                InkWell(
+                  onTap: () {
+                    _updateTextField('Entry A');
+                  },
+                  child: Container(
+                    height: 30,
+                    decoration: const BoxDecoration(
+                      color:const Color.fromRGBO(225, 190, 231, 1),
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                    ),
+                    child: const Center(
+                        child: Text('Entry A',
+                            style: TextStyle(
+                                fontFamily: 'Roboto', fontWeight: FontWeight.w900))),
+                  ),
+                ),
+                const Divider(),
+                InkWell(
+                  onTap: () {
+                    _updateTextField('Entry B');
+                  },
+                  child: Container(
+                    height: 30,
+                    decoration: const BoxDecoration(
+                      color:const Color.fromRGBO(206, 147, 216, 1),
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                    ),
+                    child: const Center(
+                        child: Text('Entry B',
+                            style: TextStyle(
+                                fontFamily: 'Roboto', fontWeight: FontWeight.w900))),
+                  ),
+                ),
+                const Divider(),
+                InkWell(
+                  onTap: () {
+                    _updateTextField('Entry C');
+                  },
+                  child: Container(
+                    height: 30,
+                    decoration: const BoxDecoration(
+                      color:const Color.fromRGBO(186, 104, 200, 1),
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                    ),
+                    child: const Center(
+                        child: Text('Entry C',
+                            style: TextStyle(
+                                fontFamily: 'Roboto', fontWeight: FontWeight.w900))),
+                  ),
+                ),
+                const Divider(),
+                InkWell(
+                  onTap: () {
+                    _updateTextField('Entry D');
+                  },
+                  child: Container(
+                    height: 30,
+                    decoration: const BoxDecoration(
+                      color:const Color.fromRGBO(171, 71, 188, 1),
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                    ),
+                    child: const Center(
+                        child: Text('Entry D',
+                            style: TextStyle(
+                                fontFamily: 'Roboto', fontWeight: FontWeight.w900))),
+                  ),
+                ),
+                const Divider(),
+                InkWell(
+                  onTap: () {
+                    _updateTextField('Entry E');
+                  },
+                  child: Container(
+                    height: 30,
+                    decoration: const BoxDecoration(
+                      color:const Color.fromRGBO(156, 39, 176, 1),
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                    ),
+                    child: const Center(
+                        child: Text('Entry E',
+                            style: TextStyle(
+                                fontFamily: 'Roboto', fontWeight: FontWeight.w900))),
+                  ),
+                ),
+                const Divider(),
+                InkWell(
+                  onTap: () {
+                    _updateTextField('Entry F');
+                  },
+                  child: Container(
+                    height: 30,
+                    decoration: const BoxDecoration(
+                      color:const Color.fromRGBO(142, 36, 170, 1),
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                    ),
+                    child: const Center(
+                        child: Text('Entry F',
+                            style: TextStyle(
+                                fontFamily: 'Roboto', fontWeight: FontWeight.w900))),
+                  ),
+                ),
+                const Divider(),
+                InkWell(
+                  onTap: () {
+                    _updateTextField('Entry G');
+                  },
+                  child: Container(
+                    height: 30,
+                    decoration: const BoxDecoration(
+                      color:const Color.fromRGBO(106, 27, 154, 1),
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                    ),
+                    child: const Center(
+                        child: Text('Entry G',
+                            style: TextStyle(
+                                fontFamily: 'Roboto', fontWeight: FontWeight.w900))),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
-} */
+
+  void _updateTextField(String selectedOption){
+    setState(() {
+      _selectedOption=selectedOption;
+      textFieldController.text=_selectedOption;
+    });
+  }
+}
