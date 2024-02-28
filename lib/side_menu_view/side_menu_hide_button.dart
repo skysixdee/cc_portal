@@ -24,7 +24,7 @@ Widget sideMenuHideButton() {
                 textAlign: TextAlign.center,
                 appCont.isSideMenuHidden.value ? "O\nP\nE\nN" : "H\nI\nD\nE",
                 style: const TextStyle(
-                    fontWeight: FontWeight.bold, fontSize: 8, color: grey),
+                    fontWeight: FontWeight.bold, fontSize: 8, color: Colors.grey),
               ),
               const SizedBox(height: 4),
               Icon(
