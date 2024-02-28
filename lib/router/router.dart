@@ -8,7 +8,14 @@ import 'package:sm_admin_portal/navigation_bar_view/navigation_bar_view.dart';
 import 'package:sm_admin_portal/reusable_view/reusable_view_delete.dart';
 import 'package:sm_admin_portal/reusable_view/table_view.dart';
 import 'package:sm_admin_portal/router/router_name.dart';
+import 'package:sm_admin_portal/screens/circle.dart';
+import 'package:sm_admin_portal/screens/first_screen.dart';
+import 'package:sm_admin_portal/screens/message.dart';
+import 'package:sm_admin_portal/screens/message_template.dart';
+import 'package:sm_admin_portal/screens/offers.dart';
+import 'package:sm_admin_portal/screens/packs_screen.dart';
 import 'package:sm_admin_portal/screens/home_sceen.dart';
+import 'package:sm_admin_portal/screens/renewal_screen.dart';
 import 'package:sm_admin_portal/side_menu_view/side_menu_view.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/constants.dart';
@@ -27,6 +34,13 @@ final router = GoRouter(
       builder: shellRouteIndex,
       branches: [
         homeScreen(),
+        firstScreenScreen(),
+        OffersScreenScreen(),
+        PacksScreenScreen(),
+        CircleScreenScreen(),
+        MessageTemplateScreenScreen(),
+        MessageScreenScreen(),
+        RenewalScreenScreen()
       ],
     ),
   ],
@@ -36,7 +50,13 @@ final router = GoRouter(
 );
 Widget errorWidget(BuildContext context, GoRouterState state) {
   return const Scaffold(
-    body: Center(child: Text("Error page loading")),
+    body: Center(
+        child: Text(
+      "Error page loading",
+    )
+        // Text()
+
+        ),
   );
 }
 
@@ -47,7 +67,109 @@ StatefulShellBranch homeScreen() {
       GoRoute(
         path: homeGoRoute,
         builder: (context, state) {
-          return HomeScreen();
+
+          return  HomeScreen();
+        },
+      ),
+    ],
+  );
+}
+
+StatefulShellBranch firstScreenScreen() {
+  return StatefulShellBranch(
+    routes: <RouteBase>[
+      GoRoute(
+        name: firstScreenRoute,
+        path: firstScreenRoute,
+        builder: (context, state) {
+          return const FirstScreen();
+        },
+      ),
+    ],
+  );
+}
+
+StatefulShellBranch PacksScreenScreen() {
+  return StatefulShellBranch(
+    routes: <RouteBase>[
+      GoRoute(
+        name: PacksScreenRoute,
+        path: PacksScreenRoute,
+        builder: (context, state) {
+          return PacksScreen();
+        },
+      ),
+    ],
+  );
+}
+
+StatefulShellBranch CircleScreenScreen() {
+  return StatefulShellBranch(
+    routes: <RouteBase>[
+      GoRoute(
+        name: CircleScreenRoute,
+        path: CircleScreenRoute,
+        builder: (context, state) {
+          return CircleScreen();
+        },
+      ),
+    ],
+  );
+}
+
+StatefulShellBranch OffersScreenScreen() {
+  return StatefulShellBranch(
+    routes: <RouteBase>[
+      GoRoute(
+        name: OffersScreenRoute,
+        path: OffersScreenRoute,
+        builder: (context, state) {
+          return OffersScreen();
+        },
+      ),
+    ],
+  );
+}
+
+StatefulShellBranch MessageScreenScreen() {
+  return StatefulShellBranch(
+    routes: <RouteBase>[
+      GoRoute(
+        name: MessageScreenRoute,
+        path: MessageScreenRoute,
+        builder: (context, state) {
+          return MessageScreen();
+        },
+      ),
+    ],
+  );
+}
+
+StatefulShellBranch MessageTemplateScreenScreen() {
+  return StatefulShellBranch(
+    routes: <RouteBase>[
+      GoRoute(
+        name: MessageTemplateScreenRoute,
+        path: MessageTemplateScreenRoute,
+        builder: (context, state) {
+          return MessageTemplateScreen();
+        },
+      ),
+    ],
+  );
+}
+
+StatefulShellBranch RenewalScreenScreen() {
+  return StatefulShellBranch(
+    routes: <RouteBase>[
+      GoRoute(
+        name: RenewalScreenRoute,
+        path: RenewalScreenRoute,
+        builder: (context, state) {
+          return RenewalScreen();
+
+
+
         },
       ),
     ],

@@ -176,14 +176,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.11.0"
-  nested:
-    dependency: transitive
+
+  navigator:
+    dependency: "direct main"
     description:
-      name: nested
-      sha256: "03bac4c528c64c95c722ec99280375a6f2fc708eec17c7b3f07253b626cd2a20"
+      name: navigator
+      sha256: fdbeb63fa4c0a05801f16d091c7e8e8348b1d730aa0afe46ab42c5cf1e6d1069
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.0"
+    version: "1.1.1"
   path:
     dependency: transitive
     description:

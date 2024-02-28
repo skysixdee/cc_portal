@@ -10,10 +10,6 @@ import 'package:sm_admin_portal/utilily/colors.dart';
 class SideMenuView extends StatelessWidget {
   final double sideMenuWidth;
   const SideMenuView({super.key, required this.sideMenuWidth});
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return Container(
