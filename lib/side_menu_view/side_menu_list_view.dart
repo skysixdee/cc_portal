@@ -180,7 +180,7 @@ class _SideMenuListViewState extends State<SideMenuListView> {
   List<SideMenuModel> modelList = [
     SideMenuModel("Offers", "/offers"),
     SideMenuModel("Packs", "/Packs"),
-    SideMenuModel("Circle", "/Circle"),
+    SideMenuModel("Subscriber Deatil", "/Circle"),
     SideMenuModel("Renewal Fallback", "/Renewal_Fallback"),
     SideMenuModel("Message Template", "/Message_Template"),
     SideMenuModel("Message", "/message"),
@@ -188,7 +188,7 @@ class _SideMenuListViewState extends State<SideMenuListView> {
   List<String> cardTexts = [
     "Offers",
     "Packs",
-    "Circle",
+    "Subscriber Deatil",
     "Renewal Fallback",
     "Message Template",
     "message",
@@ -254,12 +254,12 @@ class _SideMenuListViewState extends State<SideMenuListView> {
                     } else if (index == 1) {
                       context.goNamed(PacksScreenRoute);
                     } else if (index == 2) {
-                      context.goNamed(CircleScreenRoute);
+                      context.goNamed(subscriberDetailRoute);
                     } else if (index == 3) {
                       context.goNamed(RenewalScreenRoute);
-                    }else if (index == 4) {
+                    } else if (index == 4) {
                       context.goNamed(MessageTemplateScreenRoute);
-                    }else   {
+                    } else {
                       context.goNamed(MessageScreenRoute);
                     }
                     //else (index == 3){}

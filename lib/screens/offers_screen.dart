@@ -6,7 +6,7 @@ class OffersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-       child: Text('Offers'),
+      child: Text('Custom Search number view'),
       color: Colors.red,
     );
   }

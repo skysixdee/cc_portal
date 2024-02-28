@@ -14,14 +14,14 @@ class HomeScreen extends StatelessWidget {
         body: Container(
       child: Column(
         children: [
-
-          TextButton(onPressed: (){
-            context.go(firstScreenRoute);
-          }, child: Text("Go First screen")),
-          CustomTextField(
+          TextButton(
+              onPressed: () {
+                context.go(firstScreenRoute);
+              },
+              child: Text("Go First screen")),
+          //CustomTextField(
 
           ReusableTextField(
-
             title: 'Pack Name',
             hintText: 'Enter Pack Name',
             crossButton: true,
@@ -40,8 +40,6 @@ class HomeScreen extends StatelessWidget {
             addDropDown: true,
             crossButton: true,
           ),
-          
-          
         ],
       ),
     ));

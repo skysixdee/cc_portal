@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:popover/popover.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+
 import 'package:sm_admin_portal/reusable_view/cross_button_controller.dart';
 //import 'popover_list.dart';
 
@@ -36,7 +37,7 @@ class _ReusableTextFieldState extends State<ReusableTextField> {
 // class TextFieldView extends StatelessWidget {
 
   final TextEditingController textFieldController = TextEditingController();
-  String _selectedOption='';
+  String _selectedOption = '';
   final CrossButtonController myController = Get.put(CrossButtonController());
   @override
   Widget build(BuildContext context) {
@@ -114,23 +115,25 @@ class _ReusableTextFieldState extends State<ReusableTextField> {
   }
 
   Widget dropDownWidget() {
-    return ResponsiveBuilder(builder:(context, sizingInformation) {
-      return IconButton(
-        onPressed: () {
-         showPopover(
-            context: context,
-            bodyBuilder: (context) => ListItems(),
-            direction: PopoverDirection.bottom,
-            width: 200,
-           height: 200,
-            arrowHeight: 10,
-            arrowWidth: 20,
-          );
-        },
-        icon: Icon(Icons.arrow_drop_down));
-    },);
+    return ResponsiveBuilder(
+      builder: (context, sizingInformation) {
+        return IconButton(
+            onPressed: () {
+              showPopover(
+                context: context,
+                bodyBuilder: (context) => ListItems(),
+                direction: PopoverDirection.bottom,
+                width: 200,
+                height: 200,
+                arrowHeight: 10,
+                arrowWidth: 20,
+              );
+            },
+            icon: Icon(Icons.arrow_drop_down));
+      },
+    );
   }
-  
+
   ListItems() {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -151,13 +154,14 @@ class _ReusableTextFieldState extends State<ReusableTextField> {
                   child: Container(
                     height: 30,
                     decoration: const BoxDecoration(
-                      color:const Color.fromRGBO(225, 190, 231, 1),
+                      color: const Color.fromRGBO(225, 190, 231, 1),
                       borderRadius: BorderRadius.all(Radius.circular(5)),
                     ),
                     child: const Center(
                         child: Text('Entry A',
                             style: TextStyle(
-                                fontFamily: 'Roboto', fontWeight: FontWeight.w900))),
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w900))),
                   ),
                 ),
                 const Divider(),
@@ -168,13 +172,14 @@ class _ReusableTextFieldState extends State<ReusableTextField> {
                   child: Container(
                     height: 30,
                     decoration: const BoxDecoration(
-                      color:const Color.fromRGBO(206, 147, 216, 1),
+                      color: const Color.fromRGBO(206, 147, 216, 1),
                       borderRadius: BorderRadius.all(Radius.circular(5)),
                     ),
                     child: const Center(
                         child: Text('Entry B',
                             style: TextStyle(
-                                fontFamily: 'Roboto', fontWeight: FontWeight.w900))),
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w900))),
                   ),
                 ),
                 const Divider(),
@@ -185,13 +190,14 @@ class _ReusableTextFieldState extends State<ReusableTextField> {
                   child: Container(
                     height: 30,
                     decoration: const BoxDecoration(
-                      color:const Color.fromRGBO(186, 104, 200, 1),
+                      color: const Color.fromRGBO(186, 104, 200, 1),
                       borderRadius: BorderRadius.all(Radius.circular(5)),
                     ),
                     child: const Center(
                         child: Text('Entry C',
                             style: TextStyle(
-                                fontFamily: 'Roboto', fontWeight: FontWeight.w900))),
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w900))),
                   ),
                 ),
                 const Divider(),
@@ -202,13 +208,14 @@ class _ReusableTextFieldState extends State<ReusableTextField> {
                   child: Container(
                     height: 30,
                     decoration: const BoxDecoration(
-                      color:const Color.fromRGBO(171, 71, 188, 1),
+                      color: const Color.fromRGBO(171, 71, 188, 1),
                       borderRadius: BorderRadius.all(Radius.circular(5)),
                     ),
                     child: const Center(
                         child: Text('Entry D',
                             style: TextStyle(
-                                fontFamily: 'Roboto', fontWeight: FontWeight.w900))),
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w900))),
                   ),
                 ),
                 const Divider(),
@@ -219,13 +226,14 @@ class _ReusableTextFieldState extends State<ReusableTextField> {
                   child: Container(
                     height: 30,
                     decoration: const BoxDecoration(
-                      color:const Color.fromRGBO(156, 39, 176, 1),
+                      color: const Color.fromRGBO(156, 39, 176, 1),
                       borderRadius: BorderRadius.all(Radius.circular(5)),
                     ),
                     child: const Center(
                         child: Text('Entry E',
                             style: TextStyle(
-                                fontFamily: 'Roboto', fontWeight: FontWeight.w900))),
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w900))),
                   ),
                 ),
                 const Divider(),
@@ -236,13 +244,14 @@ class _ReusableTextFieldState extends State<ReusableTextField> {
                   child: Container(
                     height: 30,
                     decoration: const BoxDecoration(
-                      color:const Color.fromRGBO(142, 36, 170, 1),
+                      color: const Color.fromRGBO(142, 36, 170, 1),
                       borderRadius: BorderRadius.all(Radius.circular(5)),
                     ),
                     child: const Center(
                         child: Text('Entry F',
                             style: TextStyle(
-                                fontFamily: 'Roboto', fontWeight: FontWeight.w900))),
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w900))),
                   ),
                 ),
                 const Divider(),
@@ -253,13 +262,14 @@ class _ReusableTextFieldState extends State<ReusableTextField> {
                   child: Container(
                     height: 30,
                     decoration: const BoxDecoration(
-                      color:const Color.fromRGBO(106, 27, 154, 1),
+                      color: const Color.fromRGBO(106, 27, 154, 1),
                       borderRadius: BorderRadius.all(Radius.circular(5)),
                     ),
                     child: const Center(
                         child: Text('Entry G',
                             style: TextStyle(
-                                fontFamily: 'Roboto', fontWeight: FontWeight.w900))),
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w900))),
                   ),
                 ),
               ],
@@ -270,10 +280,10 @@ class _ReusableTextFieldState extends State<ReusableTextField> {
     );
   }
 
-  void _updateTextField(String selectedOption){
+  void _updateTextField(String selectedOption) {
     setState(() {
-      _selectedOption=selectedOption;
-      textFieldController.text=_selectedOption;
+      _selectedOption = selectedOption;
+      textFieldController.text = _selectedOption;
     });
   }
 }
