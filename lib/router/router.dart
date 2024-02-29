@@ -20,7 +20,6 @@ import 'package:sm_admin_portal/screens/subscriber_deatil_screen/subscriber_deti
 import 'package:sm_admin_portal/side_menu_view/side_menu_view.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/constants.dart';
-
 import '../reusable_view/custom_text_field.dart';
 import '../reusable_view/pop_over.dart';
 
