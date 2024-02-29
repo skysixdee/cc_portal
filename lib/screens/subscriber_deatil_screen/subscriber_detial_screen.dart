@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:popover/popover.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -23,26 +26,73 @@ class _SubscriberDetailScreenState extends State<SubscriberDetailScreen> {
   double borderWidth = 2;
 
   double tabButtonHeight = 45;
-  
+  RxList<TableHeaderModel> headerColumnList = <TableHeaderModel>[].obs;
+  RxList<TableHeaderModel> headerColumnVisibleList = <TableHeaderModel>[].obs;
+  // List<TableHeaderModel> menuList = [];
   String _text = ' 5';
 
+  @override
+  void initState() {
+    createList();
+    // createMenuList();
+    createVisibleList();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  createVisibleList() {
+    headerColumnVisibleList.value = [];
+    List<TableHeaderModel> visibleList = [];
+    for (var element in headerColumnList) {
+      if (element.isVisible.value) {
+        visibleList.add(element);
+      }
+
+      print("is visible ${element.isVisible}");
+    }
+    print('visibleList length ${visibleList.length}');
+    headerColumnVisibleList.value = visibleList;
+  }
+
+  createList() {
+    headerColumnList.value = [
+      TableHeaderModel(MsisdnStr, true, true.obs),
+      TableHeaderModel(OfferCodeStr, true, true.obs),
+      TableHeaderModel(SubscriptionStatusStr, true, true.obs),
+      TableHeaderModel(ActivationDateStr, true, true.obs),
+      TableHeaderModel(NextBillingDateStr, false, true.obs),
+      TableHeaderModel(CpNameStr, false, true.obs),
+      TableHeaderModel(ActivationChannelStr, false, true.obs),
+      TableHeaderModel(ActivationTypeStr, false, true.obs),
+      TableHeaderModel(DeactivateStr, false, true.obs),
+    ];
+  }
+
+  // createMenuList() {
+  //   menuList = [];
+  //   for (var element in headerColumnList) {
+  //     if (element.isSelectable) {
+  //       menuList.add(element);
+  //     }
+  //   }
+  // }
 
   List<String> tabItems = [
     packDetailStr,
     toneDetailsStr,
   ];
 
-  List<String> cellTexts = [
-    MsisdnStr,
-    OfferCodeStr,
-    SubscriptionStatusStr,
-    ActivationDateStr,
-    NextBillingDateStr,
-    CpNameStr,
-    ActivationChannelStr,
-    ActivationTypeStr,
-    DeactivateStr,
-  ];
+  // List<String> cellTexts = [
+  //   MsisdnStr,
+  //   OfferCodeStr,
+  //   SubscriptionStatusStr,
+  //   ActivationDateStr,
+  //   NextBillingDateStr,
+  //   CpNameStr,
+  //   ActivationChannelStr,
+  //   ActivationTypeStr,
+  //   DeactivateStr,
+  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -67,18 +117,18 @@ class _SubscriberDetailScreenState extends State<SubscriberDetailScreen> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(
-                          top:5,
+                          top: 5,
                         ),
                         child: Container(
-                        decoration:BoxDecoration(
-                          color: Colors.white,
-                          border:Border.all(
-                            color:const Color.fromARGB(255, 220, 218, 218), ),
-                          borderRadius:BorderRadius.circular(5) 
-                        ),
-                        child:topDropDownWidget()
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(
+                                  color:
+                                      const Color.fromARGB(255, 220, 218, 218),
+                                ),
+                                borderRadius: BorderRadius.circular(5)),
+                            child: topDropDownWidget()),
                       ),
-                    ),
                     ],
                   ),
                 ),
@@ -88,34 +138,27 @@ class _SubscriberDetailScreenState extends State<SubscriberDetailScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                        padding: const EdgeInsets.only(
-                          top:5,
-                          bottom:5,
-                        ),
-                        child: Container(
-                        height: 35,
-                        decoration:BoxDecoration(
-                          color: Colors.white,
-                          border:Border.all(
-                            color:const Color.fromARGB(255, 220, 218, 218), ),
-                          borderRadius:BorderRadius.circular(5) 
-                        ),
-                        child:dropDownWidget()
+                      padding: const EdgeInsets.only(
+                        top: 5,
+                        bottom: 5,
                       ),
+                      child: Container(
+                          height: 35,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(
+                                color: const Color.fromARGB(255, 220, 218, 218),
+                              ),
+                              borderRadius: BorderRadius.circular(5)),
+                          child: dropDownWidget()),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(
-                        top:14,
-                        left:7   
-                      ),
-                      child: Text(
-                        'Records per page',
-                        style:TextStyle(
-                          color:Colors.grey[800]
-                          
-                        )),
+                      padding: const EdgeInsets.only(top: 14, left: 7),
+                      child: Text('Records per page',
+                          style: TextStyle(color: Colors.grey[800])),
                     )
-                  ],)
+                  ],
+                )
               ],
             ),
             tabButtons()
@@ -130,19 +173,22 @@ class _SubscriberDetailScreenState extends State<SubscriberDetailScreen> {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(
-              top:5
-            ),
+            padding: const EdgeInsets.only(top: 5),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(5),
-              child: Table(children: [
-                TableRow(
-                    decoration: BoxDecoration(
-                      color: Colors.grey[300],
+              child: Obx(() {
+                return Table(
+                  children: [
+                    TableRow(
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                      ),
+                      children: tableHeaderWidget(),
                     ),
-                    children: tableHeaderWidget()),
-                tableRow()
-              ]),
+                    //tableRow()
+                  ],
+                );
+              }),
             ),
           )
         ],
@@ -182,21 +228,20 @@ class _SubscriberDetailScreenState extends State<SubscriberDetailScreen> {
   }
 
   List<Widget> tableHeaderWidget() {
-    return List.generate(
-      9,
-      (index) => TableCell(
+    return List.generate(headerColumnVisibleList.length, (index) {
+      return TableCell(
         child: FractionallySizedBox(
           widthFactor: 1,
           child: Container(
             padding: EdgeInsets.all(8),
             child: Text(
-              cellTexts[index],
+              headerColumnVisibleList[index].title,
               style: TextStyle(fontWeight: FontWeight.w900),
             ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   TableCell deleteButtonWidget() {
@@ -254,12 +299,10 @@ class _SubscriberDetailScreenState extends State<SubscriberDetailScreen> {
       builder: (context, sizingInformation) {
         return Row(
           children: [
-            Text(
-              _text,
-              style:TextStyle(
-                fontWeight: FontWeight.w900,
-                
-              )),
+            Text(_text,
+                style: TextStyle(
+                  fontWeight: FontWeight.w900,
+                )),
             IconButton(
                 onPressed: () {
                   showPopover(
@@ -386,19 +429,18 @@ class _SubscriberDetailScreenState extends State<SubscriberDetailScreen> {
 
   void _updateTextField(String text) {
     setState(() {
-      _text=text;
+      _text = text;
     });
   }
-}
 
-Widget topDropDownWidget() {
+  Widget topDropDownWidget() {
     return ResponsiveBuilder(
       builder: (context, sizingInformation) {
         return IconButton(
             onPressed: () {
               showPopover(
                 context: context,
-                bodyBuilder: (context) => TopDropDownItems(),
+                bodyBuilder: (context) => topDropDownItems(),
                 direction: PopoverDirection.bottom,
                 width: 300,
                 height: 150,
@@ -411,86 +453,121 @@ Widget topDropDownWidget() {
     );
   }
 
-  TopDropDownItems() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: Column(
-        children: [
-          Flexible(
-            child: ListView(
-              shrinkWrap: true,
-              padding: const EdgeInsets.only(
-                left: 5,
-                right: 5,
-              ),
-              children: [
-                Container(
-                  height: 30,
-                  decoration: const BoxDecoration(
-                    //color: const Color.fromRGBO(225, 190, 231, 1),
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                  ),
-                  child:  Row(
-                    children: [
-                      Checkbox(
-                        value: true, 
-                        onChanged: (newValue){},
-                        activeColor: Colors.blue,
-                      ),
-                      Text('msisdn',
-                          style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: 16,
-                              //fontWeight: FontWeight.w600,
-                              )),
-                    ],
-                  ),
-                ),
-                Container(
-                  height: 30,
-                  decoration: const BoxDecoration(
-                    //color: const Color.fromRGBO(206, 147, 216, 1),
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                  ),
-                  child: const Center(
-                      child: Text('10',
-                          style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w900))),
-                ),
-                Container(
-                  height: 30,
-                  decoration: const BoxDecoration(
-                    //color: const Color.fromRGBO(186, 104, 200, 1),
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                  ),
-                  child: const Center(
-                      child: Text('15',
-                          style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w900))),
-                ),
-                Container(
-                  height: 30,
-                  decoration: const BoxDecoration(
-                    //color: const Color.fromRGBO(171, 71, 188, 1),
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                  ),
-                  child: const Center(
-                      child: Text('20',
-                          style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w900))),
-                ),
-                
-              ],
-            ),
-          ),
-        ],
-      ),
+  Widget topDropDownItems() {
+    return ListView.builder(
+      itemCount: headerColumnVisibleList.length,
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+          child: headerColumnVisibleList[index].isSelectable
+              ? menuCell(headerColumnVisibleList[index].title,
+                  headerColumnVisibleList[index])
+              : SizedBox(),
+        );
+      },
     );
   }
 
+  Widget menuCell(String title, TableHeaderModel item) {
+    return Obx(() {
+      return InkWell(
+        onTap: () {
+          item.isVisible.value = !item.isVisible.value;
+          createVisibleList();
+        },
+        child: Row(
+          children: [
+            Icon(item.isVisible.value
+                ? Icons.radio_button_checked
+                : Icons.radio_button_unchecked),
+            Text(title)
+          ],
+        ),
+      );
+    });
+  }
+}
+
+/*
+TopDropDownItems() {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 10),
+    child: Column(
+      children: [
+        Flexible(
+          child: ListView(
+            shrinkWrap: true,
+            padding: const EdgeInsets.only(
+              left: 5,
+              right: 5,
+            ),
+            children: [
+              Container(
+                height: 30,
+                decoration: const BoxDecoration(
+                  //color: const Color.fromRGBO(225, 190, 231, 1),
+                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                ),
+                child: Row(
+                  children: [
+                    Checkbox(
+                      value: true,
+                      onChanged: (newValue) {},
+                      activeColor: Colors.blue,
+                    ),
+                    Text('msisdn',
+                        style: TextStyle(
+                          fontFamily: 'Roboto',
+                          fontSize: 16,
+                          //fontWeight: FontWeight.w600,
+                        )),
+                  ],
+                ),
+              ),
+              Container(
+                height: 30,
+                decoration: const BoxDecoration(
+                  //color: const Color.fromRGBO(206, 147, 216, 1),
+                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                ),
+                child: const Center(
+                    child: Text('10',
+                        style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.w900))),
+              ),
+              Container(
+                height: 30,
+                decoration: const BoxDecoration(
+                  //color: const Color.fromRGBO(186, 104, 200, 1),
+                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                ),
+                child: const Center(
+                    child: Text('15',
+                        style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.w900))),
+              ),
+              Container(
+                height: 30,
+                decoration: const BoxDecoration(
+                  //color: const Color.fromRGBO(171, 71, 188, 1),
+                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                ),
+                child: const Center(
+                    child: Text('20',
+                        style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.w900))),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+*/
 
 /*
 bool border=false;
@@ -561,3 +638,9 @@ bool border=false;
   }
 
 */
+class TableHeaderModel {
+  String title;
+  bool isSelectable;
+  RxBool isVisible;
+  TableHeaderModel(this.title, this.isSelectable, this.isVisible);
+}
