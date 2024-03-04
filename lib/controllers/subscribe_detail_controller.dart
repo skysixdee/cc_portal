@@ -1,3 +1,4 @@
+/*
 import 'dart:convert';
 
 import 'package:get/get.dart';
@@ -6,7 +7,7 @@ import 'package:sm_admin_portal/utilily/strings.dart';
 
 class SubscriberDetailController extends GetxController {
   RxList<List<CustomTableViewModel>> list = <List<CustomTableViewModel>>[].obs;
-
+  
   @override
   void onInit() async {
     createRowList();
@@ -115,3 +116,5 @@ class SubscriberDetailController extends GetxController {
     return list;
   }
 }
+
+*/

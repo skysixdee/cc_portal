@@ -13,6 +13,7 @@ class CustomTableView extends StatelessWidget {
   final Color? cellColor;
   final double? borderWidth;
   final double? cellHeight;
+  final double? headerHeight;
   //final Widget? button;
   final Widget? Function(int row, int? colum)? button;
   const CustomTableView({
@@ -27,6 +28,7 @@ class CustomTableView extends StatelessWidget {
     this.borderWidth,
     this.cellHeight,
     this.button,
+    this.headerHeight,
   });
 
   @override
@@ -44,7 +46,8 @@ class CustomTableView extends StatelessWidget {
 
   Widget tableHeaderView() {
     return Container(
-      color: Colors.grey,
+      color: headerBgColor ?? Colors.grey,
+      height: headerHeight,
       child: Center(
         child: Obx(() {
           return Table(
@@ -53,16 +56,16 @@ class CustomTableView extends StatelessWidget {
                 for (int column = 0; column < headerColumList.length; column++)
                   if (headerColumList[column].isVisible.value)
                     Container(
-                        color: headerBgColor ?? Colors.grey,
+                        //color: headerBgColor ?? Colors.grey,
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Center(
-                              child: Text(
-                            headerColumList[column].title,
-                            style: headerTextStyle ??
-                                const TextStyle(fontWeight: FontWeight.bold),
-                          )),
-                        )),
+                      padding: const EdgeInsets.all(8.0),
+                      child: Center(
+                          child: Text(
+                        headerColumList[column].title,
+                        style: headerTextStyle ??
+                            const TextStyle(fontWeight: FontWeight.bold),
+                      )),
+                    )),
               ])
             ],
           );
@@ -106,7 +109,7 @@ class CustomTableView extends StatelessWidget {
                                     color: cellColor ?? Colors.white,
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
-                                        vertical: 8,
+                                        vertical: 0,
                                       ),
                                       child: Center(
                                           child: (rowList[index][column]

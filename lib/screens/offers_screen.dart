@@ -37,6 +37,7 @@ class OffersScreen extends StatelessWidget {
                   SearchNumberView(
                     title: 'MSISDN',
                     hintText: 'Enter MSISDN',
+                    onSearchTap: (p0) {},
                   ),
                 ],
               ),

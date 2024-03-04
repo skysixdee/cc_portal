@@ -10,13 +10,15 @@ import 'package:sm_admin_portal/utilily/strings.dart';
 
 class SearchNumberView extends StatefulWidget {
   final String title;
-  
+
   final String hintText;
+  final Function(String) onSearchTap;
 
   SearchNumberView({
     Key? key,
     required this.hintText,
     required this.title,
+    required this.onSearchTap,
   }) : super(key: key);
 
   @override
@@ -25,7 +27,7 @@ class SearchNumberView extends StatefulWidget {
 
 class _SearchNumberViewState extends State<SearchNumberView> {
   bool enableClearBtn = false;
-  SubscriberDetailController cont = Get.put(SubscriberDetailController().getDetail("7000000033"));
+  SubscriberDetailController cont = Get.find();
   final TextEditingController textFieldController = TextEditingController();
   String errorMessage = '';
 
@@ -182,6 +184,7 @@ class _SearchNumberViewState extends State<SearchNumberView> {
     return GestureDetector(
       onTap: () {
         print("Search tepped");
+
         onSearchPressed();
       },
       child: Container(
@@ -227,7 +230,7 @@ class _SearchNumberViewState extends State<SearchNumberView> {
 
   void onSearchPressed() {
     String input = textFieldController.text;
-    getDetail();
+    widget.onSearchTap(input);
     // if (RegExp(r'^[0-9]+$').hasMatch(input)) {
     //   //getDetail();
     // print('Search successful');

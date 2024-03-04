@@ -8,6 +8,7 @@ class NetworkManager {
       String url, Map<String, dynamic> jsonData) async {
     HttpClientRequest request = await client.postUrl(Uri.parse(url));
     request.write(json.encode(jsonData));
+    print("json request ${json.encode(jsonData)}");
     HttpClientResponse response = await request.close();
     if (response.statusCode == 200) {
       String stringData = await response.transform(utf8.decoder).join();
