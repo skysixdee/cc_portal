@@ -16,11 +16,11 @@ import 'package:sm_admin_portal/screens/offers_screen.dart';
 import 'package:sm_admin_portal/screens/packs_screen.dart';
 import 'package:sm_admin_portal/screens/home_sceen.dart';
 import 'package:sm_admin_portal/screens/renewal_screen.dart';
+import 'package:sm_admin_portal/screens/subscriber_deatil_screen/subscriber_detail_screen1.dart';
 import 'package:sm_admin_portal/screens/subscriber_deatil_screen/subscriber_detial_screen.dart';
 import 'package:sm_admin_portal/side_menu_view/side_menu_view.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/constants.dart';
-
 import '../reusable_view/custom_text_field.dart';
 import '../reusable_view/pop_over.dart';
 
@@ -110,7 +110,7 @@ StatefulShellBranch _subscriberDetailRouteScreen() {
         name: subscriberDetailRoute,
         path: subscriberDetailRoute,
         builder: (context, state) {
-          return SubscriberDetailScreen();
+          return SubscriberDetailScreen1();
         },
       ),
     ],
