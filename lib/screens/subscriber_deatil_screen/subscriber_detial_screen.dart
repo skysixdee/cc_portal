@@ -119,53 +119,16 @@ class _SubscriberDetailScreenState extends State<SubscriberDetailScreen> {
                         padding: const EdgeInsets.only(
                           top: 5,
                         ),
-                        child:
-                         ResponsiveBuilder(
-                           builder: (context, SizingInformation){
-                           return InkWell(
-                             onTap: () {
-                           showPopover(
-                             context: context,
-                             bodyBuilder: (context) => topDropDownItems(),
-                             direction: PopoverDirection.bottom,
-                             width: 300,
-                             height: 150,
-                             arrowHeight: 10,
-                             arrowWidth: 20,
-                           );
-                         },
-                             child: Container(
-                               decoration: BoxDecoration(
-                                   color: Colors.white,
-                                   border: Border.all(
-                                     color: Color.fromARGB(255, 220, 218, 218),
-                                   ),
-                                   borderRadius: BorderRadius.circular(5)),
-                               child: Icon(Icons.menu), //topDropDownWidget(),
-                             ),
-                           );
-                         }
-                         ),
+                        child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(
+                                  color:
+                                      const Color.fromARGB(255, 220, 218, 218),
+                                ),
+                                borderRadius: BorderRadius.circular(5)),
+                            child: topDropDownWidget()),
                       ),
-                      /*Widget topDropDownWidget() {
-                              return ResponsiveBuilder(
-                                builder: (context, sizingInformation) {
-                                  return IconButton(
-                                      onPressed: () {
-                                        showPopover(
-                                          context: context,
-                                          bodyBuilder: (context) => topDropDownItems(),
-                                          direction: PopoverDirection.bottom,
-                                          width: 300,
-                                          height: 150,
-                                          arrowHeight: 10,
-                                          arrowWidth: 20,
-                                        );
-                                      },
-                                      icon: Icon(Icons.menu));
-                                },
-                              );
-                            } */
                     ],
                   ),
                 ),
@@ -191,7 +154,7 @@ class _SubscriberDetailScreenState extends State<SubscriberDetailScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 14, left: 7),
-                      child: Text(RecordsPerPageStr,
+                      child: Text('Records per page',
                           style: TextStyle(color: Colors.grey[800])),
                     )
                   ],
@@ -241,7 +204,7 @@ class _SubscriberDetailScreenState extends State<SubscriberDetailScreen> {
       borderColor: borderColor,
       onTap: (index) {
         print("Index tapped");
-        print("selected tab =${tabItems[index]}");
+        print("slected tab =${tabItems[index]}");
       },
     );
   }
@@ -339,25 +302,8 @@ class _SubscriberDetailScreenState extends State<SubscriberDetailScreen> {
             Text(_text,
                 style: TextStyle(
                   fontWeight: FontWeight.w900,
-                ),),
-                InkWell(
-                  onTap:(){
-                    showPopover(
-                    context: context,
-                    bodyBuilder: (context) => DropDownItems(),
-                    direction: PopoverDirection.bottom,
-                    width: 100,
-                    height: 170,
-                    arrowHeight: 10,
-                    arrowWidth: 20,
-                    );
-                  },
-                  child:Container(
-                     child:Icon(
-                      Icons.arrow_drop_down
-                     )
-                  ),)
-           /* IconButton(
+                )),
+            IconButton(
                 onPressed: () {
                   showPopover(
                     context: context,
@@ -369,7 +315,7 @@ class _SubscriberDetailScreenState extends State<SubscriberDetailScreen> {
                     arrowWidth: 20,
                   );
                 },
-                icon: Icon(Icons.arrow_drop_down)), */
+                icon: Icon(Icons.arrow_drop_down)),
           ],
         );
       },
@@ -378,31 +324,107 @@ class _SubscriberDetailScreenState extends State<SubscriberDetailScreen> {
 
   DropDownItems() {
     return Padding(
-        padding: EdgeInsets.symmetric(vertical: 10),
-        child: ListView.builder(
-          shrinkWrap: true,
-          padding: EdgeInsets.only(left: 5, right: 5),
-          itemCount: 5,
-          itemBuilder: (BuildContext context, int index) {
-            int value = (index + 1) * 5;
-            return InkWell(
-                onTap: () {
-                  _updateTextField(' $value');
-                },
-                child: Container(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Column(
+        children: [
+          Flexible(
+            child: ListView(
+              shrinkWrap: true,
+              padding: const EdgeInsets.only(
+                left: 5,
+                right: 5,
+              ),
+              children: [
+                InkWell(
+                  onTap: () {
+                    _updateTextField(' 5');
+                  },
+                  child: Container(
                     height: 30,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
+                      //color: const Color.fromRGBO(225, 190, 231, 1),
                       borderRadius: BorderRadius.all(Radius.circular(5)),
                     ),
-                    child: Center(
-                      child: Text(
-                        ' $value',
-                        style: TextStyle(
-                            fontFamily: 'Roboto', fontWeight: FontWeight.w900),
-                      ),
-                    )));
-          },
-        ));
+                    child: const Center(
+                        child: Text('5',
+                            style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w900))),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    _updateTextField(' 10');
+                  },
+                  child: Container(
+                    height: 30,
+                    decoration: const BoxDecoration(
+                      //color: const Color.fromRGBO(206, 147, 216, 1),
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                    ),
+                    child: const Center(
+                        child: Text('10',
+                            style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w900))),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    _updateTextField(' 15');
+                  },
+                  child: Container(
+                    height: 30,
+                    decoration: const BoxDecoration(
+                      //color: const Color.fromRGBO(186, 104, 200, 1),
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                    ),
+                    child: const Center(
+                        child: Text('15',
+                            style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w900))),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    _updateTextField(' 20');
+                  },
+                  child: Container(
+                    height: 30,
+                    decoration: const BoxDecoration(
+                      //color: const Color.fromRGBO(171, 71, 188, 1),
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                    ),
+                    child: const Center(
+                        child: Text('20',
+                            style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w900))),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    _updateTextField(' 25');
+                  },
+                  child: Container(
+                    height: 30,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                    ),
+                    child: const Center(
+                        child: Text('25',
+                            style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w900))),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   void _updateTextField(String text) {
@@ -411,7 +433,7 @@ class _SubscriberDetailScreenState extends State<SubscriberDetailScreen> {
     });
   }
 
-/*Widget topDropDownWidget() {
+  Widget topDropDownWidget() {
     return ResponsiveBuilder(
       builder: (context, sizingInformation) {
         return IconButton(
@@ -429,7 +451,7 @@ class _SubscriberDetailScreenState extends State<SubscriberDetailScreen> {
             icon: Icon(Icons.menu));
       },
     );
-  } */
+  }
 
   Widget topDropDownItems() {
     return ListView.builder(
