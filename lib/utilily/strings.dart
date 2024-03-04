@@ -1,5 +1,8 @@
 String poweredByStr = 'powered by - 6D Technologies';
 String sixdeeStr = '6D \n Tech.';
+
+String resetStr = 'Reset';
+
 String packDetailsStr = "Pack Details";
 String toneDetailsStr = "Tone Details";
 
@@ -17,3 +20,4 @@ String ActivationChannelStr = 'Activation Channel';
 String ActivationTypeStr = 'Activation Type';
 String DeactivateStr = 'Deactivate';
 String RecordsPerPageStr = 'Records per page';
+
