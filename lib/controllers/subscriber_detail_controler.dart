@@ -84,7 +84,9 @@ class SubscriberDetailController extends GetxController {
       for (var item in offers) {
         packDetailList.add([
           CustomTableViewModel(
-              value: msisdn, isVisible: true.obs, isRemoveable: true),
+              value: msisdn, 
+              isVisible: true.obs, 
+              isRemoveable:true),
           CustomTableViewModel(
               value: item.offerName ?? '',
               isVisible: true.obs,
@@ -126,14 +128,18 @@ class SubscriberDetailController extends GetxController {
     print("list length = ${packDetailList.length}");
   }
 
+
   createTableToneDetailsHeaderColumnList() {
     toneDetailList.add([
+
       CustomTableViewModel(
-          title: MsisdnStr, isVisible: true.obs, isRemoveable: true),
+          title: MsisdnStr, isVisible: true.obs, isRemoveable: true
+        ),
       CustomTableViewModel(
-          title: OfferCodeStr, isVisible: true.obs, isRemoveable: true),
+          title: OfferCodeStr, isVisible: true.obs, isRemoveable: true
+        ),
       CustomTableViewModel(
-          title: SubscriptionStatusStr,
+          title:SubscriptionStatusStr,
           isVisible: true.obs,
           isRemoveable: true,
           isButton: false),

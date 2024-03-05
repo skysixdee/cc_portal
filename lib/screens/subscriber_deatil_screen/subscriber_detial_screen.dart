@@ -150,7 +150,8 @@ class _SubscriberDetailScreenState extends State<SubscriberDetailScreen> {
                                 color: const Color.fromARGB(255, 220, 218, 218),
                               ),
                               borderRadius: BorderRadius.circular(5)),
-                          child: dropDownWidget()),
+                          child: dropDownWidget()
+                        ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 14, left: 7),

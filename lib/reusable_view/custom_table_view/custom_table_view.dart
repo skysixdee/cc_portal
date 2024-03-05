@@ -39,7 +39,9 @@ class CustomTableView extends StatelessWidget {
         tableHeaderView(),
         Flexible(
             child: Container(
-                color: borderColor ?? Colors.grey, child: tableRowContainer())),
+                color: borderColor ?? Colors.grey, 
+                child: tableRowContainer())
+        ),
       ],
     );
   }
