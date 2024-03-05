@@ -23,6 +23,8 @@ class SubscriberDetailController extends GetxController {
   }
 
   getToneDetail(String msisdn) async {
+    toneDetailList.clear();
+    createTableToneDetailsHeaderColumnList();
     await Future.delayed(Duration(seconds: 3));
     ToneDetailModal model = await getToneDetailApi();
     createToneDetailRowList(model.tonelist ?? [], msisdn);
@@ -30,6 +32,8 @@ class SubscriberDetailController extends GetxController {
   }
 
   getPackDetail(String phoneNumber) async {
+    packDetailList.clear();
+    createTablePackDetailsHeaderColumnList();
     SubscribersModal modal = await getPackDetailApi(phoneNumber);
     createPackDetailRowList(modal.offers, phoneNumber);
   }
@@ -41,10 +45,6 @@ class SubscriberDetailController extends GetxController {
         CustomTableViewModel(
             value: MsisdnStr, isVisible: true.obs, isRemoveable: true),
         CustomTableViewModel(
-            value: item.albumName ?? '',
-            isVisible: true.obs,
-            isRemoveable: true),
-        CustomTableViewModel(
             value: item.status ?? '',
             isVisible: true.obs,
             isRemoveable: true,
@@ -54,16 +54,16 @@ class SubscriberDetailController extends GetxController {
             isVisible: true.obs,
             isRemoveable: true),
         CustomTableViewModel(
-            value: item.firstActivationDate ?? '',
+            value: item.contentId ?? '',
             isVisible: true.obs,
             isRemoveable: false),
         CustomTableViewModel(
-            value: item.price ?? '',
+            value: item.contentName ?? '',
             isVisible: true.obs,
             isRemoveable: false,
             isButton: false),
         CustomTableViewModel(
-            value: item.contentId ?? '',
+            value: item.firstActivationDate ?? '',
             isVisible: true.obs,
             isRemoveable: false),
         CustomTableViewModel(
@@ -74,6 +74,7 @@ class SubscriberDetailController extends GetxController {
             title: DeactivateStr, isVisible: true.obs, isRemoveable: false),
       ]);
     }
+    print("Total items are ${toneDetailList.length}");
   }
 
   createPackDetailRowList(List<Offer>? offers, String msisdn) {
@@ -84,9 +85,7 @@ class SubscriberDetailController extends GetxController {
       for (var item in offers) {
         packDetailList.add([
           CustomTableViewModel(
-              value: msisdn, 
-              isVisible: true.obs, 
-              isRemoveable:true),
+              value: msisdn, isVisible: true.obs, isRemoveable: true),
           CustomTableViewModel(
               value: item.offerName ?? '',
               isVisible: true.obs,
@@ -128,18 +127,41 @@ class SubscriberDetailController extends GetxController {
     print("list length = ${packDetailList.length}");
   }
 
-
   createTableToneDetailsHeaderColumnList() {
     toneDetailList.add([
+      CustomTableViewModel(
+          title: MsisdnStr, isVisible: true.obs, isRemoveable: true),
+      CustomTableViewModel(
+          title: toneStatusStr,
+          isVisible: true.obs,
+          isRemoveable: true,
+          isButton: false),
+      CustomTableViewModel(
+          title: ActivationDateStr, isVisible: true.obs, isRemoveable: true),
+      CustomTableViewModel(
+          title: toneIdStr, isVisible: true.obs, isRemoveable: true),
+      CustomTableViewModel(
+          title: toneNameStr,
+          isVisible: true.obs,
+          isRemoveable: false,
+          isButton: false),
+      CustomTableViewModel(
+          title: NextBillingDateStr, isVisible: true.obs, isRemoveable: false),
+      CustomTableViewModel(
+          title: channelIdStr, isVisible: true.obs, isRemoveable: false),
+      CustomTableViewModel(
+          title: DeactivateStr, isVisible: true.obs, isRemoveable: false),
+    ]);
+  }
 
+  createTablePackDetailsHeaderColumnList() {
+    packDetailList.add([
       CustomTableViewModel(
-          title: MsisdnStr, isVisible: true.obs, isRemoveable: true
-        ),
+          title: MsisdnStr, isVisible: true.obs, isRemoveable: true),
       CustomTableViewModel(
-          title: OfferCodeStr, isVisible: true.obs, isRemoveable: true
-        ),
+          title: OfferCodeStr, isVisible: true.obs, isRemoveable: true),
       CustomTableViewModel(
-          title:SubscriptionStatusStr,
+          title: SubscriptionStatusStr,
           isVisible: true.obs,
           isRemoveable: true,
           isButton: false),
@@ -159,40 +181,10 @@ class SubscriberDetailController extends GetxController {
       CustomTableViewModel(
           title: ActivationTypeStr, isVisible: true.obs, isRemoveable: false),
       CustomTableViewModel(
-          title: DeactivateStr, isVisible: true.obs, isRemoveable: false),
-    ]);
-  }
-
-  createTablePackDetailsHeaderColumnList() {
-    packDetailList.add([
-      CustomTableViewModel(
-          title: MsisdnStr, isVisible: true.obs, isRemoveable: true),
-      CustomTableViewModel(
-          title: toneStatusStr, isVisible: true.obs, isRemoveable: true),
-      CustomTableViewModel(
-          title: ActivationDateStr,
-          isVisible: true.obs,
-          isRemoveable: true,
-          isButton: false),
-      CustomTableViewModel(
-          title: toneIdStr, isVisible: true.obs, isRemoveable: true),
-      CustomTableViewModel(
-          title: toneNameStr, isVisible: true.obs, isRemoveable: false),
-      CustomTableViewModel(
-          title: NextBillingDateStr,
+          title: DeactivateStr,
           isVisible: true.obs,
           isRemoveable: false,
-          isButton: false),
-      CustomTableViewModel(
-          title: channelIdStr, isVisible: true.obs, isRemoveable: false),
-      /*CustomTableViewModel(
-          title: ActivationTypeStr, 
-          isVisible: true.obs, isRemoveable: false),*/
-      CustomTableViewModel(
-          title: DeactivateStr,
-          isButton: true,
-          isVisible: true.obs,
-          isRemoveable: false),
+          isButton: true),
     ]);
   }
 }
