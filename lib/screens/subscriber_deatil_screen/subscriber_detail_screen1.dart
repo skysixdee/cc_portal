@@ -32,7 +32,7 @@ class _SubscriberDetailScreen1State extends State<SubscriberDetailScreen1> {
             hintText: "hintText",
             title: "",
             onSearchTap: (searchedText) {
-              cont.getDetail(searchedText);
+              cont.getPackDetail(searchedText);
               print("search tapped value is ${searchedText}");
             },
           ),
@@ -40,7 +40,8 @@ class _SubscriberDetailScreen1State extends State<SubscriberDetailScreen1> {
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              CustomTableMenuPopupButton(headerColumList: cont.list[0]),
+              CustomTableMenuPopupButton(
+                  headerColumList: cont.packDetailList[0]),
             ],
           ),
           const SizedBox(height: 8),
@@ -49,12 +50,12 @@ class _SubscriberDetailScreen1State extends State<SubscriberDetailScreen1> {
               cellHeight: 60,
               headerHeight: 60,
               headerBgColor: Colors.teal,
-              headerColumList: cont.list[0],
-              rowList: cont.list,
+              headerColumList: cont.packDetailList[0],
+              rowList: cont.packDetailList,
               button: (row, colum) {
                 return TextButton(
                     onPressed: () {
-                      cont.list.removeAt(row);
+                      cont.packDetailList.removeAt(row);
                     },
                     child: Text("delete"));
               },

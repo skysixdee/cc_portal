@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -10,39 +11,102 @@ class OffersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: Container(
-          color: Colors.white,
-          child: Center(
-            child: Container(
-              color: greyLight,
-              // decoration: BoxDecoration(boxShadow: [
-              //   BoxShadow(
-              //       color: Color.fromARGB(255, 177, 176, 176).withOpacity(0.5),
-              //       spreadRadius: 15,
-              //       blurRadius: 15,
-              //       offset: Offset(0, 3))
-              // ]),
-              padding: EdgeInsets.all(16.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Suspend and resume',
-                    style:
-                        TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 16.0),
-                  SearchNumberView(
-                    title: 'MSISDN',
-                    hintText: 'Enter MSISDN',
-                    onSearchTap: (p0) {},
-                  ),
-                ],
+      backgroundColor: Colors.white,
+      body: Column(
+        children: [
+          Container(
+            color: Colors.white,
+            child: Center(
+              child: Container(
+                color: greyLight,
+                padding: EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Suspend and resume',
+                      style: TextStyle(
+                          fontSize: 18.0, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 16.0),
+                    SearchNumberView(
+                      title: 'MSISDN',
+                      hintText: 'Enter MSISDN',
+                      onSearchTap: (p0) {},
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),SizedBox(height: 10),
+          Container(
+            color: Colors.white, // You can change the color if needed
+            child: Center(
+              child: Container(
+                color: greyLight,
+                
+                height: 200,
+                width: 800,
+                padding: EdgeInsets.all(16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                   // Expanded(child: 
+                   // SizedBox(width: 30),
+                   
+                    Expanded(
+                      child: Container(
+                        width:65,
+                      height:20,
+                      color:Colors.white),
+                    ),
+
+                    SizedBox(width: 30),
+                    Expanded(
+                      child: Container(
+                        width:65,
+                      height:20,
+                      color:Colors.white),
+                    ),
+                    SizedBox(width: 30),
+                    Expanded(
+                      child: Container(
+                        width:50,
+                      height:20,
+                      color:Colors.white),
+                    ),
+                    SizedBox(width: 30),
+                    Expanded(
+                      child: Container(
+                        width:50,
+                      height:20,
+                      color:Colors.white),
+                    ),
+                    SizedBox(width: 30),
+                    Expanded(
+                      child: Container(
+                        width:50,
+                      height:20,
+                      color:Colors.white),
+                    ),
+                    SizedBox(width: 30),
+                    Expanded(
+                      child: Container(
+                        width:50,
+                      height:20,
+                      color:Colors.white),
+                    ),
+                    
+                    // Add your content for the second container here
+                  ],
+                ),
               ),
             ),
           ),
-        ));
+        ],
+      ),
+    );
   }
 }
