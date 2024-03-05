@@ -161,6 +161,7 @@ class _SearchNumberViewState extends State<SearchNumberView> {
       height: 42,
       padding: EdgeInsets.symmetric(horizontal: 40),
       decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
         border: Border.all(color: Colors.grey),
         color: Colors.white,
         //borderRadius: BorderRadius.circular(5),
@@ -248,7 +249,7 @@ class _SearchNumberViewState extends State<SearchNumberView> {
   }
 
   void getDetail() {
-    cont.getDetail("7000000033");
+    cont.getPackDetail("7000000033");
     print('request successful');
   }
 }

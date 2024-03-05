@@ -41,6 +41,47 @@ class _SubscriberDetailScreen1State extends State<SubscriberDetailScreen1> {
 
   @override
   Widget build(BuildContext context) {
+/*
+    <<<<<<< Development
+    return Padding(
+      padding: const EdgeInsets.all(28.0),
+      child: Column(
+        children: [
+          SearchNumberView(
+            hintText: "hintText",
+            title: "",
+            onSearchTap: (searchedText) {
+              cont.getPackDetail(searchedText);
+              print("search tapped value is ${searchedText}");
+            },
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              CustomTableMenuPopupButton(
+                  headerColumList: cont.packDetailList[0]),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Obx(() {
+            return CustomTableView(
+              cellHeight: 60,
+              headerHeight: 60,
+              headerBgColor: Colors.teal,
+              headerColumList: cont.packDetailList[0],
+              rowList: cont.packDetailList,
+              button: (row, colum) {
+                return TextButton(
+                    onPressed: () {
+                      cont.packDetailList.removeAt(row);
+                    },
+                    child: Text("delete"));
+              },
+            );
+          })
+        ],
+=======*/
     return Container(
       color:dividerColor,
       child: ListView(
@@ -140,6 +181,7 @@ class _SubscriberDetailScreen1State extends State<SubscriberDetailScreen1> {
           color:borderColor,
           width: borderWidth,
         ),
+
       ),
     );
   }
