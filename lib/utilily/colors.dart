@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const sixdColor = Color.fromRGBO(43, 71, 233, 1);
+const sixdColor = Colors.blue; //fromRGBO(43, 71, 233, 1);
 const sixdLightColor = Color.fromRGBO(54, 137, 232, 0.4);
 
 const grey = Colors.grey;
