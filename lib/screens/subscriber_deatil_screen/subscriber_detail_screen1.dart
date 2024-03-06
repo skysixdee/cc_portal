@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:popover/popover.dart';
+import '../../reusable_view/records_per_page_button.dart';
 import 'widget/tone_deatil_table.dart';
 import 'package:flutter/material.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
@@ -52,7 +54,7 @@ class _SubscriberDetailScreen1State extends State<SubscriberDetailScreen1> {
                     print("search tapped value is ${searchedText}");
                   },
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 10),
                 Stack(
                   children: [
                     Column(
@@ -89,31 +91,46 @@ class _SubscriberDetailScreen1State extends State<SubscriberDetailScreen1> {
                       : ToneDetailTable();
                 }),
                 SizedBox(height: 8),
-                Row(
-                  children: [
-                    InkWell(
-                      onTap: () {},
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(
-                              color: const Color.fromARGB(255, 220, 218, 218),
-                            ),
-                            borderRadius: BorderRadius.circular(5)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(' 5'),
-                            Icon(Icons.arrow_drop_down),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 5),
-                    Text(RecordsPerPageStr,
-                        style: TextStyle(color: Colors.grey[800])),
-                  ],
-                ),
+                RecordsPageButton()
+                
+                
+              //dropDownWidget(),
+              //   Row(
+              //   children: [
+              //     InkWell(
+              //       onTap: () {
+              //         showPopover(
+              //         context: context,
+              //         bodyBuilder: (context) => topDropDownItems(),
+              //         direction: PopoverDirection.bottom,
+              //         width: 300,
+              //         height: 150,
+              //         arrowHeight: 10,
+              //         arrowWidth: 20,
+              // );
+              //       },
+              //       child: Container(
+              //         decoration: BoxDecoration(
+              //             color: Colors.white,
+              //             border: Border.all(
+              //               color: const Color.fromARGB(255, 220, 218, 218),
+              //             ),
+              //             borderRadius: BorderRadius.circular(5)),
+              //         child: Row(
+              //           mainAxisAlignment: MainAxisAlignment.center,
+              //           children: [
+              //             Text(' 5'),
+              //             Icon(Icons.arrow_drop_down),
+              //           ],
+              //         ),
+              //       ),
+              //     ),
+              //     SizedBox(width: 5),
+              //     Text(RecordsPerPageStr,
+              //         style: TextStyle(color: Colors.grey[800])),
+              //   ],
+              // )
+
               ],
             ),
           )
@@ -121,6 +138,8 @@ class _SubscriberDetailScreen1State extends State<SubscriberDetailScreen1> {
       ),
     );
   }
+
+  
 
   CustomBorderTabView tabButtons() {
     return CustomBorderTabView(
