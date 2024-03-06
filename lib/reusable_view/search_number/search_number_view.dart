@@ -34,69 +34,66 @@ class _SearchNumberViewState extends State<SearchNumberView> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.only(left: 10),
-        child: Container(
-          // height: 100,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black12,
-                blurRadius: 5,
-                spreadRadius: 5,
-                offset: Offset(0, 3),
-              ),
-            ],
-            color: white,
-          ),
-          width: 1100,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 30),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 13),
-                Text(widget.title),
-                SizedBox(height: 10),
-                Row(
-                  children: [
-                    Flexible(
-                      child: Container(
-                        height: 40,
-                        width: 400,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey, width: 1),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              height: 50,
-                              color: Colors.red,
-                              width: 2,
+      child: Container(
+        // height: 100,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 5,
+              spreadRadius: 5,
+              offset: Offset(0, 3),
+            ),
+          ],
+          color: white,
+        ),
+        width: 1100,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 30),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 13),
+              Text(widget.title),
+              SizedBox(height: 10),
+              Row(
+                children: [
+                  Flexible(
+                    child: Container(
+                      height: 40,
+                      width: 400,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey, width: 1),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: 50,
+                            color: Colors.red,
+                            width: 2,
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 8, top: 3),
+                              child: textField(),
                             ),
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 8, top: 3),
-                                child: textField(),
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
-                    const SizedBox(width: 30),
-                    buttonsContainer(),
-                  ],
-                ),
-                errorMessageWidget(),
-                SizedBox(height: 8),
-              ],
-            ),
+                  ),
+                  const SizedBox(width: 30),
+                  buttonsContainer(),
+                ],
+              ),
+              errorMessageWidget(),
+              SizedBox(height: 8),
+            ],
           ),
         ),
       ),
@@ -164,6 +161,7 @@ class _SearchNumberViewState extends State<SearchNumberView> {
       height: 42,
       padding: EdgeInsets.symmetric(horizontal: 40),
       decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
         border: Border.all(color: Colors.grey),
         color: Colors.white,
         //borderRadius: BorderRadius.circular(5),
@@ -237,7 +235,7 @@ class _SearchNumberViewState extends State<SearchNumberView> {
     //
     // } else {
     setState(() {
-      errorMessage = 'This field is mandatory';
+      errorMessage = '';
     });
     //}
   }
@@ -251,7 +249,7 @@ class _SearchNumberViewState extends State<SearchNumberView> {
   }
 
   void getDetail() {
-    cont.getDetail("7000000033");
+    cont.getPackDetail("7000000033");
     print('request successful');
   }
 }

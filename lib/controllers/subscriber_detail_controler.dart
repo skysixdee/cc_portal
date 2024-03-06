@@ -1,40 +1,89 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:sm_admin_portal/Models/subscribers_modal.dart';
+import 'package:sm_admin_portal/Models/tone_detail_modal.dart';
+import 'package:sm_admin_portal/api_calls/pack_detail_api.dart';
+import 'package:sm_admin_portal/api_calls/tone_detail_api.dart';
 import 'package:sm_admin_portal/network_manager/network_manager.dart';
 import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_view_model.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
 import 'package:sm_admin_portal/utilily/urls.dart';
 
 class SubscriberDetailController extends GetxController {
-  RxList<List<CustomTableViewModel>> list = <List<CustomTableViewModel>>[].obs;
-
+  RxList<List<CustomTableViewModel>> packDetailList =
+      <List<CustomTableViewModel>>[].obs;
+  RxList<List<CustomTableViewModel>> toneDetailList =
+      <List<CustomTableViewModel>>[].obs;
   @override
   void onInit() async {
-    createTableHeaderColumnList();
+    createTablePackDetailsHeaderColumnList();
+    createTableToneDetailsHeaderColumnList();
     super.onInit();
   }
 
-  getDetail(String phoneNumber) async {
-    String url =
-        'http://10.0.10.33:8085/selfcare/subscription-service/get-subscription';
-    //  jsonData: );;
-    Map<String, dynamic> jsonData = {"msisdn": phoneNumber};
-    Map<String, dynamic> jsonMap =
-        await NetworkManager().postResquest(url, jsonData);
-    SubscribersModal modal = SubscribersModal.fromJson(jsonMap);
-    print("modal =${modal.message}");
-    print("modal Offers=${modal.offers?.length}");
-    print("modal  respCode =${modal.respCode}");
-    createRowList(modal.offers, phoneNumber);
+  getToneDetail(String msisdn) async {
+    toneDetailList.clear();
+    createTableToneDetailsHeaderColumnList();
+    await Future.delayed(Duration(seconds: 3));
+    ToneDetailModal model = await getToneDetailApi();
+    createToneDetailRowList(model.tonelist ?? [], msisdn);
+    print("tone detail list = ${toneDetailList.length}");
   }
 
-  createRowList(List<Offer>? offers, String msisdn) {
+  getPackDetail(String phoneNumber) async {
+    packDetailList.clear();
+    createTablePackDetailsHeaderColumnList();
+    SubscribersModal modal = await getPackDetailApi(phoneNumber);
+    createPackDetailRowList(modal.offers, phoneNumber);
+  }
+
+  createToneDetailRowList(List<Tonelist> list, String msisdn) {
+    if (list.isEmpty) return;
+    for (var item in list) {
+      toneDetailList.add([
+        CustomTableViewModel(
+            value: MsisdnStr, isVisible: true.obs, isRemoveable: true),
+        CustomTableViewModel(
+            value: item.status ?? '',
+            isVisible: true.obs,
+            isRemoveable: true,
+            isButton: false),
+        CustomTableViewModel(
+            value: item.firstActivationDate ?? '',
+            isVisible: true.obs,
+            isRemoveable: true),
+        CustomTableViewModel(
+            value: item.contentId ?? '',
+            isVisible: true.obs,
+            isRemoveable: false),
+        CustomTableViewModel(
+            value: item.contentName ?? '',
+            isVisible: true.obs,
+            isRemoveable: false,
+            isButton: false),
+        CustomTableViewModel(
+            value: item.firstActivationDate ?? '',
+            isVisible: true.obs,
+            isRemoveable: false),
+        CustomTableViewModel(
+            value: item.contentType ?? '',
+            isVisible: true.obs,
+            isRemoveable: false),
+        CustomTableViewModel(
+            title: DeactivateStr, isVisible: true.obs, isRemoveable: false),
+      ]);
+    }
+    print("Total items are ${toneDetailList.length}");
+  }
+
+  createPackDetailRowList(List<Offer>? offers, String msisdn) {
     print("Offers items Are = ${offers?.length}");
     if (offers != null) {
       if (offers.isEmpty) return;
 
       for (var item in offers) {
-        list.add([
+        packDetailList.add([
           CustomTableViewModel(
               value: msisdn, isVisible: true.obs, isRemoveable: true),
           CustomTableViewModel(
@@ -75,11 +124,38 @@ class SubscriberDetailController extends GetxController {
         ]);
       }
     }
-    print("list length = ${list.length}");
+    print("list length = ${packDetailList.length}");
   }
 
-  createTableHeaderColumnList() {
-    list.add([
+  createTableToneDetailsHeaderColumnList() {
+    toneDetailList.add([
+      CustomTableViewModel(
+          title: MsisdnStr, isVisible: true.obs, isRemoveable: true),
+      CustomTableViewModel(
+          title: toneStatusStr,
+          isVisible: true.obs,
+          isRemoveable: true,
+          isButton: false),
+      CustomTableViewModel(
+          title: ActivationDateStr, isVisible: true.obs, isRemoveable: true),
+      CustomTableViewModel(
+          title: toneIdStr, isVisible: true.obs, isRemoveable: true),
+      CustomTableViewModel(
+          title: toneNameStr,
+          isVisible: true.obs,
+          isRemoveable: false,
+          isButton: false),
+      CustomTableViewModel(
+          title: NextBillingDateStr, isVisible: true.obs, isRemoveable: false),
+      CustomTableViewModel(
+          title: channelIdStr, isVisible: true.obs, isRemoveable: false),
+      CustomTableViewModel(
+          title: DeactivateStr, isVisible: true.obs, isRemoveable: false),
+    ]);
+  }
+
+  createTablePackDetailsHeaderColumnList() {
+    packDetailList.add([
       CustomTableViewModel(
           title: MsisdnStr, isVisible: true.obs, isRemoveable: true),
       CustomTableViewModel(
@@ -105,7 +181,10 @@ class SubscriberDetailController extends GetxController {
       CustomTableViewModel(
           title: ActivationTypeStr, isVisible: true.obs, isRemoveable: false),
       CustomTableViewModel(
-          title: DeactivateStr, isVisible: true.obs, isRemoveable: false),
+          title: DeactivateStr,
+          isVisible: true.obs,
+          isRemoveable: false,
+          isButton: true),
     ]);
   }
 }

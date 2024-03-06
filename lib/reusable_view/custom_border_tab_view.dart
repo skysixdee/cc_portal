@@ -33,13 +33,15 @@ class CustomBorderTabView extends StatelessWidget {
           ),
         ));
   }
-
+  
   Widget customTabButton(String title, int index) {
     return Obx(() {
       return InkWell(
         onTap: () {
           tabIndex.value = index;
           onTap(index);
+          
+
         },
         child: Container(
           clipBehavior: Clip.hardEdge,
@@ -48,11 +50,21 @@ class CustomBorderTabView extends StatelessWidget {
           child: Center(
               child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: Text(title),
+            child: Text(
+              title,
+              style:customTextDecoration(index == tabIndex.value)
+              ),
           )),
         ),
       );
     });
+  }
+
+  TextStyle customTextDecoration(bool isSelected) {
+    return TextStyle(
+              fontSize: 16,
+              color:isSelected?Colors.black:Colors.blue,
+            );
   }
 
   BoxDecoration customTabButtonDecoration(bool isSelected) {
@@ -75,6 +87,7 @@ class CustomBorderTabView extends StatelessWidget {
             width: !isSelected ? borderWidth : 0.0,
           )),
       color: isSelected ? Colors.white : Colors.transparent,
+      //borderRadius: isSelected?BorderRadius.only(topLeft: Radius.circular(3),topRight: Radius.circular(3)):BorderRadius.only(),
     );
   }
 }
