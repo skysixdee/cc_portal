@@ -15,6 +15,7 @@ Future<ToneDetailModal> getToneDetailApi() async {
   };
   // Map<String, dynamic> jsonMap =
   //     await NetworkManager().postResquest(url, jsonData);
+  await Future.delayed(Duration(seconds: 3));
   Map<String, dynamic> respMap = json.decode(respoString);
   ToneDetailModal model = ToneDetailModal.fromJson(respMap);
   return model;
