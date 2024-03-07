@@ -18,3 +18,9 @@ Future<GenericModal> deletePackApi() async {
   GenericModal modal = GenericModal.fromJson(jsonrequ);
   return modal;
 }
+
+String responString = """{
+"respCode" : 0,
+ "message" : "successful"
+}
+""";
