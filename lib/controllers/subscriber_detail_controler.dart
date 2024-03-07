@@ -33,6 +33,7 @@ class SubscriberDetailController extends GetxController {
 
   getPackDetail(String phoneNumber) async {
     packDetailList.clear();
+
     createTablePackDetailsHeaderColumnList();
     SubscribersModal modal = await getPackDetailApi(phoneNumber);
     createPackDetailRowList(modal.offers, phoneNumber);
@@ -71,7 +72,7 @@ class SubscriberDetailController extends GetxController {
             isVisible: true.obs,
             isRemoveable: false),
         CustomTableViewModel(
-            title: DeactivateStr, isVisible: true.obs, isRemoveable: false),
+            title: DeactivateStr, isVisible: true.obs, isRemoveable: false, isButton: true),
       ]);
     }
     print("Total items are ${toneDetailList.length}");

@@ -23,7 +23,7 @@ class PackDetailTable extends StatelessWidget {
             child: Icon(Icons.clear, size: 25),
           );
         },
-      );
+      ); 
     });
   }
 }

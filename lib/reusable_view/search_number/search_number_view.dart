@@ -248,6 +248,7 @@ class _SearchNumberViewState extends State<SearchNumberView> {
     });
   }
 
+ 
   void getDetail() {
     cont.getPackDetail("7000000033");
     print('request successful');
