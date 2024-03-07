@@ -1,8 +1,9 @@
-import 'dart:convert';
+/*import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:sm_admin_portal/Models/subscribers_modal.dart';
 import 'package:sm_admin_portal/Models/tone_detail_modal.dart';
+import 'package:sm_admin_portal/api_calls/delete_pack_api.dart';
 import 'package:sm_admin_portal/api_calls/pack_detail_api.dart';
 import 'package:sm_admin_portal/api_calls/tone_detail_api.dart';
 import 'package:sm_admin_portal/network_manager/network_manager.dart';
@@ -39,6 +40,91 @@ class SubscriberDetailController extends GetxController {
     createPackDetailRowList(modal.offers, phoneNumber);
   }
 
+  // getDeletePack(String offerName) async {
+  //   deletePackApi.call(offerName);
+
+    
+  //   SubscribersModal modal = await getPackDetailApi(offerName);
+  //   createPackDetailRowList(modal.offers, offerName);
+  // }*/
+
+
+  import 'dart:convert';
+
+import 'package:get/get.dart';
+import 'package:sm_admin_portal/Models/subscribers_modal.dart';
+import 'package:sm_admin_portal/Models/tone_detail_modal.dart';
+import 'package:sm_admin_portal/api_calls/delete_pack_api.dart';
+import 'package:sm_admin_portal/api_calls/pack_detail_api.dart';
+import 'package:sm_admin_portal/api_calls/tone_detail_api.dart';
+import 'package:sm_admin_portal/network_manager/network_manager.dart';
+import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_view_model.dart';
+import 'package:sm_admin_portal/utilily/strings.dart';
+import 'package:sm_admin_portal/utilily/urls.dart';
+
+class SubscriberDetailController extends GetxController {
+  RxList<List<CustomTableViewModel>> packDetailList =
+      <List<CustomTableViewModel>>[].obs;
+  RxList<List<CustomTableViewModel>> toneDetailList =
+      <List<CustomTableViewModel>>[].obs;
+
+  @override
+  void onInit() async {
+    createTablePackDetailsHeaderColumnList();
+    createTableToneDetailsHeaderColumnList();
+    super.onInit();
+  }
+
+  getToneDetail(String msisdn) async {
+    toneDetailList.clear();
+    createTableToneDetailsHeaderColumnList();
+    await Future.delayed(Duration(seconds: 3));
+    ToneDetailModal model = await getToneDetailApi();
+    createToneDetailRowList(model.tonelist ?? [], msisdn);
+    print("tone detail list = ${toneDetailList.length}");
+  }
+
+  getPackDetail(String phoneNumber) async {
+    packDetailList.clear();
+
+    createTablePackDetailsHeaderColumnList();
+    SubscribersModal modal = await getPackDetailApi(phoneNumber);
+    createPackDetailRowList(modal.offers, phoneNumber);
+  }
+   
+  // delete pack
+   deletePack(String offerName) async {
+    try {
+      
+      await deletePackApi(offerName);
+      
+      
+      for (var i = 0; i < packDetailList.length; i++) {
+        for (var j = 0; j < packDetailList[i].length; j++) {
+          if (packDetailList[i][j].value == offerName) {
+            packDetailList.removeAt(i);
+            break; 
+          }
+        }
+      }
+    } catch (error) {
+      
+      print('Error deleting pack: $error');
+    }
+  }
+  
+  
+
+
+
+
+
+
+
+
+   
+
+   
   createToneDetailRowList(List<Tonelist> list, String msisdn) {
     if (list.isEmpty) return;
     for (var item in list) {
