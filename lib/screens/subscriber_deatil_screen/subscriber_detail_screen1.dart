@@ -81,48 +81,17 @@ class _SubscriberDetailScreen1State extends State<SubscriberDetailScreen1> {
                   ],
                 ),
                 SizedBox(height: 8),
-                Obx((){
-                  return cont.isLoadingPackDetail.value || cont.isLoadingToneDetail.value ? Center(
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                        top:50,
-                      ),
-                      child: Container(
-                        decoration:BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color:Colors.grey,
-                              blurRadius:4,
-                              offset:Offset(2,2),
-                            )
-                          ],
-                          border:Border.all(
-                            color: Color.fromARGB(255, 220, 218, 218),
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                          color:Colors.white,
-                        ),
-                        height:100,
-                        width:300,
-                        child: Column(
-                          mainAxisAlignment:MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            width:20,
-                            height:20,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 3,
-                              color: Colors.blue,
-                            )),
-                          Text('Loading, please wait...',
-                          style:TextStyle(
-                            fontWeight: FontWeight.w600,
-                          )), 
-                        ],
-                      )),
-                    )
-                  ): tableAndBottomSection();
+                Obx(() {
+                  return cont.isLoadingPackDetail.value ||
+                          cont.isLoadingToneDetail.value
+                      ? loadingIndicatorView()
+                      : selectedTab.value == 0
+                          ? (cont.packDetailList.length < 2
+                              ? Text("empty data")
+                              : tableAndBottomSection())
+                          : (cont.toneDetailList.length < 2
+                              ? Text("empty data")
+                              : tableAndBottomSection());
                 })
               ],
             ),
@@ -132,168 +101,183 @@ class _SubscriberDetailScreen1State extends State<SubscriberDetailScreen1> {
     );
   }
 
-Widget tableAndBottomSection(){
-  return Column(children: [
-                Obx(() {
-                  return selectedTab.value == 0
-                      ? PackDetailTable()
-                      : ToneDetailTable();
-                }),
-                SizedBox(height: 8),
-                bottomButtons(),
-  ],);
-}
+  Center loadingIndicatorView() {
+    return Center(
+        child: Padding(
+      padding: const EdgeInsets.only(
+        top: 50,
+      ),
+      child: Container(
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey,
+                blurRadius: 4,
+                offset: Offset(2, 2),
+              )
+            ],
+            border: Border.all(
+              color: Color.fromARGB(255, 220, 218, 218),
+            ),
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.white,
+          ),
+          height: 100,
+          width: 300,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                  width: 20,
+                  height: 20,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 3,
+                    color: Colors.blue,
+                  )),
+              Text('Loading, please wait...',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                  )),
+            ],
+          )),
+    ));
+  }
+
+  Widget tableAndBottomSection() {
+    return Column(
+      children: [
+        Obx(() {
+          return selectedTab.value == 0 ? PackDetailTable() : ToneDetailTable();
+        }),
+        SizedBox(height: 8),
+        bottomButtons(),
+      ],
+    );
+  }
 
   SearchNumberView searchNumberWidget() {
     return SearchNumberView(
-                hintText: "hintText",
-                title: "",
-                onSearchTap: (searchedText) {
-                  if(selectedTab.value == 0){
-cont.getPackDetail(searchedText);
-                  print("search tapped value is ${searchedText}");
-                  }else{
-cont.getToneDetail(searchedText);
-                  }
-                  
-                },
-              );
+      hintText: "hintText",
+      title: "",
+      onSearchTap: (searchedText) {
+        if (selectedTab.value == 0) {
+          cont.getPackDetail(searchedText);
+          print("search tapped value is ${searchedText}");
+        } else {
+          cont.getToneDetail(searchedText);
+        }
+      },
+    );
   }
 
   Row bottomButtons() {
     return Row(
-                children: [
-                  RecordsPageButton(),
-                  
-                  SizedBox(width:500),
-                  
-                  Text('Page'),
-                  SizedBox(width:10),
-                  Container(
-                    width:40,
-                    height:30,
-                    decoration:BoxDecoration(
-                      color:Colors.white,
-                      border:Border.all(
-                        color:const Color.fromARGB(255, 220, 218, 218),
-                        width:1,
-                      ),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: Center(child: Text('1')),
-                  ),
-                  SizedBox(width:10),
-                  Text('of 1'),
-                  SizedBox(width:86),
-                  Container(
-                     width:30,
-                     height:30,
-                     decoration:BoxDecoration(
-                      color:Colors.grey[100],
-                      borderRadius:BorderRadius.only(
-                        topLeft: Radius.circular(5),
-                        bottomLeft: Radius.circular(5),
-                      ),   
-                      border:Border(
-                        left:BorderSide(
-                        color: const Color.fromARGB(255, 220, 218, 218) 
-                        ),
-                        top:BorderSide(
-                        color: const Color.fromARGB(255, 220, 218, 218) 
-                        ),
-                        bottom:BorderSide(
-                        color: const Color.fromARGB(255, 220, 218, 218) 
-                        )),
-                    ),
-                    child:Center(child: Icon(
-                      Icons.fast_rewind,
-                      color:Colors.grey[400],
-                      size:16
-                      ))
-                  ),
-                  Container(
-                     width:28,
-                     height:30,
-                     decoration:BoxDecoration(
-                      color:Colors.grey[100],
-                      border:Border(
-                        left:BorderSide(
-                        color: const Color.fromARGB(255, 220, 218, 218) 
-                        ),
-                        top:BorderSide(
-                        color: const Color.fromARGB(255, 220, 218, 218) 
-                        ),
-                        bottom:BorderSide(
-                        color: const Color.fromARGB(255, 220, 218, 218) 
-                        )),    
-                    ),
-                    child:Center(child: Center(child: Icon(
-                      Icons.skip_previous,
-                      color:Colors.grey[400],
-                      size:16
-                      )))
-                  ),
-                  Container(
-                     width:26,
-                     height:30,
-                     decoration:BoxDecoration(
-                      color:Colors.grey[500],   
-                    ),
-                    child:Center(child: Text('1',style:TextStyle(color: Colors.white)))
-                  ),
-                  Container(
-                     width:28,
-                     height:30,
-                     decoration:BoxDecoration(
-                      color:Colors.grey[100],
-                      border:Border(
-                        right:BorderSide(
-                        color: const Color.fromARGB(255, 220, 218, 218) 
-                        ),
-                        top:BorderSide(
-                        color: const Color.fromARGB(255, 220, 218, 218) 
-                        ),
-                        bottom:BorderSide(
-                        color: const Color.fromARGB(255, 220, 218, 218) 
-                        )),     
-                    ),
-                    child:Center(child: Icon(
-                      Icons.skip_next,
-                      color:Colors.grey[400],
-                      size:16
-                    )),
-                  ),
-                  Container(
-                     width:30,
-                     height:30,
-                     decoration:BoxDecoration(
-                      color:Colors.grey[100],
-                      borderRadius:BorderRadius.only(
-                        topRight: Radius.circular(5),
-                        bottomRight: Radius.circular(5),
-                      ),   
-                      border:Border(
-                        right:BorderSide(
-                        color: const Color.fromARGB(255, 220, 218, 218) 
-                        ),
-                        top:BorderSide(
-                        color: const Color.fromARGB(255, 220, 218, 218) 
-                        ),
-                        bottom:BorderSide(
-                        color: const Color.fromARGB(255, 220, 218, 218) 
-                        )),    
-                    ),
-                    child:Center(child: Icon(
-                      Icons.fast_forward,
-                      color:Colors.grey[700],
-                      size:16))
-                  ),
-                  
-                ],
-              );
+      children: [
+        RecordsPageButton(),
+        SizedBox(width: 500),
+        Text('Page'),
+        SizedBox(width: 10),
+        Container(
+          width: 40,
+          height: 30,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(
+              color: const Color.fromARGB(255, 220, 218, 218),
+              width: 1,
+            ),
+            borderRadius: BorderRadius.circular(5),
+          ),
+          child: Center(child: Text('1')),
+        ),
+        SizedBox(width: 10),
+        Text('of 1'),
+        SizedBox(width: 86),
+        Container(
+            width: 30,
+            height: 30,
+            decoration: BoxDecoration(
+              color: Colors.grey[100],
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(5),
+                bottomLeft: Radius.circular(5),
+              ),
+              border: Border(
+                  left: BorderSide(
+                      color: const Color.fromARGB(255, 220, 218, 218)),
+                  top: BorderSide(
+                      color: const Color.fromARGB(255, 220, 218, 218)),
+                  bottom: BorderSide(
+                      color: const Color.fromARGB(255, 220, 218, 218))),
+            ),
+            child: Center(
+                child: Icon(Icons.fast_rewind,
+                    color: Colors.grey[400], size: 16))),
+        Container(
+            width: 28,
+            height: 30,
+            decoration: BoxDecoration(
+              color: Colors.grey[100],
+              border: Border(
+                  left: BorderSide(
+                      color: const Color.fromARGB(255, 220, 218, 218)),
+                  top: BorderSide(
+                      color: const Color.fromARGB(255, 220, 218, 218)),
+                  bottom: BorderSide(
+                      color: const Color.fromARGB(255, 220, 218, 218))),
+            ),
+            child: Center(
+                child: Center(
+                    child: Icon(Icons.skip_previous,
+                        color: Colors.grey[400], size: 16)))),
+        Container(
+            width: 26,
+            height: 30,
+            decoration: BoxDecoration(
+              color: Colors.grey[500],
+            ),
+            child: Center(
+                child: Text('1', style: TextStyle(color: Colors.white)))),
+        Container(
+          width: 28,
+          height: 30,
+          decoration: BoxDecoration(
+            color: Colors.grey[100],
+            border: Border(
+                right:
+                    BorderSide(color: const Color.fromARGB(255, 220, 218, 218)),
+                top:
+                    BorderSide(color: const Color.fromARGB(255, 220, 218, 218)),
+                bottom: BorderSide(
+                    color: const Color.fromARGB(255, 220, 218, 218))),
+          ),
+          child: Center(
+              child: Icon(Icons.skip_next, color: Colors.grey[400], size: 16)),
+        ),
+        Container(
+            width: 30,
+            height: 30,
+            decoration: BoxDecoration(
+              color: Colors.grey[100],
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(5),
+                bottomRight: Radius.circular(5),
+              ),
+              border: Border(
+                  right: BorderSide(
+                      color: const Color.fromARGB(255, 220, 218, 218)),
+                  top: BorderSide(
+                      color: const Color.fromARGB(255, 220, 218, 218)),
+                  bottom: BorderSide(
+                      color: const Color.fromARGB(255, 220, 218, 218))),
+            ),
+            child: Center(
+                child: Icon(Icons.fast_forward,
+                    color: Colors.grey[700], size: 16))),
+      ],
+    );
   }
-
-  
 
   CustomBorderTabView tabButtons() {
     return CustomBorderTabView(
