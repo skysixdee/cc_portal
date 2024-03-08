@@ -50,9 +50,9 @@ class PackDetailTable extends StatelessWidget {
         button: ( row,  colum) {
           return InkWell(
             onTap: () {
-              cont.packDetailList.removeAt(row);
-              String offerName = cont.packDetailList[row][1].value;
-              cont.deletePack(offerName);
+              // cont.packDetailList.removeAt(row);
+               final offerName = cont.packDetailList[row][1].value;
+              cont.deletePack(offerName,row);
             },
             child: Icon(Icons.clear, size: 25),
           );

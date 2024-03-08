@@ -52,6 +52,7 @@ class SubscriberDetailController extends GetxController {
   import 'dart:convert';
 
 import 'package:get/get.dart';
+import 'package:sm_admin_portal/Models/Generic_modal.dart';
 import 'package:sm_admin_portal/Models/subscribers_modal.dart';
 import 'package:sm_admin_portal/Models/tone_detail_modal.dart';
 import 'package:sm_admin_portal/api_calls/delete_pack_api.dart';
@@ -67,6 +68,8 @@ class SubscriberDetailController extends GetxController {
       <List<CustomTableViewModel>>[].obs;
   RxList<List<CustomTableViewModel>> toneDetailList =
       <List<CustomTableViewModel>>[].obs;
+RxBool isLoadingPackDetail = false.obs;
+RxBool isLoadingToneDetail = false.obs;
 
   @override
   void onInit() async {
@@ -77,40 +80,43 @@ class SubscriberDetailController extends GetxController {
 
   getToneDetail(String msisdn) async {
     toneDetailList.clear();
+    isLoadingToneDetail.value = true;
     createTableToneDetailsHeaderColumnList();
     await Future.delayed(Duration(seconds: 3));
     ToneDetailModal model = await getToneDetailApi();
+    isLoadingToneDetail.value = false;
     createToneDetailRowList(model.tonelist ?? [], msisdn);
     print("tone detail list = ${toneDetailList.length}");
   }
 
   getPackDetail(String phoneNumber) async {
     packDetailList.clear();
-
+    isLoadingPackDetail.value = true;
     createTablePackDetailsHeaderColumnList();
     SubscribersModal modal = await getPackDetailApi(phoneNumber);
+    isLoadingPackDetail.value = false;
     createPackDetailRowList(modal.offers, phoneNumber);
   }
    
   // delete pack
-   deletePack(String offerName) async {
-    try {
+   deletePack(String offerName, int rowNo) async {
+   GenericModal model = await deletePackApi(offerName);
+   if(model.respCode == 0){
+    packDetailList.removeAt(rowNo);
+   }
       
-      await deletePackApi(offerName);
+      //await deletePackApi(offerName);
       
       
-      for (var i = 0; i < packDetailList.length; i++) {
-        for (var j = 0; j < packDetailList[i].length; j++) {
-          if (packDetailList[i][j].value == offerName) {
-            packDetailList.removeAt(i);
-            break; 
-          }
-        }
-      }
-    } catch (error) {
-      
-      print('Error deleting pack: $error');
-    }
+      // for (var i = 0; i < packDetailList.length; i++) {
+      //   for (var j = 0; j < packDetailList[i].length; j++) {
+      //     if (packDetailList[i][j].value == offerName) {
+      //       packDetailList.removeAt(i);
+      //       break; 
+      //     }
+      //   }
+      // }
+   // }
   }
   
   
