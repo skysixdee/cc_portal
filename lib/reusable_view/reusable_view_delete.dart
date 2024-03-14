@@ -17,7 +17,7 @@ class ReusableTextField extends StatefulWidget {
   ReusableTextField({
     super.key,
     required this.hintText,
-    required this.title,
+    this.title = '',
     this.addDropDown = false,
     this.isTextView = false,
     this.crossButton = false,
