@@ -27,7 +27,7 @@ class SuspendDetailTable extends StatelessWidget {
                 showPopover(
                   context: context,
                   bodyBuilder: (context) {
-                    return  DropDownItems1(row,colum);
+                    return DropDownItems1(row, colum);
                   },
                   direction: PopoverDirection.bottom,
                   width: 60,
@@ -69,9 +69,10 @@ class SuspendDetailTable extends StatelessWidget {
       InkWell(
         onTap: () {
           print("row = $row and colum = $colum");
-          
+          cont.tonelist?[row! - 1].isSuspend?.value = true;
+          //!cont.tonelist![row - 1].isSuspend!.value;
+          cont.changeStatus();
           cont.suspendService();
-          
         },
         child: Text(
           'Suspend',
@@ -82,7 +83,11 @@ class SuspendDetailTable extends StatelessWidget {
         ),
       ),
       InkWell(
-        onTap: () {},
+        onTap: () {
+          cont.tonelist?[row! - 1].isSuspend?.value = false;
+          cont.changeStatus();
+          cont.suspendService();
+        },
         child: Text(
           'Resume',
           style: TextStyle(

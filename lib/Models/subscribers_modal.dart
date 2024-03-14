@@ -10,6 +10,8 @@
 
 import 'dart:convert';
 
+import 'package:get/get.dart';
+
 SubscribersModal subscribersModalFromJson(String str) =>
     SubscribersModal.fromJson(json.decode(str));
 
@@ -57,7 +59,7 @@ class Offer {
   String? chargedDate;
   String? chargedValidity;
   String? activationChannel;
-
+  RxBool? isSuspended = true.obs;
   Offer({
     this.offerName,
     this.offerStatus,
@@ -66,6 +68,7 @@ class Offer {
     this.chargedDate,
     this.chargedValidity,
     this.activationChannel,
+    this.isSuspended,
   });
 
   factory Offer.fromJson(Map<String, dynamic> json) => Offer(
@@ -88,4 +91,3 @@ class Offer {
         "activationChannel": activationChannel,
       };
 }
-
