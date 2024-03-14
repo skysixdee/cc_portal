@@ -87,17 +87,65 @@ class _SubscriberDetailScreen1State extends State<SubscriberDetailScreen1> {
                 ),
                 SizedBox(height: 8),
                 Obx(() {
-                  return cont.isLoadingPackDetail.value ||
-                          cont.isLoadingToneDetail.value
-                      ? loadingIndicatorView()
-                      : selectedTab.value == 0
-                          ? (cont.packDetailList.length < 2
-                              ? noDataContainer()
-                              : tableAndBottomSection())
-                          : (cont.toneDetailList.length < 2
-                              ? noDataContainer()
-                              : tableAndBottomSection());
-                })
+
+                  return selectedTab.value == 0
+                      ? PackDetailTable()
+                      : ToneDetailTable();
+                }),
+                SizedBox(height: 8),
+                RecordsPageButton()
+                
+                
+              //dropDownWidget(),
+              //   Row(
+              //   children: [
+              //     InkWell(
+              //       onTap: () {
+              //         showPopover(
+              //         context: context,
+              //         bodyBuilder: (context) => topDropDownItems(),
+              //         direction: PopoverDirection.bottom,
+              //         width: 300,
+              //         height: 150,
+              //         arrowHeight: 10,
+              //         arrowWidth: 20,
+              // );
+              //       },
+                    // child: Container(
+                    //   decoration: BoxDecoration(
+                    //       color: Colors.white,
+                    //       border: Border.all(
+                    //         color: const Color.fromARGB(255, 220, 218, 218),
+                    //       ),
+                    //       borderRadius: BorderRadius.circular(5)),
+              //         child: Row(
+              //           mainAxisAlignment: MainAxisAlignment.center,
+              //           children: [
+              //             Text(' 5'),
+              //             Icon(Icons.arrow_drop_down),
+              //           ],
+              //         ),
+              //       ),
+              //     ),
+              //     SizedBox(width: 5),
+              //     Text(RecordsPerPageStr,
+              //         style: TextStyle(color: Colors.grey[800])),
+              //   ],
+              // )
+
+
+//                   return cont.isLoadingPackDetail.value ||
+//                           cont.isLoadingToneDetail.value
+//                       ? loadingIndicatorView()
+//                       : selectedTab.value == 0
+//                           ? (cont.packDetailList.length < 2
+//                               ? noDataContainer()
+//                               : tableAndBottomSection())
+//                           : (cont.toneDetailList.length < 2
+//                               ? noDataContainer()
+//                               : tableAndBottomSection());
+//                 })
+
               ],
             ),
           )
