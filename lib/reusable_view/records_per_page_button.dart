@@ -38,7 +38,8 @@ class _RecordsPageButtonState extends State<RecordsPageButton> {
                 border: Border.all(
                   color: const Color.fromARGB(255, 220, 218, 218),
                 ),
-                borderRadius: BorderRadius.circular(5)),
+                borderRadius: BorderRadius.circular(5)
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

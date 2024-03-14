@@ -13,7 +13,7 @@ import 'package:sm_admin_portal/screens/first_screen.dart';
 import 'package:sm_admin_portal/screens/message.dart';
 import 'package:sm_admin_portal/screens/message_template.dart';
 import 'package:sm_admin_portal/screens/offers_screen.dart';
-import 'package:sm_admin_portal/screens/packs_screen.dart';
+import 'package:sm_admin_portal/screens/pack_screen/suspend_and_resume_screen.dart';
 import 'package:sm_admin_portal/screens/home_sceen.dart';
 import 'package:sm_admin_portal/screens/renewal_screen.dart';
 import 'package:sm_admin_portal/screens/subscriber_deatil_screen/subscriber_detail_screen1.dart';
@@ -96,7 +96,7 @@ StatefulShellBranch PacksScreenScreen() {
         name: PacksScreenRoute,
         path: PacksScreenRoute,
         builder: (context, state) {
-          return PacksScreen();
+          return SuspendAndResumeScreen();
         },
       ),
     ],

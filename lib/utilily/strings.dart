@@ -20,4 +20,7 @@ String ActivationChannelStr = 'Activation Channel';
 String ActivationTypeStr = 'Activation Type';
 String DeactivateStr = 'Deactivate';
 String RecordsPerPageStr = 'Records per page';
+String LanguageStr='Language';
+String ActionStr='Action';
+String statusStr='Status';
 
