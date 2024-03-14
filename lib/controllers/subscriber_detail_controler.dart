@@ -70,7 +70,7 @@ class SubscriberDetailController extends GetxController {
       <List<CustomTableViewModel>>[].obs;
 RxBool isLoadingPackDetail = false.obs;
 RxBool isLoadingToneDetail = false.obs;
-
+String searchedText='';
   @override
   void onInit() async {
     createTablePackDetailsHeaderColumnList();
@@ -91,6 +91,7 @@ RxBool isLoadingToneDetail = false.obs;
 
   getPackDetail(String phoneNumber) async {
     packDetailList.clear();
+  
     isLoadingPackDetail.value = true;
     createTablePackDetailsHeaderColumnList();
     SubscribersModal modal = await getPackDetailApi(phoneNumber);
@@ -164,7 +165,8 @@ RxBool isLoadingToneDetail = false.obs;
             isVisible: true.obs,
             isRemoveable: false),
         CustomTableViewModel(
-            title: DeactivateStr, isVisible: true.obs, isRemoveable: false, isButton: true),
+            title: DeactivateStr, isVisible: true.obs, isRemoveable: false, isButton: true
+        ),
       ]);
     }
     print("Total items are ${toneDetailList.length}");
@@ -280,4 +282,39 @@ RxBool isLoadingToneDetail = false.obs;
           isButton: true),
     ]);
   }
+
+  // createTablePackDetailsHeaderColumnList() {
+  //   packDetailList.add([
+  //     CustomTableViewModel(
+  //         title: MsisdnStr, isVisible: true.obs, isRemoveable: true),
+  //     CustomTableViewModel(
+  //         title: OfferCodeStr, isVisible: true.obs, isRemoveable: true),
+  //     CustomTableViewModel(
+  //         title: SubscriptionStatusStr,
+  //         isVisible: true.obs,
+  //         isRemoveable: true,
+  //         isButton: false),
+  //     CustomTableViewModel(
+  //         title: ActivationDateStr, isVisible: true.obs, isRemoveable: true),
+  //     CustomTableViewModel(
+  //         title: NextBillingDateStr, isVisible: true.obs, isRemoveable: false),
+  //     CustomTableViewModel(
+  //         title: CpNameStr,
+  //         isVisible: true.obs,
+  //         isRemoveable: false,
+  //         isButton: false),
+  //     CustomTableViewModel(
+  //         title: ActivationChannelStr,
+  //         isVisible: true.obs,
+  //         isRemoveable: false),
+  //     CustomTableViewModel(
+  //         title: ActivationTypeStr, isVisible: true.obs, isRemoveable: false),
+  //     CustomTableViewModel(
+  //         title: DeactivateStr,
+  //         isVisible: true.obs,
+  //         isRemoveable: false,
+  //         isButton: true),
+  //   ]);
+  // }
+
 }

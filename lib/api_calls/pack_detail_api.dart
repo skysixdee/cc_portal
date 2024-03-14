@@ -7,7 +7,7 @@ Future<SubscribersModal> getPackDetailApi(String phoneNumber) async {
       'http://10.0.10.33:8085/selfcare/subscription-service/get-subscription';
   //  jsonData: );;
   Map<String, dynamic> jsonData = {"msisdn": phoneNumber};
-  await Future.delayed(Duration(seconds: 3));
+  await Future.delayed(Duration(seconds: 1));
   Map<String, dynamic> jsonMap =
       await NetworkManager().postResquest(url, jsonData);
   SubscribersModal modal = SubscribersModal.fromJson(jsonMap);

@@ -1,15 +1,7 @@
-//import'package:flutter/material.dart';
-
-// To parse this JSON data, do
-//
-//     final categoryModel = categoryModelFromJson(jsonString);
-
-// To parse this JSON data, do
-//
-//     final subscribersModal = subscribersModalFromJson(jsonString);
-
 import 'dart:convert';
 
+import 'package:sm_admin_portal/Models/subscribers_modal.dart';
+/*
 SubscribersModal subscribersModalFromJson(String str) =>
     SubscribersModal.fromJson(json.decode(str));
 
@@ -88,4 +80,4 @@ class Offer {
         "activationChannel": activationChannel,
       };
 }
-
+*/
