@@ -8,6 +8,8 @@
 
 import 'dart:convert';
 
+import 'package:get/get.dart';
+
 ToneDetailModal toneDetailModalFromJson(String str) =>
     ToneDetailModal.fromJson(json.decode(str));
 
@@ -56,7 +58,7 @@ class Tonelist {
   String? status;
   String? firstActivationDate;
   String? price;
-
+  RxBool? isSuspend = true.obs;
   Tonelist({
     this.contentId,
     this.contentName,
