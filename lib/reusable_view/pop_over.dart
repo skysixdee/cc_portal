@@ -10,8 +10,8 @@ void main() {
 class PopoverExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return Material(
+      child: Scaffold(
         body: const SafeArea(
           child: Center(
             child: Button(),
@@ -52,4 +52,3 @@ class Button extends StatelessWidget {
     );
   }
 }
-

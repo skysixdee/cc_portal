@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:popover/popover.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:sm_admin_portal/reusable_view/box_shadow.dart';
 
 import 'package:sm_admin_portal/reusable_view/reusable_drop_down_button.dart';
 import 'package:sm_admin_portal/reusable_view/reusable_textfield.dart';
@@ -71,110 +72,89 @@ class _MessageTemplateScreenState extends State<MessageTemplateScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return Material(
+      child: Scaffold(
         backgroundColor: Colors.white,
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Container(
             decoration: BoxDecoration(
               color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey,
-                  spreadRadius: 5,
-                  blurRadius: 5,
-                  offset: Offset(0, 3),
-                ),
-              ],
-              border: Border.all(
-                color: const Color.fromARGB(255, 220, 218, 218),
-              ),
+              boxShadow: boxShadow,
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(50.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // CustomReusableTextField(
-                  //   title: "Msisdn",
-                  //   isNumberInput: true,
-                  //   hintText: "Msisdn",
-                  //   width: 300,
-                  //   textController: TextEditingController(),
-                  //   onChange: (p0) {
-                  //     print("On onChange $p0");
-                  //   },
-                  //   onSubmit: (p0) {
-                  //     print("On Submit $p0");
-                  //   },
-                  // ),
-                  Expanded(
-                    child: GridView.builder(
-                      itemCount: widgitList.length,
-                      shrinkWrap: true,
-                      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 300,
-                          mainAxisExtent: 70,
-                          mainAxisSpacing: 20,
-                          crossAxisSpacing: 20),
-                      itemBuilder: (context, index) {
-                        return widgitList[index];
-                      },
-                    ),
-                  ),
-                  //gridBhavya(),
-                  SizedBox(
-
-                      // height: 600,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(50.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Flexible(
+                        child: GridView.builder(
+                          itemCount: widgitList.length,
+                          shrinkWrap: true,
+                          gridDelegate:
+                              SliverGridDelegateWithMaxCrossAxisExtent(
+                                  maxCrossAxisExtent: 300,
+                                  mainAxisExtent: 70,
+                                  mainAxisSpacing: 20,
+                                  crossAxisSpacing: 20),
+                          itemBuilder: (context, index) {
+                            return widgitList[index];
+                          },
+                        ),
                       ),
-                  Container(
-                    color: Colors.grey.withOpacity(0.1),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        SizedBox(width: 20),
-                        Container(
+                    ],
+                  ),
+                ),
+                Container(
+                  color: Colors.grey.withOpacity(0.1),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      SizedBox(width: 20),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(3),
+                          color: Colors.blue,
+                        ),
+                        width: 80,
+                        height: 33,
+                        child: Center(
+                          child: Text(
+                            'Submit',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 20),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 30.0),
+                        child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(3),
-                            color: Colors.blue,
+                            color: Colors.white,
+                            border: Border.all(
+                              color: Colors.black,
+                            ),
                           ),
                           width: 80,
-                          height: 33,
+                          height: 35,
                           child: Center(
                             child: Text(
-                              'Submit',
-                              style: TextStyle(color: Colors.white),
+                              'Reset',
+                              style: TextStyle(color: Colors.black),
                             ),
                           ),
                         ),
-                        SizedBox(width: 20),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 30.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(3),
-                              color: Colors.white,
-                              border: Border.all(
-                                color: Colors.black,
-                              ),
-                            ),
-                            width: 80,
-                            height: 35,
-                            child: Center(
-                              child: Text(
-                                'Reset',
-                                style: TextStyle(color: Colors.black),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

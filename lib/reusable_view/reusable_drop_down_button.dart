@@ -35,6 +35,7 @@ class ReusbaleDropDownButton extends StatelessWidget {
   final List<String> items; // = ["Shiv", "Kumar", "Yadav"];
   @override
   Widget build(BuildContext context) {
+    selectedIndex.value = -1;
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
