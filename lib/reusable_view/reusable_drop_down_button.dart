@@ -8,18 +8,21 @@ import 'package:get/state_manager.dart';
 import 'package:popover/popover.dart';
 
 class ReusbaleDropDownButton extends StatelessWidget {
-  ReusbaleDropDownButton({
-    super.key,
-    this.borderWidth = 1,
-    this.cornerRadius = 5,
-    this.heigth = 40,
-    this.width,
-    this.dropDownIcon,
-    required this.items,
-    this.onSelected,
-  });
+  ReusbaleDropDownButton(
+      {super.key,
+      this.borderWidth = 1,
+      this.cornerRadius = 5,
+      this.heigth = 40,
+      this.width,
+      this.dropDownIcon,
+      required this.items,
+      this.onSelected,
+      this.title = '',
+      this.hinttext = ''});
   final Function(int)? onSelected;
   final double borderWidth;
+  final String title;
+  final String hinttext;
   final double cornerRadius;
   final double heigth;
   final double? width;
@@ -32,27 +35,34 @@ class ReusbaleDropDownButton extends StatelessWidget {
   final List<String> items; // = ["Shiv", "Kumar", "Yadav"];
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        print(
-            "CustomDropDownButton ${MediaQuery.of(context).size} \n ${Get.width}");
-        popupOverOpen(context);
-      },
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(cornerRadius),
-        child: Stack(
-          children: [
-            Container(
-              height: heigth,
-              width: width,
-              clipBehavior: Clip.hardEdge,
-              decoration: mainDecoration(),
-              child: mainRowContainer(),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(title),
+        InkWell(
+          onTap: () {
+            print(
+                "CustomDropDownButton ${MediaQuery.of(context).size} \n ${Get.width}");
+            popupOverOpen(context);
+          },
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(cornerRadius),
+            child: Stack(
+              children: [
+                Container(
+                  height: heigth,
+                  width: width,
+                  clipBehavior: Clip.hardEdge,
+                  decoration: mainDecoration(),
+                  child: mainRowContainer(),
+                ),
+                leftRedLine()
+              ],
             ),
-            leftRedLine()
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 
@@ -131,7 +141,7 @@ class ReusbaleDropDownButton extends StatelessWidget {
       direction: PopoverDirection.bottom,
       arrowHeight: 4,
       radius: 4,
-      width: width ?? MediaQuery.of(context).size.width - 20,
+      width: 290, //width ?? MediaQuery.of(context).size.width - 20,
       arrowWidth: 0,
     );
   }

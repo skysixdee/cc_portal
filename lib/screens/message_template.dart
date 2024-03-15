@@ -23,12 +23,42 @@ class MessageTemplateScreen extends StatefulWidget {
 class _MessageTemplateScreenState extends State<MessageTemplateScreen> {
   bool enableClearBtn = false;
   final List<bool> cellType = [false, true, false, true, true];
-  final List<String> category = ['ToneId', 'ToneName', 'Artist'];
 
+  final List<String> Heading = [
+    'Msisdn',
+    'Category',
+    'Search Key',
+    'Frequency',
+    'Service Type',
+  ];
+  final List<Widget> widgitList = [
+    CustomReusableTextField(
+      textController: TextEditingController(),
+      title: "Msisdn",
+      hintText: 'Msisdn',
+    ),
+    ReusbaleDropDownButton(
+      items: ["ToneId", "ToneName", "Artist"],
+      title: "Category",
+    ),
+    CustomReusableTextField(
+      textController: TextEditingController(),
+      title: "Search Key",
+      hintText: 'Search Key',
+    ),
+    ReusbaleDropDownButton(
+      items: ["No frequency data found"],
+      title: "Frequeny",
+    ),
+    ReusbaleDropDownButton(items: [
+      "Promotional Pack",
+      "Promotional Tune",
+      "Promotional Pack and tune"
+    ], title: "Service Type"),
+  ];
+  final List<String> category = ['ToneId', 'ToneName', 'Artist'];
   final List<String> frequency = [
-    'Frequency Option 1',
-    'Frequency Option 2',
-    'Frequency Option 3',
+    'No data for frequency',
   ];
 
   final List<String> serviceType = [
@@ -45,7 +75,7 @@ class _MessageTemplateScreenState extends State<MessageTemplateScreen> {
       home: Scaffold(
         backgroundColor: Colors.white,
         body: Padding(
-          padding: const EdgeInsets.all(30.0),
+          padding: const EdgeInsets.all(8.0),
           child: Container(
             decoration: BoxDecoration(
               color: Colors.white,
@@ -62,7 +92,7 @@ class _MessageTemplateScreenState extends State<MessageTemplateScreen> {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(50.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,48 +110,27 @@ class _MessageTemplateScreenState extends State<MessageTemplateScreen> {
                   //     print("On Submit $p0");
                   //   },
                   // ),
-                  Flexible(
+                  Expanded(
                     child: GridView.builder(
-                      itemCount: cellType.length,
+                      itemCount: widgitList.length,
                       shrinkWrap: true,
                       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                        crossAxisSpacing: 20,
-                        mainAxisSpacing: 20,
-                        mainAxisExtent: 40,
-                        maxCrossAxisExtent: 250,
-                      ),
+                          maxCrossAxisExtent: 300,
+                          mainAxisExtent: 70,
+                          mainAxisSpacing: 20,
+                          crossAxisSpacing: 20),
                       itemBuilder: (context, index) {
-                        return
-                        
-                        
-                        
-                         GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              activeDropdownIndex = index;
-                            });
-                          },
-                          child: Center(
-                            child: cellType[index]
-                                ? ReusbaleDropDownButton(
-                                    items: index == 0
-                                        ? category
-                                        : (index == 1
-                                            ? frequency
-                                            : serviceType),
-                                  )
-                                : CustomReusableTextField(
-                                    textController: TextEditingController(),
-                                    hintText:
-                                        index == 0 ? "Msisdn" : "Search Key",
-                                  ),
-                          ),
-                        );
+                        return widgitList[index];
                       },
                     ),
                   ),
+                  //gridBhavya(),
+                  SizedBox(
+
+                      // height: 600,
+                      ),
                   Container(
-                    color: Colors.grey,
+                    color: Colors.grey.withOpacity(0.1),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -168,6 +177,53 @@ class _MessageTemplateScreenState extends State<MessageTemplateScreen> {
               ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Expanded gridBhavya() {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.only(left: 10.0),
+        child: GridView.builder(
+          itemCount: cellType.length,
+          shrinkWrap: true,
+          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+            crossAxisSpacing: 30,
+            mainAxisSpacing: 30,
+            mainAxisExtent: 40,
+            maxCrossAxisExtent: 300,
+          ),
+          itemBuilder: (context, index) {
+            return Padding(
+                padding: const EdgeInsets.only(bottom: 20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          activeDropdownIndex = index;
+                        });
+                      },
+                      child: Center(
+                        child: cellType[index]
+                            ? ReusbaleDropDownButton(
+                                items: index == 0
+                                    ? category
+                                    : (index == 1 ? frequency : serviceType),
+                              )
+                            : CustomReusableTextField(
+                                textController: TextEditingController(),
+                                hintText: index == 0 ? "Msisdn" : "Search Key",
+                              ),
+                      ),
+                    ),
+                  ],
+                ));
+          },
         ),
       ),
     );
