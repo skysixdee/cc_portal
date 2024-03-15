@@ -71,7 +71,7 @@ class CustomReusableTextField extends StatelessWidget {
         padding: const EdgeInsets.only(bottom: 2),
         child: Text(
           title,
-          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
+          style: const TextStyle(fontSize: 13, fontWeight: FontWeight.normal),
         ),
       ),
     );
