@@ -11,7 +11,7 @@ import 'package:sm_admin_portal/router/router_name.dart';
 import 'package:sm_admin_portal/screens/circle.dart';
 import 'package:sm_admin_portal/screens/first_screen.dart';
 import 'package:sm_admin_portal/screens/message.dart';
-import 'package:sm_admin_portal/screens/message_template.dart';
+import 'package:sm_admin_portal/screens/tone_activation_screen.dart';
 import 'package:sm_admin_portal/screens/offers_screen.dart';
 import 'package:sm_admin_portal/screens/suspend_and_resume_screen/suspend_and_resume_screen.dart';
 import 'package:sm_admin_portal/screens/home_sceen.dart';
@@ -41,7 +41,9 @@ final router = GoRouter(
         _subscriberDetailRouteScreen(),
         MessageTemplateScreenScreen(),
         MessageScreenScreen(),
-        RenewalScreenScreen()
+        RenewalScreenScreen(),
+        _bulkScreenScreen(),
+        _historyScreenScreen()
       ],
     ),
   ],
@@ -152,7 +154,39 @@ StatefulShellBranch MessageTemplateScreenScreen() {
         name: MessageTemplateScreenRoute,
         path: MessageTemplateScreenRoute,
         builder: (context, state) {
-          return MessageTemplateScreen();
+          return ToneActivationScreen();
+        },
+      ),
+    ],
+  );
+}
+
+StatefulShellBranch _bulkScreenScreen() {
+  return StatefulShellBranch(
+    routes: <RouteBase>[
+      GoRoute(
+        name: bulkScreenRoute,
+        path: bulkScreenRoute,
+        builder: (context, state) {
+          return Container(
+            child: Text("Bulk Scren"),
+          );
+        },
+      ),
+    ],
+  );
+}
+
+StatefulShellBranch _historyScreenScreen() {
+  return StatefulShellBranch(
+    routes: <RouteBase>[
+      GoRoute(
+        name: historyScreenRoute,
+        path: historyScreenRoute,
+        builder: (context, state) {
+          return Container(
+            child: Text("history Scren"),
+          );
         },
       ),
     ],

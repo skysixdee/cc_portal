@@ -6,6 +6,8 @@ const String MessageScreenRoute = '/MessageScreen';
 const String RenewalScreenRoute = '/RenewalScreen';
 const String MessageTemplateScreenRoute = '/MessageTemplateScreen';
 const String OffersScreenRoute = '/OffersScreen';
+const String bulkScreenRoute = '/bulkScreen';
+const String historyScreenRoute = '/historyScreen';
 
 
 

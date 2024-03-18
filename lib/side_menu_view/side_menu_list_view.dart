@@ -164,7 +164,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sm_admin_portal/Models/side_menu_model.dart';
 import 'package:sm_admin_portal/router/router_name.dart';
-import 'package:sm_admin_portal/screens/message_template.dart';
+import 'package:sm_admin_portal/screens/tone_activation_screen.dart';
 import 'package:sm_admin_portal/screens/renewal_screen.dart';
 import 'package:sm_admin_portal/side_menu_view/side_menu_card.dart';
 
@@ -184,6 +184,8 @@ class _SideMenuListViewState extends State<SideMenuListView> {
     SideMenuModel("Renewal Fallback", "/Renewal_Fallback"),
     SideMenuModel("Tone Activation", "/Tone_Activation"),
     SideMenuModel("Message", "/message"),
+    SideMenuModel("Bulk", "/bulk"),
+    SideMenuModel("History", "/history"),
   ];
   List<String> cardTexts = [
     "Offers",
@@ -192,6 +194,8 @@ class _SideMenuListViewState extends State<SideMenuListView> {
     "Renewal Fallback",
     "Tone Activation",
     "message",
+    "Bulk",
+    "History",
   ];
 
   List<String> filteredCards = [];
@@ -259,8 +263,12 @@ class _SideMenuListViewState extends State<SideMenuListView> {
                       context.goNamed(RenewalScreenRoute);
                     } else if (index == 4) {
                       context.goNamed(MessageTemplateScreenRoute);
-                    } else {
+                    } else if (index == 5) {
                       context.goNamed(MessageScreenRoute);
+                    } else if (index == 6) {
+                      context.goNamed(bulkScreenRoute);
+                    } else {
+                      context.goNamed(historyScreenRoute);
                     }
                     //else (index == 3){}
 
