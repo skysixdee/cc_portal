@@ -442,14 +442,14 @@ import 'package:sm_admin_portal/reusable_view/reusable_view_delete.dart';
 // void main() {
 //   runApp(MessageTemplateScreen());
 // }
-class MessageTemplateScreen extends StatefulWidget {
-  MessageTemplateScreen({Key? key}) : super(key: key);
+class ToneActivationScreen extends StatefulWidget {
+  ToneActivationScreen({Key? key}) : super(key: key);
 
   @override
-  State<MessageTemplateScreen> createState() => _MessageTemplateScreenState();
+  State<ToneActivationScreen> createState() => _ToneActivationScreenState();
 }
 
-class _MessageTemplateScreenState extends State<MessageTemplateScreen> {
+class _ToneActivationScreenState extends State<ToneActivationScreen> {
   ToneActiveController con = Get.put(ToneActiveController());
 
   @override
