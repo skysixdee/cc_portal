@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:popover/popover.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:sm_admin_portal/controllers/tone_active_controller.dart';
 import 'package:sm_admin_portal/reusable_view/box_shadow.dart';
 
 import 'package:sm_admin_portal/reusable_view/reusable_drop_down_button.dart';
@@ -449,75 +450,7 @@ class MessageTemplateScreen extends StatefulWidget {
 }
 
 class _MessageTemplateScreenState extends State<MessageTemplateScreen> {
-  bool enableClearBtn = false;
-
-  String selectedFrequency = "";
-  RxBool isFrequencySelected = false.obs;
-  final List<String> Heading = [
-    'Msisdn',
-    'Category',
-    'Search Key',
-    'Frequency',
-    'Service Type',
-  ];
-  final List<Widget> widgitList = [
-    CustomReusableTextField(
-      textController: TextEditingController(),
-      title: "Msisdn",
-      hintText: 'Msisdn',
-    ),
-    ReusbaleDropDownButton(
-        items: ["ToneId", "ToneName", "Artist"],
-        title: "Category",
-        onChanged: (value) {}),
-    CustomReusableTextField(
-      textController: TextEditingController(),
-      title: "Search Key",
-      hintText: 'Search Key',
-    ),
-    ReusbaleDropDownButton(
-        items: ["Daily", "Weekly", "Montly"],
-        title: "Frequeny",
-        onChanged: (value) {}),
-    ReusbaleDropDownButton(items: [
-      "Promotional Pack",
-      "Promotional Tune",
-      "Promotional Pack and tune"
-    ], title: "Service Type", onChanged: (value) {}),
-    ReusbaleDropDownButton(
-        items: ["Daily", "Weekly", "Montly"],
-        title: "Frequeny",
-        onChanged: (value) {
-          print("Tapped");
-          // isFrequencySelected.value = true;
-        }),
-    ReusbaleDropDownButton(
-        items: ["Daily", "Weekly", "Montly"],
-        title: "Frequeny",
-        onChanged: (value) {}),
-    ReusbaleDropDownButton(
-        items: ["Daily", "Weekly", "Montly"],
-        title: "Frequeny",
-        onChanged: (value) {}),
-  ];
-  final List<String> category = ['ToneId', 'ToneName', 'Artist'];
-  final List<String> frequency = [
-    'Daily',
-    'Weekly',
-    'Monthly',
-  ];
-
-  void changeFrequency() {
-    isFrequencySelected.value = true;
-  }
-
-  final List<String> serviceType = [
-    'Promotional Pack',
-    'Promotional Tunes',
-    'Promotional Pack and Tune',
-  ];
-
-  int activeDropdownIndex = -1;
+  ToneActiveController con = Get.put(ToneActiveController());
 
   @override
   Widget build(BuildContext context) {
@@ -541,11 +474,9 @@ class _MessageTemplateScreenState extends State<MessageTemplateScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Flexible(
-                        child: GridView.builder(
-                            itemCount: isFrequencySelected.value
-                                ? widgitList.length
-                                : 5,
+                      Flexible(child: Obx(() {
+                        return GridView.builder(
+                            itemCount: con.widgitList.length,
                             shrinkWrap: true,
                             gridDelegate:
                                 SliverGridDelegateWithMaxCrossAxisExtent(
@@ -554,16 +485,9 @@ class _MessageTemplateScreenState extends State<MessageTemplateScreen> {
                                     mainAxisSpacing: 20,
                                     crossAxisSpacing: 20),
                             itemBuilder: (context, index) {
-                              // if (index == 3 && selectedFrequency == "Daily") {
-                              //   return ReusbaleDropDownButton(
-                              //     items: ['hh', 'hg', 'g'],
-                              //     title: 'hxx',
-                              //     onChanged: (Value) {},
-                              //   );
-                              // } else
-                              return widgitList[index];
-                            }),
-                      ),
+                              return con.widgitList[index];
+                            });
+                      })),
                     ],
                   ),
                 ),
