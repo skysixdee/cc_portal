@@ -18,7 +18,8 @@ class ReusbaleDropDownButton extends StatelessWidget {
       required this.items,
       this.onSelected,
       this.title = '',
-      this.hinttext = ''});
+      this.hinttext = '',
+      required Null Function(dynamic value) onChanged});
   final Function(int)? onSelected;
   final double borderWidth;
   final String title;

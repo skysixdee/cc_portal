@@ -182,7 +182,7 @@ class _SideMenuListViewState extends State<SideMenuListView> {
     SideMenuModel("Packs", "/Packs"),
     SideMenuModel("Subscriber Deatil", "/Circle"),
     SideMenuModel("Renewal Fallback", "/Renewal_Fallback"),
-    SideMenuModel("Message Template", "/Message_Template"),
+    SideMenuModel("Tone Activation", "/Tone_Activation"),
     SideMenuModel("Message", "/message"),
   ];
   List<String> cardTexts = [
@@ -190,7 +190,7 @@ class _SideMenuListViewState extends State<SideMenuListView> {
     "Packs",
     "Subscriber Deatil",
     "Renewal Fallback",
-    "Message Template",
+    "Tone Activation",
     "message",
   ];
 
