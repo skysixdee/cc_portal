@@ -37,7 +37,8 @@ class _SearchNumberViewState extends State<SearchNumberView> {
     return SingleChildScrollView(
       child: Container(
         // height: 100,
-        decoration: BoxDecoration(
+        decoration:
+         BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           boxShadow: boxShadow,
           color: white,

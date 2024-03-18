@@ -13,11 +13,11 @@ import 'package:sm_admin_portal/screens/first_screen.dart';
 import 'package:sm_admin_portal/screens/message.dart';
 import 'package:sm_admin_portal/screens/message_template.dart';
 import 'package:sm_admin_portal/screens/offers_screen.dart';
-import 'package:sm_admin_portal/screens/pack_screen/suspend_and_resume_screen.dart';
+import 'package:sm_admin_portal/screens/suspend_and_resume_screen/suspend_and_resume_screen.dart';
 import 'package:sm_admin_portal/screens/home_sceen.dart';
 import 'package:sm_admin_portal/screens/renewal_screen.dart';
 import 'package:sm_admin_portal/screens/subscriber_deatil_screen/subscriber_detail_screen1.dart';
-import 'package:sm_admin_portal/screens/subscriber_deatil_screen/subscriber_detial_screen.dart';
+
 import 'package:sm_admin_portal/side_menu_view/side_menu_view.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/constants.dart';
