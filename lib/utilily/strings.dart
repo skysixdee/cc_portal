@@ -6,6 +6,13 @@ String resetStr = 'Reset';
 String packDetailsStr = "Pack Details";
 String toneDetailsStr = "Tone Details";
 
+String allStr = 'All';
+String tonePurchaseStr = 'Tone Purchase';
+String packRenewalStr = 'Pack Renewal';
+String giftingStr = 'Gifting';
+String copyToneStr = 'Copy Tone';
+String packSubscriptionStr = 'Subscription Pack';
+
 String MsisdnStr = 'Msisdn';
 String msisdnCStr = 'MSISDN';
 String fromDateCStr = 'FROM DATE';

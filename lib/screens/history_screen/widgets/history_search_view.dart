@@ -87,6 +87,8 @@ class HistorySearchView extends StatelessWidget {
   Widget msisdnInputBuilder() {
     return CustomReusableTextField(
       textController: textController,
+      hintText: msisdnCStr,
+      isNumberInput: true,
       title: msisdnCStr,
     );
   }
@@ -99,9 +101,12 @@ class HistorySearchView extends StatelessWidget {
       onTap: () {
         print("Button tapped");
       },
-      dropDownIcon: Icon(
-        Icons.calendar_month,
-        size: 16,
+      dropDownIcon: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 4),
+        child: Icon(
+          Icons.calendar_month,
+          size: 16,
+        ),
       ),
     );
   }
@@ -114,9 +119,12 @@ class HistorySearchView extends StatelessWidget {
       onTap: () {
         print("Button tapped");
       },
-      dropDownIcon: Icon(
-        Icons.calendar_month,
-        size: 16,
+      dropDownIcon: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 4),
+        child: Icon(
+          Icons.calendar_month,
+          size: 16,
+        ),
       ),
     );
   }
