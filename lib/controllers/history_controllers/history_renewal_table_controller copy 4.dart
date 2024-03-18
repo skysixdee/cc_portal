@@ -16,18 +16,22 @@ class HistoryRenewalTableController extends GetxController {
 
   createHeaderColumnList() {
     renewalList.add([
-      CustomTableViewModel(title: aPartyStr, isVisible: true.obs),
-      CustomTableViewModel(title: bPartyStr, isVisible: true.obs),
-      CustomTableViewModel(title: englishToneNameStr, isVisible: true.obs),
-      CustomTableViewModel(title: NextBillingDateStr, isVisible: true.obs),
+      CustomTableViewModel(title: msisdnCStr, isVisible: true.obs),
+      CustomTableViewModel(title: OfferCodeStr, isVisible: true.obs),
+      CustomTableViewModel(title: ActivationDateStr, isVisible: true.obs),
+      CustomTableViewModel(title: lastChargeDeductionStr, isVisible: true.obs),
       CustomTableViewModel(
-          title: callChargeStr, isVisible: true.obs, isRemoveable: false),
+          title: NextBillingDateStr, isVisible: true.obs, isRemoveable: false),
       CustomTableViewModel(
-          title: channelStr, isVisible: true.obs, isRemoveable: false),
+          title: ActivationChannelStr,
+          isVisible: true.obs,
+          isRemoveable: false),
       CustomTableViewModel(
-          title: timeStampStr, isVisible: true.obs, isRemoveable: false),
+          title: toneIdStr, isVisible: true.obs, isRemoveable: false),
       CustomTableViewModel(
-          title: toneTypeStr, isVisible: true.obs, isRemoveable: false),
+          title: toneNameStr, isVisible: true.obs, isRemoveable: false),
+      CustomTableViewModel(
+          title: amountDeductedStr, isVisible: true.obs, isRemoveable: false),
       CustomTableViewModel(
           title: transactionTypeStr, isVisible: true.obs, isRemoveable: false),
     ]);
@@ -45,6 +49,10 @@ class HistoryRenewalTableController extends GetxController {
           CustomTableViewModel(value: channelStr, isVisible: true.obs),
           CustomTableViewModel(value: timeStampStr, isVisible: true.obs),
           CustomTableViewModel(value: toneTypeStr, isVisible: true.obs),
+          CustomTableViewModel(
+              title: amountDeductedStr,
+              isVisible: true.obs,
+              isRemoveable: false),
           CustomTableViewModel(value: transactionTypeStr, isVisible: true.obs),
         ],
       );

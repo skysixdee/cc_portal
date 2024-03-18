@@ -16,20 +16,16 @@ class HistoryCopyTableController extends GetxController {
 
   createHeaderColumnList() {
     copyList.add([
-      CustomTableViewModel(title: aPartyStr, isVisible: true.obs),
+      CustomTableViewModel(title: timeStampStr, isVisible: true.obs),
+      CustomTableViewModel(title: msisdnCStr, isVisible: true.obs),
       CustomTableViewModel(title: bPartyStr, isVisible: true.obs),
-      CustomTableViewModel(title: englishToneNameStr, isVisible: true.obs),
-      CustomTableViewModel(title: NextBillingDateStr, isVisible: true.obs),
+      CustomTableViewModel(title: toneIdStr, isVisible: true.obs),
+      CustomTableViewModel(
+          title: toneNameStr, isVisible: true.obs, isRemoveable: false),
       CustomTableViewModel(
           title: callChargeStr, isVisible: true.obs, isRemoveable: false),
       CustomTableViewModel(
-          title: channelStr, isVisible: true.obs, isRemoveable: false),
-      CustomTableViewModel(
-          title: timeStampStr, isVisible: true.obs, isRemoveable: false),
-      CustomTableViewModel(
-          title: toneTypeStr, isVisible: true.obs, isRemoveable: false),
-      CustomTableViewModel(
-          title: transactionTypeStr, isVisible: true.obs, isRemoveable: false),
+          title: basicCauseStr, isVisible: true.obs, isRemoveable: false),
     ]);
   }
 
@@ -44,8 +40,6 @@ class HistoryCopyTableController extends GetxController {
           CustomTableViewModel(value: callChargeStr, isVisible: true.obs),
           CustomTableViewModel(value: channelStr, isVisible: true.obs),
           CustomTableViewModel(value: timeStampStr, isVisible: true.obs),
-          CustomTableViewModel(value: toneTypeStr, isVisible: true.obs),
-          CustomTableViewModel(value: transactionTypeStr, isVisible: true.obs),
         ],
       );
     }

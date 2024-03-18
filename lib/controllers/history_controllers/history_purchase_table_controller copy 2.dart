@@ -25,7 +25,9 @@ class HistoryPurchaseTableController extends GetxController {
       CustomTableViewModel(
           title: channelStr, isVisible: true.obs, isRemoveable: false),
       CustomTableViewModel(
-          title: timeStampStr, isVisible: true.obs, isRemoveable: false),
+          title: subscriptionDateStr, isVisible: true.obs, isRemoveable: false),
+      CustomTableViewModel(
+          title: basicCauseStr, isVisible: true.obs, isRemoveable: false),
       CustomTableViewModel(
           title: toneTypeStr, isVisible: true.obs, isRemoveable: false),
       CustomTableViewModel(
@@ -45,6 +47,8 @@ class HistoryPurchaseTableController extends GetxController {
           CustomTableViewModel(value: channelStr, isVisible: true.obs),
           CustomTableViewModel(value: timeStampStr, isVisible: true.obs),
           CustomTableViewModel(value: toneTypeStr, isVisible: true.obs),
+          CustomTableViewModel(
+              value: basicCauseStr, isVisible: true.obs, isRemoveable: false),
           CustomTableViewModel(value: transactionTypeStr, isVisible: true.obs),
         ],
       );
