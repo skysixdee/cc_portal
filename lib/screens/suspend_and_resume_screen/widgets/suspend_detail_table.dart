@@ -10,6 +10,7 @@ import '../../../reusable_view/custom_table_view/custom_table_view.dart';
 class SuspendDetailTable extends StatelessWidget {
   SuspendDetailTable({super.key});
   SuspendResumeController cont = Get.find();
+  bool _isHovered=false;
 
   @override
   Widget build(BuildContext context) {
@@ -25,13 +26,13 @@ class SuspendDetailTable extends StatelessWidget {
             return InkWell(
               onTap: () {
                 showPopover(
+                  radius: 4,
                   context: context,
                   bodyBuilder: (context) {
-                    return DropDownItems1(row, colum);
+                    return DropDownItems1(context,row, colum);
                   },
                   direction: PopoverDirection.bottom,
-                  width: 60,
-                  height: 45,
+                  width: 110,
                   arrowHeight: 10,
                   arrowWidth: 20,
                 );
@@ -64,35 +65,52 @@ class SuspendDetailTable extends StatelessWidget {
     });
   }
 
-  DropDownItems1(int? row, int? colum) {
-    return Column(children: [
+  DropDownItems1(BuildContext context,int? row, int? colum) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: [
       InkWell(
         onTap: () {
           print("row = $row and colum = $colum");
-          cont.tonelist?[row! - 1].isSuspend?.value = true;
-          //!cont.tonelist![row - 1].isSuspend!.value;
-          cont.changeStatus();
-          cont.suspendService();
+         
+          Navigator.of(context).pop();
+          //cont.changeStatus();
+          cont.suspendService(row!-1 );
+          
         },
-        child: Text(
-          'Suspend',
-          style: TextStyle(
-            fontFamily: 'Roboto',
-            fontWeight: FontWeight.w900,
+        child: Container(
+          width:110,
+          height: 40,
+          child: Center(
+            child: Text(
+              'Suspend',
+              style: TextStyle(
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.w900,
+              ),
+            ),
           ),
         ),
       ),
       InkWell(
         onTap: () {
-          cont.tonelist?[row! - 1].isSuspend?.value = false;
-          cont.changeStatus();
-          cont.suspendService();
+            cont.resumeService(row!-1);
+             Navigator.of(context).pop();
+         // cont.suspendService();
         },
-        child: Text(
-          'Resume',
-          style: TextStyle(
-            fontFamily: 'Roboto',
-            fontWeight: FontWeight.w900,
+        child: Container(
+          width:110,
+          height: 40,
+          child: Center(
+            child: Text(
+              'Resume',
+              style: TextStyle(
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.w900,
+              ),
+            ),
           ),
         ),
       ),

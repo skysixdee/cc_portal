@@ -56,16 +56,18 @@ class CustomTableView extends StatelessWidget {
                 for (int column = 0; column < headerColumList.length; column++)
                   if (headerColumList[column].isVisible.value)
                     Container(
-                        //color: headerBgColor ?? Colors.grey,
-                        child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Center(
+                      //color: headerBgColor ?? Colors.grey,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Center(
                           child: Text(
-                        headerColumList[column].title,
-                        style: headerTextStyle ??
-                            const TextStyle(fontWeight: FontWeight.bold),
-                      )),
-                    )),
+                            headerColumList[column].title,
+                            style: headerTextStyle ??
+                                const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ),
               ])
             ],
           );

@@ -60,6 +60,7 @@ class Offer {
   String? chargedValidity;
   String? activationChannel;
   RxBool? isSuspended = true.obs;
+  
   Offer({
     this.offerName,
     this.offerStatus,
@@ -68,7 +69,6 @@ class Offer {
     this.chargedDate,
     this.chargedValidity,
     this.activationChannel,
-    this.isSuspended,
   });
 
   factory Offer.fromJson(Map<String, dynamic> json) => Offer(

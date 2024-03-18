@@ -14,10 +14,12 @@ import '../reusable_view/custom_table_view/custom_table_view_model.dart';
 class SuspendResumeController extends GetxController {
   RxList<List<CustomTableViewModel>> suspendDetailList =
       <List<CustomTableViewModel>>[].obs;
-  List<Tonelist>? tonelist = [];
+  List<Offer>? tonelist = [];
 
-  RxBool isLoadingPackDetail = false.obs;
-  RxBool isLoadingToneDetail = false.obs;
+  //RxBool isLoadingPackDetail = false.obs;
+  //RxBool isLoadingToneDetail = false.obs;
+
+  RxBool isLoadingSuspendResumedetail = false.obs;
   String searchedText = '';
   String msisdn = '';
   @override
@@ -29,33 +31,82 @@ class SuspendResumeController extends GetxController {
   }
 
   onSearchTapAction() {
-    getToneDetail(msisdn);
+    getPackDetail(msisdn);
   }
 
-  getToneDetail(String msisdn) async {
-    await Future.delayed(Duration(seconds: 1));
+  // getPackDetail(String phoneNumber) async {
+  //   await Future.delayed(Duration(seconds: 1));
+  //   suspendDetailList.clear();
+  //   SubscribersModal modal = await getPackDetailApi(phoneNumber);
+  //   //ToneDetailModal model = await getToneDetailApi();
+  //   isLoadingToneDetail.value = false;
+  //   if (modal.respCode == 0) {
+  //     suspendDetailList.clear();
+  //     tonelist = modal.tonelist ?? [];
+  //     createTableSuspendResumeDetailsHeaderColumnList();
+  //     createSuspendResumeDetailRowList(tonelist, msisdn);
+  //   }
+
+  //   // print("tone detail list = ${toneDetailList.length}");
+  // }
+
+   
+   getPackDetail(String phoneNumber) async {
     suspendDetailList.clear();
-    // SubscribersModal modal = await getPackDetailApi(msisdn);
-    ToneDetailModal model = await getToneDetailApi();
-    isLoadingToneDetail.value = false;
-    if (model.respCode == 0) {
-      suspendDetailList.clear();
-      tonelist = model.tonelist ?? [];
-      createTableSuspendResumeDetailsHeaderColumnList();
-      createSuspendResumeDetailRowList(tonelist, msisdn);
-    }
-
-    // print("tone detail list = ${toneDetailList.length}");
+  
+    //isLoadingPackDetail.value = true;
+    isLoadingSuspendResumedetail.value=true;
+    createTableSuspendResumeDetailsHeaderColumnList();
+    SubscribersModal modal = await getPackDetailApi(phoneNumber);
+    //isLoadingPackDetail.value = false;
+    isLoadingSuspendResumedetail.value=false;
+    tonelist = modal.offers ?? [];
+    createSuspendResumeDetailRowList(modal.offers, phoneNumber);
   }
 
-  suspendService() async {
+   
+  // getPackDetail(String phoneNumber) async {
+  //   await Future.delayed(Duration(seconds: 1));
+  //   suspendDetailList.clear();
+  //   SubscribersModal modal = await getPackDetailApi(phoneNumber);
+  //   //ToneDetailModal model = await getToneDetailApi();
+  //   isLoadingToneDetail.value = false;
+  //   if (modal.respCode == 0) {
+  //     suspendDetailList.clear();
+  //     tonelist = modal.tonelist ?? [];
+  //     createTableSuspendResumeDetailsHeaderColumnList();
+  //     createSuspendResumeDetailRowList(tonelist, msisdn);
+  //   }
+
+  //   // print("tone detail list = ${toneDetailList.length}");
+  // }
+
+  suspendService(int index) async {
     GenericModal genericModal = await suspendApi(msisdn);
     if (genericModal.respCode == 0) {
       print(" suspended");
+     
+tonelist?[index].isSuspended?.value = true;
+      
+      
+      changeStatus() ;
     } else {
       print("failed");
     }
   }
+  resumeService(int index) async {
+    GenericModal genericModal = await suspendApi(msisdn);
+    if (genericModal.respCode == 0) {
+      print(" suspended");
+      
+tonelist?[index].isSuspended?.value = false;
+      
+      changeStatus() ;
+    } else {
+      print("failed");
+    }
+  }
+
 
   changeStatus() {
     suspendDetailList.clear();
@@ -102,43 +153,43 @@ class SuspendResumeController extends GetxController {
     ]);
   }
 
-  createSuspendResumeDetailRowList(List<Tonelist>? list, String msisdn) {
+  createSuspendResumeDetailRowList(List<Offer>? list, String msisdn) {
     print("Offers items Are = ${list?.length}");
     if (list != null) {
       if (list.isEmpty) return;
-
+print("suspendDetailList = ${suspendDetailList.length}");
       for (var item in list) {
         suspendDetailList.add([
           CustomTableViewModel(
               value: msisdn, isVisible: true.obs, isRemoveable: true),
           CustomTableViewModel(
-              value: item.albumName ?? '',
+              value: item.offerName ?? '',
               isVisible: true.obs,
               isRemoveable: true),
           CustomTableViewModel(
-              value: item.artistName ?? '',
+              value: item.expiryDate ?? '',
               isVisible: true.obs,
               isRemoveable: true,
               isButton: false),
           CustomTableViewModel(
-              value: item.contentId ?? '',
+              value: item.offerName ?? '',
               isVisible: true.obs,
               isRemoveable: true),
           CustomTableViewModel(
-              value: item.contentId ?? '',
+              value: item.offerName ?? '',
               isVisible: true.obs,
               isRemoveable: false),
           CustomTableViewModel(
-              value: item.artistName ?? '',
+              value: item.offerName ?? '',
               isVisible: true.obs,
               isRemoveable: false,
               isButton: false),
           CustomTableViewModel(
-              value: item.albumName ?? '',
+              value: item.offerName ?? '',
               isVisible: true.obs,
               isRemoveable: false),
           CustomTableViewModel(
-              value: (item.isSuspend!.value) ? "YES" : "NO",
+              value: (item.isSuspended?.value ?? true) ? "YES" : "NO",
               isVisible: true.obs,
               isRemoveable: false),
           CustomTableViewModel(

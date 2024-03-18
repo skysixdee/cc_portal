@@ -13,9 +13,10 @@ Future<GenericModal> suspendApi(String msisdn)async{
   };
 //Map<String, dynamic> response =    await NetworkManager().postResquest(suspendUrl, jsonData);
 Map<String, dynamic> response = json.decode("""{
-"respCode" : 1002,
+"respCode" : 0,
  "message" : "successful"
 }""");
+await Future.delayed(Duration(seconds: 2));
 GenericModal model = GenericModal.fromJson(response);
 print("Model = $model");
 return model;
