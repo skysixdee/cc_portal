@@ -69,10 +69,9 @@ String respoString1 = """"{
     
 }""";*/
 
-
 import 'dart:convert';
 
-import 'package:http/http.dart' as http; // Import http package for making HTTP requests
+//import 'package:http/http.dart' as http; // Import http package for making HTTP requests
 import 'package:sm_admin_portal/Models/tone_detail_modal.dart';
 import 'package:sm_admin_portal/network_manager/network_manager.dart';
 import 'package:sm_admin_portal/utilily/urls.dart';
@@ -87,28 +86,30 @@ Future<ToneDetailModal> getToneDetailApi() async {
     "languageCode": "",
     "channelId": "",
   };
-  
-   try {
-  //   final response = await http.post(
-  //     Uri.parse(url),
-  //     body: jsonEncode(jsonData),
-  //     headers: <String, String>{
-  //       'Content-Type': 'application/json; charset=UTF-8',
-  //     },
-  //   );
+
+  try {
+    //   final response = await http.post(
+    //     Uri.parse(url),
+    //     body: jsonEncode(jsonData),
+    //     headers: <String, String>{
+    //       'Content-Type': 'application/json; charset=UTF-8',
+    //     },
+    //   );
 
 //Map<String, dynamic> respMap =await NetworkManager().postResquest(toneDetailUrl, jsonData);
+
+
 
 Map<String, dynamic> respMap = json.decode(toneDetailResp);
 await Future.delayed(Duration(seconds: 2));
 return ToneDetailModal.fromJson(respMap);
     
+
   } catch (e) {
-   // throw Exception('Failed to connect to the server: $e');
+    // throw Exception('Failed to connect to the server: $e');
     return ToneDetailModal(message: 'Failed to connect to the server');
   }
 }
-
 
 String toneDetailResp = """{
     "respCode": 0,
@@ -169,4 +170,3 @@ String toneDetailResp = """{
 }
 
 """;
-

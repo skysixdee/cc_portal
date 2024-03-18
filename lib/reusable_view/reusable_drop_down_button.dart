@@ -8,18 +8,19 @@ import 'package:get/state_manager.dart';
 import 'package:popover/popover.dart';
 
 class ReusbaleDropDownButton extends StatelessWidget {
-  ReusbaleDropDownButton(
-      {super.key,
-      this.borderWidth = 1,
-      this.cornerRadius = 5,
-      this.heigth = 40,
-      this.width,
-      this.dropDownIcon,
-      required this.items,
-      this.onSelected,
-      this.title = '',
-      this.hinttext = ''});
-  final Function(int)? onSelected;
+  ReusbaleDropDownButton({
+    super.key,
+    this.borderWidth = 1,
+    this.cornerRadius = 5,
+    this.heigth = 40,
+    this.width,
+    this.dropDownIcon,
+    required this.items,
+    this.onChanged,
+    this.title = '',
+    this.hinttext = '',
+  });
+  Function(int)? onChanged;
   final double borderWidth;
   final String title;
   final String hinttext;
@@ -35,6 +36,7 @@ class ReusbaleDropDownButton extends StatelessWidget {
   final List<String> items; // = ["Shiv", "Kumar", "Yadav"];
   @override
   Widget build(BuildContext context) {
+    selectedIndex.value = -1;
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -151,8 +153,8 @@ class ReusbaleDropDownButton extends StatelessWidget {
       Navigator.of(context).pop();
       selectedIndex.value = index;
       selectedText.value = items[index];
-      if (onSelected != null) {
-        onSelected!(index);
+      if (onChanged != null) {
+        onChanged!(index);
       }
     }, child: Obx(
       () {

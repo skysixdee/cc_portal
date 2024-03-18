@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:sm_admin_portal/controllers/subscriber_detail_controler.dart';
 import 'package:sm_admin_portal/network_manager/network_manager.dart';
+import 'package:sm_admin_portal/reusable_view/box_shadow.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
 
@@ -39,14 +40,7 @@ class _SearchNumberViewState extends State<SearchNumberView> {
         decoration:
          BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black12,
-              blurRadius: 5,
-              spreadRadius: 5,
-              offset: Offset(0, 3),
-            ),
-          ],
+          boxShadow: boxShadow,
           color: white,
         ),
         width: 1100,
@@ -249,7 +243,6 @@ class _SearchNumberViewState extends State<SearchNumberView> {
     });
   }
 
- 
   void getDetail() {
     cont.getPackDetail("7000000033");
     print('request successful');

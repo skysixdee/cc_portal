@@ -27,10 +27,9 @@ Widget sideMenuCard({required String text, required bool isSelected}) {
 }
 
 void main() {
-  runApp(MaterialApp(
-    home: Scaffold(
+  runApp(Material(
+    child: Scaffold(
       body: SideMenuListView(),
-            
     ),
   ));
 }
