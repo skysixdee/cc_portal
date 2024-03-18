@@ -3,7 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sm_admin_portal/controllers/history_controller.dart';
+import 'package:sm_admin_portal/controllers/history_controllers/history_all_table_controller.dart';
+import 'package:sm_admin_portal/controllers/history_controllers/history_controller.dart';
+import 'package:sm_admin_portal/controllers/history_controllers/history_copy_table_controller%20copy%203.dart';
+import 'package:sm_admin_portal/controllers/history_controllers/history_gift_table_controller%20copy%205.dart';
+import 'package:sm_admin_portal/controllers/history_controllers/history_purchase_table_controller%20copy%202.dart';
+import 'package:sm_admin_portal/controllers/history_controllers/history_renewal_table_controller%20copy%204.dart';
+import 'package:sm_admin_portal/controllers/history_controllers/history_subscription_table_controller%20copy.dart';
 import 'package:sm_admin_portal/enums/history_enum.dart';
 import 'package:sm_admin_portal/reusable_view/custom_border_tab_view.dart';
 import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_menu_popup_button.dart';
@@ -27,19 +33,20 @@ class HistoryScreen extends StatefulWidget {
 }
 
 class _HistoryScreenState extends State<HistoryScreen> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return const Placeholder();
-//   }
-// }
-// class HistoryScreen extends StatelessWidget {
+  //
 
   late HistoryController con;
   final double borderWidth = 1;
-  final double tabButtonHeight = 45;
+  final double tabButtonHeight = 40;
   @override
   void initState() {
     con = Get.put(HistoryController());
+    Get.lazyPut(() => HistoryAllTableController());
+    Get.lazyPut(() => HistoryPurchaseTableController());
+    Get.lazyPut(() => HistoryRenewalTableController());
+    Get.lazyPut(() => HistoryGiftTableController());
+    Get.lazyPut(() => HistoryCopyTableController());
+    Get.lazyPut(() => HistorySubscriptionTableController());
 
     super.initState();
   }
@@ -47,6 +54,14 @@ class _HistoryScreenState extends State<HistoryScreen> {
   @override
   void dispose() {
     Get.delete<HistoryController>();
+
+    Get.delete<HistoryAllTableController>();
+    Get.delete<HistoryPurchaseTableController>();
+    Get.delete<HistoryRenewalTableController>();
+    Get.delete<HistoryGiftTableController>();
+    Get.delete<HistoryCopyTableController>();
+    Get.delete<HistorySubscriptionTableController>();
+
     super.dispose();
   }
 
@@ -61,9 +76,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
             searchView(),
             const SizedBox(height: 14),
             customTableTabView(),
-            Obx(() {
-              return loadRespectiveTableType(con.tableType.value);
-            })
+            Expanded(
+              child: Obx(() {
+                return loadRespectiveTableType(con.tableType.value);
+              }),
+            )
           ],
         ),
       ),
@@ -72,16 +89,33 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
   Widget loadRespectiveTableType(HistoryTableType type) {
     if (HistoryTableType.all == con.tableType.value) {
+      HistoryAllTableController allCont = Get.put(HistoryAllTableController());
+      con.tableMenuList.value = allCont.allList[0];
       return HistoryAllTableView();
     } else if (HistoryTableType.copy == con.tableType.value) {
+      HistoryCopyTableController copyCont =
+          Get.put(HistoryCopyTableController());
+      con.tableMenuList.value = copyCont.copyList[0];
       return HistoryCopyToneTableView();
     } else if (HistoryTableType.gift == con.tableType.value) {
+      HistoryGiftTableController giftCont =
+          Get.put(HistoryGiftTableController());
+      con.tableMenuList.value = giftCont.giftList[0];
       return HistoryGiftingTableView();
     } else if (HistoryTableType.purchase == con.tableType.value) {
+      HistoryPurchaseTableController purchaseCont =
+          Get.put(HistoryPurchaseTableController());
+      con.tableMenuList.value = purchaseCont.purchaseList[0];
       return HistoryTonePurchaseTableView();
     } else if (HistoryTableType.renewal == con.tableType.value) {
+      HistoryRenewalTableController renewCont =
+          Get.put(HistoryRenewalTableController());
+      con.tableMenuList.value = renewCont.renewalList[0];
       return HistoryToneRenewalTableView();
     } else {
+      HistorySubscriptionTableController subscriptionCont =
+          Get.put(HistorySubscriptionTableController());
+      con.tableMenuList.value = subscriptionCont.subscriptionList[0];
       return HistoryPackSubscriptionTableView();
     }
   }
@@ -107,8 +141,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  SMText(title: "title")
-                  //CustomTableMenuPopupButton(headerColumList: headerColumList),
+                  //SMText(title: "title"),
+                  CustomTableMenuPopupButton(
+                      headerColumList: con.tableMenuList),
                 ],
               ),
             )

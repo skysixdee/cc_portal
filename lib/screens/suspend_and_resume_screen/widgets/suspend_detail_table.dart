@@ -10,7 +10,7 @@ import '../../../reusable_view/custom_table_view/custom_table_view.dart';
 class SuspendDetailTable extends StatelessWidget {
   SuspendDetailTable({super.key});
   SuspendResumeController cont = Get.find();
-  bool _isHovered=false;
+  bool _isHovered = false;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class SuspendDetailTable extends StatelessWidget {
                   radius: 4,
                   context: context,
                   bodyBuilder: (context) {
-                    return DropDownItems1(context,row, colum);
+                    return DropDownItems1(context, row, colum);
                   },
                   direction: PopoverDirection.bottom,
                   width: 110,
@@ -65,55 +65,54 @@ class SuspendDetailTable extends StatelessWidget {
     });
   }
 
-  DropDownItems1(BuildContext context,int? row, int? colum) {
+  DropDownItems1(BuildContext context, int? row, int? colum) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-      InkWell(
-        onTap: () {
-          print("row = $row and colum = $colum");
-         
-          Navigator.of(context).pop();
-          //cont.changeStatus();
-          cont.suspendService(row!-1 );
-          
-        },
-        child: Container(
-          width:110,
-          height: 40,
-          child: Center(
-            child: Text(
-              'Suspend',
-              style: TextStyle(
-                fontFamily: 'Roboto',
-                fontWeight: FontWeight.w900,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          InkWell(
+            onTap: () {
+              print("row = $row and colum = $colum");
+
+              Navigator.of(context).pop();
+              //cont.changeStatus();
+              cont.suspendService(row! - 1);
+            },
+            child: Container(
+              width: 110,
+              height: 40,
+              child: Center(
+                child: Text(
+                  'Suspend',
+                  style: TextStyle(
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
               ),
             ),
           ),
-        ),
-      ),
-      InkWell(
-        onTap: () {
-            cont.resumeService(row!-1);
-             Navigator.of(context).pop();
-         // cont.suspendService();
-        },
-        child: Container(
-          width:110,
-          height: 40,
-          child: Center(
-            child: Text(
-              'Resume',
-              style: TextStyle(
-                fontFamily: 'Roboto',
-                fontWeight: FontWeight.w900,
+          InkWell(
+            onTap: () {
+              cont.resumeService(row! - 1);
+              Navigator.of(context).pop();
+              // cont.suspendService();
+            },
+            child: Container(
+              width: 110,
+              height: 40,
+              child: Center(
+                child: Text(
+                  'Resume',
+                  style: TextStyle(
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
               ),
             ),
           ),
-        ),
-      ),
-    ]);
+        ]);
   }
 }

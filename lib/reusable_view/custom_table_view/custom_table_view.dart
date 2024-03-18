@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/state_manager.dart';
 import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_view_model.dart';
+import 'package:sm_admin_portal/utilily/colors.dart';
 
 class CustomTableView extends StatelessWidget {
   final List<CustomTableViewModel> headerColumList;
@@ -33,20 +34,24 @@ class CustomTableView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        tableHeaderView(),
-        Flexible(
-            child: Container(
-                color: borderColor ?? Colors.grey, child: tableRowContainer())),
-      ],
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(3),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          tableHeaderView(),
+          Flexible(
+              child: Container(
+                  color: borderColor ?? Colors.grey,
+                  child: tableRowContainer())),
+        ],
+      ),
     );
   }
 
   Widget tableHeaderView() {
     return Container(
-      color: headerBgColor ?? Colors.grey,
+      color: headerBgColor ?? greyLight,
       height: headerHeight,
       child: Center(
         child: Obx(() {

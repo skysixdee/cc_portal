@@ -1,3 +1,10 @@
+String aPartyStr = 'A Party';
+String bPartyStr = 'B Party';
+String englishToneNameStr = 'English Tone Name';
+String callChargeStr = 'Call Charge';
+String timeStampStr = 'Time Stamp';
+String toneTypeStr = 'Time Stamp';
+String transactionTypeStr = 'Transaction Type';
 String poweredByStr = 'powered by - 6D Technologies';
 String sixdeeStr = '6D \n Tech.';
 
@@ -21,6 +28,7 @@ String toneStatusStr = 'Tone Status';
 String toneIdStr = 'Tone Id';
 String toneNameStr = 'Tone Name';
 String channelIdStr = 'Channel Id';
+String channelStr = 'Channel';
 String searchStr = 'Search';
 String searchCStr = 'SEARCH';
 String OfferCodeStr = 'Offer Code';
