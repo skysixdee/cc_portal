@@ -7,10 +7,15 @@ String packDetailsStr = "Pack Details";
 String toneDetailsStr = "Tone Details";
 
 String MsisdnStr = 'Msisdn';
+String msisdnCStr = 'MSISDN';
+String fromDateCStr = 'FROM DATE';
+String toDateCStr = 'TO DATE';
 String toneStatusStr = 'Tone Status';
 String toneIdStr = 'Tone Id';
 String toneNameStr = 'Tone Name';
 String channelIdStr = 'Channel Id';
+String searchStr = 'Search';
+String searchCStr = 'SEARCH';
 String OfferCodeStr = 'Offer Code';
 String SubscriptionStatusStr = 'Subscription Status';
 String ActivationDateStr = 'Activation Date';

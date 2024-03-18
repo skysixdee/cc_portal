@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import 'package:get/state_manager.dart';
+import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 
 class CustomReusableTextField extends StatelessWidget {
   CustomReusableTextField({
@@ -67,12 +68,9 @@ class CustomReusableTextField extends StatelessWidget {
   Visibility headerWidget() {
     return Visibility(
       visible: title.isNotEmpty,
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 2),
-        child: Text(
-          title,
-          style: const TextStyle(fontSize: 13, fontWeight: FontWeight.normal),
-        ),
+      child: SMText(
+        title: title,
+        fontWeight: FontWeight.normal,
       ),
     );
   }
