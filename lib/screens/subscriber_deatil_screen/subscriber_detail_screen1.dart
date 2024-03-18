@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:popover/popover.dart';
 import 'package:sm_admin_portal/reusable_view/bottom_buttons.dart';
-import 'package:sm_admin_portal/screens/subscriber_deatil_screen/subscriber_detial_screen.dart';
+
 import '../../reusable_view/records_per_page_button.dart';
 import 'widget/tone_deatil_table.dart';
 import 'package:flutter/material.dart';
@@ -27,11 +27,10 @@ class SubscriberDetailScreen1 extends StatefulWidget {
 
 class _SubscriberDetailScreen1State extends State<SubscriberDetailScreen1> {
   SubscriberDetailController cont = Get.find();
-  
+
   Color borderColor = const Color.fromRGBO(224, 224, 224, 1);
   RxInt selectedTab = 0.obs;
   double borderWidth = 1;
-  
 
   double tabButtonHeight = 45;
   List<String> tabItems = [
@@ -72,6 +71,7 @@ class _SubscriberDetailScreen1State extends State<SubscriberDetailScreen1> {
                     tabButtons(),
                   ],
                 ),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -86,66 +86,58 @@ class _SubscriberDetailScreen1State extends State<SubscriberDetailScreen1> {
                   ],
                 ),
                 SizedBox(height: 8),
+                // tableAndBottomSection()
+
+                //dropDownWidget(),
+                //   Row(
+                //   children: [
+                //     InkWell(
+                //       onTap: () {
+                //         showPopover(
+                //         context: context,
+                //         bodyBuilder: (context) => topDropDownItems(),
+                //         direction: PopoverDirection.bottom,
+                //         width: 300,
+                //         height: 150,
+                //         arrowHeight: 10,
+                //         arrowWidth: 20,
+                // );
+                //       },
+                // child: Container(
+                //   decoration: BoxDecoration(
+                //       color: Colors.white,
+                //       border: Border.all(
+                //         color: const Color.fromARGB(255, 220, 218, 218),
+                //       ),
+                //       borderRadius: BorderRadius.circular(5)),
+                //         child: Row(
+                //           mainAxisAlignment: MainAxisAlignment.center,
+                //           children: [
+                //             Text(' 5'),
+                //             Icon(Icons.arrow_drop_down),
+                //           ],
+                //         ),
+                //       ),
+                //     ),
+                //     SizedBox(width: 5),
+                //     Text(RecordsPerPageStr,
+                //         style: TextStyle(color: Colors.grey[800])),
+                //   ],
+                // )
+
+//                   return
                 Obx(() {
-
-                  return selectedTab.value == 0
-                      ? PackDetailTable()
-                      : ToneDetailTable();
+                  return cont.isLoadingPackDetail.value ||
+                          cont.isLoadingToneDetail.value
+                      ? loadingIndicatorView()
+                      : selectedTab.value == 0
+                          ? (cont.packDetailList.length < 2
+                              ? noDataContainer()
+                              : tableAndBottomSection())
+                          : (cont.toneDetailList.length < 2
+                              ? noDataContainer()
+                              : tableAndBottomSection());
                 }),
-                SizedBox(height: 8),
-                RecordsPageButton()
-                
-                
-              //dropDownWidget(),
-              //   Row(
-              //   children: [
-              //     InkWell(
-              //       onTap: () {
-              //         showPopover(
-              //         context: context,
-              //         bodyBuilder: (context) => topDropDownItems(),
-              //         direction: PopoverDirection.bottom,
-              //         width: 300,
-              //         height: 150,
-              //         arrowHeight: 10,
-              //         arrowWidth: 20,
-              // );
-              //       },
-                    // child: Container(
-                    //   decoration: BoxDecoration(
-                    //       color: Colors.white,
-                    //       border: Border.all(
-                    //         color: const Color.fromARGB(255, 220, 218, 218),
-                    //       ),
-                    //       borderRadius: BorderRadius.circular(5)),
-              //         child: Row(
-              //           mainAxisAlignment: MainAxisAlignment.center,
-              //           children: [
-              //             Text(' 5'),
-              //             Icon(Icons.arrow_drop_down),
-              //           ],
-              //         ),
-              //       ),
-              //     ),
-              //     SizedBox(width: 5),
-              //     Text(RecordsPerPageStr,
-              //         style: TextStyle(color: Colors.grey[800])),
-              //   ],
-              // )
-
-
-//                   return cont.isLoadingPackDetail.value ||
-//                           cont.isLoadingToneDetail.value
-//                       ? loadingIndicatorView()
-//                       : selectedTab.value == 0
-//                           ? (cont.packDetailList.length < 2
-//                               ? noDataContainer()
-//                               : tableAndBottomSection())
-//                           : (cont.toneDetailList.length < 2
-//                               ? noDataContainer()
-//                               : tableAndBottomSection());
-//                 })
-
               ],
             ),
           )
@@ -156,74 +148,66 @@ class _SubscriberDetailScreen1State extends State<SubscriberDetailScreen1> {
 
   Container noDataContainer() {
     return Container(
-                                decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color:const Color.fromARGB(255, 194, 194, 194).withOpacity(0.6),
-                                      spreadRadius: 4,
-                                      blurRadius: 5,
-                                      offset:Offset(0,2),
-                                  )],
-                                  borderRadius: BorderRadius.circular(4),
-                                  color: Colors.white,
-                                ),
-                                width: 1000,
-                                height: 300,
-                                
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.only(
-                                              topLeft: Radius.circular(4),
-                                              topRight: Radius.circular(4)
-                                            ),
-                                        color: Colors.grey[300],
-                                      ),   
-                                      width: 1000,
-                                      height: 30,
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                          left: 20,
-                                          right: 20,
-                                        ),
-                                        child: Row(
-                                          children:[ 
-                                            for(int i = 0;i<6;i++)
-                                             Expanded(
-                                              child: Padding(
-                                              padding: const EdgeInsets.symmetric(horizontal: 8),
-                                              child: Container(
-                                               color: Colors.grey[100],
-                                               height: 20,
-                                              ),
-                                          ),
-                                        ),
-                                      ]),
-                                        
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                        top: 30,
-                                      ),
-                                      child: Image.asset(
-                                        'assets/pngs/cloud.png',
-                                        width: 150,
-                                        height: 150,
-                                      ),
-                                    ),
-                                    Text(
-                                      'Hey, looks like there is no data to show!',
-                                      style: TextStyle(
-                                          color: Colors.red,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w600
-                                        ),
-                                    ),
-                                  ],
-                                ));
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: const Color.fromARGB(255, 194, 194, 194).withOpacity(0.6),
+              spreadRadius: 4,
+              blurRadius: 5,
+              offset: Offset(0, 2),
+            )
+          ],
+          borderRadius: BorderRadius.circular(4),
+          color: Colors.white,
+        ),
+        width: 1000,
+        height: 300,
+        child: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(4), topRight: Radius.circular(4)),
+                color: Colors.grey[300],
+              ),
+              width: 1000,
+              height: 30,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 20,
+                  right: 20,
+                ),
+                child: Row(children: [
+                  for (int i = 0; i < 6; i++)
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Container(
+                          color: Colors.grey[100],
+                          height: 20,
+                        ),
+                      ),
+                    ),
+                ]),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 30,
+              ),
+              child: Image.asset(
+                'assets/pngs/cloud.png',
+                width: 150,
+                height: 150,
+              ),
+            ),
+            Text(
+              'Hey, looks like there is no data to show!',
+              style: TextStyle(
+                  color: Colors.red, fontSize: 15, fontWeight: FontWeight.w600),
+            ),
+          ],
+        ));
   }
 
   Center loadingIndicatorView() {
@@ -288,12 +272,12 @@ class _SubscriberDetailScreen1State extends State<SubscriberDetailScreen1> {
       onSearchTap: (searchedText) {
         // cont.getPackDetail(searchedText);
         // cont.getToneDetail(searchedText);
-        cont.searchedText=searchedText;
+        cont.searchedText = searchedText;
         if (selectedTab.value == 0) {
           cont.getPackDetail(searchedText);
-          
+
           print("search tapped value is ${searchedText}");
-        } else if(selectedTab.value == 1){
+        } else if (selectedTab.value == 1) {
           cont.getToneDetail(searchedText);
         }
       },
@@ -416,9 +400,9 @@ class _SubscriberDetailScreen1State extends State<SubscriberDetailScreen1> {
       borderColor: borderColor,
       onTap: (index) {
         selectedTab.value = index;
-        if(selectedTab.value==0){
+        if (selectedTab.value == 0) {
           cont.getPackDetail(cont.searchedText);
-        }else{
+        } else {
           cont.getToneDetail(cont.searchedText);
         }
         print("Index tapped");

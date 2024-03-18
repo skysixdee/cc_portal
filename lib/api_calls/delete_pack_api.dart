@@ -19,7 +19,7 @@ Future<GenericModal> deletePackApi(String offerName) async {
   //     await NetworkManager().postResquest(url, jsondata);
 
 Map<String, dynamic> jsonrequ = json.decode(responString);
-
+await Future.delayed(Duration(seconds: 2));
   GenericModal modal = GenericModal.fromJson(jsonrequ);
   return modal;
 }

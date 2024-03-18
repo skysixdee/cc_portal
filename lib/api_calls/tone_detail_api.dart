@@ -100,6 +100,7 @@ Future<ToneDetailModal> getToneDetailApi() async {
 //Map<String, dynamic> respMap =await NetworkManager().postResquest(toneDetailUrl, jsonData);
 
 Map<String, dynamic> respMap = json.decode(toneDetailResp);
+await Future.delayed(Duration(seconds: 2));
 return ToneDetailModal.fromJson(respMap);
     
   } catch (e) {
