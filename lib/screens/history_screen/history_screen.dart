@@ -6,6 +6,8 @@ import 'package:go_router/go_router.dart';
 import 'package:sm_admin_portal/controllers/history_controller.dart';
 import 'package:sm_admin_portal/enums/history_enum.dart';
 import 'package:sm_admin_portal/reusable_view/custom_border_tab_view.dart';
+import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_menu_popup_button.dart';
+import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 import 'package:sm_admin_portal/screens/history_screen/widgets/history_all_table_view.dart';
 import 'package:sm_admin_portal/screens/history_screen/widgets/history_copy_tone_table.dart';
 import 'package:sm_admin_portal/screens/history_screen/widgets/history_gifting_table.dart';
@@ -17,11 +19,37 @@ import 'package:sm_admin_portal/screens/history_screen/widgets/history_tone_rene
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
 
-class HistoryScreen extends StatelessWidget {
-  HistoryScreen({super.key});
-  HistoryController con = Get.put(HistoryController());
+class HistoryScreen extends StatefulWidget {
+  const HistoryScreen({super.key});
+
+  @override
+  State<HistoryScreen> createState() => _HistoryScreenState();
+}
+
+class _HistoryScreenState extends State<HistoryScreen> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return const Placeholder();
+//   }
+// }
+// class HistoryScreen extends StatelessWidget {
+
+  late HistoryController con;
   final double borderWidth = 1;
   final double tabButtonHeight = 45;
+  @override
+  void initState() {
+    con = Get.put(HistoryController());
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    Get.delete<HistoryController>();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -34,7 +62,7 @@ class HistoryScreen extends StatelessWidget {
             const SizedBox(height: 14),
             customTableTabView(),
             Obx(() {
-              return tableType(con.tableType.value);
+              return loadRespectiveTableType(con.tableType.value);
             })
           ],
         ),
@@ -42,7 +70,7 @@ class HistoryScreen extends StatelessWidget {
     );
   }
 
-  Widget tableType(HistoryTableType type) {
+  Widget loadRespectiveTableType(HistoryTableType type) {
     if (HistoryTableType.all == con.tableType.value) {
       return HistoryAllTableView();
     } else if (HistoryTableType.copy == con.tableType.value) {
@@ -75,15 +103,23 @@ class HistoryScreen extends StatelessWidget {
             Container(
               height: tabButtonHeight,
               decoration: mainContainerDecoration(),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  SMText(title: "title")
+                  //CustomTableMenuPopupButton(headerColumList: headerColumList),
+                ],
+              ),
             )
           ],
         ),
-        tableView(),
+        tableTabView(),
       ],
     );
   }
 
-  CustomBorderTabView tableView() {
+  CustomBorderTabView tableTabView() {
     return CustomBorderTabView(
         tabButtonHeight: tabButtonHeight,
         tabItems: [
