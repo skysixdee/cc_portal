@@ -13,6 +13,7 @@ import 'package:sm_admin_portal/controllers/history_controllers/history_subscrip
 import 'package:sm_admin_portal/enums/history_enum.dart';
 import 'package:sm_admin_portal/reusable_view/custom_border_tab_view.dart';
 import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_menu_popup_button.dart';
+import 'package:sm_admin_portal/reusable_view/custom_visibility_view.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 import 'package:sm_admin_portal/screens/history_screen/widgets/history_all_table_view.dart';
 import 'package:sm_admin_portal/screens/history_screen/widgets/history_copy_tone_table.dart';
@@ -69,7 +70,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
   Widget build(BuildContext context) {
     double? width = MediaQuery.of(context).size.width < 1100 ? 800 : null;
     print("Width is ===== ${MediaQuery.of(context).size.width}");
-    return Padding(
+    return CustomVisibiltyView();
+    Padding(
       padding: const EdgeInsets.all(18.0),
       child: (width == null)
           ? mainContainer(width)
@@ -83,9 +85,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
   Container mainContainer(double? width) {
     return Container(
       width: width,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
+      child: ListView(
+        // crossAxisAlignment: CrossAxisAlignment.start,
+        // mainAxisSize: MainAxisSize.min,
         children: [
           searchView(),
           const SizedBox(height: 14),

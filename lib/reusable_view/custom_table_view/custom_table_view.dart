@@ -70,7 +70,8 @@ class CustomTableView extends StatelessWidget {
                           child: Text(
                             headerColumList[column].title,
                             style: headerTextStyle ??
-                                const TextStyle(fontWeight: FontWeight.bold),
+                                const TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 14),
                           ),
                         ),
                       ),
