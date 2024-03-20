@@ -2,21 +2,29 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:sm_admin_portal/Models/history_renewal_model.dart';
+import 'package:sm_admin_portal/controllers/history_controllers/history_controller.dart';
+import 'package:sm_admin_portal/enums/visiblity_type.dart';
 import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_view_model.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
 
 class HistoryRenewalTableController extends GetxController {
   RxList<List<CustomTableViewModel>> renewalList =
       <List<CustomTableViewModel>>[].obs;
-
+  HistoryController con = Get.find();
   @override
   void onInit() {
     createHeaderColumnList();
-    _makeApiCall();
+
     super.onInit();
   }
 
-  _makeApiCall() async {
+  makeApiCall() async {
+    if (renewalList.length > 1) {
+      print("Empyt==============");
+      return;
+    }
+    await Future.delayed(Duration(milliseconds: 20));
+    con.visibilityType.value = VisibilityType.loading;
     String url = '';
     Map<String, dynamic> jsonData = {};
     // Map<String, dynamic> respData = await NetworkManager().postResquest(url, jsonData);
@@ -27,6 +35,7 @@ class HistoryRenewalTableController extends GetxController {
       renewalList.clear();
       createHeaderColumnList();
       createRowList(model.data ?? []);
+      con.visibilityType.value = VisibilityType.loaded;
     }
   }
 

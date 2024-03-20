@@ -5,7 +5,7 @@ const sixdLightColor = Color.fromRGBO(54, 137, 232, 0.4);
 
 const grey = Colors.grey;
 const black = Colors.black;
-const greyLight = Color.fromRGBO(245, 243, 243, 1);
+const greyLight = Color.fromRGBO(211, 211, 211, 1);
 const dividerColor = Color.fromRGBO(245, 243, 243, 1);
 const sideMenuShadowColor = Colors.black12;
 const redColor = Colors.red;

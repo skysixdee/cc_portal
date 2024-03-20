@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:sm_admin_portal/Models/history_all_model.dart';
 import 'package:sm_admin_portal/controllers/history_controllers/history_controller.dart';
+import 'package:sm_admin_portal/enums/visiblity_type.dart';
 import 'package:sm_admin_portal/network_manager/network_manager.dart';
 import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_view_model.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
@@ -10,18 +11,26 @@ import 'package:sm_admin_portal/utilily/strings.dart';
 class HistoryAllTableController extends GetxController {
   RxList<List<CustomTableViewModel>> allList =
       <List<CustomTableViewModel>>[].obs;
+  HistoryController con = Get.find();
+  Rx<VisibilityType> visibilityType = VisibilityType.empty.obs;
 
   @override
   void onInit() {
     createHeaderColumnList();
 
-    _makeApiCall();
     super.onInit();
   }
 
-  _makeApiCall() async {
+  makeApiCall() async {
+    if (allList.length > 1) {
+      print("Empyt==============");
+      return;
+    }
+    await Future.delayed(Duration(milliseconds: 20));
     String url = '';
     Map<String, dynamic> jsonData = {};
+
+    con.visibilityType.value = VisibilityType.loading;
     // Map<String, dynamic> respData = await NetworkManager().postResquest(url, jsonData);
     await Future.delayed(Duration(seconds: 2));
     Map<String, dynamic> respData = json.decode(_allData);
@@ -31,6 +40,9 @@ class HistoryAllTableController extends GetxController {
       createHeaderColumnList();
       createRowList(model.data ?? []);
     }
+    con.visibilityType.value = VisibilityType.loaded;
+
+    print("type  +++${visibilityType.value}");
   }
 
   createHeaderColumnList() {

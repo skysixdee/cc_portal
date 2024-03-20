@@ -11,6 +11,7 @@ import 'package:sm_admin_portal/controllers/history_controllers/history_purchase
 import 'package:sm_admin_portal/controllers/history_controllers/history_renewal_table_controller%20copy%204.dart';
 import 'package:sm_admin_portal/controllers/history_controllers/history_subscription_table_controller%20copy.dart';
 import 'package:sm_admin_portal/enums/history_enum.dart';
+import 'package:sm_admin_portal/enums/visiblity_type.dart';
 import 'package:sm_admin_portal/reusable_view/custom_border_tab_view.dart';
 import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_menu_popup_button.dart';
 import 'package:sm_admin_portal/reusable_view/custom_visibility_view.dart';
@@ -70,8 +71,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
   Widget build(BuildContext context) {
     double? width = MediaQuery.of(context).size.width < 1100 ? 800 : null;
     print("Width is ===== ${MediaQuery.of(context).size.width}");
-    return CustomVisibiltyView();
-    Padding(
+    return Padding(
       padding: const EdgeInsets.all(18.0),
       child: (width == null)
           ? mainContainer(width)
@@ -94,7 +94,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
           customTableTabView(),
           Expanded(
             child: Obx(() {
-              return loadRespectiveTableType(con.tableType.value);
+              return CustomVisibiltyView(
+                  type: con.visibilityType.value,
+                  child: loadRespectiveTableType(con.tableType.value));
             }),
           )
         ],
@@ -105,32 +107,39 @@ class _HistoryScreenState extends State<HistoryScreen> {
   Widget loadRespectiveTableType(HistoryTableType type) {
     if (HistoryTableType.all == con.tableType.value) {
       HistoryAllTableController allCont = Get.put(HistoryAllTableController());
+
       con.tableMenuList.value = allCont.allList[0];
+      allCont.makeApiCall();
       return HistoryAllTableView();
     } else if (HistoryTableType.copy == con.tableType.value) {
       HistoryCopyTableController copyCont =
           Get.put(HistoryCopyTableController());
       con.tableMenuList.value = copyCont.copyList[0];
+      copyCont.makeApiCall();
       return HistoryCopyToneTableView();
     } else if (HistoryTableType.gift == con.tableType.value) {
       HistoryGiftTableController giftCont =
           Get.put(HistoryGiftTableController());
       con.tableMenuList.value = giftCont.giftList[0];
+      giftCont.makeApiCall();
       return HistoryGiftingTableView();
     } else if (HistoryTableType.purchase == con.tableType.value) {
       HistoryPurchaseTableController purchaseCont =
           Get.put(HistoryPurchaseTableController());
       con.tableMenuList.value = purchaseCont.purchaseList[0];
+      purchaseCont.makeApiCall();
       return HistoryTonePurchaseTableView();
     } else if (HistoryTableType.renewal == con.tableType.value) {
       HistoryRenewalTableController renewCont =
           Get.put(HistoryRenewalTableController());
       con.tableMenuList.value = renewCont.renewalList[0];
+      renewCont.makeApiCall();
       return HistoryToneRenewalTableView();
     } else {
       HistorySubscriptionTableController subscriptionCont =
           Get.put(HistorySubscriptionTableController());
       con.tableMenuList.value = subscriptionCont.subscriptionList[0];
+      subscriptionCont.makeApiCall();
       return HistoryPackSubscriptionTableView();
     }
   }
