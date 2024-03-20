@@ -8,6 +8,7 @@ import 'package:sm_admin_portal/navigation_bar_view/navigation_bar_view.dart';
 import 'package:sm_admin_portal/reusable_view/reusable_view_delete.dart';
 import 'package:sm_admin_portal/reusable_view/table_view.dart';
 import 'package:sm_admin_portal/router/router_name.dart';
+import 'package:sm_admin_portal/screens/Bulk_Screen.dart';
 import 'package:sm_admin_portal/screens/circle.dart';
 import 'package:sm_admin_portal/screens/first_screen.dart';
 import 'package:sm_admin_portal/screens/message.dart';
@@ -169,9 +170,9 @@ StatefulShellBranch _bulkScreenScreen() {
         name: bulkScreenRoute,
         path: bulkScreenRoute,
         builder: (context, state) {
-          return Container(
-            child: Text("Bulk Scren"),
-          );
+          return Container(child: BulkScreen()
+              // Text("Bulk Scren"),
+              );
         },
       ),
     ],
