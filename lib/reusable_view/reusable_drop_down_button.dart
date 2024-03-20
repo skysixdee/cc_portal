@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 
 import 'package:get/state_manager.dart';
 import 'package:popover/popover.dart';
+import 'package:responsive_builder/responsive_builder.dart';
+import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 
 class ReusbaleDropDownButton extends StatelessWidget {
   ReusbaleDropDownButton({
@@ -19,7 +21,10 @@ class ReusbaleDropDownButton extends StatelessWidget {
     this.onChanged,
     this.title = '',
     this.hinttext = '',
+    this.isDisplayPopup = true,
+    this.onTap,
   });
+  final bool isDisplayPopup;
   Function(int)? onChanged;
   final double borderWidth;
   final String title;
@@ -27,6 +32,7 @@ class ReusbaleDropDownButton extends StatelessWidget {
   final double cornerRadius;
   final double heigth;
   final double? width;
+
   final Widget? dropDownIcon;
   final RxString selectedText = 'Select'.obs;
   final RxInt selectedIndex = 0.obs;
@@ -34,6 +40,7 @@ class ReusbaleDropDownButton extends StatelessWidget {
   final Color selectedColor = Colors.blue;
   final Color borderColor = Colors.grey.withOpacity(0.5);
   final List<String> items; // = ["Shiv", "Kumar", "Yadav"];
+  final Function()? onTap;
   @override
   Widget build(BuildContext context) {
     selectedIndex.value = -1;
@@ -41,29 +48,40 @@ class ReusbaleDropDownButton extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title),
-        InkWell(
-          onTap: () {
-            print(
-                "CustomDropDownButton ${MediaQuery.of(context).size} \n ${Get.width}");
-            popupOverOpen(context);
-          },
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(cornerRadius),
-            child: Stack(
-              children: [
-                Container(
-                  height: heigth,
-                  width: width,
-                  clipBehavior: Clip.hardEdge,
-                  decoration: mainDecoration(),
-                  child: mainRowContainer(),
+        title.isEmpty
+            ? SizedBox()
+            : SMText(
+                title: title,
+                fontWeight: FontWeight.normal,
+              ),
+        ResponsiveBuilder(
+          builder: (ctx, sizingInformation) {
+            return InkWell(
+              onTap: () {
+                if (isDisplayPopup) {
+                  popupOverOpen(ctx);
+                }
+                print(
+                    "CustomDropDownButton ${MediaQuery.of(context).size} \n ${Get.width}");
+              },
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(cornerRadius),
+                child: Stack(
+                  children: [
+                    Container(
+                      height: heigth,
+                      width: width,
+                      clipBehavior: Clip.hardEdge,
+                      decoration: mainDecoration(),
+                      child: mainRowContainer(),
+                    ),
+                    leftRedLine()
+                  ],
                 ),
-                leftRedLine()
-              ],
-            ),
-          ),
-        ),
+              ),
+            );
+          },
+        )
       ],
     );
   }
@@ -76,7 +94,10 @@ class ReusbaleDropDownButton extends StatelessWidget {
         const SizedBox(width: 12),
         Expanded(
           child: Obx(() {
-            return Text(selectedText.value);
+            return SMText(
+              title: selectedText.value,
+              fontWeight: FontWeight.normal,
+            );
           }),
         ),
         _buttondivider(),
@@ -167,13 +188,11 @@ class ReusbaleDropDownButton extends StatelessWidget {
           ),
           child: Padding(
             padding: const EdgeInsets.all(6.0),
-            child: Text(
-              items[index],
-              style: TextStyle(
-                  color: selectedIndex.value == index
-                      ? Colors.white
-                      : Colors.black),
-            ),
+            child: SMText(
+                fontWeight: FontWeight.normal,
+                title: items[index],
+                textColor:
+                    selectedIndex.value == index ? Colors.white : Colors.black),
           ),
         );
       },

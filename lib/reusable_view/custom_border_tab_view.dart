@@ -8,7 +8,7 @@ class CustomBorderTabView extends StatelessWidget {
     required this.tabItems,
     required this.onTap,
     this.tabButtonHeight = 40,
-    this.borderWidth = 2,
+    this.borderWidth = 1,
     this.borderColor = grey,
   });
   final double borderWidth;
@@ -33,15 +33,13 @@ class CustomBorderTabView extends StatelessWidget {
           ),
         ));
   }
-  
+
   Widget customTabButton(String title, int index) {
     return Obx(() {
       return InkWell(
         onTap: () {
           tabIndex.value = index;
           onTap(index);
-          
-
         },
         child: Container(
           clipBehavior: Clip.hardEdge,
@@ -50,10 +48,8 @@ class CustomBorderTabView extends StatelessWidget {
           child: Center(
               child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: Text(
-              title,
-              style:customTextDecoration(index == tabIndex.value)
-              ),
+            child: Text(title,
+                style: customTextDecoration(index == tabIndex.value)),
           )),
         ),
       );
@@ -62,9 +58,9 @@ class CustomBorderTabView extends StatelessWidget {
 
   TextStyle customTextDecoration(bool isSelected) {
     return TextStyle(
-              fontSize: 16,
-              color:isSelected?Colors.black:Colors.blue,
-            );
+      fontSize: 16,
+      color: isSelected ? Colors.black : Colors.blue,
+    );
   }
 
   BoxDecoration customTabButtonDecoration(bool isSelected) {

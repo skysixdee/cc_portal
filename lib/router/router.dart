@@ -8,8 +8,10 @@ import 'package:sm_admin_portal/navigation_bar_view/navigation_bar_view.dart';
 import 'package:sm_admin_portal/reusable_view/reusable_view_delete.dart';
 import 'package:sm_admin_portal/reusable_view/table_view.dart';
 import 'package:sm_admin_portal/router/router_name.dart';
+import 'package:sm_admin_portal/screens/Bulk_Screen.dart';
 import 'package:sm_admin_portal/screens/circle.dart';
 import 'package:sm_admin_portal/screens/first_screen.dart';
+import 'package:sm_admin_portal/screens/history_screen/history_screen.dart';
 import 'package:sm_admin_portal/screens/message.dart';
 import 'package:sm_admin_portal/screens/tone_activation_screen.dart';
 import 'package:sm_admin_portal/screens/offers_screen.dart';
@@ -169,9 +171,9 @@ StatefulShellBranch _bulkScreenScreen() {
         name: bulkScreenRoute,
         path: bulkScreenRoute,
         builder: (context, state) {
-          return Container(
-            child: Text("Bulk Scren"),
-          );
+          return Container(child: BulkScreen()
+              // Text("Bulk Scren"),
+              );
         },
       ),
     ],
@@ -186,7 +188,7 @@ StatefulShellBranch _historyScreenScreen() {
         path: historyScreenRoute,
         builder: (context, state) {
           return Container(
-            child: Text("history Scren"),
+            child: HistoryScreen(),
           );
         },
       ),
