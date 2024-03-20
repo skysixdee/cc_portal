@@ -16,7 +16,7 @@ class CustomTableView extends StatelessWidget {
   final double? cellHeight;
   final double? headerHeight;
   //final Widget? button;
-  final Widget? Function(int row, int? colum)? button;
+  final Function(int row, int colum)? button;
   const CustomTableView({
     super.key,
     required this.headerColumList,

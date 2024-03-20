@@ -6,12 +6,14 @@ class CustomTableViewModel {
   bool isRemoveable;
   bool isButton;
   RxBool isVisible;
+  dynamic object;
 
   CustomTableViewModel({
     this.title = 'No title',
     this.value = 'No value ',
     this.isButton = false,
     this.isRemoveable = true,
+    this.object,
     required this.isVisible,
   });
 }

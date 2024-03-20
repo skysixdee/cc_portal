@@ -123,38 +123,48 @@ class SubscriberDetailController extends GetxController {
     for (var item in list) {
       toneDetailList.add([
         CustomTableViewModel(
-            value: MsisdnStr, isVisible: true.obs, isRemoveable: true),
+            value: MsisdnStr,
+            isVisible: true.obs,
+            isRemoveable: true,
+            object: item),
         CustomTableViewModel(
             value: item.status ?? '',
             isVisible: true.obs,
             isRemoveable: true,
-            isButton: false),
+            isButton: false,
+            object: item),
         CustomTableViewModel(
             value: item.firstActivationDate ?? '',
             isVisible: true.obs,
-            isRemoveable: true),
+            isRemoveable: true,
+            object: item),
         CustomTableViewModel(
             value: item.contentId ?? '',
             isVisible: true.obs,
-            isRemoveable: false),
+            isRemoveable: false,
+            object: item),
         CustomTableViewModel(
             value: item.contentName ?? '',
             isVisible: true.obs,
             isRemoveable: false,
-            isButton: false),
+            isButton: false,
+            object: item),
         CustomTableViewModel(
             value: item.firstActivationDate ?? '',
             isVisible: true.obs,
-            isRemoveable: false),
+            isRemoveable: false,
+            object: item),
         CustomTableViewModel(
             value: item.contentType ?? '',
             isVisible: true.obs,
-            isRemoveable: false),
+            isRemoveable: false,
+            object: item),
         CustomTableViewModel(
             title: DeactivateStr,
             isVisible: true.obs,
             isRemoveable: false,
-            isButton: true),
+            isButton: true,
+            object: item),
       ]);
     }
     print("Total items are ${toneDetailList.length}");

@@ -67,22 +67,35 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double? width = MediaQuery.of(context).size.width < 1100 ? 800 : null;
+    print("Width is ===== ${MediaQuery.of(context).size.width}");
     return Padding(
       padding: const EdgeInsets.all(18.0),
-      child: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            searchView(),
-            const SizedBox(height: 14),
-            customTableTabView(),
-            Expanded(
-              child: Obx(() {
-                return loadRespectiveTableType(con.tableType.value);
-              }),
-            )
-          ],
-        ),
+      child: (width == null)
+          ? mainContainer(width)
+          : SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: mainContainer(width),
+            ),
+    );
+  }
+
+  Container mainContainer(double? width) {
+    return Container(
+      width: width,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          searchView(),
+          const SizedBox(height: 14),
+          customTableTabView(),
+          Expanded(
+            child: Obx(() {
+              return loadRespectiveTableType(con.tableType.value);
+            }),
+          )
+        ],
       ),
     );
   }
@@ -146,7 +159,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       headerColumList: con.tableMenuList),
                 ],
               ),
-            )
+            ),
+            const SizedBox(height: 8)
           ],
         ),
         tableTabView(),
