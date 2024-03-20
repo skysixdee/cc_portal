@@ -1,30 +1,26 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-
-import 'package:sm_admin_portal/controllers/suspend_resume_controller.dart';
+import 'package:sm_admin_portal/controllers/copy_tone_controller.dart';
 import 'package:sm_admin_portal/reusable_view/bottom_buttons.dart';
+import 'package:sm_admin_portal/screens/copy_screen/widgets/copy_detail_table.dart';
 
 import '../../reusable_view/custom_table_view/custom_table_menu_popup_button.dart';
 import '../../reusable_view/search_number/search_number_view.dart';
-import '../../utilily/colors.dart';
 
-import 'widgets/suspend_detail_table.dart';
-
-class SuspendAndResumeScreen extends StatefulWidget {
-  SuspendAndResumeScreen({super.key});
+class CopyScreen extends StatefulWidget {
+  const CopyScreen({super.key});
 
   @override
-  State<SuspendAndResumeScreen> createState() => _SuspendAndResumeScreenState();
+  State<CopyScreen> createState() => _CopyScreenState();
 }
 
-class _SuspendAndResumeScreenState extends State<SuspendAndResumeScreen> {
-  //SuspendResumeController cont = Get.find();
-  SuspendResumeController cont = Get.put(SuspendResumeController());
+class _CopyScreenState extends State<CopyScreen> {
+  CopyTonecontroller cont = Get.put(CopyTonecontroller());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: greyLight,
       body: ListView(
         children: [
           Container(
@@ -38,14 +34,13 @@ class _SuspendAndResumeScreenState extends State<SuspendAndResumeScreen> {
                   children: [
                     SizedBox(height: 20),
                     Text(
-                      'Suspend and Resume',
+                      'Copy Tone',
                       style: TextStyle(
-                          fontSize: 18.0, fontWeight: FontWeight.bold
-                      ),
+                          fontSize: 18.0, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 4),
                     SearchNumberView(
-                      title: 'MSISDN',
+                      title: 'Friends Msisdn',
                       hintText: 'Enter MSISDN',
                       onSearchTap: (p0) {
                         cont.msisdn = p0;
@@ -53,41 +48,42 @@ class _SuspendAndResumeScreenState extends State<SuspendAndResumeScreen> {
                       },
                     ),
                     SizedBox(
-                      height: 50,
+                      height: 15,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('Suspend And Resume List',
-                            style: TextStyle(
-                                fontSize: 18.0, fontWeight: FontWeight.bold)),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            right: 9,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Obx(() {
-                                return CustomTableMenuPopupButton(
-                                  headerColumList: cont.suspendDetailList[0],
-                                );
-                              })
-                            ],
-                          ),
-                        ),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        right:3,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                            Obx((){
+                              return CustomTableMenuPopupButton(
+                              headerColumList:cont.copyDetailList[0],
+                          );
+                            })
+                          
+                        ],
+                      ),
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: 5),
+
                     Obx(() {
-                      return cont.isLoadingSuspendResumedetail.value
+                      return cont.isLoadingCopyTonedetail.value
                           ? loadingIndicatorView()
-                          : (cont.suspendDetailList.length < 2
+                          : (cont.copyDetailList.length < 2
                               ? noDataContainer()
                               : tableAndBottomSections());
                     }),
-                    SizedBox(height: 15),
+                    
+                    // Column(
+                    //   children: [
+                    //     CopyDetailTable(),
+                    //     SizedBox(height: 8),
+                    //     BottomButtons(),
+                    //   ],
+                    // )
                   ]),
             ),
           )
@@ -95,11 +91,11 @@ class _SuspendAndResumeScreenState extends State<SuspendAndResumeScreen> {
       ),
     );
   }
-
+  
   Widget tableAndBottomSections() {
     return Column(
       children: [
-        SuspendDetailTable(),
+        CopyDetailTable(),
         SizedBox(height: 8),
         BottomButtons(),
       ],
@@ -148,8 +144,8 @@ class _SuspendAndResumeScreenState extends State<SuspendAndResumeScreen> {
           )),
     ));
   }
-
-  Container noDataContainer() {
+  
+   Container noDataContainer() {
     return Container(
         decoration: BoxDecoration(
           boxShadow: [
@@ -213,15 +209,4 @@ class _SuspendAndResumeScreenState extends State<SuspendAndResumeScreen> {
         ));
   }
 
-  // Widget tableAndBottomSection() {
-  //   return Column(
-  //     children: [
-  //       Obx(() {
-  //         return selectedTab.value == 0 ? PackDetailTable() : ToneDetailTable();
-  //       }),
-  //       SizedBox(height: 8),
-  //       BottomButtons(),
-  //     ],
-  //   );
-  // }
 }

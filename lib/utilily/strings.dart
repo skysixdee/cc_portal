@@ -21,6 +21,7 @@ String copyToneStr = 'Copy Tone';
 String packSubscriptionStr = 'Subscription Pack';
 
 String MsisdnStr = 'Msisdn';
+
 String msisdnCStr = 'MSISDN';
 String fromDateCStr = 'FROM DATE';
 String toDateCStr = 'TO DATE';
@@ -28,6 +29,12 @@ String toneStatusStr = 'Tone Status';
 String toneIdStr = 'Tone Id';
 String toneNameStr = 'Tone Name';
 String amountDeductedStr = 'Amount Deducted';
+
+String SubscriptionCodeStr='Subscription Code';
+String ToneStatusStr = 'Tone Status';
+String toneIdStr = 'Tone Id';
+String ToneNameStr = 'Tone Name';
+
 String channelIdStr = 'Channel Id';
 String channelStr = 'Channel';
 String searchStr = 'Search';
@@ -48,3 +55,5 @@ String LanguageStr = 'Language';
 String ActionStr = 'Action';
 String statusStr = 'Status';
 String suspendedStr = 'Suspended';
+String ChannelStr='Channel';
+String SelectStr='Select';
