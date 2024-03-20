@@ -227,7 +227,7 @@ String searchedText='';
       CustomTableViewModel(
           title: MsisdnStr, isVisible: true.obs, isRemoveable: true),
       CustomTableViewModel(
-          title: toneStatusStr,
+          title: ToneStatusStr,
           isVisible: true.obs,
           isRemoveable: true,
           isButton: false),
@@ -236,7 +236,7 @@ String searchedText='';
       CustomTableViewModel(
           title: toneIdStr, isVisible: true.obs, isRemoveable: true),
       CustomTableViewModel(
-          title: toneNameStr,
+          title: ToneNameStr,
           isVisible: true.obs,
           isRemoveable: false,
           isButton: false),

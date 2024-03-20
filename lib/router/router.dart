@@ -23,6 +23,7 @@ import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/constants.dart';
 import '../reusable_view/custom_text_field.dart';
 import '../reusable_view/pop_over.dart';
+import '../screens/copy_screen/copy_screen.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _sectionNavigatorKey = GlobalKey<NavigatorState>();
@@ -126,7 +127,7 @@ StatefulShellBranch OffersScreenScreen() {
         name: OffersScreenRoute,
         path: OffersScreenRoute,
         builder: (context, state) {
-          return OffersScreen();
+          return CopyScreen();//OffersScreen();
         },
       ),
     ],
