@@ -48,8 +48,7 @@ class SubscriberDetailController extends GetxController {
   //   createPackDetailRowList(modal.offers, offerName);
   // }*/
 
-
-  import 'dart:convert';
+import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:sm_admin_portal/Models/Generic_modal.dart';
@@ -68,9 +67,9 @@ class SubscriberDetailController extends GetxController {
       <List<CustomTableViewModel>>[].obs;
   RxList<List<CustomTableViewModel>> toneDetailList =
       <List<CustomTableViewModel>>[].obs;
-RxBool isLoadingPackDetail = false.obs;
-RxBool isLoadingToneDetail = false.obs;
-String searchedText='';
+  RxBool isLoadingPackDetail = false.obs;
+  RxBool isLoadingToneDetail = false.obs;
+  String searchedText = '';
   @override
   void onInit() async {
     createTablePackDetailsHeaderColumnList();
@@ -91,82 +90,81 @@ String searchedText='';
 
   getPackDetail(String phoneNumber) async {
     packDetailList.clear();
-  
+
     isLoadingPackDetail.value = true;
     createTablePackDetailsHeaderColumnList();
     SubscribersModal modal = await getPackDetailApi(phoneNumber);
     isLoadingPackDetail.value = false;
     createPackDetailRowList(modal.offers, phoneNumber);
   }
-   
+
   // delete pack
-   deletePack(String offerName, int rowNo) async {
-   GenericModal model = await deletePackApi(offerName);
-   if(model.respCode == 0){
-    packDetailList.removeAt(rowNo);
-   }
-      
-      //await deletePackApi(offerName);
-      
-      
-      // for (var i = 0; i < packDetailList.length; i++) {
-      //   for (var j = 0; j < packDetailList[i].length; j++) {
-      //     if (packDetailList[i][j].value == offerName) {
-      //       packDetailList.removeAt(i);
-      //       break; 
-      //     }
-      //   }
-      // }
-   // }
+  deletePack(String offerName, int rowNo) async {
+    GenericModal model = await deletePackApi(offerName);
+    if (model.respCode == 0) {
+      packDetailList.removeAt(rowNo);
+    }
+
+    //await deletePackApi(offerName);
+
+    // for (var i = 0; i < packDetailList.length; i++) {
+    //   for (var j = 0; j < packDetailList[i].length; j++) {
+    //     if (packDetailList[i][j].value == offerName) {
+    //       packDetailList.removeAt(i);
+    //       break;
+    //     }
+    //   }
+    // }
+    // }
   }
-  
-  
 
-
-
-
-
-
-
-
-   
-
-   
   createToneDetailRowList(List<Tonelist> list, String msisdn) {
     if (list.isEmpty) return;
     for (var item in list) {
       toneDetailList.add([
         CustomTableViewModel(
-            value: MsisdnStr, isVisible: true.obs, isRemoveable: true),
+            value: MsisdnStr,
+            isVisible: true.obs,
+            isRemoveable: true,
+            object: item),
         CustomTableViewModel(
             value: item.status ?? '',
             isVisible: true.obs,
             isRemoveable: true,
-            isButton: false),
+            isButton: false,
+            object: item),
         CustomTableViewModel(
             value: item.firstActivationDate ?? '',
             isVisible: true.obs,
-            isRemoveable: true),
+            isRemoveable: true,
+            object: item),
         CustomTableViewModel(
             value: item.contentId ?? '',
             isVisible: true.obs,
-            isRemoveable: false),
+            isRemoveable: false,
+            object: item),
         CustomTableViewModel(
             value: item.contentName ?? '',
             isVisible: true.obs,
             isRemoveable: false,
-            isButton: false),
+            isButton: false,
+            object: item),
         CustomTableViewModel(
             value: item.firstActivationDate ?? '',
             isVisible: true.obs,
-            isRemoveable: false),
+            isRemoveable: false,
+            object: item),
         CustomTableViewModel(
             value: item.contentType ?? '',
             isVisible: true.obs,
-            isRemoveable: false),
+            isRemoveable: false,
+            object: item),
         CustomTableViewModel(
-            title: DeactivateStr, isVisible: true.obs, isRemoveable: false, isButton: true
-        ),
+            title: DeactivateStr,
+            isVisible: true.obs,
+            isRemoveable: false,
+            isButton: true,
+            object: item),
       ]);
     }
     print("Total items are ${toneDetailList.length}");
@@ -227,7 +225,7 @@ String searchedText='';
       CustomTableViewModel(
           title: MsisdnStr, isVisible: true.obs, isRemoveable: true),
       CustomTableViewModel(
-          title: toneStatusStr,
+          title: ToneStatusStr,
           isVisible: true.obs,
           isRemoveable: true,
           isButton: false),
@@ -236,7 +234,7 @@ String searchedText='';
       CustomTableViewModel(
           title: toneIdStr, isVisible: true.obs, isRemoveable: true),
       CustomTableViewModel(
-          title: toneNameStr,
+          title: ToneNameStr,
           isVisible: true.obs,
           isRemoveable: false,
           isButton: false),
@@ -316,5 +314,4 @@ String searchedText='';
   //         isButton: true),
   //   ]);
   // }
-
 }

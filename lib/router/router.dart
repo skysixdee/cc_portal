@@ -11,6 +11,7 @@ import 'package:sm_admin_portal/router/router_name.dart';
 import 'package:sm_admin_portal/screens/Bulk_Screen.dart';
 import 'package:sm_admin_portal/screens/circle.dart';
 import 'package:sm_admin_portal/screens/first_screen.dart';
+import 'package:sm_admin_portal/screens/history_screen/history_screen.dart';
 import 'package:sm_admin_portal/screens/message.dart';
 import 'package:sm_admin_portal/screens/tone_activation_screen.dart';
 import 'package:sm_admin_portal/screens/offers_screen.dart';
@@ -24,6 +25,7 @@ import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/constants.dart';
 import '../reusable_view/custom_text_field.dart';
 import '../reusable_view/pop_over.dart';
+import '../screens/copy_screen/copy_screen.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _sectionNavigatorKey = GlobalKey<NavigatorState>();
@@ -127,7 +129,7 @@ StatefulShellBranch OffersScreenScreen() {
         name: OffersScreenRoute,
         path: OffersScreenRoute,
         builder: (context, state) {
-          return OffersScreen();
+          return CopyScreen();//OffersScreen();
         },
       ),
     ],
@@ -186,7 +188,7 @@ StatefulShellBranch _historyScreenScreen() {
         path: historyScreenRoute,
         builder: (context, state) {
           return Container(
-            child: Text("history Scren"),
+            child: HistoryScreen(),
           );
         },
       ),
