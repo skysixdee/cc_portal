@@ -32,7 +32,7 @@ class BulkScreen extends StatelessWidget {
                       children: [
                         ReusbaleDropDownButton(
                             items: ["ACTIVATION", "DEACTIVATION"],
-                            title: "Operation Name",
+                            title: "Operationn",
                             onChanged: (value) {
                               // if (value == "ACTIVATION") {
                               // Add your action here when "ACTIVATION" is selected
