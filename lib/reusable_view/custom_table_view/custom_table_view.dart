@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/state_manager.dart';
 import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_view_model.dart';
+import 'package:sm_admin_portal/utilily/colors.dart';
 
 class CustomTableView extends StatelessWidget {
   final List<CustomTableViewModel> headerColumList;
@@ -15,7 +16,7 @@ class CustomTableView extends StatelessWidget {
   final double? cellHeight;
   final double? headerHeight;
   //final Widget? button;
-  final Widget? Function(int row, int? colum)? button;
+  final Function(int row, int colum)? button;
   const CustomTableView({
     super.key,
     required this.headerColumList,
@@ -33,20 +34,26 @@ class CustomTableView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        tableHeaderView(),
-        Flexible(
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(3),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          tableHeaderView(),
+          Flexible(
             child: Container(
-                color: borderColor ?? Colors.grey, child: tableRowContainer())),
-      ],
+              color: borderColor ?? Colors.grey.withOpacity(0.4),
+              child: tableRowContainer(),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
   Widget tableHeaderView() {
     return Container(
-      color: headerBgColor ?? Colors.grey,
+      color: headerBgColor ?? greyLight,
       height: headerHeight,
       child: Center(
         child: Obx(() {

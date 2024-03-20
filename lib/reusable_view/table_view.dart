@@ -1,6 +1,3 @@
-
-import 'dart:js_util';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -17,14 +14,15 @@ class TableView extends StatefulWidget {
 
 class _TableViewState extends State<TableView> {
   bool isChecked = false;
-  bool _isHovered=false;
+  bool _isHovered = false;
   List<TableModel> items = [];
-@override
+  @override
   void initState() {
     items = createList();
     // TODO: implement initState
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,8 +83,7 @@ class _TableViewState extends State<TableView> {
                       child: Padding(
                         padding: EdgeInsets.all(8),
                         child: Padding(
-                          padding: const EdgeInsets.only(
-                            left: 55),
+                          padding: const EdgeInsets.only(left: 55),
                           child: Text('Assigned',
                               style: TextStyle(fontWeight: FontWeight.w600)),
                         ),
@@ -126,19 +123,20 @@ class _TableViewState extends State<TableView> {
                                 padding: EdgeInsets.all(8),
                                 child: Row(
                                   children: [
-                                    Obx((){
-                                    return  Checkbox(
-                                        value: items[index].isSelected.value,
-                                        onChanged: (newValue) {
-                                          items[index].isSelected.value=!items[index].isSelected.value;
-                                          setState(() {
-                                            print('checked$index');
-                                            //isChecked = newValue!;
-                                          });
-                                        },
-                                        side: BorderSide(
-                                            color: Color.fromARGB(
-                                                255, 173, 171, 171)));
+                                    Obx(() {
+                                      return Checkbox(
+                                          value: items[index].isSelected.value,
+                                          onChanged: (newValue) {
+                                            items[index].isSelected.value =
+                                                !items[index].isSelected.value;
+                                            setState(() {
+                                              print('checked$index');
+                                              //isChecked = newValue!;
+                                            });
+                                          },
+                                          side: BorderSide(
+                                              color: Color.fromARGB(
+                                                  255, 173, 171, 171)));
                                     }),
                                     Text('Value'),
                                   ],
@@ -166,16 +164,17 @@ class _TableViewState extends State<TableView> {
                             TableCell(
                               child: Padding(
                                 padding: EdgeInsets.all(8),
-                                child: Center(child: Text(items[index].rbtType)),
+                                child:
+                                    Center(child: Text(items[index].rbtType)),
                               ),
                             ),
                             TableCell(
                               child: Padding(
-                                padding: EdgeInsets.all(8),
-                                child: Center(
-                                  child: _buildHoverIconButton(index), //IconButton(onPressed: (){}, icon: Icon(Icons.more_horiz))
-                               )
-                              ),
+                                  padding: EdgeInsets.all(8),
+                                  child: Center(
+                                    child: _buildHoverIconButton(
+                                        index), //IconButton(onPressed: (){}, icon: Icon(Icons.more_horiz))
+                                  )),
                             ),
                           ],
                         ),
@@ -190,75 +189,71 @@ class _TableViewState extends State<TableView> {
       ),
     );
   }
-  Widget _buildHoverIconButton(int index){
-    return MouseRegion(
-      onEnter: (_){
-        items[index].hoveredIndex.value = index;
-        _handleHover(true);
-      },
 
-      onExit:(_){
-        items[index].hoveredIndex.value = -1;
-         _handleHover(false);
-      },
-      child:Obx((){
-        return items[index].hoveredIndex == index ?  Row(
-              children:[
-                AnimatedOpacity(
-                  duration:Duration(milliseconds: 1000),
-                  opacity:0.6,
-                  child: IconButton(onPressed: (){}, icon: Icon(Icons.visibility),iconSize: 15)
-                ),
-                AnimatedOpacity(
-                  duration:Duration(milliseconds: 1000),
-                  opacity:0.6,
-                  child: IconButton(onPressed: (){}, icon: Icon(Icons.edit),iconSize: 15)
-                ),
-                AnimatedOpacity(
-                  duration:Duration(milliseconds: 1000),
-                  opacity:0.6,
-                  child: IconButton(onPressed: (){}, icon: Icon(Icons.delete),iconSize: 15)
-                ),
-              ]
-            ): AnimatedOpacity(
-              duration:Duration(milliseconds: 1000),
-              opacity: !_isHovered?0.7:1.0,
+  Widget _buildHoverIconButton(int index) {
+    return MouseRegion(onEnter: (_) {
+      items[index].hoveredIndex.value = index;
+      _handleHover(true);
+    }, onExit: (_) {
+      items[index].hoveredIndex.value = -1;
+      _handleHover(false);
+    }, child: Obx(() {
+      return items[index].hoveredIndex == index
+          ? Row(children: [
+              AnimatedOpacity(
+                  duration: Duration(milliseconds: 1000),
+                  opacity: 0.6,
+                  child: IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.visibility),
+                      iconSize: 15)),
+              AnimatedOpacity(
+                  duration: Duration(milliseconds: 1000),
+                  opacity: 0.6,
+                  child: IconButton(
+                      onPressed: () {}, icon: Icon(Icons.edit), iconSize: 15)),
+              AnimatedOpacity(
+                  duration: Duration(milliseconds: 1000),
+                  opacity: 0.6,
+                  child: IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.delete),
+                      iconSize: 15)),
+            ])
+          : AnimatedOpacity(
+              duration: Duration(milliseconds: 1000),
+              opacity: !_isHovered ? 0.7 : 1.0,
               child: IconButton(
-                icon:Icon(Icons.more_horiz),
-                onPressed:(){},
+                icon: Icon(Icons.more_horiz),
+                onPressed: () {},
               ),
             );
-      })
-      
-      // Row(
-      //   mainAxisSize:MainAxisSize.min,
-      //   children: [
-          
-      //       AnimatedOpacity(
-      //         duration:Duration(milliseconds: 1000),
-      //         opacity: !_isHovered?0.7:0.0,
-      //         child: IconButton(
-      //           icon:Icon(Icons.more_horiz),
-      //           onPressed:(){},
-      //         ),
-      //       ),
-          
-           
-      //   ])
+    })
 
-    );
+        // Row(
+        //   mainAxisSize:MainAxisSize.min,
+        //   children: [
+
+        //       AnimatedOpacity(
+        //         duration:Duration(milliseconds: 1000),
+        //         opacity: !_isHovered?0.7:0.0,
+        //         child: IconButton(
+        //           icon:Icon(Icons.more_horiz),
+        //           onPressed:(){},
+        //         ),
+        //       ),
+
+        //   ])
+
+        );
   }
-  
+
   void _handleHover(bool isHovered) {
     setState(() {
-
-      _isHovered=isHovered;
+      _isHovered = isHovered;
     });
   }
-
 }
-
-
 
 class TableModel {
   RxBool isSelected;
@@ -269,15 +264,16 @@ class TableModel {
   String assigned;
   String action;
   RxInt hoveredIndex;
-  TableModel(this.isSelected , this.packId, this.packName,this.rbtType,this.cretatedDate,this.assigned,this.action, this.hoveredIndex);
+  TableModel(this.isSelected, this.packId, this.packName, this.rbtType,
+      this.cretatedDate, this.assigned, this.action, this.hoveredIndex);
 }
 
-createList(){
+createList() {
   List<TableModel> lst = [];
   for (var i = 0; i < 24; i++) {
-   
-    lst.add(TableModel(false.obs,'packId $i', "packName$i", "rbtType$i", "cretatedDate$i", "assigned$i", "action$i",1.obs)); 
-   lst[i].hoveredIndex.value = -1;
+    lst.add(TableModel(false.obs, 'packId $i', "packName$i", "rbtType$i",
+        "cretatedDate$i", "assigned$i", "action$i", 1.obs));
+    lst[i].hoveredIndex.value = -1;
   }
   return lst;
 }

@@ -11,6 +11,7 @@ import 'package:sm_admin_portal/router/router_name.dart';
 import 'package:sm_admin_portal/screens/Bulk_Screen.dart';
 import 'package:sm_admin_portal/screens/circle.dart';
 import 'package:sm_admin_portal/screens/first_screen.dart';
+import 'package:sm_admin_portal/screens/history_screen/history_screen.dart';
 import 'package:sm_admin_portal/screens/message.dart';
 import 'package:sm_admin_portal/screens/tone_activation_screen.dart';
 import 'package:sm_admin_portal/screens/offers_screen.dart';
@@ -187,7 +188,7 @@ StatefulShellBranch _historyScreenScreen() {
         path: historyScreenRoute,
         builder: (context, state) {
           return Container(
-            child: Text("history Scren"),
+            child: HistoryScreen(),
           );
         },
       ),
