@@ -7,6 +7,7 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_notifier.dart';
 import 'package:get/state_manager.dart';
 import 'package:sm_admin_portal/reusable_view/reusable_drop_down_button.dart';
 import 'package:sm_admin_portal/reusable_view/reusable_textfield.dart';
+import 'package:sm_admin_portal/utilily/strings.dart';
 
 class ToneActiveController extends GetxController {
   bool isFrequencySelected = false;
@@ -34,10 +35,34 @@ class ToneActiveController extends GetxController {
       ReusbaleDropDownButton(
         items: ["ToneId", "ToneName", "Artist"],
         title: "Category",
+        onTap: () {},
         onChanged: (value) {
-          searchkeyto("ToneId");
+          if (value == 0) {
+            print("Tone id tapped");
 
-          searchkeyto("Artist");
+            widgitList[2] = CustomReusableTextField(
+              textController: TextEditingController(),
+              title: toneIdStr,
+              hintText: toneIdStr,
+              onChange: (p0) {
+                print("Changed");
+              },
+            );
+          } else if (value == 1) {
+            print("Tone name tapped");
+            widgitList[2] = CustomReusableTextField(
+              textController: TextEditingController(),
+              title: ToneNameStr,
+              hintText: ToneNameStr,
+              onChange: (p0) {
+                print("Changed");
+              },
+            );
+          }
+          print("Vlaue is $value");
+          // searchkeyto("ToneId");
+
+          // searchkeyto("Artist");
         },
       ),
       CustomReusableTextField(
