@@ -20,6 +20,7 @@ class ReusbaleDropDownButton extends StatelessWidget {
     required this.items,
     this.onChanged,
     this.title = '',
+    this.selectedoption='',
     this.hinttext = '',
     this.isDisplayPopup = true,
     this.onTap,
@@ -28,6 +29,7 @@ class ReusbaleDropDownButton extends StatelessWidget {
   Function(int)? onChanged;
   final double borderWidth;
   final String title;
+  final String selectedoption;
   final String hinttext;
   final double cornerRadius;
   final double heigth;

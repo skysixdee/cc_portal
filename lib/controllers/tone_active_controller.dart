@@ -2,12 +2,15 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_notifier.dart';
 import 'package:get/state_manager.dart';
 import 'package:sm_admin_portal/reusable_view/reusable_drop_down_button.dart';
 import 'package:sm_admin_portal/reusable_view/reusable_textfield.dart';
 
 class ToneActiveController extends GetxController {
   bool isFrequencySelected = false;
+
   RxList<Widget> widgitList = <Widget>[].obs;
 
   void onInit() {
@@ -31,7 +34,11 @@ class ToneActiveController extends GetxController {
       ReusbaleDropDownButton(
         items: ["ToneId", "ToneName", "Artist"],
         title: "Category",
-        onChanged: (value) {},
+        onChanged: (value) {
+          searchkeyto("ToneId");
+
+          searchkeyto("Artist");
+        },
       ),
       CustomReusableTextField(
         textController: TextEditingController(),
@@ -48,6 +55,15 @@ class ToneActiveController extends GetxController {
           updateStatus();
         },
       ),
+      ReusbaleDropDownButton(
+        items: [
+          "Promotional Pack",
+          "Promotional Tone",
+          "Promotional Pack and Tone"
+        ],
+        title: "Service Type",
+        onChanged: (value) {},
+      ),
     ];
   }
 
@@ -55,9 +71,34 @@ class ToneActiveController extends GetxController {
     print("Value is $value");
   }
 
+  searchkeyto(selectedOption) {
+    final Map<String, Map<String, String>> optionMapping = {
+      "ToneId": {"title": "ToneId", "hintText": "ToneId"},
+      "ToneName": {"title": "ToneName", "hintText": "ToneName"},
+      "Artist": {"title": "Artist", "hintText": "Artist"},
+    };
+
+    final customTextFieldIndex = widgitList.indexWhere((widget) =>
+        widget is CustomReusableTextField && widget.title == "Search Key");
+    if (customTextFieldIndex != -1) {
+      final Map<String, String>? optionMap = optionMapping[selectedOption];
+      final String newTitle = optionMap?['title'] ?? "Search Key";
+      final String newHintText = optionMap?['hintText'] ?? "Search Key";
+      widgitList[customTextFieldIndex] = CustomReusableTextField(
+        textController: TextEditingController(),
+        title: newTitle,
+        hintText: newHintText,
+        onChange: (p0) {
+          print("Changed");
+        },
+      );
+    }
+  }
+
   updateStatus() {
     print("Items are ${widgitList.length}");
     if (!isFrequencySelected) {
+      print('object');
       addNewField();
     }
     isFrequencySelected = true;

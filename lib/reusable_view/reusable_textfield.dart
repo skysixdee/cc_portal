@@ -7,6 +7,7 @@ import 'package:get/state_manager.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 
 class CustomReusableTextField extends StatelessWidget {
+  // final String title;
   CustomReusableTextField({
     super.key,
     this.borderWidth = 1,
