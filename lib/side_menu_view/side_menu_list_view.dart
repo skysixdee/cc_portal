@@ -27,7 +27,8 @@ class _SideMenuListViewState extends State<SideMenuListView> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ListView(
+      shrinkWrap: true,
       children: [
         const SizedBox(height: 10),
         sideMenuSearchView(searchController),
@@ -37,13 +38,19 @@ class _SideMenuListViewState extends State<SideMenuListView> {
           shrinkWrap: true,
           itemBuilder: (context, index) {
             return Obx(() {
+              print(
+                  "============= ${cont.menuList[index].title == cont.selectedMenuTitle.value}");
               return Column(
                 children: [
-                  menuCard(cont.menuList[index],
-                      cont.menuList[index] == cont.selectedMenuTitle.value),
+                  menuCard(
+                      cont.menuList[index].title,
+                      cont.menuList[index].imgName,
+                      cont.menuList[index].title ==
+                          cont.selectedMenuTitle.value),
                   smVisibilityView(
                     subMenuListBuilder(),
-                    (cont.menuList[index] == cont.selectedMenuTitle.value),
+                    (cont.menuList[index].title ==
+                        cont.selectedMenuTitle.value),
                   )
 
                   // ?
@@ -86,7 +93,7 @@ class _SideMenuListViewState extends State<SideMenuListView> {
           );
   }
 
-  Widget menuCard(String title, bool isSelected) {
+  Widget menuCard(String title, String img, bool isSelected) {
     //bool isSelected = true;
     return InkWell(
       onTap: () {
@@ -102,9 +109,10 @@ class _SideMenuListViewState extends State<SideMenuListView> {
             children: [
               SizedBox(
                   width: 40,
-                  child: Icon(
-                    Icons.person,
-                    size: 18,
+                  child: Image.asset(
+                    img,
+                    height: 20,
+                    color: sixdColor,
                   )),
               appCont.isSideMenuHidden.value
                   ? SizedBox()

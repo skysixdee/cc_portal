@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sm_admin_portal/main.dart';
+import 'package:sm_admin_portal/reusable_view/sm_visibility_view.dart';
 
 import 'package:sm_admin_portal/side_menu_view/side_menu_footer_view.dart';
 import 'package:sm_admin_portal/side_menu_view/side_menu_hide_button.dart';
@@ -48,7 +50,8 @@ class SideMenuView extends StatelessWidget {
           Expanded(
             child: menuList(),
           ),
-          sideMenuFooterView()
+          smVisibilityView(
+              sideMenuFooterView(), !appCont.isSideMenuHidden.value)
         ],
       ),
     );
