@@ -369,14 +369,7 @@ class ToneActiveController extends GetxController {
           if (value == 0) {
             print("Tone id tapped");
 
-            widgetList[2] = CustomReusableTextField(
-              textController: TextEditingController(),
-              title: toneIdStr,
-              hintText: toneIdStr,
-              onChange: (p0) {
-                print("Changed");
-              },
-            );
+            repleaceWithMsisdnTextField();
           } else if (value == 1) {
             print("Tone name tapped");
             widgetList[2] = CustomReusableTextField(
@@ -428,6 +421,17 @@ class ToneActiveController extends GetxController {
     ];
   }
 
+  CustomReusableTextField repleaceWithMsisdnTextField() {
+    return widgetList[2] = CustomReusableTextField(
+      textController: TextEditingController(),
+      title: toneIdStr,
+      hintText: toneIdStr,
+      onChange: (p0) {
+        print("Changed");
+      },
+    );
+  }
+
   void onChangeMsisdn(String value) {
     print("Value is $value");
   }
@@ -440,7 +444,6 @@ class ToneActiveController extends GetxController {
     }
     isFrequencySelected = true;
 
-    
     if (widgetList[3] is ReusbaleDropDownButton &&
         (widgetList[3] as ReusbaleDropDownButton).title == "Frequency" &&
         (widgetList[3] as ReusbaleDropDownButton).value == "Weekly" &&
@@ -448,8 +451,10 @@ class ToneActiveController extends GetxController {
         (widgetList[2] as CustomReusableTextField).title == "ToneId" &&
         (widgetList[0] as CustomReusableTextField).textController.text ==
             "90238442") {
+      print("Make api call here");
       makeApiCallForToneOptions("90238442", "832008988");
     }
+    print("Make api call here");
   }
 
   void addNewField() {
@@ -487,7 +492,6 @@ class ToneActiveController extends GetxController {
     Dio dio = Dio();
     dio.get(apiUrl, queryParameters: {"toneId": toneId, "msidn": msidn}).then(
         (response) {
-     
       var responseData = response.data;
 
       List<dynamic> toneData = responseData['data'][0]['tones'];
