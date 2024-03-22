@@ -71,28 +71,35 @@ class _HistoryScreenState extends State<HistoryScreen> {
   Widget build(BuildContext context) {
     double? width = MediaQuery.of(context).size.width < 1100 ? 800 : null;
     print("Width is ===== ${MediaQuery.of(context).size.width}");
-    return Padding(
-      padding: const EdgeInsets.all(18.0),
-      child: (width == null)
-          ? mainContainer(width)
-          : SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: mainContainer(width),
-            ),
+    return Container(
+      color: bgColor,
+      child: Padding(
+        padding: const EdgeInsets.all(18.0),
+        child: (width == null)
+            ? mainContainer(width)
+            : SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: mainContainer(width),
+              ),
+      ),
     );
   }
 
-  Container mainContainer(double? width) {
+  Widget mainContainer(double? width) {
     return Container(
       width: width,
       child: ListView(
         // crossAxisAlignment: CrossAxisAlignment.start,
         // mainAxisSize: MainAxisSize.min,
         children: [
-          searchView(),
+          Row(
+            children: [
+              Expanded(child: searchView()),
+            ],
+          ),
           const SizedBox(height: 14),
           customTableTabView(),
-          Expanded(
+          Flexible(
             child: Obx(() {
               return CustomVisibiltyView(
                   type: con.visibilityType.value,

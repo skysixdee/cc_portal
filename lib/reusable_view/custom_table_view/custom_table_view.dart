@@ -25,7 +25,7 @@ class CustomTableView extends StatelessWidget {
     this.rowTextStyle,
     this.borderColor,
     this.cellColor,
-    this.headerBgColor,
+    this.headerBgColor = black12,
     this.borderWidth,
     this.cellHeight,
     this.button,

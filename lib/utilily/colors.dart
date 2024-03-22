@@ -7,6 +7,7 @@ const grey = Colors.grey;
 const black = Colors.black;
 const greyLight = Color.fromRGBO(211, 211, 211, 1);
 const dividerColor = Color.fromRGBO(245, 243, 243, 1);
+const bgColor = Color.fromRGBO(249, 249, 249, 1);
 const sideMenuShadowColor = Colors.black12;
 const redColor = Colors.red;
 const black12 = Colors.black12;
