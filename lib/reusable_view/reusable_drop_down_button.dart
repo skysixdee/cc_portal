@@ -41,8 +41,10 @@ class ReusbaleDropDownButton extends StatelessWidget {
   final Color hoverColor = Colors.blue.withOpacity(0.2);
   final Color selectedColor = Colors.blue;
   final Color borderColor = Colors.grey.withOpacity(0.5);
-  final List<String> items; // = ["Shiv", "Kumar", "Yadav"];
+  late final List<String> items; // = ["Shiv", "Kumar", "Yadav"];
   final Function()? onTap;
+
+  get value => null;
   @override
   Widget build(BuildContext context) {
     selectedIndex.value = -1;
