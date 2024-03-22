@@ -6,8 +6,16 @@ import 'package:sm_admin_portal/Models/side_menu_model.dart';
 
 class SideMenuController extends GetxController {
   String selectedSubMenuTitle = suspendAndResumeStr;
-  RxString selectedMenuTitle = subscriberManagementStr.obs;
+  RxString selectedMenuTitle = "".obs;
   RxList<SideMenuModel> subMenuList = <SideMenuModel>[].obs;
+
+  @override
+  void onInit() async {
+    super.onInit();
+    await Future.delayed(Duration(milliseconds: 100));
+
+    onMenuCardTap(menuList[0]);
+  }
 
   List<String> menuList = [
     subscriberManagementStr,
@@ -17,6 +25,10 @@ class SideMenuController extends GetxController {
   ];
 
   onMenuCardTap(String title) {
+    if (selectedMenuTitle.value == title) {
+      selectedMenuTitle.value = '';
+      return;
+    }
     subMenuList.clear();
     selectedMenuTitle.value = title;
     if (title == menuList[0]) {
