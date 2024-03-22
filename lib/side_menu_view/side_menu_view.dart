@@ -13,7 +13,6 @@ class SideMenuView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: black12,
       width: sideMenuWidth,
       child: Padding(
         padding: const EdgeInsets.only(right: 0),
