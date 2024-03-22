@@ -32,6 +32,7 @@ class _SideMenuListViewState extends State<SideMenuListView> {
         const SizedBox(height: 10),
         sideMenuSearchView(searchController),
         ListView.builder(
+          padding: EdgeInsets.only(top: 12),
           itemCount: cont.menuList.length,
           shrinkWrap: true,
           itemBuilder: (context, index) {
@@ -60,7 +61,7 @@ class _SideMenuListViewState extends State<SideMenuListView> {
     return appCont.isSideMenuHidden.value
         ? SizedBox()
         : ListView.builder(
-            padding: EdgeInsets.symmetric(vertical: 12),
+            padding: EdgeInsets.symmetric(vertical: 4),
             shrinkWrap: true,
             itemCount: cont.subMenuList.length,
             itemBuilder: (context, index) {
@@ -95,9 +96,8 @@ class _SideMenuListViewState extends State<SideMenuListView> {
         print("+++++++++${cont.selectedMenuTitle}");
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 0.5),
+        padding: const EdgeInsets.symmetric(vertical: 10),
         child: Container(
-          height: 40,
           child: Row(
             children: [
               SizedBox(
@@ -112,11 +112,13 @@ class _SideMenuListViewState extends State<SideMenuListView> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          SMText(
-                            title: title,
-                            textColor: sixdColor,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
+                          Expanded(
+                            child: SMText(
+                              title: title,
+                              textColor: sixdColor,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           Padding(
                               padding: EdgeInsets.only(right: 8),
