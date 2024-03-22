@@ -32,21 +32,23 @@ final _sectionNavigatorKey = GlobalKey<NavigatorState>();
 
 final router = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: homeGoRoute,
+  initialLocation: suspendResumeRoute,
   routes: <RouteBase>[
     StatefulShellRoute.indexedStack(
       builder: shellRouteIndex,
       branches: [
-        _homeScreen(),
-        firstScreenScreen(),
-        OffersScreenScreen(),
-        PacksScreenScreen(),
-        _subscriberDetailRouteScreen(),
+        _suspendAndResumeShell(),
+        _toneActivationShell(),
+        _subscriberDetailShell(),
+        _bulkScreenShell(),
+        _transactionHistoryShell(),
+        _copyScreenShell(),
+        /*
         MessageTemplateScreenScreen(),
-        MessageScreenScreen(),
         RenewalScreenScreen(),
         _bulkScreenScreen(),
         _historyScreenScreen()
+        */
       ],
     ),
   ],
@@ -66,40 +68,13 @@ Widget errorWidget(BuildContext context, GoRouterState state) {
   );
 }
 
-StatefulShellBranch _homeScreen() {
+StatefulShellBranch _suspendAndResumeShell() {
   return StatefulShellBranch(
     navigatorKey: _sectionNavigatorKey,
     routes: <RouteBase>[
       GoRoute(
-        path: homeGoRoute,
-        builder: (context, state) {
-          return HomeScreen();
-        },
-      ),
-    ],
-  );
-}
-
-StatefulShellBranch firstScreenScreen() {
-  return StatefulShellBranch(
-    routes: <RouteBase>[
-      GoRoute(
-        name: firstScreenRoute,
-        path: firstScreenRoute,
-        builder: (context, state) {
-          return const FirstScreen();
-        },
-      ),
-    ],
-  );
-}
-
-StatefulShellBranch PacksScreenScreen() {
-  return StatefulShellBranch(
-    routes: <RouteBase>[
-      GoRoute(
-        name: PacksScreenRoute,
-        path: PacksScreenRoute,
+        name: suspendResumeRoute,
+        path: suspendResumeRoute,
         builder: (context, state) {
           return SuspendAndResumeScreen();
         },
@@ -108,47 +83,77 @@ StatefulShellBranch PacksScreenScreen() {
   );
 }
 
-StatefulShellBranch _subscriberDetailRouteScreen() {
+StatefulShellBranch _toneActivationShell() {
+  return StatefulShellBranch(
+    routes: <RouteBase>[
+      GoRoute(
+        name: toneActivationRoute,
+        path: toneActivationRoute,
+        builder: (context, state) {
+          return ToneActivationScreen();
+        },
+      ),
+    ],
+  );
+}
+
+StatefulShellBranch _bulkScreenShell() {
+  return StatefulShellBranch(
+    routes: <RouteBase>[
+      GoRoute(
+        name: bulkUploadRoute,
+        path: bulkUploadRoute,
+        builder: (context, state) {
+          return BulkScreen();
+        },
+      ),
+    ],
+  );
+}
+
+StatefulShellBranch _transactionHistoryShell() {
+  return StatefulShellBranch(
+    routes: <RouteBase>[
+      GoRoute(
+        name: transactionHistoryRoute,
+        path: transactionHistoryRoute,
+        builder: (context, state) {
+          return HistoryScreen();
+        },
+      ),
+    ],
+  );
+}
+
+StatefulShellBranch _subscriberDetailShell() {
   return StatefulShellBranch(
     routes: <RouteBase>[
       GoRoute(
         name: subscriberDetailRoute,
         path: subscriberDetailRoute,
         builder: (context, state) {
-          return SubscriberDetailScreen1();
+          return SubscriberDetailScreen1(); //OffersScreen();
         },
       ),
     ],
   );
 }
 
-StatefulShellBranch OffersScreenScreen() {
+StatefulShellBranch _copyScreenShell() {
   return StatefulShellBranch(
     routes: <RouteBase>[
       GoRoute(
-        name: OffersScreenRoute,
-        path: OffersScreenRoute,
+        name: copyToneRoute,
+        path: copyToneRoute,
         builder: (context, state) {
-          return CopyScreen();//OffersScreen();
+          return CopyScreen();
         },
       ),
     ],
   );
 }
 
-StatefulShellBranch MessageScreenScreen() {
-  return StatefulShellBranch(
-    routes: <RouteBase>[
-      GoRoute(
-        name: MessageScreenRoute,
-        path: MessageScreenRoute,
-        builder: (context, state) {
-          return MessageScreen();
-        },
-      ),
-    ],
-  );
-}
+/*
 
 StatefulShellBranch MessageTemplateScreenScreen() {
   return StatefulShellBranch(
@@ -209,7 +214,7 @@ StatefulShellBranch RenewalScreenScreen() {
     ],
   );
 }
-
+*/
 Widget shellRouteIndex(
     context, state, StatefulNavigationShell navigationShell) {
   print("Selected index must be===== ${navigationShell.currentIndex}");
