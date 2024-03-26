@@ -10,6 +10,7 @@ import 'package:responsive_builder/responsive_builder.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 
 class ReusbaleDropDownButton extends StatelessWidget {
+  List<String> items = [];
   ReusbaleDropDownButton({
     super.key,
     this.borderWidth = 1,
@@ -18,8 +19,10 @@ class ReusbaleDropDownButton extends StatelessWidget {
     this.width,
     this.dropDownIcon,
     required this.items,
+    // required this.items,
     this.onChanged,
     this.title = '',
+    this.selectedoption = '',
     this.hinttext = '',
     this.isDisplayPopup = true,
     this.onTap,
@@ -28,6 +31,7 @@ class ReusbaleDropDownButton extends StatelessWidget {
   Function(int)? onChanged;
   final double borderWidth;
   final String title;
+  final String selectedoption;
   final String hinttext;
   final double cornerRadius;
   final double heigth;
@@ -39,8 +43,24 @@ class ReusbaleDropDownButton extends StatelessWidget {
   final Color hoverColor = Colors.blue.withOpacity(0.2);
   final Color selectedColor = Colors.blue;
   final Color borderColor = Colors.grey.withOpacity(0.5);
-  final List<String> items; // = ["Shiv", "Kumar", "Yadav"];
+
+  //late final List<String> items; // = ["Shiv", "Kumar", "Yadav"];////////////bhavya
   final Function()? onTap;
+
+  //////////////////////bhavya/////////////////
+
+  String getSelectedItem() {
+    if (selectedIndex.value >= 0 && selectedIndex.value < items.length) {
+      return items[selectedIndex.value];
+    } else {
+      return '';
+    }
+  }
+  /////////////////
+
+  String? selectedItem;
+
+  get value => null;
   @override
   Widget build(BuildContext context) {
     selectedIndex.value = -1;
@@ -164,7 +184,8 @@ class ReusbaleDropDownButton extends StatelessWidget {
       direction: PopoverDirection.bottom,
       arrowHeight: 4,
       radius: 4,
-      width: 290, //width ?? MediaQuery.of(context).size.width - 20,
+      // width: 290,
+      width: width ?? MediaQuery.of(context).size.width - 20,
       arrowWidth: 0,
     );
   }
@@ -187,13 +208,23 @@ class ReusbaleDropDownButton extends StatelessWidget {
                 : (isHovered ? hoverColor : Colors.white),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(6.0),
-            child: SMText(
-                fontWeight: FontWeight.normal,
-                title: items[index],
-                textColor:
-                    selectedIndex.value == index ? Colors.white : Colors.black),
-          ),
+              padding: const EdgeInsets.all(6.0),
+              child:  SMText(
+                  fontWeight: FontWeight.normal,
+                  title: items[index],
+                  textColor:
+                      selectedIndex.value == index ? Colors.white : Colors.black),
+              // Text(
+              //   items[index],
+              //   style: TextStyle(
+              //       fontWeight: FontWeight.normal,
+              //       color: selectedIndex.value == index
+              //           ? Colors.white
+              //           : Colors.black),
+              // )
+
+              
+              ),
         );
       },
     ));

@@ -7,6 +7,7 @@ import 'package:get/state_manager.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 
 class CustomReusableTextField extends StatelessWidget {
+  // final String title;
   CustomReusableTextField({
     super.key,
     this.borderWidth = 1,
@@ -15,10 +16,14 @@ class CustomReusableTextField extends StatelessWidget {
     this.width,
     this.hintText,
     this.onChange,
+
     this.onSubmit,
     required this.textController,
     this.isNumberInput = false,
     this.title = '',
+    
+    required Null Function(),
+    required Null Function(dynamic value) onChanged, required bool isrequired,
   });
 
   final double borderWidth;
@@ -30,6 +35,7 @@ class CustomReusableTextField extends StatelessWidget {
   final bool isNumberInput;
   final Function(String)? onChange;
   final Function(String)? onSubmit;
+
 
   final RxBool isHideClear = true.obs;
   final TextEditingController textController;

@@ -5,33 +5,91 @@ import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_vie
 
 import 'custom_alert_dialog.dart';
 
-class CopyDetailTable extends StatelessWidget {
+// class CopyDetailTable extends StatelessWidget {
+//    CopyDetailTable({super.key});
+//   CopyTonecontroller cont = Get.find();
+//   @override
+//   Widget build(BuildContext context) {
+//     return Obx(() {
+//       return CustomTableView(
+//         cellHeight: 60,
+//         headerHeight: 60,
+//         headerBgColor: Colors.grey[300],
+//         headerColumList: cont.copyDetailList[0],
+//         rowList: cont.copyDetailList,
+//         button: (row, colum) {
+//             return InkWell(
+//               onTap: () {
+              //   showDialog(
+              //   context: context,
+              //   builder: (BuildContext context) {
+              //     return CustomAlertDialog(); // Your custom alert dialog widget
+              //   },
+              // );
+//               },
+//               child: Icon(Icons.radio_button_checked)
+//             );
+          
+     
+          
+//         },
+//       );
+//     });
+//   }
+// }
+
+
+class CopyDetailTable extends StatefulWidget {
    CopyDetailTable({super.key});
+
+  @override
+  _CopyDetailTableState createState() => _CopyDetailTableState();
+}
+
+class _CopyDetailTableState extends State<CopyDetailTable> {
   CopyTonecontroller cont = Get.find();
+  List<List<bool>> isSelected=[];
+
+  @override
+  void initState() {
+    super.initState();
+    isSelected = List.generate(cont.copyDetailList.length, (_) => List.filled(cont.copyDetailList[0].length, false));
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      return CustomTableView(
-        cellHeight: 60,
-        headerHeight: 60,
-        headerBgColor: Colors.grey[300],
-        headerColumList: cont.copyDetailList[0],
-        rowList: cont.copyDetailList,
-        button: (row, colum) {
-            return InkWell(
-              onTap: () {
-                showDialog(
+    return CustomTableView(
+      cellHeight: 60,
+      headerHeight: 60,
+      headerBgColor: Colors.grey[300],
+      headerColumList: cont.copyDetailList[0],
+      rowList: cont.copyDetailList,
+      button: (row, column) {
+        return InkWell(
+          onTap: () {
+            setState(() {
+              isSelected[row][column] = !isSelected[row][column];
+              if(isSelected[row][column]==true){
+              showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return CustomAlertDialog(); // Your custom alert dialog widget
+                  return CustomAlertDialog(); 
                 },
               );
-              },
-              child: Icon(Icons.radio_button_checked)
-            );
+            }});
           
+          },
+          child: isSelected[row][column] ? Icon(Icons.radio_button_checked) : Icon(Icons.radio_button_unchecked),
+        );
+      },
+    );
+  }
+}
 
-          // InkWell(
+
+
+
+// InkWell(
           //   onTap: () {
           //     // cont.packDetailList.removeAt(row);
           //      //final offerName = cont.suspendDetailList[row][1].value;
@@ -42,8 +100,3 @@ class CopyDetailTable extends StatelessWidget {
           //   size: 25
           //   ),
           // );
-        },
-      );
-    });
-  }
-}

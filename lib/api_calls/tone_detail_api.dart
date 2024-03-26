@@ -13,7 +13,7 @@ Future<ToneDetailModal> getToneDetailApi() async {
     "languageCode": "",
     "channelId": "",
   };
-  // Map<String, dynamic> jsonMap =
+  // Map<String, dynamic> jsonMap = 
   //     await NetworkManager().postResquest(url, jsonData);
   await Future.delayed(Duration(seconds: 3));
   Map<String, dynamic> respMap = json.decode(respoString1);
@@ -78,14 +78,15 @@ import 'package:sm_admin_portal/utilily/urls.dart';
 
 Future<ToneDetailModal> getToneDetailApi() async {
   //String url = 'http://10.0.10.33:8085/selfcare/subscriber-management/list-tones';
-  Map<String, dynamic> jsonData = {
-    "transactionId": "",
-    "featureId": "1",
-    "msisdn": "",
-    "offerCode": "",
-    "languageCode": "",
-    "channelId": "",
-  };
+  
+  // Map<String, dynamic> jsonData = {
+  //   "transactionId": "",
+  //   "featureId": "1",
+  //   "msisdn": "",
+  //   "offerCode": "",
+  //   "languageCode": "",
+  //   "channelId": "",
+  // };
 
   try {
     //   final response = await http.post(

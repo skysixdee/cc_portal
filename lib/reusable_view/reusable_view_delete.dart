@@ -13,6 +13,8 @@ class ReusableTextField extends StatefulWidget {
   final bool addDropDown;
   final bool isTextView;
   final bool crossButton;
+  final bool isTextFieldEnabled;
+  
 
   ReusableTextField({
     super.key,
@@ -21,6 +23,7 @@ class ReusableTextField extends StatefulWidget {
     this.addDropDown = false,
     this.isTextView = false,
     this.crossButton = false,
+    this.isTextFieldEnabled=true,
   });
 
   @override
@@ -70,6 +73,7 @@ class _ReusableTextFieldState extends State<ReusableTextField> {
                           child: TextField(
                             maxLines: widget.isTextView ? null : 1,
                             controller: textFieldController,
+                            enabled:widget.isTextFieldEnabled? null: addText(),
                             onChanged: (text) {
                               setState(() {
                                 print("On Change ${textFieldController.text}");
@@ -98,7 +102,8 @@ class _ReusableTextFieldState extends State<ReusableTextField> {
                     ],
                   ),
                 )
-              ])),
+              ])
+            ),
     );
   }
 
@@ -285,5 +290,10 @@ class _ReusableTextFieldState extends State<ReusableTextField> {
       _selectedOption = selectedOption;
       textFieldController.text = _selectedOption;
     });
+  }
+  
+  addText() {
+    textFieldController.text='7000000033';
+    
   }
 }
