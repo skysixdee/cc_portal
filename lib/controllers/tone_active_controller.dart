@@ -1,355 +1,29 @@
-// import 'package:dio/dio.dart';
-// import 'package:flutter/widgets.dart';
-// import 'package:get/get.dart';
-// //import 'package:dio/dio.dart';
-// import 'package:get/get_rx/get_rx.dart';
-// import 'package:get/get_rx/src/rx_types/rx_types.dart';
-// import 'package:get/get_state_manager/get_state_manager.dart';
-// import 'package:get/get_state_manager/src/rx_flutter/rx_notifier.dart';
-// import 'package:get/state_manager.dart';
-// import 'package:sm_admin_portal/reusable_view/reusable_drop_down_button.dart';
-// import 'package:sm_admin_portal/reusable_view/reusable_textfield.dart';
-// import 'package:sm_admin_portal/utilily/strings.dart';
-
-// import 'package:get/get.dart';
-// import 'package:dio/dio.dart';
-
-// class ToneActivationScreen extends StatefulWidget {
-//   ToneActivationScreen({Key? key}) : super(key: key);
-
-//   @override
-//   State<ToneActivationScreen> createState() => _ToneActivationScreenState();
-
-// }
-
-// class ToneActiveController extends GetxController {
-//   bool isFrequencySelected = false;
-
-//   RxList<Widget> widgetList = <Widget>[].obs;
-
-//   @override
-//   void onInit() {
-//     super.onInit();
-//     createListOfWidget();
-//   }
-
-//   void createListOfWidget() {
-//     widgetList.value = [
-//       CustomReusableTextField(
-//         textController: TextEditingController(),
-//         title: "Msisdn",
-//         hintText: 'Msisdn',
-//         onChange: (p0) {
-//           onChangeMsisdn(p0);
-//         },
-//         onSubmit: (p0) {
-//           onChangeMsisdn(p0);
-//         },
-//       ),
-// ReusbaleDropDownButton(
-//   items: ["ToneId", "ToneName", "Artist"],
-//   title: "Category",
-//   onTap: () {},
-//   onChanged: (value) {
-//     if (value == 0) {
-//       print("Tone id tapped");
-
-//       widgetList[2] = CustomReusableTextField(
-//         textController: TextEditingController(),
-//         title: toneIdStr,
-//         hintText: toneIdStr,
-//         onChange: (p0) {
-//           print("Changed");
-//         },
-//       );
-//     } else if (value == 1) {
-//       print("Tone name tapped");
-//       widgetList[2] = CustomReusableTextField(
-//         textController: TextEditingController(),
-//         title: ToneNameStr,
-//         hintText: ToneNameStr,
-//         onChange: (p0) {
-//           print("Changed");
-//         },
-//       );
-//     } else if (value == 2) {
-//       print("Artist tapped");
-//       widgetList[2] = CustomReusableTextField(
-//         textController: TextEditingController(),
-//         title: ArtistStr,
-//         hintText: ArtistStr,
-//         onChange: (p0) {
-//           print("Changed");
-//         },
-//       );
-//     }
-//     print("Value is $value");
-//   },
-// ),
-//       CustomReusableTextField(
-//         textController: TextEditingController(),
-//         title: "Search Key",
-//         hintText: 'Search Key',
-//         onChange: (p0) {
-//           print("Changed");
-//         },
-//       ),
-//       ReusbaleDropDownButton(
-//         items: ["Daily", "Weekly", "Monthly"],
-//         title: "Frequency",
-//         onChanged: (p0) {
-//           updateStatus();
-//         },
-//       ),
-//       ReusbaleDropDownButton(
-//         items: [
-//           "Promotional Pack",
-//           "Promotional Tone",
-//           "Promotional Pack and Tone"
-//         ],
-//         title: "Service Type",
-//         onChanged: (value) {},
-//       ),
-//     ];
-//   }
-
-//   void onChangeMsisdn(String value) {
-//     print("Value is $value");
-//   }
-
-//   void updateStatus() {
-//     print("Items are ${widgetList.length}");
-//     if (!isFrequencySelected) {
-//       print('object');
-//       addNewField();
-//       // Make API call for Tone options when Weekly is selected
-//       makeApiCallForToneOptions();
-//     }
-//     isFrequencySelected = true;
-//   }
-
-//   void addNewField() {
-//     widgetList.add(
-//       ReusbaleDropDownButton(
-//         items: ["CRBT"],
-//         title: "Offers",
-//         onChanged: (value) {},
-//       ),
-//     );
-
-//     widgetList.add(ReusbaleDropDownButton(
-//       items: ["CANT STOP NOW"],
-//       title: "Tone",
-//       onChanged: (value) {},
-//     ));
-//     widgetList.add(
-//       ReusbaleDropDownButton(
-//         items: [
-//           "Promotional Pack",
-//           "Promotional Tune",
-//           "Promotional Pack and tune"
-//         ],
-//         title: "Language",
-//         onChanged: (value) {},
-//       ),
-//     );
-//   }
-
-//   void makeApiCallForToneOptions() {
-//     // Replace "your_api_url_here" with your actual API endpoint
-//     String apiUrl = "your_api_url_here";
-
-//     // Make the API call
-//     Dio dio = Dio();
-//     dio.get(apiUrl).then((response) {
-//       // Parse the response data
-//       var responseData = response.data;
-
-//       // Extract tone options from the response
-//       List<dynamic> toneData = responseData['data'][0]['tones'];
-//       List<String> toneOptions =
-//           toneData.map<String>((tone) => tone['toneNameEnglish']).toList();
-
-//       // Find the index of the existing ReusableDropDownButton in the widget list
-//       int toneIndex = -1;
-//       for (int i = 0; i < widgetList.length; i++) {
-//         if (widgetList[i] is ReusbaleDropDownButton &&
-//             (widgetList[i] as ReusbaleDropDownButton).title == "Tone") {
-//           toneIndex = i;
-//           break;
-//         }
-//       }
-
-//       // Update the Tone dropdown with the retrieved options
-//       if (toneOptions.isNotEmpty && toneIndex != -1) {
-//         ReusbaleDropDownButton toneDropdown =
-//             widgetList[toneIndex] as ReusbaleDropDownButton;
-//         toneDropdown.items = toneOptions;
-//         widgetList[toneIndex] = toneDropdown;
-//       }
-//     }).catchError((error) {
-//       print("Error fetching Tone options: $error");
-//     });
-//   }
-// }
+import 'dart:convert';
 
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/state_manager.dart';
 import 'package:sm_admin_portal/reusable_view/reusable_drop_down_button.dart';
 import 'package:sm_admin_portal/reusable_view/reusable_textfield.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
 
-// class ToneActiveController extends GetxController {
-//   bool isFrequencySelected = false;
-//   RxList<Widget> widgitList = <Widget>[].obs;
 
-//   void onInit() {
-//     super.onInit();
-//     createListOfWidget();
-//   }
 
-//   createListOfWidget() {
-//     widgitList.value = [
-//       CustomReusableTextField(
-//         textController: TextEditingController(),
-//         title: "Msisdn",
-//         hintText: 'Msisdn',
-//         onChange: (p0) {
-//           onChangeMsisdn(p0);
-//         },
-//         onSubmit: (p0) {
-//           onChangeMsisdn(p0);
-//         },
-//       ),
-//       ReusbaleDropDownButton(
-//         items: ["ToneId", "ToneName", "Artist"],
-//         title: "Category",
-//         onTap: () {},
-//         onChanged: (value) {
-//           if (value == 0) {
-//             print("Tone id tapped");
-
-//             widgitList[2] = CustomReusableTextField(
-//               textController: TextEditingController(),
-//               title: toneIdStr,
-//               hintText: toneIdStr,
-//               onChange: (p0) {
-//                 print("Changed");
-//               },
-//             );
-//           } else if (value == 1) {
-//             print("Tone name tapped");
-//             widgitList[2] = CustomReusableTextField(
-//               textController: TextEditingController(),
-//               title: ToneNameStr,
-//               hintText: ToneNameStr,
-//               onChange: (p0) {
-//                 print("Changed");
-//               },
-//             );
-//           } else if (value == 2) {
-//             print("Artist tapped");
-//             widgitList[2] = CustomReusableTextField(
-//               textController: TextEditingController(),
-//               title: ArtistStr,
-//               hintText: ArtistStr,
-//               onChange: (p0) {
-//                 print("Changed");
-//               },
-//             );
-//           }
-//           print("Value is $value");
-//         },
-//       ),
-//       CustomReusableTextField(
-//         textController: TextEditingController(),
-//         title: "Search Key",
-//         hintText: 'Search Key',
-//         onChange: (p0) {
-//           print("Changed");
-//         },
-//       ),
-//       ReusbaleDropDownButton(
-//         items: ["Daily", "Weekly", "Montly"],
-//         title: "Frequeny",
-//         onChanged: (p0) {
-//           updateStatus();
-//         },
-//       ),
-//       ReusbaleDropDownButton(
-//         items: [
-//           "Promotional Pack",
-//           " Promotional Tune",
-//           "Promotional Pack and Tone"
-//         ],
-//         title: "Service Type",
-//         onChanged: (value) {},
-//       ),
-//     ];
-//   }
-
-//   onChangeMsisdn(String value) {
-//     print("Value is $value");
-//   }
-
-//   updateStatus() {
-//     print("Items are ${widgitList.length}");
-//     if (!isFrequencySelected) {
-//       addNewField();
-//     }
-//     isFrequencySelected = true;
-//   }
-
-//   addNewField() {
-//     widgitList.add(
-//       ReusbaleDropDownButton(
-//         items: ["CRBT"],
-//         title: "Offers",
-//         onChanged: (value) {},
-//       ),
-//     );
-
-//     widgitList.add(ReusbaleDropDownButton(
-//       items: [
-//         "Promotional Pack",
-//         "Promotional Tune",
-//         "Promotional Pack and tune"
-//       ],
-//       title: "Tone",
-//       onChanged: (value) {},
-//     ));
-//     widgitList.add(
-//       ReusbaleDropDownButton(
-//         items: [
-//           "Promotional Pack",
-//           "Promotional Tune",
-//           "Promotional Pack and tune"
-//         ],
-//         title: "Language",
-//         onChanged: (value) {},
-//       ),
-//     );
-//   }
-// }
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'package:get/get.dart';
-import 'package:dio/dio.dart';
 
 class ToneActiveController extends GetxController {
   bool isFrequencySelected = false;
+  RxList<Widget> widgitList = <Widget>[].obs;
 
-  RxList<Widget> widgetList = <Widget>[].obs;
-
-  @override
   void onInit() {
     super.onInit();
     createListOfWidget();
   }
 
-  void createListOfWidget() {
-    widgetList.value = [
+  createListOfWidget() {
+    widgitList.value = [
       CustomReusableTextField(
         textController: TextEditingController(),
         title: "Msisdn",
@@ -360,35 +34,53 @@ class ToneActiveController extends GetxController {
         onSubmit: (p0) {
           onChangeMsisdn(p0);
         },
+        Function: () {},
+        onChanged: (value) {},
+        isrequired: true,
       ),
       ReusbaleDropDownButton(
-        items: ["ToneId", "ToneName", "Artist"],
+        items: ["ToneId *", "ToneName", "Artist"],
         title: "Category",
         onTap: () {},
         onChanged: (value) {
           if (value == 0) {
             print("Tone id tapped");
 
-            repleaceWithMsisdnTextField();
+            widgitList[2] = CustomReusableTextField(
+                textController: TextEditingController(),
+                title: toneIdStr,
+                hintText: toneIdStr,
+                onChange: (p0) {
+                  print("Changed");
+                },
+                Function: () {},
+                onChanged: (value) {},
+                isrequired: true);
           } else if (value == 1) {
             print("Tone name tapped");
-            widgetList[2] = CustomReusableTextField(
+            widgitList[2] = CustomReusableTextField(
               textController: TextEditingController(),
               title: ToneNameStr,
               hintText: ToneNameStr,
               onChange: (p0) {
                 print("Changed");
               },
+              Function: () {},
+              onChanged: (value) {},
+              isrequired: true,
             );
           } else if (value == 2) {
             print("Artist tapped");
-            widgetList[2] = CustomReusableTextField(
+            widgitList[2] = CustomReusableTextField(
               textController: TextEditingController(),
               title: ArtistStr,
               hintText: ArtistStr,
               onChange: (p0) {
                 print("Changed");
               },
+              Function: () {},
+              onChanged: (value) {},
+              isrequired: true,
             );
           }
           print("Value is $value");
@@ -401,120 +93,131 @@ class ToneActiveController extends GetxController {
         onChange: (p0) {
           print("Changed");
         },
+        Function: () {},
+        onChanged: (value) {},
+        isrequired: false,
       ),
       ReusbaleDropDownButton(
-        items: ["Daily", "Weekly", "Monthly"],
-        title: "Frequency",
-        onChanged: (p0) {
+        items: ["Daily", "Weekly", "Montly"],
+        title: "Frequeny",
+        onChanged: (value) {
           updateStatus();
+          if (value == "Weekly") {
+            fetchToneDetails(
+              (widgitList[0] as CustomReusableTextField).textController.text,
+              (widgitList[2] as CustomReusableTextField).textController.text,
+            );
+            print('value:$value');
+          }
         },
       ),
       ReusbaleDropDownButton(
         items: [
           "Promotional Pack",
-          "Promotional Tone",
+          " Promotional Tune",
           "Promotional Pack and Tone"
         ],
         title: "Service Type",
-        onChanged: (value) {},
+        onChanged: (value) {
+          print('value=$value');
+        },
       ),
     ];
   }
 
-  CustomReusableTextField repleaceWithMsisdnTextField() {
-    return widgetList[2] = CustomReusableTextField(
-      textController: TextEditingController(),
-      title: toneIdStr,
-      hintText: toneIdStr,
-      onChange: (p0) {
-        print("Changed");
-      },
-    );
-  }
-
-  void onChangeMsisdn(String value) {
+  onChangeMsisdn(String value) {
     print("Value is $value");
   }
 
-  void updateStatus() {
-    print("Items are ${widgetList.length}");
-    if (!isFrequencySelected) {
+  updateStatus() {
+    print("Items are ${widgitList.length}");
+    bool msisdnNotEmpty = (widgitList[0] as CustomReusableTextField)
+        .textController
+        .text
+        .isNotEmpty;
+    bool toneIdNotEmpty = (widgitList[2] as CustomReusableTextField)
+        .textController
+        .text
+        .isNotEmpty;
+
+    String? selectedFrequency =
+        (widgitList[3] as ReusbaleDropDownButton).selectedItem;
+
+    print('MSISDN NOT EMPTY:$msisdnNotEmpty');
+    print('ToneId NOT EMPTY:$toneIdNotEmpty');
+    print('Selected frequency:$selectedFrequency');
+
+    if (msisdnNotEmpty && toneIdNotEmpty && !isFrequencySelected) {
       print('object');
       addNewField();
     }
-    isFrequencySelected = true;
-
-    if (widgetList[3] is ReusbaleDropDownButton &&
-        (widgetList[3] as ReusbaleDropDownButton).title == "Frequency" &&
-        (widgetList[3] as ReusbaleDropDownButton).value == "Weekly" &&
-        widgetList[6] is CustomReusableTextField &&
-        (widgetList[2] as CustomReusableTextField).title == "ToneId" &&
-        (widgetList[0] as CustomReusableTextField).textController.text ==
-            "90238442") {
-      print("Make api call here");
-      makeApiCallForToneOptions("90238442", "832008988");
-    }
-    print("Make api call here");
+    isFrequencySelected = false;
   }
 
-  void addNewField() {
-    widgetList.add(
-      ReusbaleDropDownButton(
-        items: ["CRBT"],
-        title: "Offers",
-        onChanged: (value) {},
-      ),
+  addNewField() {
+    ReusbaleDropDownButton offersDropDown =
+        // widgitList.add(
+        ReusbaleDropDownButton(
+      items: ["CRBT"],
+      title: "Offers",
+      onChanged: (value) {},
     );
 
-    widgetList.add(ReusbaleDropDownButton(
-      items: ["CANT STOP NOW"],
+    //   widgitList.add(
+    ReusbaleDropDownButton toneDropDown = ReusbaleDropDownButton(
+      items: [],
       title: "Tone",
       onChanged: (value) {},
-    ));
-    widgetList.add(
-      ReusbaleDropDownButton(
-        items: [
-          "Promotional Pack",
-          "Promotional Tune",
-          "Promotional Pack and tune"
-        ],
-        title: "Language",
-        onChanged: (value) {},
-      ),
     );
+    ReusbaleDropDownButton languageDropDown =
+        // widgitList.add(
+        ReusbaleDropDownButton(
+      items: [
+        "Promotional Pack",
+        "Promotional Tune",
+        "Promotional Pack and tune"
+      ],
+      title: "Language",
+      onChanged: (value) {},
+    );
+    widgitList.add(offersDropDown);
+    widgitList.add(toneDropDown);
+    widgitList.add(languageDropDown);
+    widgitList.refresh();
   }
 
-  void makeApiCallForToneOptions(String toneId, String msidn) {
-    String apiUrl =
-        "https://ringtune.mtn.co.za/crbt-gateway/BL/contentManagement/toneDetails?categoryType=toneName&categoryValue=CAN%E2%80%99T%20STOP%20NOW&frequency=Weekly";
+  Future<void> fetchToneDetails(String msisdn, String toneId) async {
+    try {
+      final response = await http.post(
+        Uri.parse(
+            'https://ringtune.mtn.co.za/crbt-gateway/BL/contentManagement/toneDetails?categoryType=toneName&categoryValue=CAN%E2%80%99T%20STOP%20NOW&frequency=Weekly'),
+        body: json.encode({'msisdn': msisdn, 'toneId': toneId}),
+        headers: {'Content-Type': 'application/json'},
+      );
 
-    // Make the API call with toneId and msidn
-    Dio dio = Dio();
-    dio.get(apiUrl, queryParameters: {"toneId": toneId, "msidn": msidn}).then(
-        (response) {
-      var responseData = response.data;
+      if (response.statusCode == 200) {
+        var responseData = json.decode(response.body);
+        print('Response Data: $responseData');
 
-      List<dynamic> toneData = responseData['data'][0]['tones'];
-      List<String> toneOptions =
-          toneData.map<String>((tone) => tone['toneNameEnglish']).toList();
+        var tones = responseData['data'][0]['tones'];
+        if (tones.isNotEmpty) {
+          var toneName = tones[0]['toneNameEnglish'];
+          print('Tone Name: $toneName');
 
-      int toneIndex = -1;
-      for (int i = 0; i < widgetList.length; i++) {
-        if (widgetList[i] is ReusbaleDropDownButton &&
-            (widgetList[i] as ReusbaleDropDownButton).title == "Tone") {
-          toneIndex = i;
-          break;
+          (widgitList[4] as ReusbaleDropDownButton).items = [toneName];
+
+          var artistName = tones[0]['artistEnglish'];
+          print('Artist Name: $artistName');
+
+          (widgitList[5] as ReusbaleDropDownButton).items = [artistName];
+        } else {
+          print('No tones found in the response');
         }
+      } else {
+        print('Failed to fetch tone details: ${response.statusCode}');
       }
-
-      if (toneOptions.isNotEmpty && toneIndex != -1) {
-        ReusbaleDropDownButton toneDropdown =
-            widgetList[toneIndex] as ReusbaleDropDownButton;
-        toneDropdown.items = toneOptions;
-        widgetList[toneIndex] = toneDropdown;
-      }
-    }).catchError((error) {
-      print("Error fetching Tone options: $error");
-    });
+    } catch (e) {
+      print('Error fetching tone details: $e');
+    }
   }
 }

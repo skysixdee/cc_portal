@@ -89,7 +89,8 @@ class HistorySearchView extends StatelessWidget {
       textController: textController,
       hintText: msisdnCStr,
       isNumberInput: true,
-      title: msisdnCStr,
+      title: msisdnCStr, ////bhavychanges
+      Function: () {}, onChanged: (value) {}, isrequired: false,
     );
   }
 
