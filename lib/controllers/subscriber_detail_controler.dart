@@ -165,6 +165,7 @@ class SubscriberDetailController extends GetxController {
             isRemoveable: false,
             isButton: true,
             object: item),
+
       ]);
     }
     print("Total items are ${toneDetailList.length}");
@@ -178,7 +179,10 @@ class SubscriberDetailController extends GetxController {
       for (var item in offers) {
         packDetailList.add([
           CustomTableViewModel(
-              value: msisdn, isVisible: true.obs, isRemoveable: true),
+              value: msisdn, 
+              isVisible: true.obs, 
+              isRemoveable: true
+          ),
           CustomTableViewModel(
               value: item.offerName ?? '',
               isVisible: true.obs,

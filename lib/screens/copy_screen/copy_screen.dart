@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:sm_admin_portal/controllers/copy_tone_controller.dart';
 import 'package:sm_admin_portal/reusable_view/bottom_buttons.dart';
 import 'package:sm_admin_portal/screens/copy_screen/widgets/copy_detail_table.dart';
+import 'package:sm_admin_portal/screens/copy_screen/widgets/table_calender.dart';
 
 import '../../reusable_view/custom_table_view/custom_table_menu_popup_button.dart';
 import '../../reusable_view/search_number/search_number_view.dart';
@@ -33,10 +34,19 @@ class _CopyScreenState extends State<CopyScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 20),
-                    Text(
-                      'Copy Tone',
-                      style: TextStyle(
-                          fontSize: 18.0, fontWeight: FontWeight.bold),
+                   
+                    Row(
+                      children: [
+                        Text(
+                          'Copy Tone',
+                          style: TextStyle(
+                              fontSize: 18.0, 
+                              fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(width:50),
+                        CalendarPopover(),
+                      ],
                     ),
                     SizedBox(height: 4),
                     SearchNumberView(
@@ -61,7 +71,7 @@ class _CopyScreenState extends State<CopyScreen> {
                             Obx((){
                               return CustomTableMenuPopupButton(
                               headerColumList:cont.copyDetailList[0],
-                          );
+                             );
                             })
                           
                         ],
@@ -74,8 +84,10 @@ class _CopyScreenState extends State<CopyScreen> {
                           ? loadingIndicatorView()
                           : (cont.copyDetailList.length < 2
                               ? noDataContainer()
-                              : tableAndBottomSections());
+                              : tableAndBottomSections()
+                            );
                     }),
+                    SizedBox(height: 20),
                     
                     // Column(
                     //   children: [
@@ -115,7 +127,7 @@ class _CopyScreenState extends State<CopyScreen> {
                 color: Colors.grey,
                 blurRadius: 4,
                 offset: Offset(2, 2),
-              )
+              ),
             ],
             border: Border.all(
               color: Color.fromARGB(255, 220, 218, 218),

@@ -30,6 +30,7 @@ environment:
 dependencies:
   dio: any
   cupertino_icons: ^1.0.6
+  file_picker: any
   flutter:
     sdk: flutter
   get: ^4.6.6
@@ -41,8 +42,11 @@ dependencies:
   http: any
   responsive_builder: ^0.7.0
   shared_preferences: ^2.2.2
+  table_calendar: ^3.1.0
   universal_io: ^2.2.2
+
   file_picker: any      
+
 dev_dependencies:
   flutter_lints: ^3.0.0
   flutter_test:

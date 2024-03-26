@@ -9,7 +9,7 @@ Future<GenericModal> suspendApi(String msisdn)async{
     "transactionId":"2342342343",
     "featureId":10,
     "msisdn":msisdn,
-    "channelId":"4"
+    "channelId":"4",
   };
 //Map<String, dynamic> response =    await NetworkManager().postResquest(suspendUrl, jsonData);
 Map<String, dynamic> response = json.decode("""{
