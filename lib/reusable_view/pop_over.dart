@@ -47,7 +47,7 @@ class Button extends StatelessWidget {
             arrowWidth: 20,
           );
         },
-        child: const Center(child: Text('Click Me')),
+        child: const Center(child: Text('Click ')),
       ),
     );
   }

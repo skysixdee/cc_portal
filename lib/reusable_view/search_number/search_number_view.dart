@@ -30,6 +30,7 @@ class _SearchNumberViewState extends State<SearchNumberView> {
   bool enableClearBtn = false;
   SubscriberDetailController cont = Get.find();
   final TextEditingController textFieldController = TextEditingController();
+   String friendsMsisdnText = '';
   String errorMessage = '';
 
   @override
@@ -176,7 +177,8 @@ class _SearchNumberViewState extends State<SearchNumberView> {
     return GestureDetector(
       onTap: () {
         print("Search tepped");
-
+        friendsMsisdnText=textFieldController.text;
+        print(friendsMsisdnText);
         onSearchPressed();
       },
       child: Container(
