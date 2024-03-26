@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
         children: [
           TextButton(
               onPressed: () {
-                context.go(firstScreenRoute);
+                //context.go(firstScreenRoute);
               },
               child: Text("Go First screen")),
           //CustomTextField(
@@ -40,7 +40,7 @@ class HomeScreen extends StatelessWidget {
             hintText: 'Enter RBT Type',
             addDropDown: true,
             crossButton: true,
-          ),//CupertinoActivityIndicator(),
+          ), //CupertinoActivityIndicator(),
         ],
       ),
     ));
