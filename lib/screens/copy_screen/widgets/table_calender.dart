@@ -22,22 +22,20 @@ class _CalendarPopoverState extends State<CalendarPopover> {
                 arrowHeight: 7,
                 arrowWidth: 15,
                 bodyBuilder: (context) => Container(
-                  width: 200, 
-                  height: 290, 
-                  padding:  EdgeInsets.all(5),
+                  width: 200,
+                  height: 290,
+                  padding: EdgeInsets.all(5),
                   child: TableCalendar(
                     firstDay: DateTime.utc(2010, 10, 16),
                     lastDay: DateTime.utc(2030, 3, 14),
                     focusedDay: DateTime.now(),
                     rowHeight: 33,
                     calendarStyle: CalendarStyle(
-
                       cellMargin: EdgeInsets.zero,
                       outsideDaysVisible: false,
                     ),
                     availableGestures: AvailableGestures.none,
                     headerStyle: HeaderStyle(
-
                       formatButtonVisible: false,
                       titleCentered: true,
                     ),
@@ -53,15 +51,13 @@ class _CalendarPopoverState extends State<CalendarPopover> {
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
-                      
                     ),
                   ),
                 ),
                 onPop: () => print('Popover was popped!'),
                 direction: PopoverDirection.top,
                 width: 290,
-                height: 290, 
-                
+                height: 290,
               );
             },
             child: Icon(Icons.calendar_month),
