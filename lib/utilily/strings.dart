@@ -7,11 +7,20 @@ String toneTypeStr = 'Tone Type';
 String transactionTypeStr = 'Transaction Type';
 String poweredByStr = 'powered by - 6D Technologies';
 String sixdeeStr = '6D \n Tech.';
-
+String openTitleStr = "O\nP\nE\nN";
+String hideTitleStr = "H\nI\nD\nE";
 String resetStr = 'Reset';
-
+String searchMenuItemStr = "Search Menu Items";
 String packDetailsStr = "Pack Details";
 String toneDetailsStr = "Tone Details";
+
+String suspendAndResumeStr = "Suspend And Resume";
+
+String toneActivationStr = "Tone Activation";
+String bulkUploadStr = "Bulk Upload";
+String transactionHistoryStr = "Transaction History";
+String subscriberDetailAndDeactivationStr =
+    "Subscriber Details and Deactivation";
 
 String allStr = 'All';
 String tonePurchaseStr = 'Tone Purchase';
@@ -19,7 +28,7 @@ String packRenewalStr = 'Pack Renewal';
 String giftingStr = 'Gifting';
 String copyToneStr = 'Copy Tone';
 String packSubscriptionStr = 'Subscription Pack';
-
+String subscriberManagementStr = "Subscriber Management";
 String MsisdnStr = 'Msisdn';
 
 String msisdnCStr = 'MSISDN';
@@ -29,11 +38,13 @@ String toneStatusStr = 'Tone Status';
 String toneIdStr = 'Tone Id';
 String toneNameStr = 'Tone Name';
 String amountDeductedStr = 'Amount Deducted';
-
+String loadingMessageStr = 'Loading, Please wait..';
+String noDataMessageStr = 'Hey, looks like there is no data to show!';
 String SubscriptionCodeStr = 'Subscription Code';
 String ToneStatusStr = 'Tone Status';
 
 String ToneNameStr = 'Tone Name';
+String ArtistStr = 'Artist';
 
 String channelIdStr = 'Channel Id';
 String channelStr = 'Channel';

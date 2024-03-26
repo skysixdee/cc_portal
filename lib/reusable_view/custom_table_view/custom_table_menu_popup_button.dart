@@ -3,7 +3,9 @@ import 'package:flutter/widgets.dart';
 
 import 'package:get/state_manager.dart';
 import 'package:popover/popover.dart';
+import 'package:sm_admin_portal/reusable_view/box_shadow.dart';
 import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_view_model.dart';
+import 'package:sm_admin_portal/utilily/colors.dart';
 
 class CustomTableMenuPopupButton extends StatelessWidget {
   final List<CustomTableViewModel> headerColumList;
@@ -12,7 +14,7 @@ class CustomTableMenuPopupButton extends StatelessWidget {
     required this.headerColumList,
     this.button,
     this.borderRadius = 4,
-    this.color = Colors.grey,
+    this.color = Colors.white,
     this.buttonHeight = 30,
     this.buttonWidth = 30,
     this.textStyle,
@@ -32,25 +34,26 @@ class CustomTableMenuPopupButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(borderRadius!),
-      clipBehavior: Clip.hardEdge,
-      child: InkWell(
-        onTap: () {
-          openPopOver(context);
-        },
-        child: button ??
-            Container(
-              height: buttonHeight!,
-              width: buttonWidth!,
-              color: color ?? Colors.grey.withOpacity(0.3),
-              child: Icon(
-                Icons.menu,
-                size: buttonHeight! / 1.4,
-                color: Colors.white,
-              ),
+    return InkWell(
+      onTap: () {
+        openPopOver(context);
+      },
+      child: button ??
+          Container(
+            height: buttonHeight!,
+            width: buttonWidth!,
+            decoration: BoxDecoration(
+              boxShadow: boxShadow,
+              color: white,
+              border: Border.all(color: greyLight),
+              borderRadius: BorderRadius.circular(borderRadius!),
             ),
-      ),
+            child: Icon(
+              Icons.menu,
+              size: buttonHeight! / 1.4,
+              color: black,
+            ),
+          ),
     );
   }
 

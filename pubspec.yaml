@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  dio: any
   cupertino_icons: ^1.0.6
   file_picker: any
   flutter:
@@ -37,13 +38,19 @@ dependencies:
   google_fonts: ^6.1.0
   navigator: any
   popover: ^0.3.0
+  
+  http: any
   responsive_builder: ^0.7.0
   shared_preferences: ^2.2.2
   table_calendar: ^3.1.0
   universal_io: ^2.2.2
+
+  file_picker: any      
+
 dev_dependencies:
   flutter_lints: ^3.0.0
   flutter_test:
+  
     sdk: flutter
 
 # For information on the generic Dart part of this file, see the

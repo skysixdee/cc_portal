@@ -51,7 +51,7 @@ class HistorySearchView extends StatelessWidget {
 
   Container bottomButtonBuilder() {
     return Container(
-      color: greyLight,
+      color: bgColor,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 6),
         child: Row(
@@ -89,7 +89,8 @@ class HistorySearchView extends StatelessWidget {
       textController: textController,
       hintText: msisdnCStr,
       isNumberInput: true,
-      title: msisdnCStr,
+      title: msisdnCStr, ////bhavychanges
+      Function: () {}, onChanged: (value) {}, isrequired: false,
     );
   }
 
