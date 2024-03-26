@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:sm_admin_portal/main.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/constants.dart';
+import 'package:sm_admin_portal/utilily/strings.dart';
 
 Widget sideMenuHideButton() {
   return InkWell(
@@ -10,7 +11,8 @@ Widget sideMenuHideButton() {
       appCont.isSideMenuHidden.value = !appCont.isSideMenuHidden.value;
       print("Hide button tapped");
     },
-    child: SizedBox(
+    child: Container(
+      color: dividerColor,
       width: hideButtonWidth,
       height: 80,
       child: Center(
@@ -22,9 +24,11 @@ Widget sideMenuHideButton() {
             children: [
               Text(
                 textAlign: TextAlign.center,
-                appCont.isSideMenuHidden.value ? "O\nP\nE\nN" : "H\nI\nD\nE",
+                appCont.isSideMenuHidden.value ? openTitleStr : hideTitleStr,
                 style: const TextStyle(
-                    fontWeight: FontWeight.bold, fontSize: 8, color: Colors.grey),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 8,
+                    color: Colors.grey),
               ),
               const SizedBox(height: 4),
               Icon(

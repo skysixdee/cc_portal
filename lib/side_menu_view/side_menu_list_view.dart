@@ -1,8 +1,15 @@
-/*import 'dart:ui';
+import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sm_admin_portal/Models/side_menu_model.dart';
+import 'package:sm_admin_portal/main.dart';
+import 'package:sm_admin_portal/reusable_view/sm_visibility_view.dart';
+import 'package:sm_admin_portal/utilily/colors.dart';
+import 'package:sm_admin_portal/utilily/images.dart';
+import 'package:sm_admin_portal/utilily/strings.dart';
+import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 import 'package:sm_admin_portal/side_menu_view/side_menu_card.dart';
+import 'package:sm_admin_portal/controllers/side_menu_controller.dart';
 
 class SideMenuListView extends StatefulWidget {
   @override
@@ -10,311 +17,190 @@ class SideMenuListView extends StatefulWidget {
 }
 
 class _SideMenuListViewState extends State<SideMenuListView> {
-  int selectedIndex = -1;
-  int hoveredIndex = -1;
   TextEditingController searchController = TextEditingController();
-  List<SideMenuModel> modelList = [
-    SideMenuModel("Offers", "/offers"),
-    SideMenuModel("Packs", "/Packs"),
-    SideMenuModel("Circle", "/Circle"),
-    SideMenuModel("Renewal Fallback", "/Renewal_Fallback"),
-    SideMenuModel("Message Template", "/Message_Template"),
-    SideMenuModel("Message", "/message"),
-  ];
-  List<String> cardTexts = [
-    "Offers",
-    "Packs",
-    "Circle",
-    "Renewal Fallback",
-    "Message Template",
-    "message"
-  ];
 
-  List<String> filteredCards = [];
-
+  late SideMenuController cont = Get.find();
   @override
   void initState() {
     super.initState();
-    filteredCards = cardTexts;
-    searchController.addListener(filterSearchResults);
-  }
-
-  void filterSearchResults() {
-    setState(() {
-      String query = searchController.text.toLowerCase();
-      if (query.isEmpty) {
-        filteredCards = cardTexts;
-      } else {
-        if (selectedIndex != -1 &&
-            cardTexts[selectedIndex].toLowerCase().contains(query)) {
-          filteredCards = [cardTexts[selectedIndex]];
-        } else {
-          filteredCards = cardTexts
-              .where((card) => card.toLowerCase().contains(query) ||
-                  (selectedIndex != -1 &&
-                      card == cardTexts[selectedIndex]))
-              .toList();
-        }
-      }
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return ListView(
+      shrinkWrap: true,
       children: [
-        // Side Menu
-        Container(
-          width: 200, // Adjust width as needed
-          child: Column(
-            children: modelList.map((item) {
-              int index = modelList.indexOf(item);
-              return InkWell(
-                onTap: () {
-                  setState(() {
-                    selectedIndex = index;
-                  });
-                  GoRouter.of(context).go(item.route);
-                },
-                child: sideMenuCard(
-                  text: item.title,
-                  isSelected: selectedIndex == index || hoveredIndex == index,
-                ),
+        const SizedBox(height: 10),
+        sideMenuSearchView(searchController),
+        ListView.builder(
+          padding: EdgeInsets.only(top: 12),
+          itemCount: cont.menuList.length,
+          shrinkWrap: true,
+          itemBuilder: (context, index) {
+            return Obx(() {
+              print(
+                  "============= ${cont.menuList[index].title == cont.selectedMenuTitle.value}");
+              return Column(
+                children: [
+                  menuCard(
+                      cont.menuList[index].title,
+                      cont.menuList[index].imgName,
+                      cont.menuList[index].title ==
+                          cont.selectedMenuTitle.value),
+                  smVisibilityView(
+                    subMenuListBuilder(),
+                    (cont.menuList[index].title ==
+                        cont.selectedMenuTitle.value),
+                  )
+
+                  // ?
+                  // : SizedBox(),
+                ],
               );
-            }).toList(),
-          ),
-        ),
-
-        // Vertical Divider (Adjust as needed)
-        VerticalDivider(),
-
-        // Content
-        Expanded(
-          child: Column(
-            children: [
-              const SizedBox(height: 10),
-              sideMenuSearchView(searchController),
-              Expanded(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: filteredCards.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 1),
-                      child: InkWell(
-                        onHover: (value) {
-                          setState(() {
-                            if (value) {
-                              hoveredIndex = index;
-                            } else {
-                              hoveredIndex = -1;
-                            }
-                          });
-                        },
-                        onTap: () {
-                          GoRouter.of(context).go(modelList[index].route);
-                        },
-                        child: sideMenuCard(
-                          text: filteredCards[index],
-                          isSelected: (selectedIndex == cardTexts.indexOf(filteredCards[index])) || (hoveredIndex == index),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
+            });
+          },
         ),
       ],
     );
   }
-}
 
-Widget sideMenuSearchView(TextEditingController searchController) {
-  return Container(
-    height: 30,
-    width: double.infinity, // Adjust width as needed
-    decoration: BoxDecoration(
-      color: Colors.white,
-      border: Border.all(color: Colors.transparent),
-      borderRadius: BorderRadius.circular(2),
-    ),
-    child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 8),
-      child: TextField(
-        controller: searchController,
-        decoration: InputDecoration(
-          hintText: 'Search...',
-          hintStyle: TextStyle(fontSize: 10),
-          border: InputBorder.none,
-          suffixIcon: Icon(
-            Icons.search,
-            size: 15,
-          ),
-        ),
-      ),
-    ),
-  );
-}
-*/
-
-import 'dart:ui';
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:sm_admin_portal/Models/side_menu_model.dart';
-import 'package:sm_admin_portal/router/router_name.dart';
-import 'package:sm_admin_portal/screens/tone_activation_screen.dart';
-import 'package:sm_admin_portal/screens/renewal_screen.dart';
-import 'package:sm_admin_portal/side_menu_view/side_menu_card.dart';
-
-class SideMenuListView extends StatefulWidget {
-  @override
-  _SideMenuListViewState createState() => _SideMenuListViewState();
-}
-
-class _SideMenuListViewState extends State<SideMenuListView> {
-  int selectedIndex = -1;
-  int hoveredIndex = -1;
-  TextEditingController searchController = TextEditingController();
-  List<SideMenuModel> modelList = [
-    SideMenuModel("Offers", "/offers"),
-    SideMenuModel("Packs", "/Packs"),
-    SideMenuModel("Subscriber Deatil", "/Circle"),
-    SideMenuModel("Renewal Fallback", "/Renewal_Fallback"),
-    SideMenuModel("Tone Activation", "/Tone_Activation"),
-    SideMenuModel("Message", "/message"),
-    SideMenuModel("Bulk", "/bulk"),
-    SideMenuModel("History", "/history"),
-  ];
-  List<String> cardTexts = [
-    "Offers",
-    "Packs",
-    "Subscriber Deatil",
-    "Renewal Fallback",
-    "Tone Activation",
-    "message",
-    "Bulk",
-    "History",
-  ];
-
-  List<String> filteredCards = [];
-
-  @override
-  void initState() {
-    super.initState();
-    filteredCards = cardTexts;
-    searchController.addListener(filterSearchResults);
-  }
-
-  void filterSearchResults() {
-    setState(() {
-      String query = searchController.text.toLowerCase();
-      if (query.isEmpty) {
-        filteredCards = cardTexts;
-      } else {
-        // Check if the selected card matches the search query
-        if (selectedIndex != -1 &&
-            cardTexts[selectedIndex].toLowerCase().contains(query)) {
-          filteredCards = [cardTexts[selectedIndex]];
-        } else {
-          // Filter based on the search query, including the selected card
-          filteredCards = cardTexts
-              .where((card) =>
-                  card.toLowerCase().contains(query) ||
-                  (selectedIndex != -1 && card == cardTexts[selectedIndex]))
-              .toList();
-        }
-      }
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 10),
-        sideMenuSearchView(searchController),
-        Expanded(
-          child: ListView.builder(
+  Widget subMenuListBuilder() {
+    return appCont.isSideMenuHidden.value
+        ? SizedBox()
+        : ListView.builder(
+            padding: EdgeInsets.symmetric(vertical: 4),
             shrinkWrap: true,
-            itemCount: filteredCards.length,
+            itemCount: cont.subMenuList.length,
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 1),
                 child: InkWell(
-                  onHover: (value) {
-                    setState(() {
-                      if (value) {
-                        hoveredIndex = index;
-                      } else {
-                        hoveredIndex = -1;
-                      }
-                    });
-                  },
                   onTap: () {
-                    if (index == 0) {
-                      context.goNamed(OffersScreenRoute);
-                    } else if (index == 1) {
-                      context.goNamed(PacksScreenRoute);
-                    } else if (index == 2) {
-                      context.goNamed(subscriberDetailRoute);
-                    } else if (index == 3) {
-                      context.goNamed(RenewalScreenRoute);
-                    } else if (index == 4) {
-                      context.goNamed(MessageTemplateScreenRoute);
-                    } else if (index == 5) {
-                      context.goNamed(MessageScreenRoute);
-                    } else if (index == 6) {
-                      context.goNamed(bulkScreenRoute);
-                    } else {
-                      context.goNamed(historyScreenRoute);
-                    }
-                    //else (index == 3){}
+                    cont.selectedSubMenuTitle = cont.subMenuList[index].title;
+                    print(
+                        "cont.smMenuList[index].route ${cont.subMenuList[index].route}");
+                    context.goNamed(cont.subMenuList[index].route);
 
-                    setState(() {
-                      selectedIndex = cardTexts.indexOf(filteredCards[index]);
-                    });
+                    cont.onSubMenuCardTap(cont.subMenuList[index].title);
                   },
-                  child: sideMenuCard(
-                    text: filteredCards[index],
-                    isSelected: (selectedIndex ==
-                            cardTexts.indexOf(filteredCards[index])) ||
-                        (hoveredIndex == index),
-                  ),
+                  child: sideSubMenuCard(
+                      text: cont.subMenuList[index].title,
+                      isSelected: cont.selectedSubMenuTitle ==
+                          cont.subMenuList[index].title),
                 ),
               );
             },
-          ),
-        ),
-      ],
-    );
+          );
   }
-}
 
-Widget sideMenuSearchView(TextEditingController searchController) {
-  return Container(
-    height: 30,
-    width: 165,
-    decoration: BoxDecoration(
-      color: Colors.white,
-      border: Border.all(color: Colors.transparent),
-      borderRadius: BorderRadius.circular(2),
-    ),
-    child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 8),
-      child: TextField(
-        controller: searchController,
-        decoration: InputDecoration(
-          hintText: 'Search...',
-          hintStyle: TextStyle(fontSize: 10),
-          border: InputBorder.none,
-          suffixIcon: Icon(
-            Icons.search,
-            size: 15,
+  Widget menuCard(String title, String img, bool isSelected) {
+    //bool isSelected = true;
+    return InkWell(
+      onTap: () {
+        appCont.isSideMenuHidden.value = false;
+        cont.onMenuCardTap(title);
+        print("====== $title}");
+        print("+++++++++${cont.selectedMenuTitle}");
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        child: Container(
+          child: Row(
+            children: [
+              SizedBox(
+                  width: 40,
+                  child: Image.asset(
+                    img,
+                    height: 20,
+                    color: sixdColor,
+                  )),
+              appCont.isSideMenuHidden.value
+                  ? SizedBox()
+                  : Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: SMText(
+                              title: title,
+                              textColor: sixdColor,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Padding(
+                              padding: EdgeInsets.only(right: 8),
+                              child: smVisibilityView(
+                                  Image.asset(
+                                    chevronDownPng,
+                                    color: sixdColor,
+                                    height: 12,
+                                  ),
+                                  isSelected,
+                                  secondChild: Image.asset(
+                                    chevronRightPng,
+                                    color: sixdColor,
+                                    height: 12,
+                                  ))),
+                        ],
+                      ),
+                    ),
+            ],
           ),
         ),
       ),
-    ),
-  );
+    );
+  }
+
+//isSelected ? chevronDownPng :
+  Widget sideMenuSearchView(TextEditingController searchController) {
+    return Obx(
+      () {
+        return appCont.isSideMenuHidden.value
+            ? InkWell(
+                onTap: () {
+                  appCont.isSideMenuHidden.value = false;
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: searchIcon(),
+                ))
+            : Row(
+                children: [
+                  SizedBox(width: 10),
+                  Flexible(
+                    child: Container(
+                      height: 30,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(color: Colors.transparent),
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 4.0, vertical: 8),
+                        child: TextField(
+                          controller: searchController,
+                          decoration: InputDecoration(
+                            hintText: searchMenuItemStr,
+                            hintStyle: TextStyle(fontSize: 10),
+                            border: InputBorder.none,
+                            suffixIcon: searchIcon(),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              );
+      },
+    );
+  }
+
+  Icon searchIcon() {
+    return Icon(
+      Icons.search,
+      size: 15,
+    );
+  }
 }

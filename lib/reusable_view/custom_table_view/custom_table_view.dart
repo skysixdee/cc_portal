@@ -25,7 +25,7 @@ class CustomTableView extends StatelessWidget {
     this.rowTextStyle,
     this.borderColor,
     this.cellColor,
-    this.headerBgColor,
+    this.headerBgColor = black12,
     this.borderWidth,
     this.cellHeight,
     this.button,
@@ -70,7 +70,8 @@ class CustomTableView extends StatelessWidget {
                           child: Text(
                             headerColumList[column].title,
                             style: headerTextStyle ??
-                                const TextStyle(fontWeight: FontWeight.bold),
+                                const TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 14),
                           ),
                         ),
                       ),

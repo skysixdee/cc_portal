@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:sm_admin_portal/controllers/app_controller.dart';
+import 'package:sm_admin_portal/controllers/side_menu_controller.dart';
 import 'package:sm_admin_portal/controllers/subscriber_detail_controler.dart';
 import 'package:sm_admin_portal/router/router.dart';
 
@@ -15,7 +16,8 @@ void main() {
 
 initialize() async {
   appCont = Get.put(AppController());
-  SubscriberDetailController _ = Get.put(SubscriberDetailController());
+  Get.lazyPut(() => SubscriberDetailController());
+  Get.lazyPut(() => SideMenuController());
   prefs = await SharedPreferences.getInstance();
 }
 
