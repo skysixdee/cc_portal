@@ -44,6 +44,7 @@ String SubscriptionCodeStr = 'Subscription Code';
 String ToneStatusStr = 'Tone Status';
 
 String ToneNameStr = 'Tone Name';
+String ArtistStr = 'Artist';
 
 String channelIdStr = 'Channel Id';
 String channelStr = 'Channel';
