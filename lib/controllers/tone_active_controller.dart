@@ -202,23 +202,32 @@ class ToneActiveController extends GetxController {
   Future<void> fetchToneDetails(
       int categoryIndex, String msisdn, String key) async {
     String url = 'http://10.0.14.4:8090/advanced-search';
-
+    print('Search key == ${key}');
     print("Make search tone id api call here");
+
+    String filter = '';
+    if (categoryIndex == 0) {
+      filter = "ToneId";
+    } else if (categoryIndex == 1) {
+      filter = "Content";
+    } else {
+      filter = "Artist";
+    }
     var myPost = {
       "msisdn": msisdn,
       "sortBy": "OrderBy",
       "pageNo": 0,
       "perPageCount": 20,
-      "filter": (categoryIndex == 0)
-          ? "ToneId"
-          : ((categoryIndex == 1) ? "Content" : "Artist",),
+      "filter": filter,
       "filterPref": "none",
       "locale": "my",
-      "searchKey": [key],
+      "searchKey": ["See You"],
     };
+
+    print("Make search tone id api call here 12  data = $myPost");
     Map<String, dynamic> respMap =
         await NetworkManager().postResquest(url, myPost);
-
+    print("Make search tone id api call here 12 3");
     //Map<String, dynamic> jsonResp = json.decode(respMap);
     ToneActivationModall model = ToneActivationModall.fromJson(respMap);
     print("Model ====== ${model}");
