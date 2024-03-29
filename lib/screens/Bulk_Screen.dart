@@ -257,7 +257,7 @@ class BulkScreen extends StatelessWidget {
                                       ),
                                     ));
                                   });
-                            })
+                            }, direction: PopoverDirection.bottom,)
                       ],
                     ),
                   ),

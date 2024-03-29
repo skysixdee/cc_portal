@@ -25,7 +25,7 @@ class ReusbaleDropDownButton extends StatelessWidget {
     this.selectedoption = '',
     this.hinttext = '',
     this.isDisplayPopup = true,
-    this.onTap,
+    this.onTap, required PopoverDirection direction,
   });
   final bool isDisplayPopup;
   Function(int)? onChanged;
@@ -166,6 +166,7 @@ class ReusbaleDropDownButton extends StatelessWidget {
   popupOverOpen(BuildContext context) {
     showPopover(
       context: context,
+
       bodyBuilder: (context) {
         return ListView.builder(
           padding: const EdgeInsets.all(1),
@@ -208,23 +209,21 @@ class ReusbaleDropDownButton extends StatelessWidget {
                 : (isHovered ? hoverColor : Colors.white),
           ),
           child: Padding(
-              padding: const EdgeInsets.all(6.0),
-              child:  SMText(
-                  fontWeight: FontWeight.normal,
-                  title: items[index],
-                  textColor:
-                      selectedIndex.value == index ? Colors.white : Colors.black),
-              // Text(
-              //   items[index],
-              //   style: TextStyle(
-              //       fontWeight: FontWeight.normal,
-              //       color: selectedIndex.value == index
-              //           ? Colors.white
-              //           : Colors.black),
-              // )
-
-              
-              ),
+            padding: const EdgeInsets.all(6.0),
+            child: SMText(
+                fontWeight: FontWeight.normal,
+                title: items[index],
+                textColor:
+                    selectedIndex.value == index ? Colors.white : Colors.black),
+            // Text(
+            //   items[index],
+            //   style: TextStyle(
+            //       fontWeight: FontWeight.normal,
+            //       color: selectedIndex.value == index
+            //           ? Colors.white
+            //           : Colors.black),
+            // )
+          ),
         );
       },
     ));

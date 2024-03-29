@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:popover/popover.dart';
 import 'package:sm_admin_portal/reusable_view/box_shadow.dart';
 import 'package:sm_admin_portal/reusable_view/custom_text_field.dart';
 import 'package:sm_admin_portal/reusable_view/reusable_drop_down_button.dart';
@@ -51,7 +52,7 @@ class HistorySearchView extends StatelessWidget {
 
   Container bottomButtonBuilder() {
     return Container(
-      color: bgColor,
+      color: greyLight,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 6),
         child: Row(
@@ -108,7 +109,7 @@ class HistorySearchView extends StatelessWidget {
           Icons.calendar_month,
           size: 16,
         ),
-      ),
+      ), direction: PopoverDirection.bottom,
     );
   }
 
@@ -126,7 +127,7 @@ class HistorySearchView extends StatelessWidget {
           Icons.calendar_month,
           size: 16,
         ),
-      ),
+      ), direction: PopoverDirection.bottom,
     );
   }
 
