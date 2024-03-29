@@ -107,10 +107,14 @@ class ToneActiveController extends GetxController {
         onChanged: (value) {
           updateStatus();
           //if (value == "Weekly") {
+          //if (categoryIndex == 0) {
           fetchToneDetails(
+            categoryIndex,
             (widgitList[0] as CustomReusableTextField).textController.text,
             (widgitList[2] as CustomReusableTextField).textController.text,
           );
+          //}
+
           print('value:$value');
           //}
         },
@@ -195,85 +199,64 @@ class ToneActiveController extends GetxController {
     widgitList.refresh();
   }
 
-  Future<void> fetchToneDetails(String msisdn, String toneId) async {
+  Future<void> fetchToneDetails(
+      int categoryIndex, String msisdn, String key) async {
     String url = 'http://10.0.14.4:8090/advanced-search';
+
+    print("Make search tone id api call here");
+    var myPost = {
+      "msisdn": msisdn,
+      "sortBy": "OrderBy",
+      "pageNo": 0,
+      "perPageCount": 20,
+      "filter": (categoryIndex == 0)
+          ? "ToneId"
+          : ((categoryIndex == 1) ? "Content" : "Artist",),
+      "filterPref": "none",
+      "locale": "my",
+      "searchKey": [key],
+    };
+    Map<String, dynamic> respMap =
+        await NetworkManager().postResquest(url, myPost);
+
+    //Map<String, dynamic> jsonResp = json.decode(respMap);
+    ToneActivationModall model = ToneActivationModall.fromJson(respMap);
+    print("Model ====== ${model}");
+
+    print("tones are ${model.responseMap?.toneList}");
+    List<String> toneNames = (model.responseMap?.toneList ?? [])
+        .map<String>((tone) => tone.toneNameEnglish ?? '')
+        .toList();
+
+    ReusbaleDropDownButton toneDropdown =
+        widgitList[6] as ReusbaleDropDownButton;
+    toneDropdown.items = toneNames;
+
     if (categoryIndex == 0) {
-      print("Make search tone id api call here");
-      var myPost = {
-        "msisdn": "973057664",
-        "sortBy": "OrderBy",
-        "pageNo": 0,
-        "perPageCount": 20,
-        "filter": "ToneId",
-        "filterPref": "none",
-        "locale": "my",
-        "searchKey": ["55599434"]
-      };
-      await NetworkManager().postResquest(url, myPost);
-
-      Map<String, dynamic> jsonResp = json.decode(toneIdSearchResp);
-      ToneActivationModall model = ToneActivationModall.fromJson(jsonResp);
-      toneList = model.data?.first.tones ?? [];
-      print("Tone items are ${toneList.length}");
-      // List<String> toneOptions = await fetchToneDetails(msisdn, toneId);
-      // widgitlist[2]=ReusbaleDropDownButton(items: toneOptions, direction:PopoverDirection.bottom)
-
-      List<String> toneNames =
-          toneList.map((tone) => tone.toneNameEnglish!.toString()).toList();
-      ReusbaleDropDownButton toneDropdown =
-          widgitList[2] as ReusbaleDropDownButton;
-      toneDropdown.items = toneNames;
-      widgitList.refresh();
-      print('tones:$toneNames');
-      //if(model.data)
+      print("Update for tone id ");
     } else if (categoryIndex == 1) {
-      print("Make tone name api call here");
-      var myPost = {
-        "sortBy": "OrderBy",
-        "pageNo": 0,
-        "perPageCount": 20,
-        "filter": "Content",
-        "filterPref": "custom",
-        "locale": "en",
-        "searchKey": ["SKY"],
-      };
-      await NetworkManager().postResquest(url, myPost);
-
-      Map<String, dynamic> jsonResp = json.decode(toneNameSearchResp);
-
-      //ToneActivationArtistModal model = ToneActivationArtistModal.fromJson(jsonResp);
-      ToneActivationModall model = ToneActivationModall.fromJson(jsonResp);
-      toneList = model.data?.first.tones ?? [];
-      print("Tone items are ${toneList.length}");
+      print("Update for tone name ");
     } else {
-      String url = 'http://10.0.14.4:8090/advanced-search';
-      var myPost = {
-        "sortBy": "OrderBy",
-        "pageNo": 0,
-        "perPageCount": 20,
-        "filter": "Artist",
-        "filterPref": "custom",
-        "locale": "en",
-        "searchKey": ["SKY"],
-      };
+      var jsonResponse = json.decode(respMap as String);
+      List<dynamic> toneList = jsonResponse['responseMap']['toneList'];
+      List<String> artistNames =
+          toneList.map<String>((tone) => tone['artistName'] ?? '').toList();
+      print("Update for artist ");
 
-      await NetworkManager().postResquest(url, myPost);
-      Map<String, dynamic> jsonResp = json.decode(artistSearchResp);
-      ToneActivationModall model = ToneActivationModall.fromJson(jsonResp);
-      toneList = model.data?.first.tones ?? [];
-      print("Make Artist search api call here");
-      print("Tone items are ${toneList.length} ===== ${model.data}");
+      ReusbaleDropDownButton artistDropdown =
+          widgitList[8] as ReusbaleDropDownButton;
+      artistDropdown.items = artistNames;
     }
-    List<String> artistNames =
-        toneList.map((tone) => tone.artistName!).toList();
+    // toneList = model.responseMap?.toneList ?? [];
+    // print("Tone items are ${model.data}");
 
-    (widgitList[7] as ReusbaleDropDownButton).items = artistNames;
+    // List<String> toneNames =
+    //     toneList.map((tone) => tone.toneNameEnglish!.toString()).toList();
+    // ReusbaleDropDownButton toneDropdown =
+    //     widgitList[6] as ReusbaleDropDownButton;
+    // toneDropdown.items = toneNames;
     // widgitList.refresh();
-
-    List<String> toneNames = toneList.map((tone) => tone.artistName!).toList();
-
-    (widgitList[6] as ReusbaleDropDownButton).items = toneNames;
-    widgitList.refresh();
+    //print('tones:$toneNames');
   }
 }
 
