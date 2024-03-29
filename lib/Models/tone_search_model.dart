@@ -160,6 +160,8 @@ class ToneActivationModall {
         statusCode: json["statusCode"],
       );
 
+  get data => null;
+
   Map<String, dynamic> toJson() => {
         "responseMap": responseMap?.toJson(),
         "message": message,
@@ -224,6 +226,8 @@ class ToneList {
         toneIdpreviewImageUrl: json["toneIdpreviewImageUrl"],
       );
 
+  get toneNameEnglish => null;
+
   Map<String, dynamic> toJson() => {
         "toneId": toneId,
         "toneName": toneName,
@@ -235,4 +239,6 @@ class ToneList {
         "toneIdStreamingUrl": toneIdStreamingUrl,
         "toneIdpreviewImageUrl": toneIdpreviewImageUrl,
       };
+
+  static map(Function(dynamic tone) param0) {}
 }
