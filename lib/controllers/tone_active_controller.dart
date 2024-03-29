@@ -107,12 +107,13 @@ class ToneActiveController extends GetxController {
         onChanged: (value) {
           updateStatus();
           //if (value == "Weekly") {
-          if (categoryIndex == 0) {
-            fetchToneDetails(
-                (widgitList[0] as CustomReusableTextField).textController.text,
-                (widgitList[2] as CustomReusableTextField).textController.text,
-                'ToneId');
-          }
+          //if (categoryIndex == 0) {
+          fetchToneDetails(
+            categoryIndex,
+            (widgitList[0] as CustomReusableTextField).textController.text,
+            (widgitList[2] as CustomReusableTextField).textController.text,
+          );
+          //}
 
           print('value:$value');
           //}
@@ -199,16 +200,18 @@ class ToneActiveController extends GetxController {
   }
 
   Future<void> fetchToneDetails(
-      String msisdn, String key, String filter) async {
+      int categoryIndex, String msisdn, String key) async {
     String url = 'http://10.0.14.4:8090/advanced-search';
 
     print("Make search tone id api call here");
     var myPost = {
-      "msisdn": "973057664",
+      "msisdn": msisdn,
       "sortBy": "OrderBy",
       "pageNo": 0,
       "perPageCount": 20,
-      "filter": filter,
+      "filter": (categoryIndex == 0)
+          ? "ToneId"
+          : ((categoryIndex == 1) ? "Content" : "Artist",),
       "filterPref": "none",
       "locale": "my",
       "searchKey": [key],
@@ -221,6 +224,14 @@ class ToneActiveController extends GetxController {
     print("Model ====== ${model}");
 
     print("tones are ${model.responseMap?.toneList}");
+
+    if (categoryIndex == 0) {
+      print("Update for tone id ");
+    } else if (categoryIndex == 1) {
+      print("Update for tone name ");
+    } else {
+      print("Update for artist ");
+    }
     // toneList = model.responseMap?.toneList ?? [];
     // print("Tone items are ${model.data}");
 
