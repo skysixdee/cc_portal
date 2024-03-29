@@ -131,80 +131,88 @@
 
 import 'dart:convert';
 
-ToneActivationModall toneActivationModallFromJson(String str) => ToneActivationModall.fromJson(json.decode(str));
+ToneActivationModall toneActivationModallFromJson(String str) =>
+    ToneActivationModall.fromJson(json.decode(str));
 
-String toneActivationModallToJson(ToneActivationModall data) => json.encode(data.toJson());
+String toneActivationModallToJson(ToneActivationModall data) =>
+    json.encode(data.toJson());
 
 class ToneActivationModall {
-    ResponseMap? responseMap;
-    String? message;
-    String? respTime;
-    String? statusCode;
+  ResponseMap? responseMap;
+  String? message;
+  String? respTime;
+  String? statusCode;
 
-    ToneActivationModall({
-        this.responseMap,
-        this.message,
-        this.respTime,
-        this.statusCode,
-    });
+  ToneActivationModall({
+    this.responseMap,
+    this.message,
+    this.respTime,
+    this.statusCode,
+  });
 
-    factory ToneActivationModall.fromJson(Map<String, dynamic> json) => ToneActivationModall(
-        responseMap: json["responseMap"] == null ? null : ResponseMap.fromJson(json["responseMap"]),
+  factory ToneActivationModall.fromJson(Map<String, dynamic> json) =>
+      ToneActivationModall(
+        responseMap: json["responseMap"] == null
+            ? null
+            : ResponseMap.fromJson(json["responseMap"]),
         message: json["message"],
         respTime: json["respTime"],
         statusCode: json["statusCode"],
-    );
+      );
 
-  get data => null;
-
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "responseMap": responseMap?.toJson(),
         "message": message,
         "respTime": respTime,
         "statusCode": statusCode,
-    };
+      };
 }
 
 class ResponseMap {
-    List<ToneList>? toneList;
+  List<ToneList>? toneList;
 
-    ResponseMap({
-        this.toneList,
-    });
+  ResponseMap({
+    this.toneList,
+  });
 
-    factory ResponseMap.fromJson(Map<String, dynamic> json) => ResponseMap(
-        toneList: json["toneList"] == null ? [] : List<ToneList>.from(json["toneList"]!.map((x) => ToneList.fromJson(x))),
-    );
+  factory ResponseMap.fromJson(Map<String, dynamic> json) => ResponseMap(
+        toneList: json["toneList"] == null
+            ? []
+            : List<ToneList>.from(
+                json["toneList"]!.map((x) => ToneList.fromJson(x))),
+      );
 
-    Map<String, dynamic> toJson() => {
-        "toneList": toneList == null ? [] : List<dynamic>.from(toneList!.map((x) => x.toJson())),
-    };
+  Map<String, dynamic> toJson() => {
+        "toneList": toneList == null
+            ? []
+            : List<dynamic>.from(toneList!.map((x) => x.toJson())),
+      };
 }
 
 class ToneList {
-    String? toneId;
-    String? toneName;
-    String? artistName;
-    String? albumName;
-    int? price;
-    int? categoryId;
-    String? expiryDate;
-    String? toneIdStreamingUrl;
-    String? toneIdpreviewImageUrl;
+  String? toneId;
+  String? toneName;
+  String? artistName;
+  String? albumName;
+  int? price;
+  int? categoryId;
+  String? expiryDate;
+  String? toneIdStreamingUrl;
+  String? toneIdpreviewImageUrl;
 
-    ToneList({
-        this.toneId,
-        this.toneName,
-        this.artistName,
-        this.albumName,
-        this.price,
-        this.categoryId,
-        this.expiryDate,
-        this.toneIdStreamingUrl,
-        this.toneIdpreviewImageUrl,
-    });
+  ToneList({
+    this.toneId,
+    this.toneName,
+    this.artistName,
+    this.albumName,
+    this.price,
+    this.categoryId,
+    this.expiryDate,
+    this.toneIdStreamingUrl,
+    this.toneIdpreviewImageUrl,
+  });
 
-    factory ToneList.fromJson(Map<String, dynamic> json) => ToneList(
+  factory ToneList.fromJson(Map<String, dynamic> json) => ToneList(
         toneId: json["toneId"],
         toneName: json["toneName"],
         artistName: json["artistName"],
@@ -214,9 +222,9 @@ class ToneList {
         expiryDate: json["expiryDate"],
         toneIdStreamingUrl: json["toneIdStreamingUrl"],
         toneIdpreviewImageUrl: json["toneIdpreviewImageUrl"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "toneId": toneId,
         "toneName": toneName,
         "artistName": artistName,
@@ -226,5 +234,5 @@ class ToneList {
         "expiryDate": expiryDate,
         "toneIdStreamingUrl": toneIdStreamingUrl,
         "toneIdpreviewImageUrl": toneIdpreviewImageUrl,
-    };
+      };
 }
