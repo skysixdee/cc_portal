@@ -17,7 +17,7 @@ class ToneActiveController extends GetxController {
   RxList<Widget> widgitList = <Widget>[].obs;
   int categoryIndex = 0;
   // List<Tone> toneList = [];//////////bhavya
-  List<Tonelist> toneList = [];
+  List<ToneList> toneList = [];
   void onInit() {
     categoryIndex = -1;
     super.onInit();
@@ -187,7 +187,7 @@ class ToneActiveController extends GetxController {
       items: [
         "Promotional Pack",
         "Promotional Tune",
-        "Promotional Pack and tune"
+        "Promotional Pack and tune",
       ],
       title: "Language",
       onChanged: (value) {},
@@ -201,60 +201,94 @@ class ToneActiveController extends GetxController {
 
   Future<void> fetchToneDetails(
       int categoryIndex, String msisdn, String key) async {
-    String url = 'http://10.0.14.4:8090/advanced-search';
-    print('Search key == ${key}');
-    print("Make search tone id api call here");
+    try {
+      String url = 'http://10.0.14.4:8090/advanced-search';
+      print('Search key == ${key}');
+      print("Make search tone id api call here");
 
-    String filter = '';
-    if (categoryIndex == 0) {
-      filter = "ToneId";
-    } else if (categoryIndex == 1) {
-      filter = "Content";
-    } else {
-      filter = "Artist";
-    }
-    var myPost = {
-      "msisdn": msisdn,
-      "sortBy": "OrderBy",
-      "pageNo": 0,
-      "perPageCount": 20,
-      "filter": filter,
-      "filterPref": "none",
-      "locale": "my",
-      "searchKey": ["See You"],
-    };
+      String filter = '';
+      if (categoryIndex == 0) {
+        filter = "ToneId";
+      } else if (categoryIndex == 1) {
+        filter = "Content";
+      } else {
+        filter = "Artist";
+      }
+      var myPost = {
+        "msisdn": msisdn,
+        "sortBy": "OrderBy",
+        "pageNo": 0,
+        "perPageCount": 20,
+        "filter": filter,
+        "filterPref": "none",
+        "locale": "my",
+        "searchKey": [key],
+      };
 
-    print("Make search tone id api call here 12  data = $myPost");
-    Map<String, dynamic> respMap =
-        await NetworkManager().postResquest(url, myPost);
-    print("Make search tone id api call here 12 3");
-    //Map<String, dynamic> jsonResp = json.decode(respMap);
-    ToneActivationModall model = ToneActivationModall.fromJson(respMap);
-    print("Model ====== ${model}");
+      print("Make search tone id api call here 12  data = $myPost");
+      Map<String, dynamic> respMap =
+          await NetworkManager().postResquest(url, myPost);
 
-    print("tones are ${model.responseMap?.toneList}");
-    List<String> toneNames = (model.responseMap?.toneList ?? [])
-        .map<String>((tone) => tone.toneNameEnglish ?? '')
-        .toList();
+      print("Make search tone id api call here 12 3");
+      //Map<String, dynamic> jsonResp = json.decode(respMap);
+      ToneActivationModall model = ToneActivationModall.fromJson(respMap);
+      print("Model ====== ${model}");
+      List<String> toneNames = [];
+      List<String> artistNames = [];
 
-    ReusbaleDropDownButton toneDropdown =
-        widgitList[6] as ReusbaleDropDownButton;
-    toneDropdown.items = toneNames;
+      print("tones are ${model.responseMap?.toneList}");
+      // List<String> toneNames = (model.responseMap?.toneList ?? [])
+      //     .map<String>((tone) => tone.toneNameEnglish ?? '')
+      //     .toList();
 
-    if (categoryIndex == 0) {
-      print("Update for tone id ");
-    } else if (categoryIndex == 1) {
-      print("Update for tone name ");
-    } else {
-      var jsonResponse = json.decode(respMap as String);
-      List<dynamic> toneList = jsonResponse['responseMap']['toneList'];
-      List<String> artistNames =
-          toneList.map<String>((tone) => tone['artistName'] ?? '').toList();
-      print("Update for artist ");
+      // ReusbaleDropDownButton toneDropdown =
+      //     widgitList[6] as ReusbaleDropDownButton;
+      // toneDropdown.items = toneNames;
+      // toneDropdown.refresh();
 
-      ReusbaleDropDownButton artistDropdown =
-          widgitList[8] as ReusbaleDropDownButton;
-      artistDropdown.items = artistNames;
+      if (categoryIndex == 0) {
+        print("Update for tone id ");
+        List<String> toneNames = (model.responseMap?.toneList ?? [])
+            .map<String>((tone) => tone.toneNameEnglish ?? '')
+            .toList();
+        ReusbaleDropDownButton toneDropdown =
+            widgitList[6] as ReusbaleDropDownButton;
+        toneDropdown.items = toneNames;
+        print("tonenames:$toneNames");
+      } else if (categoryIndex == 1) {
+        print("Update for tone name ");
+        toneNames = (model.responseMap?.toneList ?? [])
+            .map<String>((tone) => tone.toneNameEnglish ?? '')
+            .toList();
+        ReusbaleDropDownButton toneDropdown =
+            widgitList[6] as ReusbaleDropDownButton;
+        toneDropdown.items = toneNames;
+        print("tonenames:$toneNames");
+      } else {
+        var jsonResponse = json.decode(respMap as String);
+        List<dynamic> toneList = jsonResponse['responseMap']['toneList'];
+        List<String> artistNames =
+            toneList.map<String>((tone) => tone['artistName'] ?? '').toList();
+        print("Update for artist ");
+
+        toneNames = (model.responseMap?.toneList ?? [])
+            .map<String>((tone) => tone.artistName ?? '')
+            .toList();
+
+        ReusbaleDropDownButton artistDropdown =
+            widgitList[8] as ReusbaleDropDownButton;
+        artistDropdown.items = artistNames;
+      }
+
+      if (toneNames.isNotEmpty) {
+        ReusbaleDropDownButton toneDropDownButton =
+            widgitList[6] as ReusbaleDropDownButton;
+        toneDropDownButton.items = toneNames;
+      } else {
+        print('no tone name response found');
+      }
+    } catch (e) {
+      print('error fetching $e');
     }
     // toneList = model.responseMap?.toneList ?? [];
     // print("Tone items are ${model.data}");
@@ -267,9 +301,8 @@ class ToneActiveController extends GetxController {
     // widgitList.refresh();
     //print('tones:$toneNames');
   }
-}
 
-String toneNameSearchResp = """
+  String toneNameSearchResp = """
 {
     "count": 0,
     "data": [
@@ -304,7 +337,7 @@ String toneNameSearchResp = """
 }
 """;
 
-String artistSearchResp = """
+  String artistSearchResp = """
 {
     "responseMap": {
         "toneList": [
@@ -535,7 +568,7 @@ String artistSearchResp = """
     "statusCode": "SC0000"
 }""";
 
-String toneIdSearchResp = """{
+  String toneIdSearchResp = """{
     "count": 0,
     "data": [
         {
@@ -559,3 +592,4 @@ String toneIdSearchResp = """{
     ],
     "total": 0
 }""";
+}
