@@ -209,6 +209,11 @@ class ToneActiveController extends GetxController {
       String filter = '';
       if (categoryIndex == 0) {
         filter = "ToneId";
+
+        // ReusbaleDropDownButton toneDropdown =
+        //     widgitList[6] as ReusbaleDropDownButton;
+        // toneDropdown.items = toneNames;
+        // toneDropdown.refresh();
       } else if (categoryIndex == 1) {
         filter = "Content";
       } else {
@@ -237,14 +242,15 @@ class ToneActiveController extends GetxController {
       List<String> artistNames = [];
 
       print("tones are ${model.responseMap?.toneList}");
-      // List<String> toneNames = (model.responseMap?.toneList ?? [])
-      //     .map<String>((tone) => tone.toneNameEnglish ?? '')
-      //     .toList();
 
-      // ReusbaleDropDownButton toneDropdown =
-      //     widgitList[6] as ReusbaleDropDownButton;
-      // toneDropdown.items = toneNames;
-      // toneDropdown.refresh();
+      toneNames = (model.responseMap?.toneList ?? [])
+          .map<String>((tone) => tone.toneName ?? '')
+          .toList();
+      print("SKY tone name  =======${toneNames}");
+      ReusbaleDropDownButton toneDropdown =
+          widgitList[6] as ReusbaleDropDownButton;
+      toneDropdown.items = toneNames;
+      toneDropdown.refresh();
 
       if (categoryIndex == 0) {
         print("Update for tone id ");
