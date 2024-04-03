@@ -30,6 +30,7 @@ class ToneActiveController extends GetxController {
         textController: TextEditingController(),
         title: "Msisdn",
         hintText: 'Msisdn',
+        width: 260,
         onChange: (p0) {
           onChangeMsisdn(p0);
         },
@@ -41,8 +42,9 @@ class ToneActiveController extends GetxController {
         isrequired: true,
       ),
       ReusbaleDropDownButton(
-        items: ["ToneId *", "ToneName", "Artist"],
+        items: ["ToneId ", "ToneName", "Artist"],
         title: "Category",
+        width: 260,
         onTap: () {},
         onChanged: (value) {
           categoryIndex = value;
@@ -53,6 +55,7 @@ class ToneActiveController extends GetxController {
                 textController: TextEditingController(),
                 title: toneIdStr,
                 hintText: toneIdStr,
+                width: 260,
                 onChange: (p0) {
                   print("Changed");
                 },
@@ -65,6 +68,7 @@ class ToneActiveController extends GetxController {
               textController: TextEditingController(),
               title: ToneNameStr,
               hintText: ToneNameStr,
+              width: 260,
               onChange: (p0) {
                 print("Changed");
               },
@@ -78,6 +82,7 @@ class ToneActiveController extends GetxController {
               textController: TextEditingController(),
               title: ArtistStr,
               hintText: ArtistStr,
+              width: 260,
               onChange: (p0) {
                 print("Changed");
               },
@@ -86,6 +91,7 @@ class ToneActiveController extends GetxController {
               isrequired: true,
             );
           }
+
           print("Value is $value");
         },
         direction: PopoverDirection.bottom,
@@ -94,6 +100,7 @@ class ToneActiveController extends GetxController {
         textController: TextEditingController(),
         title: "Search Key",
         hintText: 'Search Key',
+        width: 260,
         onChange: (p0) {
           print("Changed");
         },
@@ -104,18 +111,24 @@ class ToneActiveController extends GetxController {
       ReusbaleDropDownButton(
         items: ["Daily", "Weekly", "Montly"],
         title: "Frequeny",
+        width: 260,
         onChanged: (value) {
           updateStatus();
-          //if (value == "Weekly") {
-          //if (categoryIndex == 0) {
+
+          updateWidgetListForToneId();
+          //    removeFields(categoryIndex);
+          // removeWidgets();
+
           fetchToneDetails(
             categoryIndex,
             (widgitList[0] as CustomReusableTextField).textController.text,
             (widgitList[2] as CustomReusableTextField).textController.text,
           );
-          //}
 
+          direction:
+          PopoverDirection.bottom;
           print('value:$value');
+
           //}
         },
         direction: PopoverDirection.bottom,
@@ -127,6 +140,7 @@ class ToneActiveController extends GetxController {
           "Promotional Pack and Tone"
         ],
         title: "Service Type",
+        width: 260,
         onChanged: (value) {
           print('value=$value');
         },
@@ -134,6 +148,39 @@ class ToneActiveController extends GetxController {
       ),
     ];
   }
+
+  // void removeFields(int categoryIndex) {
+  //   if (widgitList.length > 5) {
+  //     widgitList.removeRange(6, 9);
+  //     widgitList.refresh();
+  //   }
+  // }
+
+  void updateWidgetListForToneId() {
+    widgitList.removeAt(5);
+    widgitList.removeAt(6);
+    widgitList.removeAt(7);
+    // widgitList.removeWhere(
+    //   (widget) =>
+    //       widget is ReusbaleDropDownButton &&
+    //       (widget.title == "offers" ||
+    //           widget.title == "Tone" ||
+    //           widget.title == "Languag"),
+    // );
+    print('deleting');
+
+    widgitList.refresh();
+  }
+
+  // void removeWidgets() {
+  //   widgitList.removeWhere(
+  //     (widget) =>
+  //         widget is ReusbaleDropDownButton &&
+  //         (widget.title == "offers" ||
+  //             widget.title == "Tone" ||
+  //             widget.title == "Languag"),
+  //   );
+  // }
 
   onChangeMsisdn(String value) {
     print("Value is $value");
@@ -165,38 +212,38 @@ class ToneActiveController extends GetxController {
   }
 
   addNewField() {
-    ReusbaleDropDownButton offersDropDown =
-        // widgitList.add(
-        ReusbaleDropDownButton(
-      items: ["CRBT"],
-      title: "Offers",
-      onChanged: (value) {},
-      direction: PopoverDirection.bottom,
-    );
+    if (widgitList.length <= 6) {
+      ReusbaleDropDownButton offersDropDown = ReusbaleDropDownButton(
+        items: ["CRBT"],
+        title: "Offers",
+        width: 260,
+        onChanged: (value) {},
+        direction: PopoverDirection.bottom,
+      );
 
-    //   widgitList.add(
-    ReusbaleDropDownButton toneDropDown = ReusbaleDropDownButton(
-      items: [],
-      title: "Tone",
-      onChanged: (value) {},
-      direction: PopoverDirection.bottom,
-    );
-    ReusbaleDropDownButton languageDropDown =
-        // widgitList.add(
-        ReusbaleDropDownButton(
-      items: [
-        "Promotional Pack",
-        "Promotional Tune",
-        "Promotional Pack and tune",
-      ],
-      title: "Language",
-      onChanged: (value) {},
-      direction: PopoverDirection.bottom,
-    );
-    widgitList.add(offersDropDown);
-    widgitList.add(toneDropDown);
-    widgitList.add(languageDropDown);
-    widgitList.refresh();
+      ReusbaleDropDownButton toneDropDown = ReusbaleDropDownButton(
+        items: [],
+        title: "Tone ",
+        width: 260,
+        onChanged: (value) {},
+        direction: PopoverDirection.bottom,
+      );
+      ReusbaleDropDownButton languageDropDown = ReusbaleDropDownButton(
+        items: [
+          "Promotional Pack",
+          "Promotional Tune",
+          "Promotional Pack and tune",
+        ],
+        title: "Language",
+        width: 260,
+        onChanged: (value) {},
+        direction: PopoverDirection.bottom,
+      );
+      widgitList.add(offersDropDown);
+      widgitList.add(toneDropDown);
+      widgitList.add(languageDropDown);
+      widgitList.refresh();
+    }
   }
 
   Future<void> fetchToneDetails(
@@ -209,11 +256,6 @@ class ToneActiveController extends GetxController {
       String filter = '';
       if (categoryIndex == 0) {
         filter = "ToneId";
-
-        // ReusbaleDropDownButton toneDropdown =
-        //     widgitList[6] as ReusbaleDropDownButton;
-        // toneDropdown.items = toneNames;
-        // toneDropdown.refresh();
       } else if (categoryIndex == 1) {
         filter = "Content";
       } else {
@@ -235,7 +277,7 @@ class ToneActiveController extends GetxController {
           await NetworkManager().postResquest(url, myPost);
 
       print("Make search tone id api call here 12 3");
-      //Map<String, dynamic> jsonResp = json.decode(respMap);
+
       ToneActivationModall model = ToneActivationModall.fromJson(respMap);
       print("Model ====== ${model}");
       List<String> toneNames = [];
@@ -263,7 +305,7 @@ class ToneActiveController extends GetxController {
         print("tonenames:$toneNames");
       } else if (categoryIndex == 1) {
         print("Update for tone name ");
-        toneNames = (model.responseMap?.toneList ?? [])
+        List<String> toneNames = (model.responseMap?.toneList ?? [])
             .map<String>((tone) => tone.toneNameEnglish ?? '')
             .toList();
         ReusbaleDropDownButton toneDropdown =
@@ -280,7 +322,7 @@ class ToneActiveController extends GetxController {
         toneNames = (model.responseMap?.toneList ?? [])
             .map<String>((tone) => tone.artistName ?? '')
             .toList();
-
+        direction:
         ReusbaleDropDownButton artistDropdown =
             widgitList[8] as ReusbaleDropDownButton;
         artistDropdown.items = artistNames;
@@ -296,16 +338,6 @@ class ToneActiveController extends GetxController {
     } catch (e) {
       print('error fetching $e');
     }
-    // toneList = model.responseMap?.toneList ?? [];
-    // print("Tone items are ${model.data}");
-
-    // List<String> toneNames =
-    //     toneList.map((tone) => tone.toneNameEnglish!.toString()).toList();
-    // ReusbaleDropDownButton toneDropdown =
-    //     widgitList[6] as ReusbaleDropDownButton;
-    // toneDropdown.items = toneNames;
-    // widgitList.refresh();
-    //print('tones:$toneNames');
   }
 
   String toneNameSearchResp = """
