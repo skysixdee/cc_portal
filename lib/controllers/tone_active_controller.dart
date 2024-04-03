@@ -48,6 +48,8 @@ class ToneActiveController extends GetxController {
         onTap: () {},
         onChanged: (value) {
           categoryIndex = value;
+          //updateWidgetListForToneId();
+          removeItems();
           if (value == 0) {
             print("Tone id tapped");
 
@@ -113,9 +115,9 @@ class ToneActiveController extends GetxController {
         title: "Frequeny",
         width: 260,
         onChanged: (value) {
+          //updateWidgetListForToneId();
           updateStatus();
 
-          updateWidgetListForToneId();
           //    removeFields(categoryIndex);
           // removeWidgets();
 
@@ -157,6 +159,7 @@ class ToneActiveController extends GetxController {
   // }
 
   void updateWidgetListForToneId() {
+    print("===========SKY== ${widgitList.length}");
     widgitList.removeAt(5);
     widgitList.removeAt(6);
     widgitList.removeAt(7);
@@ -169,7 +172,7 @@ class ToneActiveController extends GetxController {
     // );
     print('deleting');
 
-    widgitList.refresh();
+    // widgitList.refresh();
   }
 
   // void removeWidgets() {
@@ -223,7 +226,7 @@ class ToneActiveController extends GetxController {
 
       ReusbaleDropDownButton toneDropDown = ReusbaleDropDownButton(
         items: [],
-        title: "Tone ",
+        title: "Tone",
         width: 260,
         onChanged: (value) {},
         direction: PopoverDirection.bottom,
@@ -242,7 +245,50 @@ class ToneActiveController extends GetxController {
       widgitList.add(offersDropDown);
       widgitList.add(toneDropDown);
       widgitList.add(languageDropDown);
-      widgitList.refresh();
+      print("SKY list Length ${widgitList.length}");
+      //widgitList.refresh();
+    }
+  }
+
+  removeItems() {
+    try {
+      print("list Length ${widgitList.length}");
+      widgitList.removeWhere((widget) {
+        print("element ===== $widget");
+
+        // if ((widget is CustomReusableTextField)) {
+        //   print("title ====== ${widget.title}");
+        //   if ((widget.title == 'Offers' ||
+        //       widget.title == 'Tone' ||
+        //       widget.title == 'Languag')) {
+        //     print("SKY1=========yes need to remove");
+        //   } else {
+        //     print("No to remove");
+        //   }
+        //   return false;
+        // }
+        if (widget is ReusbaleDropDownButton) {
+          // print("SKY1=========NO it is");
+          print("title ====== ${widget.title}");
+          if ((widget.title == 'Offers' ||
+              widget.title == 'Tone' ||
+              widget.title == 'Language')) {
+            print("SKY1=========No need to remove");
+            return true;
+          } else {
+            print("No to remove");
+          }
+        }
+        // (widget.title == "offers" ||
+        // widget.title == "Tone" ||
+        // widget.title == "Languag"),
+        return false;
+      });
+      // widgitList.removeLast();
+      // widgitList.removeLast();
+      // widgitList.removeLast();
+    } catch (e) {
+      print("not removed error $e");
     }
   }
 
