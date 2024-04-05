@@ -25,7 +25,13 @@ class ReusbaleDropDownButton extends StatelessWidget {
     this.selectedoption = '',
     this.hinttext = '',
     this.isDisplayPopup = true,
-    this.onTap, required PopoverDirection direction,
+    this.onTap,
+    required PopoverDirection direction,
+    required String hintText,
+    required Null Function(dynamic p0) onChange,
+    required Null Function(dynamic p0) onSubmit,
+    required Null Function() Function,
+    required bool isrequired,
   });
   final bool isDisplayPopup;
   Function(int)? onChanged;
@@ -46,6 +52,10 @@ class ReusbaleDropDownButton extends StatelessWidget {
 
   //late final List<String> items; // = ["Shiv", "Kumar", "Yadav"];////////////bhavya
   final Function()? onTap;
+
+  get text => null;
+
+  get textController => null;
 
   //////////////////////bhavya/////////////////
 

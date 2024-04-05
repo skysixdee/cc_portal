@@ -1,179 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:popover/popover.dart';
-import 'package:responsive_builder/responsive_builder.dart';
+import 'package:sm_admin_portal/Models/Generic_modal.dart';
 import 'package:sm_admin_portal/controllers/tone_active_controller.dart';
+import 'package:sm_admin_portal/network_manager/network_manager.dart';
 import 'package:sm_admin_portal/reusable_view/box_shadow.dart';
-
-import 'package:sm_admin_portal/reusable_view/reusable_drop_down_button.dart';
-import 'package:sm_admin_portal/reusable_view/reusable_textfield.dart';
-import 'package:sm_admin_portal/reusable_view/reusable_view_delete.dart';
-
-// void main() {
-//   runApp(MessageTemplateScreen());
-// }
-// import 'package:get/get.dart';
-// import 'package:dio/dio.dart';
-// import 'package:sm_admin_portal/utilily/strings.dart';
-
-// class ToneActiveController extends GetxController {
-//   bool isFrequencySelected = false;
-
-//   RxList<Widget> widgitList = <Widget>[].obs;
-
-//   void onInit() {
-//     super.onInit();
-//     createListOfWidget();
-//   }
-
-//   createListOfWidget() {
-//     widgitList.value = [
-//       CustomReusableTextField(
-//         textController: TextEditingController(),
-//         title: "Msisdn",
-//         hintText: 'Msisdn',
-//         onChange: (p0) {
-//           onChangeMsisdn(p0);
-//         },
-//         onSubmit: (p0) {
-//           onChangeMsisdn(p0);
-//         },
-//       ),
-//       ReusbaleDropDownButton(
-//         items: ["ToneId", "ToneName", "Artist"],
-//         title: "Category",
-//         onTap: () {},
-//         onChanged: (value) {
-//           if (value == 0) {
-//             print("Tone id tapped");
-
-//             widgitList[2] = CustomReusableTextField(
-//               textController: TextEditingController(),
-//               title: toneIdStr,
-//               hintText: toneIdStr,
-//               onChange: (p0) {
-//                 print("Changed");
-//               },
-//             );
-//           } else if (value == 1) {
-//             print("Tone name tapped");
-//             widgitList[2] = CustomReusableTextField(
-//               textController: TextEditingController(),
-//               title: ToneNameStr,
-//               hintText: ToneNameStr,
-//               onChange: (p0) {
-//                 print("Changed");
-//               },
-//             );
-//           } else if (value == 2) {
-//             print("Artist tapped");
-//             widgitList[2] = CustomReusableTextField(
-//               textController: TextEditingController(),
-//               title: ArtistStr,
-//               hintText: ArtistStr,
-//               onChange: (p0) {
-//                 print("Changed");
-//               },
-//             );
-//           }
-//           print("Vlaue is $value");
-//           // searchkeyto("ToneId");
-
-//           // searchkeyto("Artist");
-//         },
-//       ),
-//       CustomReusableTextField(
-//         textController: TextEditingController(),
-//         title: "Search Key",
-//         hintText: 'Search Key',
-//         onChange: (p0) {
-//           print("Changed");
-//         },
-//       ),
-//       ReusbaleDropDownButton(
-//         items: ["Daily", "Weekly", "Montly"],
-//         title: "Frequeny",
-//         onChanged: (p0) {
-//           updateStatus();
-//         },
-//       ),
-//       ReusbaleDropDownButton(
-//         items: [
-//           "Promotional Pack",
-//           "Promotional Tone",
-//           "Promotional Pack and Tone"
-//         ],
-//         title: "Service Type",
-//         onChanged: (value) {},
-//       ),
-//     ];
-//   }
-
-//   onChangeMsisdn(String value) {
-//     print("Value is $value");
-//   }
-
-//   updateStatus() {
-//     print("Items are ${widgitList.length}");
-//     if (!isFrequencySelected) {
-//       print('object');
-//       addNewField();
-//     }
-//     isFrequencySelected = true;
-//   }
-
-//   addNewField() {
-//     widgitList.add(
-//       ReusbaleDropDownButton(
-//         items: [
-//           "Promotional Pack",
-//           "Promotional Tune",
-//           "Promotional Pack and tune"
-//         ],
-//         title: "Service Type",
-//         onChanged: (value) {},
-//       ),
-//     );
-
-//     widgitList.add(ReusbaleDropDownButton(
-//       items: [
-//         "Promotional Pack",
-//         "Promotional Tune",
-//         "Promotional Pack and tune"
-//       ],
-//       title: "Offer",
-//       onChanged: (value) {},
-//     ));
-//     widgitList.add(
-//       ReusbaleDropDownButton(
-//         items: [
-//           "Promotional Pack",
-//           "Promotional Tune",
-//           "Promotional Pack and tune"
-//         ],
-//         title: "Tone",
-//         onChanged: (value) {},
-//       ),
-//     );
-//   }
-// }
-
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
-import 'package:popover/popover.dart';
-import 'package:responsive_builder/responsive_builder.dart';
-import 'package:sm_admin_portal/reusable_view/box_shadow.dart';
-
-import 'package:sm_admin_portal/reusable_view/reusable_drop_down_button.dart';
-import 'package:sm_admin_portal/reusable_view/reusable_textfield.dart';
-import 'package:sm_admin_portal/reusable_view/reusable_view_delete.dart';
+import 'package:sm_admin_portal/utilily/urls.dart';
 
 class ToneActivationScreen extends StatefulWidget {
   ToneActivationScreen({Key? key}) : super(key: key);
@@ -230,17 +67,22 @@ class _ToneActivationScreenState extends State<ToneActivationScreen> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       SizedBox(width: 20),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(3),
-                          color: Colors.blue,
-                        ),
-                        width: 80,
-                        height: 33,
-                        child: Center(
-                          child: Text(
-                            'Submit',
-                            style: TextStyle(color: Colors.white),
+                      InkWell(
+                        onTap: () {
+                          _submitData();
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(3),
+                            color: Colors.blue,
+                          ),
+                          width: 80,
+                          height: 33,
+                          child: Center(
+                            child: Text(
+                              'Submit',
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                         ),
                       ),
@@ -258,7 +100,8 @@ class _ToneActivationScreenState extends State<ToneActivationScreen> {
                           width: 80,
                           height: 35,
                           child: Center(
-                            child: Text(
+                            child: 
+                            Text(
                               'Reset',
                               style: TextStyle(color: Colors.black),
                             ),
@@ -276,3 +119,140 @@ class _ToneActivationScreenState extends State<ToneActivationScreen> {
     );
   }
 }
+
+Future<GenericModal> _submitData() async {
+  String url = 'http://10.0.10.33:5678/selfcare/subscriber-management/buy-tone';
+
+  Map<String, dynamic> jsondata = {
+    "transactionId": "456546575",
+    "featureId": 1,
+    "msisdn": "92000000",
+    "offerCode": "01",
+    "contentId": "58812662",
+    "contentType": "1",
+    "languageCode": "en",
+    "channelId": 3,
+   
+  };
+
+  Map<String, dynamic> jsonrequ =
+      await NetworkManager().postResquest(url, jsondata);
+
+//Map<String, dynamic> jsonrequ = json.decode(responString);
+  await Future.delayed(Duration(seconds: 2));
+  GenericModal modal = GenericModal.fromJson(jsonrequ);
+  return modal;
+}
+
+String responString =
+
+ """{
+"respCode" : 0,
+ "message" : "successful"
+}
+
+{
+“respCode” : 1002,
+ “message” : “The user does not belong to the operator”
+}
+
+{
+“respCode” : 1016,
+ “message” : “MSISDN Contain invalid characters”
+}
+
+{
+“respCode” : 498,
+ “message” : “token expired / invalid token”
+}
+
+{
+“respCode” : 2000,
+ “message” : “Tone already purchased”
+}
+
+
+""";
+
+
+
+
+
+// void _submitData() async {
+//   print('submitting data');
+//   Map<String, dynamic> requestBody = {
+//     "transaction": "transaction of the request",
+//     "featureId": 1,
+//     "msisdn": 1,
+//     "channelId": 1,
+//   };
+
+//   try {
+//     Map<String, dynamic>? response = await NetworkManager.post(
+//         // 'http://10.0.14.4:8090/advanced-search';
+//         "http://10.0.10.33:5678/selfcare/subscriber-management/buy-tone",
+//         requestBody);
+//     print('Api Response : $response');
+//     if (response != null) {
+//       if (response.containsKey('respCode')) {
+//         if (response['responseCode'] == 0) {
+//           print('  API REQUEST SUCCESSFULL');
+//         } else {
+//           print('api failed: ${response['message']}');
+//         }
+//       } else {
+//         print('Unexpected response format: $response');
+//       }
+//     } else {
+//       print('Api response was null');
+//     }
+//   } catch (e) {
+//     print('hgf:$e');
+//   }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// void _submitData() async {
+//   try {
+//     Map<String, dynamic>? data = await fetchData();
+
+//     if (data != null) {
+//       print(data['key']);
+//     } else {
+//       print('Data is null');
+//     }
+//   } catch (e) {
+//     print('Error : $e');
+//   }
+// }
+
+// Future<Map<String, dynamic>?> fetchData() async {
+//   String apiUrl = '$baseUrl/selfcare/subscriber-management/buy-tone';
+//   NetworkManager networkManager = NetworkManager();
+//   var manager;
+//   Response response = await manager.get(apiUrl);
+
+//   if (response.statusCode == 200) {
+//     Map<String, dynamic> data = json.decode(response.body);
+//     return data;
+//   } else {
+//     throw Exception('Failed to load data: ${response.statusCode}');
+//   }
+// }

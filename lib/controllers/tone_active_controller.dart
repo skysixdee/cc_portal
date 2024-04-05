@@ -48,7 +48,7 @@ class ToneActiveController extends GetxController {
         onTap: () {},
         onChanged: (value) {
           categoryIndex = value;
-          //updateWidgetListForToneId();
+
           removeItems();
           if (value == 0) {
             print("Tone id tapped");
@@ -96,7 +96,7 @@ class ToneActiveController extends GetxController {
 
           print("Value is $value");
         },
-        direction: PopoverDirection.bottom,
+        direction: PopoverDirection.bottom, hintText: '', onChange: (p0) {  }, onSubmit: (p0) {  }, Function: () {  }, isrequired: true,
       ),
       CustomReusableTextField(
         textController: TextEditingController(),
@@ -133,7 +133,7 @@ class ToneActiveController extends GetxController {
 
           //}
         },
-        direction: PopoverDirection.bottom,
+        direction: PopoverDirection.bottom, hintText: '', onChange: (p0) {  }, onSubmit: (p0) {  }, Function: () {  }, isrequired:true,
       ),
       ReusbaleDropDownButton(
         items: [
@@ -146,44 +146,19 @@ class ToneActiveController extends GetxController {
         onChanged: (value) {
           print('value=$value');
         },
-        direction: PopoverDirection.bottom,
+        direction: PopoverDirection.bottom, hintText: '', onChange: (p0) {  }, onSubmit: (p0) {  }, Function: () {  }, isrequired: true,
       ),
     ];
   }
-
-  // void removeFields(int categoryIndex) {
-  //   if (widgitList.length > 5) {
-  //     widgitList.removeRange(6, 9);
-  //     widgitList.refresh();
-  //   }
-  // }
 
   void updateWidgetListForToneId() {
     print("===========SKY== ${widgitList.length}");
     widgitList.removeAt(5);
     widgitList.removeAt(6);
     widgitList.removeAt(7);
-    // widgitList.removeWhere(
-    //   (widget) =>
-    //       widget is ReusbaleDropDownButton &&
-    //       (widget.title == "offers" ||
-    //           widget.title == "Tone" ||
-    //           widget.title == "Languag"),
-    // );
+
     print('deleting');
-
-    // widgitList.refresh();
   }
-
-  // void removeWidgets() {
-  //   widgitList.removeWhere(
-  //     (widget) =>
-  //         widget is ReusbaleDropDownButton &&
-  //         (widget.title == "offers" ||
-  //             widget.title == "Tone" ||
-  //             widget.title == "Languag"),
-  //   );
-  // }
 
   onChangeMsisdn(String value) {
     print("Value is $value");
@@ -221,7 +196,7 @@ class ToneActiveController extends GetxController {
         title: "Offers",
         width: 260,
         onChanged: (value) {},
-        direction: PopoverDirection.bottom,
+        direction: PopoverDirection.bottom, hintText: '', onChange: (p0) {  }, onSubmit: (p0) {  }, Function: () {  }, isrequired: true,
       );
 
       ReusbaleDropDownButton toneDropDown = ReusbaleDropDownButton(
@@ -229,18 +204,16 @@ class ToneActiveController extends GetxController {
         title: "Tone",
         width: 260,
         onChanged: (value) {},
-        direction: PopoverDirection.bottom,
+        direction: PopoverDirection.bottom, hintText: '', onChange: (p0) {  }, onSubmit: (p0) {  }, Function: () {  }, isrequired: true,
       );
       ReusbaleDropDownButton languageDropDown = ReusbaleDropDownButton(
         items: [
-          "Promotional Pack",
-          "Promotional Tune",
-          "Promotional Pack and tune",
+          "EN",
         ],
         title: "Language",
         width: 260,
         onChanged: (value) {},
-        direction: PopoverDirection.bottom,
+        direction: PopoverDirection.bottom, hintText: '', onChange: (p0) {  }, Function: () {  }, onSubmit: (p0) {  }, isrequired: true,
       );
       widgitList.add(offersDropDown);
       widgitList.add(toneDropDown);
@@ -368,11 +341,12 @@ class ToneActiveController extends GetxController {
         toneNames = (model.responseMap?.toneList ?? [])
             .map<String>((tone) => tone.artistName ?? '')
             .toList();
-        direction:
+        direction :
         ReusbaleDropDownButton artistDropdown =
             widgitList[8] as ReusbaleDropDownButton;
         artistDropdown.items = artistNames;
       }
+
 
       if (toneNames.isNotEmpty) {
         ReusbaleDropDownButton toneDropDownButton =

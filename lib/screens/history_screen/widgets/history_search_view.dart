@@ -109,7 +109,13 @@ class HistorySearchView extends StatelessWidget {
           Icons.calendar_month,
           size: 16,
         ),
-      ), direction: PopoverDirection.bottom,
+      ),
+      direction: PopoverDirection.bottom,
+      hintText: '',
+      onChange: (p0) {},
+      onSubmit: (p0) {},
+      Function: () {},
+      isrequired: true,
     );
   }
 
@@ -127,7 +133,13 @@ class HistorySearchView extends StatelessWidget {
           Icons.calendar_month,
           size: 16,
         ),
-      ), direction: PopoverDirection.bottom,
+      ),
+      direction: PopoverDirection.bottom,
+      hintText: '',
+      onChange: (p0) {},
+      onSubmit: (p0) {},
+      Function: () {},
+      isrequired: true,
     );
   }
 
