@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:sm_admin_portal/controllers/copy_tone_controller.dart';
 import 'package:sm_admin_portal/reusable_view/bottom_buttons.dart';
 import 'package:sm_admin_portal/screens/copy_screen/widgets/copy_detail_table.dart';
-import 'package:sm_admin_portal/screens/copy_screen/widgets/table_calender.dart';
+import 'package:sm_admin_portal/screens/copy_screen/widgets/sf_calender.dart';
 
 import '../../reusable_view/custom_table_view/custom_table_menu_popup_button.dart';
 import '../../reusable_view/search_number/search_number_view.dart';
@@ -34,7 +34,6 @@ class _CopyScreenState extends State<CopyScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 20),
-                   
                     Row(
                       children: [
                         Text(
@@ -45,7 +44,7 @@ class _CopyScreenState extends State<CopyScreen> {
                           ),
                         ),
                         SizedBox(width:50),
-                        CalendarPopover(),
+                        CalendarPopoverButton(),
                       ],
                     ),
                     SizedBox(height: 4),

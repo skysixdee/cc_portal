@@ -54,11 +54,18 @@ class PackDetailTable extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return ReusableAlertDialog(textLine1: '  Are you sure you want to unsubscribe this pack?', textLine2: "  You can't undo this action.",); 
+                  return ReusableAlertDialog(
+                    textLine1: '  Are you sure you want to unsubscribe talk to me?',
+                    textLine2: "  You can't undo this action.",
+                    onYesPressed: () {
+                      final offerName = cont.packDetailList[row][1].value;
+                      cont.deletePack(offerName, row);
+                      Navigator.of(context).pop();
+                    },
+                  );
                 },
               );
-              final offerName = cont.packDetailList[row][1].value;
-              cont.deletePack(offerName, row);
+              
                 
             },
             child: Icon(Icons.clear, size: 25),
