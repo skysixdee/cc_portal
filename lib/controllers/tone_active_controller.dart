@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
 import 'package:popover/popover.dart';
+import 'package:sm_admin_portal/Models/Generic_modal.dart';
 import 'package:sm_admin_portal/Models/tone_detail_modal.dart';
 import 'package:sm_admin_portal/Models/tone_search_model.dart';
 import 'package:sm_admin_portal/network_manager/network_manager.dart';
@@ -17,7 +18,11 @@ class ToneActiveController extends GetxController {
   RxList<Widget> widgitList = <Widget>[].obs;
   int categoryIndex = 0;
   // List<Tone> toneList = [];//////////bhavya
+
+  final Function()? onsuccess = null;
   List<ToneList> toneList = [];
+
+  late bool _isLoading;
   void onInit() {
     categoryIndex = -1;
     super.onInit();
@@ -96,7 +101,12 @@ class ToneActiveController extends GetxController {
 
           print("Value is $value");
         },
-        direction: PopoverDirection.bottom, hintText: '', onChange: (p0) {  }, onSubmit: (p0) {  }, Function: () {  }, isrequired: true,
+        direction: PopoverDirection.bottom,
+        hintText: '',
+        onChange: (p0) {},
+        onSubmit: (p0) {},
+        Function: () {},
+        isrequired: true,
       ),
       CustomReusableTextField(
         textController: TextEditingController(),
@@ -133,7 +143,12 @@ class ToneActiveController extends GetxController {
 
           //}
         },
-        direction: PopoverDirection.bottom, hintText: '', onChange: (p0) {  }, onSubmit: (p0) {  }, Function: () {  }, isrequired:true,
+        direction: PopoverDirection.bottom,
+        hintText: '',
+        onChange: (p0) {},
+        onSubmit: (p0) {},
+        Function: () {},
+        isrequired: true,
       ),
       ReusbaleDropDownButton(
         items: [
@@ -146,7 +161,12 @@ class ToneActiveController extends GetxController {
         onChanged: (value) {
           print('value=$value');
         },
-        direction: PopoverDirection.bottom, hintText: '', onChange: (p0) {  }, onSubmit: (p0) {  }, Function: () {  }, isrequired: true,
+        direction: PopoverDirection.bottom,
+        hintText: '',
+        onChange: (p0) {},
+        onSubmit: (p0) {},
+        Function: () {},
+        isrequired: true,
       ),
     ];
   }
@@ -196,7 +216,12 @@ class ToneActiveController extends GetxController {
         title: "Offers",
         width: 260,
         onChanged: (value) {},
-        direction: PopoverDirection.bottom, hintText: '', onChange: (p0) {  }, onSubmit: (p0) {  }, Function: () {  }, isrequired: true,
+        direction: PopoverDirection.bottom,
+        hintText: '',
+        onChange: (p0) {},
+        onSubmit: (p0) {},
+        Function: () {},
+        isrequired: true,
       );
 
       ReusbaleDropDownButton toneDropDown = ReusbaleDropDownButton(
@@ -204,7 +229,12 @@ class ToneActiveController extends GetxController {
         title: "Tone",
         width: 260,
         onChanged: (value) {},
-        direction: PopoverDirection.bottom, hintText: '', onChange: (p0) {  }, onSubmit: (p0) {  }, Function: () {  }, isrequired: true,
+        direction: PopoverDirection.bottom,
+        hintText: '',
+        onChange: (p0) {},
+        onSubmit: (p0) {},
+        Function: () {},
+        isrequired: true,
       );
       ReusbaleDropDownButton languageDropDown = ReusbaleDropDownButton(
         items: [
@@ -213,7 +243,12 @@ class ToneActiveController extends GetxController {
         title: "Language",
         width: 260,
         onChanged: (value) {},
-        direction: PopoverDirection.bottom, hintText: '', onChange: (p0) {  }, Function: () {  }, onSubmit: (p0) {  }, isrequired: true,
+        direction: PopoverDirection.bottom,
+        hintText: '',
+        onChange: (p0) {},
+        Function: () {},
+        onSubmit: (p0) {},
+        isrequired: true,
       );
       widgitList.add(offersDropDown);
       widgitList.add(toneDropDown);
@@ -341,12 +376,11 @@ class ToneActiveController extends GetxController {
         toneNames = (model.responseMap?.toneList ?? [])
             .map<String>((tone) => tone.artistName ?? '')
             .toList();
-        direction :
+        direction:
         ReusbaleDropDownButton artistDropdown =
             widgitList[8] as ReusbaleDropDownButton;
         artistDropdown.items = artistNames;
       }
-
 
       if (toneNames.isNotEmpty) {
         ReusbaleDropDownButton toneDropDownButton =
@@ -357,6 +391,41 @@ class ToneActiveController extends GetxController {
       }
     } catch (e) {
       print('error fetching $e');
+    }
+    Future<GenericModal> _submitData() async {
+      /////_isLoading = false;
+      // setState(() {
+      //   _isLoading = true;
+
+      String url =
+          'http://10.0.10.33:5678/selfcare/subscriber-management/buy-tone';
+
+      Map<String, dynamic> jsondata = {
+        "transactionId": "5234908485",
+        "featureId": 1,
+        "msisdn": "92000001",
+        "offerCode": "CRBT_MONTHLY_REC",
+        "contentId": "1157835",
+        "contentType": 1,
+        "languageCode": "en",
+        "channelId": 2,
+        "userData": "some data"
+      };
+
+      Map<String, dynamic> jsonrequ =
+          await NetworkManager().postResquest(url, jsondata);
+
+      await Future.delayed(Duration(seconds: 2));
+
+      GenericModal modal = GenericModal.fromJson(jsonrequ);
+
+      // setState(() {
+     // _isLoading = true;
+      if (modal.respCode == 0) {
+        onsuccess!();
+      }
+
+      return modal;
     }
   }
 
