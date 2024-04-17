@@ -16,7 +16,7 @@ Future<GenericModal> deleteToneApi(String contentId) async {
     "channelId": "",
   };
   // Map<String, dynamic> jsonrequ =
-  //     await NetworkManager().postResquest(url, jsondata);
+  //     await NetworkManager().postResquest(url, jsondata);             server
   Map<String, dynamic> jsonrequ = json.decode(responString);
   await Future.delayed(Duration(seconds: 3));
   GenericModal modal = GenericModal.fromJson(jsonrequ);

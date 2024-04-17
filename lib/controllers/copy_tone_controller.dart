@@ -75,17 +75,7 @@ class CopyTonecontroller extends GetxController {
     ]);
   }
 
-  // getPackDetail(String phoneNumber) async {
-  //   copyDetailList.clear();
-  //   isLoadingCopyTonedetail.value=true;
-  //   createTableCopyToneDetailsHeaderColumnList();
-  //   SubscribersModal modal = await getPackDetailApi(phoneNumber);
-  //   //isLoadingPackDetail.value = false;
-  //   isLoadingCopyTonedetail.value=false;
-  //   tonelist = modal.offers ?? [];
-  //   createSuspendResumeDetailRowList(modal.offers, phoneNumber);
-  // }
-
+  
   getCopyToneDetail(String msisdn) async {
     copyDetailList.clear();
     isLoadingCopyTonedetail.value = true;
@@ -94,63 +84,10 @@ class CopyTonecontroller extends GetxController {
     CopyToneDetailModal model = await getCopyToneDetailApi();
     isLoadingCopyTonedetail.value = false;
     createToneDetailRowList(model.copytonelist ?? [], msisdn);
-    //print("tone detail list = ${toneDetailList.length}");
+   
   }
 
-//   createSuspendResumeDetailRowList(List<Offer>? list, String msisdn) {
-//     print("Offers items Are = ${list?.length}");
-//     if (list != null) {
-//       if (list.isEmpty) return;
-// print("suspendDetailList = ${copyDetailList.length}");
-//       for (var item in list) {
-//         copyDetailList.add([
-//           CustomTableViewModel(
-//               value: msisdn, isVisible: true.obs, isRemoveable: true),
-//           CustomTableViewModel(
-//               value: item.offerName ?? '',
-//               isVisible: true.obs,
-//               isRemoveable: true),
-//           CustomTableViewModel(
-//               value: item.expiryDate ?? '',
-//               isVisible: true.obs,
-//               isRemoveable: true,
-//               isButton: false),
-//           CustomTableViewModel(
-//               value: item.offerName ?? '',
-//               isVisible: true.obs,
-//               isRemoveable: true),
-//           CustomTableViewModel(
-//               value: item.offerName ?? '',
-//               isVisible: true.obs,
-//               isRemoveable: false),
-//           CustomTableViewModel(
-//               value: item.offerName ?? '',
-//               isVisible: true.obs,
-//               isRemoveable: false,
-//               isButton: false),
-//           CustomTableViewModel(
-//               value: item.offerName ?? '',
-//               isVisible: true.obs,
-//               isRemoveable: false),
-//           CustomTableViewModel(
-//               value: (item.isSuspended?.value ?? true) ? "YES" : "NO",
-//               isVisible: true.obs,
-//               isRemoveable: false),
-//           CustomTableViewModel(
-//               value: "",
-//               isVisible: true.obs,
-//               isRemoveable: false,
-//               isButton: true),
-//           CustomTableViewModel(
-//               value: "",
-//               isVisible: true.obs,
-//               isRemoveable: false,
-//               isButton: true),
-//         ]);
-//       }
-//     }
-//     print("list length = ${copyDetailList.length}");
-//   }
+
 
   createToneDetailRowList(List<CTonelist> list, String msisdn) {
     if (list.isEmpty) return;
@@ -210,6 +147,6 @@ class CopyTonecontroller extends GetxController {
             object: item),
       ]);
     }
-    //print("Total items are ${toneDetailList.length}");
+
   }
 }

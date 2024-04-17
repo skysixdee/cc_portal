@@ -21,11 +21,17 @@ class ReusbaleDropDownButton extends StatelessWidget {
     required this.items,
     // required this.items,
     this.onChanged,
-    this.title = '',
+    this.title = ' ',
     this.selectedoption = '',
     this.hinttext = '',
     this.isDisplayPopup = true,
     this.onTap,
+    required PopoverDirection direction,
+    required String hintText,
+    required Null Function(dynamic p0) onChange,
+    required Null Function(dynamic p0) onSubmit,
+    required Null Function() Function,
+    required bool isrequired,
   });
   final bool isDisplayPopup;
   Function(int)? onChanged;
@@ -46,6 +52,10 @@ class ReusbaleDropDownButton extends StatelessWidget {
 
   //late final List<String> items; // = ["Shiv", "Kumar", "Yadav"];////////////bhavya
   final Function()? onTap;
+
+  get text => null;
+
+  get textController => null;
 
   //////////////////////bhavya/////////////////
 
@@ -166,6 +176,7 @@ class ReusbaleDropDownButton extends StatelessWidget {
   popupOverOpen(BuildContext context) {
     showPopover(
       context: context,
+
       bodyBuilder: (context) {
         return ListView.builder(
           padding: const EdgeInsets.all(1),
@@ -208,27 +219,27 @@ class ReusbaleDropDownButton extends StatelessWidget {
                 : (isHovered ? hoverColor : Colors.white),
           ),
           child: Padding(
-              padding: const EdgeInsets.all(6.0),
-              child:  SMText(
-                  fontWeight: FontWeight.normal,
-                  title: items[index],
-                  textColor:
-                      selectedIndex.value == index ? Colors.white : Colors.black),
-              // Text(
-              //   items[index],
-              //   style: TextStyle(
-              //       fontWeight: FontWeight.normal,
-              //       color: selectedIndex.value == index
-              //           ? Colors.white
-              //           : Colors.black),
-              // )
-
-              
-              ),
+            padding: const EdgeInsets.all(6.0),
+            child: SMText(
+                fontWeight: FontWeight.normal,
+                title: items[index],
+                textColor:
+                    selectedIndex.value == index ? Colors.white : Colors.black),
+            // Text(
+            //   items[index],
+            //   style: TextStyle(
+            //       fontWeight: FontWeight.normal,
+            //       color: selectedIndex.value == index
+            //           ? Colors.white
+            //           : Colors.black),
+            // )
+          ),
         );
       },
     ));
   }
+
+  void refresh() {}
 }
 
 // ignore_for_file: library_private_types_in_public_api

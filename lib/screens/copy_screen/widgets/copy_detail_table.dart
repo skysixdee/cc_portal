@@ -5,38 +5,6 @@ import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_vie
 
 import 'custom_alert_dialog.dart';
 
-// class CopyDetailTable extends StatelessWidget {
-//    CopyDetailTable({super.key});
-//   CopyTonecontroller cont = Get.find();
-//   @override
-//   Widget build(BuildContext context) {
-//     return Obx(() {
-//       return CustomTableView(
-//         cellHeight: 60,
-//         headerHeight: 60,
-//         headerBgColor: Colors.grey[300],
-//         headerColumList: cont.copyDetailList[0],
-//         rowList: cont.copyDetailList,
-//         button: (row, colum) {
-//             return InkWell(
-//               onTap: () {
-              //   showDialog(
-              //   context: context,
-              //   builder: (BuildContext context) {
-              //     return CustomAlertDialog(); // Your custom alert dialog widget
-              //   },
-              // );
-//               },
-//               child: Icon(Icons.radio_button_checked)
-//             );
-          
-     
-          
-//         },
-//       );
-//     });
-//   }
-// }
 
 
 class CopyDetailTable extends StatefulWidget {

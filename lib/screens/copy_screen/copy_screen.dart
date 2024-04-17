@@ -62,7 +62,7 @@ class _CopyScreenState extends State<CopyScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
-                        right:3,
+                        right:3
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -89,13 +89,7 @@ class _CopyScreenState extends State<CopyScreen> {
                     }),
                     SizedBox(height: 20),
                     
-                    // Column(
-                    //   children: [
-                    //     CopyDetailTable(),
-                    //     SizedBox(height: 8),
-                    //     BottomButtons(),
-                    //   ],
-                    // )
+                    
                   ]),
             ),
           )

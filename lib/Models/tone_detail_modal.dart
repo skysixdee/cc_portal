@@ -87,6 +87,12 @@ class Tonelist {
         price: json["price"],
       );
 
+  get toneNameEnglish => null;
+
+  get artistEnglish => null;
+
+  get toneId => null;
+
   Map<String, dynamic> toJson() => {
         "contentId": contentId,
         "contentName": contentName,

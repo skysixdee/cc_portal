@@ -22,6 +22,8 @@ class NetworkManager {
       return map;
     }
   }
+
+  static post(String s, Map<String, dynamic> requestBody) {}
 }
 
 //http://10.0.10.33:8084/selfcare/subscription-service/get-subscription
