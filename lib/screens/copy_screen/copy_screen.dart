@@ -5,6 +5,7 @@ import 'package:sm_admin_portal/controllers/copy_tone_controller.dart';
 import 'package:sm_admin_portal/reusable_view/bottom_buttons.dart';
 import 'package:sm_admin_portal/screens/copy_screen/widgets/copy_detail_table.dart';
 import 'package:sm_admin_portal/screens/copy_screen/widgets/sf_calender.dart';
+import 'package:sm_admin_portal/utilily/colors.dart';
 
 import '../../reusable_view/custom_table_view/custom_table_menu_popup_button.dart';
 import '../../reusable_view/search_number/search_number_view.dart';
@@ -21,82 +22,81 @@ class _CopyScreenState extends State<CopyScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(
-        children: [
-          Container(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 26,
-              ),
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 20),
-                    Row(
-                      children: [
-                        Text(
-                          'Copy Tone',
-                          style: TextStyle(
-                              fontSize: 18.0, 
-                              fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(width:50),
-                        CalendarPopoverButton(),
-                      ],
+    return SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          child: Container(
+            color: dividerColor,
+            child: ListView(
+              children: [
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 26,
                     ),
-                    SizedBox(height: 4),
-                    SearchNumberView(
-                      title: 'Friends Msisdn',
-                      hintText: 'Enter MSISDN',
-                      onSearchTap: (p0) {
-                        cont.msisdn = p0;
-                        cont.onSearchTapAction();
-                      },
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        right:3
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                            Obx((){
-                              return CustomTableMenuPopupButton(
-                              headerColumList:cont.copyDetailList[0],
-                             );
-                            })
-                          
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 5),
-
-                    Obx(() {
-                      return cont.isLoadingCopyTonedetail.value
-                          ? loadingIndicatorView()
-                          : (cont.copyDetailList.length < 2
-                              ? noDataContainer()
-                              : tableAndBottomSections()
-                            );
-                    }),
-                    SizedBox(height: 20),
-                    
-                    
-                  ]),
+                          SizedBox(height: 20),
+                          Row(
+                            children: [
+                              Text(
+                                'Copy Tone',
+                                style: TextStyle(
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(width: 50),
+                              CalendarPopoverButton(),
+                            ],
+                          ),
+                          SizedBox(height: 4),
+                          SearchNumberView(
+                            title: 'Friends Msisdn',
+                            hintText: 'Enter MSISDN',
+                            onSearchTap: (p0) {
+                              cont.msisdn = p0;
+                              cont.onSearchTapAction();
+                            },
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 3),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Obx(() {
+                                  return CustomTableMenuPopupButton(
+                                    headerColumList: cont.copyDetailList[0],
+                                  );
+                                })
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 5),
+                          Obx(() {
+                            return cont.isLoadingCopyTonedetail.value
+                                ? loadingIndicatorView()
+                                : (cont.copyDetailList.length < 2
+                                    ? noDataContainer()
+                                    : tableAndBottomSections());
+                          }),
+                          SizedBox(height: 20),
+                        ]),
+                  ),
+                )
+              ],
             ),
-          )
-        ],
-      ),
-    );
+          ),
+        ));
   }
-  
+                        
   Widget tableAndBottomSections() {
     return Column(
       children: [
@@ -149,8 +149,8 @@ class _CopyScreenState extends State<CopyScreen> {
           )),
     ));
   }
-  
-   Container noDataContainer() {
+
+  Container noDataContainer() {
     return Container(
         decoration: BoxDecoration(
           boxShadow: [
@@ -213,5 +213,4 @@ class _CopyScreenState extends State<CopyScreen> {
           ],
         ));
   }
-
 }

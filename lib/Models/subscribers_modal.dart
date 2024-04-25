@@ -91,3 +91,5 @@ class Offer {
         "activationChannel": activationChannel,
       };
 }
+
+
