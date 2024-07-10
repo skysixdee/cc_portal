@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/state_manager.dart';
@@ -15,6 +16,7 @@ class CustomTableView extends StatelessWidget {
   final double? borderWidth;
   final double? cellHeight;
   final double? headerHeight;
+  final double? SingleChildScrollView;///////////bhavya
   //final Widget? button;
   final Function(int row, int colum)? button;
   const CustomTableView({
@@ -30,6 +32,7 @@ class CustomTableView extends StatelessWidget {
     this.cellHeight,
     this.button,
     this.headerHeight,
+    this.SingleChildScrollView,//////////////bhavya
   });
 
   @override

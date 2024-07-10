@@ -44,106 +44,110 @@ class _SubscriberDetailScreen1State extends State<SubscriberDetailScreen1> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: dividerColor,
-      child: ListView(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(28.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                searchNumberWidget(),
-                SizedBox(height: 10),
-                Stack(
-                  children: [
-                    Column(
+    return SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: Container(
+              color: dividerColor,
+              child: ListView(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(28.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          height: tabButtonHeight,
+                        searchNumberWidget(),
+                        SizedBox(height: 10),
+                        Stack(
+                          children: [
+                            Column(
+                              children: [
+                                Container(
+                                  height: tabButtonHeight,
+                                ),
+                                Container(
+                                  height: tabButtonHeight,
+                                  decoration: mainContainerDecoration(),
+                                )
+                              ],
+                            ),
+                            tabButtons(),
+                          ],
                         ),
-                        Container(
-                          height: tabButtonHeight,
-                          decoration: mainContainerDecoration(),
-                        )
-                      ],
-                    ),
-                    tabButtons(),
-                  ],
-                ),
+                                             
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Obx(() {
+                              return selectedTab.value == 0
+                                  ? CustomTableMenuPopupButton(
+                                      headerColumList: cont.packDetailList[0])
+                                  : CustomTableMenuPopupButton(
+                                      headerColumList: cont.toneDetailList[0]);
+                            }),
+                          ],
+                        ),
+                        SizedBox(height: 8),
+                        // tableAndBottomSection()
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Obx(() {
-                      return selectedTab.value == 0
-                          ? CustomTableMenuPopupButton(
-                              headerColumList: cont.packDetailList[0])
-                          : CustomTableMenuPopupButton(
-                              headerColumList: cont.toneDetailList[0]);
-                    }),
-                  ],
-                ),
-                SizedBox(height: 8),
-                // tableAndBottomSection()
-
-                //dropDownWidget(),
-                //   Row(
-                //   children: [
-                //     InkWell(
-                //       onTap: () {
-                //         showPopover(
-                //         context: context,
-                //         bodyBuilder: (context) => topDropDownItems(),
-                //         direction: PopoverDirection.bottom,
-                //         width: 300,
-                //         height: 150,
-                //         arrowHeight: 10,
-                //         arrowWidth: 20,
-                // );
-                //       },
-                // child: Container(
-                //   decoration: BoxDecoration(
-                //       color: Colors.white,
-                //       border: Border.all(
-                //         color: const Color.fromARGB(255, 220, 218, 218),
-                //       ),
-                //       borderRadius: BorderRadius.circular(5)),
-                //         child: Row(
-                //           mainAxisAlignment: MainAxisAlignment.center,
-                //           children: [
-                //             Text(' 5'),
-                //             Icon(Icons.arrow_drop_down),
-                //           ],
-                //         ),
-                //       ),
-                //     ),
-                //     SizedBox(width: 5),
-                //     Text(RecordsPerPageStr,
-                //         style: TextStyle(color: Colors.grey[800])),
-                //   ],
-                // )
+                        //dropDownWidget(),
+                        //   Row(
+                        //   children: [
+                        //     InkWell(
+                        //       onTap: () {
+                        //         showPopover(
+                        //         context: context,
+                        //         bodyBuilder: (context) => topDropDownItems(),
+                        //         direction: PopoverDirection.bottom,
+                        //         width: 300,
+                        //         height: 150,
+                        //         arrowHeight: 10,
+                        //         arrowWidth: 20,
+                        // );
+                        //       },
+                        // child: Container(
+                        //   decoration: BoxDecoration(
+                        //       color: Colors.white,
+                        //       border: Border.all(
+                        //         color: const Color.fromARGB(255, 220, 218, 218),
+                        //       ),
+                        //       borderRadius: BorderRadius.circular(5)),
+                        //         child: Row(
+                        //           mainAxisAlignment: MainAxisAlignment.center,
+                        //           children: [
+                        //             Text(' 5'),
+                        //             Icon(Icons.arrow_drop_down),
+                        //           ],
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     SizedBox(width: 5),
+                        //     Text(RecordsPerPageStr,
+                        //         style: TextStyle(color: Colors.grey[800])),
+                        //   ],
+                        // )
 
 //                   return
-                Obx(() {
-                  return cont.isLoadingPackDetail.value ||
-                          cont.isLoadingToneDetail.value
-                      ? loadingIndicatorView()
-                      : selectedTab.value == 0
-                          ? (cont.packDetailList.length < 2
-                              ? noDataContainer()
-                              : tableAndBottomSection())
-                          : (cont.toneDetailList.length < 2
-                              ? noDataContainer()
-                              : tableAndBottomSection());
-                }),
-              ],
-            ),
-          )
-        ],
-      ),
-    );
+                        Obx(() {
+                          return cont.isLoadingPackDetail.value ||
+                                  cont.isLoadingToneDetail.value
+                              ? loadingIndicatorView()
+                              : selectedTab.value == 0
+                                  ? (cont.packDetailList.length < 2
+                                      ? noDataContainer()
+                                      : tableAndBottomSection())
+                                  : (cont.toneDetailList.length < 2
+                                      ? noDataContainer()
+                                      : tableAndBottomSection());
+                        }),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            )));
   }
 
   Container noDataContainer() {
@@ -257,7 +261,7 @@ class _SubscriberDetailScreen1State extends State<SubscriberDetailScreen1> {
     return Column(
       children: [
         Obx(() {
-          return selectedTab.value == 0 ? PackDetailTable() : ToneDetailTable();
+          return selectedTab.value == 0 ? PackDetailTable(key: null,) : ToneDetailTable();
         }),
         SizedBox(height: 8),
         BottomButtons(),
@@ -284,7 +288,42 @@ class _SubscriberDetailScreen1State extends State<SubscriberDetailScreen1> {
     );
   }
 
-  // Row bottomButtons() {
+  
+
+  CustomBorderTabView tabButtons() {
+    return CustomBorderTabView(
+      tabButtonHeight: tabButtonHeight,
+      tabItems: tabItems,
+      borderWidth: borderWidth,
+      borderColor: borderColor,
+      onTap: (index) {
+        selectedTab.value = index;
+        if (selectedTab.value == 0) {
+          cont.getPackDetail(cont.searchedText);
+        } else {
+          cont.getToneDetail(cont.searchedText);
+        }
+        print("Index tapped");
+        print("slected tab =${tabItems[index]}");
+      },
+    );
+  }
+
+  BoxDecoration mainContainerDecoration() {
+    return BoxDecoration(
+      border: Border(
+        top: BorderSide(
+          color: borderColor,
+          width: borderWidth,
+        ),
+      ),
+    );
+  }
+}
+
+
+
+// Row bottomButtons() {
   //   return Row(
   //     children: [
   //       RecordsPageButton(),
@@ -391,34 +430,3 @@ class _SubscriberDetailScreen1State extends State<SubscriberDetailScreen1> {
   //     ],
   //   );
   // }
-
-  CustomBorderTabView tabButtons() {
-    return CustomBorderTabView(
-      tabButtonHeight: tabButtonHeight,
-      tabItems: tabItems,
-      borderWidth: borderWidth,
-      borderColor: borderColor,
-      onTap: (index) {
-        selectedTab.value = index;
-        if (selectedTab.value == 0) {
-          cont.getPackDetail(cont.searchedText);
-        } else {
-          cont.getToneDetail(cont.searchedText);
-        }
-        print("Index tapped");
-        print("slected tab =${tabItems[index]}");
-      },
-    );
-  }
-
-  BoxDecoration mainContainerDecoration() {
-    return BoxDecoration(
-      border: Border(
-        top: BorderSide(
-          color: borderColor,
-          width: borderWidth,
-        ),
-      ),
-    );
-  }
-}

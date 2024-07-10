@@ -23,83 +23,90 @@ class _SuspendAndResumeScreenState extends State<SuspendAndResumeScreen> {
   SuspendResumeController cont = Get.put(SuspendResumeController());
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: greyLight,
-      body: ListView(
-        children: [
-          Container(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 26,
-              ),
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 20),
-                    Text(
-                      'Suspend and Resume',
-                      style: TextStyle(
-                          fontSize: 18.0, fontWeight: FontWeight.bold
+    return SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: Container(
+              color: dividerColor,
+              child: ListView(
+                children: [
+                  Container(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 26,
                       ),
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(height: 20),
+                            Text(
+                              'Suspend and Resume',
+                              style: TextStyle(
+                                  fontSize: 18.0, fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(height: 4),
+                            SearchNumberView(
+                              title: 'MSISDN',
+                              hintText: 'Enter MSISDN',
+                              onSearchTap: (p0) {
+                                cont.msisdn = p0;
+                                cont.onSearchTapAction();
+                              },
+                            ),
+                            SizedBox(
+                              height: 50,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Suspend And Resume List',
+                                    style: TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold)),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                    right: 9,
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Obx(() {
+                                        return CustomTableMenuPopupButton(
+                                          headerColumList:
+                                              cont.suspendDetailList[0],
+                                        );
+                                      })
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 10),
+                            Obx(() {
+                              return cont.isLoadingSuspendResumedetail.value
+                                  ? loadingIndicatorView()
+                                  : (cont.suspendDetailList.length < 2
+                                      ? noDataContainer()
+                                      : tableAndBottomSections());
+                            }),
+                            SizedBox(height: 15),
+                          ]),
                     ),
-                    SizedBox(height: 4),
-                    SearchNumberView(
-                      title: 'MSISDN',
-                      hintText: 'Enter MSISDN',
-                      onSearchTap: (p0) {
-                        cont.msisdn = p0;
-                        cont.onSearchTapAction();
-                      },
-                    ),
-                    SizedBox(
-                      height: 50,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('Suspend And Resume List',
-                            style: TextStyle(
-                                fontSize: 18.0, fontWeight: FontWeight.bold)),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            right: 9,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Obx(() {
-                                return CustomTableMenuPopupButton(
-                                  headerColumList: cont.suspendDetailList[0],
-                                );
-                              })
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 10),
-                    Obx(() {
-                      return cont.isLoadingSuspendResumedetail.value
-                          ? loadingIndicatorView()
-                          : (cont.suspendDetailList.length < 2
-                              ? noDataContainer()
-                              : tableAndBottomSections());
-                    }),
-                    SizedBox(height: 15),
-                  ]),
-            ),
-          )
-        ],
-      ),
-    );
+                  )
+                ],
+              ),
+            )));
   }
 
   Widget tableAndBottomSections() {
     return Column(
       children: [
-        SuspendDetailTable(),
+        SuspendDetailTable(
+          cont: cont,
+        ),
         SizedBox(height: 8),
         BottomButtons(),
       ],
@@ -212,16 +219,17 @@ class _SuspendAndResumeScreenState extends State<SuspendAndResumeScreen> {
           ],
         ));
   }
-
-  // Widget tableAndBottomSection() {
-  //   return Column(
-  //     children: [
-  //       Obx(() {
-  //         return selectedTab.value == 0 ? PackDetailTable() : ToneDetailTable();
-  //       }),
-  //       SizedBox(height: 8),
-  //       BottomButtons(),
-  //     ],
-  //   );
-  // }
 }
+
+// Widget tableAndBottomSection() {
+//   return Column(
+//     children: [
+//       Obx(() {
+//         return selectedTab.value == 0 ? PackDetailTable() : ToneDetailTable();
+//       }),
+//       SizedBox(height: 8),
+//       BottomButtons(),
+//     ],
+//   );
+// }
+
