@@ -15,6 +15,7 @@ String packDetailsStr = "Pack Details";
 String toneDetailsStr = "Tone Details";
 
 String suspendAndResumeStr = "Suspend And Resume";
+String dashBoardStr = "DashBoard";
 
 String toneActivationStr = "Tone Activation";
 String bulkUploadStr = "Bulk Upload";
