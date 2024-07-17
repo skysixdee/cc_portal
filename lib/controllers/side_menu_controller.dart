@@ -50,6 +50,7 @@ class SideMenuController extends GetxController {
 
   _onSubscriberTap() {
     subMenuList.value = [
+      SideSubMenuModel(dashBoardStr, dashBoardRoute),
       SideSubMenuModel(suspendAndResumeStr, suspendResumeRoute),
       SideSubMenuModel(toneActivationStr, toneActivationRoute),
       SideSubMenuModel(bulkUploadStr, bulkUploadRoute),

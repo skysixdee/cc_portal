@@ -281,7 +281,9 @@ import 'package:sm_admin_portal/reusable_view/reusable_view_delete.dart';
 import 'package:sm_admin_portal/reusable_view/table_view.dart';
 import 'package:sm_admin_portal/router/router_name.dart';
 import 'package:sm_admin_portal/screens/Bulk_Screen.dart';
+import 'package:sm_admin_portal/screens/Tunelist_screen.dart';
 import 'package:sm_admin_portal/screens/circle.dart';
+import 'package:sm_admin_portal/screens/dashboard_screen/dashboard_screen.dart';
 import 'package:sm_admin_portal/screens/first_screen.dart';
 import 'package:sm_admin_portal/screens/history_screen/history_screen.dart';
 import 'package:sm_admin_portal/screens/message.dart';
@@ -314,7 +316,9 @@ final router = GoRouter(
         _subscriberDetailShell(),
         _bulkScreenShell(),
         _transactionHistoryShell(),
+        dashBoardShell(),
         _copyScreenShell(),
+        tuneListShell(),
         /*
         MessageTemplateScreenScreen(),
         RenewalScreenScreen(),
@@ -369,6 +373,34 @@ StatefulShellBranch _toneActivationShell() {
   );
 }
 
+StatefulShellBranch dashBoardShell() {
+  return StatefulShellBranch(
+    routes: <RouteBase>[
+      GoRoute(
+        name: dashBoardRoute,
+        path: dashBoardRoute,
+        builder: (context, state) {
+          return DashBoardScreen();
+        },
+      ),
+    ],
+  );
+}
+
+StatefulShellBranch tuneListShell() {
+  return StatefulShellBranch(
+    routes: <RouteBase>[
+      GoRoute(
+        name: tuneListRoute,
+        path: tuneListRoute,
+        builder: (context, state) {
+          return TuneListScreen();
+        },
+      ),
+    ],
+  );
+}
+
 StatefulShellBranch _bulkScreenShell() {
   return StatefulShellBranch(
     routes: <RouteBase>[
@@ -405,7 +437,6 @@ StatefulShellBranch _subscriberDetailShell() {
         path: subscriberDetailRoute,
         builder: (context, state) {
           return SubscriberDetailScreen1(); //OffersScreen();
-
         },
       ),
     ],
