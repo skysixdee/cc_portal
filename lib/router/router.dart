@@ -282,6 +282,7 @@ import 'package:sm_admin_portal/reusable_view/table_view.dart';
 import 'package:sm_admin_portal/router/router_name.dart';
 import 'package:sm_admin_portal/screens/Bulk_Screen.dart';
 import 'package:sm_admin_portal/screens/Tunelist_screen.dart';
+import 'package:sm_admin_portal/screens/activate_tune_screen/activate_tune_screen.dart';
 import 'package:sm_admin_portal/screens/circle.dart';
 import 'package:sm_admin_portal/screens/dashboard_screen/dashboard_screen.dart';
 import 'package:sm_admin_portal/screens/first_screen.dart';
@@ -319,6 +320,7 @@ final router = GoRouter(
         dashBoardShell(),
         _copyScreenShell(),
         tuneListShell(),
+        _activateScreenShell(),
         /*
         MessageTemplateScreenScreen(),
         RenewalScreenScreen(),
@@ -381,6 +383,20 @@ StatefulShellBranch dashBoardShell() {
         path: dashBoardRoute,
         builder: (context, state) {
           return DashBoardScreen();
+        },
+      ),
+    ],
+  );
+}
+
+StatefulShellBranch _activateScreenShell() {
+  return StatefulShellBranch(
+    routes: <RouteBase>[
+      GoRoute(
+        name: activateScreenRoute,
+        path: activateScreenRoute,
+        builder: (context, state) {
+          return ActivateTuneScreen();
         },
       ),
     ],

@@ -9,6 +9,7 @@ import 'package:sm_admin_portal/api_calls/list_settings_api.dart';
 import 'package:sm_admin_portal/api_calls/tone_detail_api.dart';
 
 import 'package:sm_admin_portal/controllers/dashboard_controller.dart';
+import 'package:sm_admin_portal/reusable_view/sm_button.dart';
 import 'package:sm_admin_portal/router/router_name.dart';
 import 'package:sm_admin_portal/screens/Tunelist_screen.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
@@ -53,208 +54,220 @@ class DashBoardScreen extends StatelessWidget {
     ];
 
     return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(25.0),
-        child: Obx(() {
-          if (controller.isLoading.value) {
-            return Padding(
-              padding: const EdgeInsets.only(top: 200),
-              child: CircularProgressIndicator(),
-            );
-          } else if (controller.isSubmitted.value) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SMButton(
+            title: "Activate tune",
+            onTap: () {
+              context.goNamed(activateScreenRoute);
+            },
+          ),
+          Padding(
+            padding: const EdgeInsets.all(25.0),
+            child: Obx(() {
+              if (controller.isLoading.value) {
+                return Padding(
+                  padding: const EdgeInsets.only(top: 200),
+                  child: CircularProgressIndicator(),
+                );
+              } else if (controller.isSubmitted.value) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 50.0, top: 20),
-                      child: Container(
-                        width: 100,
-                        height: 100,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black),
-                          shape: BoxShape.circle,
-                          color: sixdColor,
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 20),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 25.0),
-                      child: Text(
-                        '91+ ${controller.mobileNumber.value}',
-                        style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 30),
-                Expanded(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    itemCount: 1,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: subscriptionDetails.map((detail) {
-                              return buildDetailColumn(
-                                  context, detail, controller, index);
-                            }).toList(),
-                          ),
-                          SizedBox(height: 20),
-                        ],
-                      );
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 25.0, right: 25),
-                  child: Divider(
-                    thickness: 1,
-                    color: Colors.lightBlue,
-                  ),
-                ),
-                SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    GestureDetector(
-                      onTap: () async {
-                        //listSettingApi(); //phonenumber
-                        // getToneDetailApi();
-                        deleteToneApi();
-                        //Get.to(() => TuneListScreen());
-                        context.goNamed(tuneListRoute);
-                      },
-                      child: Container(
-                        height: 50,
-                        width: 180,
-                        decoration: BoxDecoration(
-                          border:
-                              Border.all(color: Color(0xFF0A487B), width: 1.5),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('Tune List'),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 10),
-                    Container(
-                      height: 50,
-                      width: 180,
-                      decoration: BoxDecoration(
-                        border:
-                            Border.all(color: Color(0xFF0A487B), width: 1.5),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text('Activate New Tone'),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 10),
-                    Container(
-                      height: 50,
-                      width: 180,
-                      decoration: BoxDecoration(
-                        border:
-                            Border.all(color: Color(0xFF0A487B), width: 1.5),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text('Transaction History'),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            );
-          } else {
-            return Flexible(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 50,
-                    width: 600,
-                    decoration: BoxDecoration(
-                      border: Border.all(),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Row(
+                    Row(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(left: 16.0),
+                          padding: const EdgeInsets.only(left: 50.0, top: 20),
                           child: Container(
-                            width: 300,
-                            child: TextField(
-                              controller: textController,
-                              keyboardType: TextInputType.number,
-                              inputFormatters: <TextInputFormatter>[
-                                FilteringTextInputFormatter.digitsOnly
-                              ],
-                              maxLength: 10,
-                              decoration: InputDecoration(
-                                counterText: '',
-                                hintText:
-                                    'Enter mobile number of the subscriber',
-                                hintStyle: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w500),
-                                border: InputBorder.none,
+                            width: 100,
+                            height: 100,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black),
+                              shape: BoxShape.circle,
+                              color: sixdColor,
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 20),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 25.0),
+                          child: Text(
+                            '91+ ${controller.mobileNumber.value}',
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 30),
+                    Expanded(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        itemCount: 1,
+                        itemBuilder: (context, index) {
+                          return Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: subscriptionDetails.map((detail) {
+                                  return buildDetailColumn(
+                                      context, detail, controller, index);
+                                }).toList(),
+                              ),
+                              SizedBox(height: 20),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 25.0, right: 25),
+                      child: Divider(
+                        thickness: 1,
+                        color: Colors.lightBlue,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        GestureDetector(
+                          onTap: () async {
+                            //listSettingApi(); //phonenumber
+                            // getToneDetailApi();
+                            deleteToneApi();
+                            //Get.to(() => TuneListScreen());
+                            context.goNamed(tuneListRoute);
+                          },
+                          child: Container(
+                            height: 50,
+                            width: 180,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Color(0xFF0A487B), width: 1.5),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text('Tune List'),
                               ),
                             ),
                           ),
                         ),
-                        SizedBox(width: 150),
-                        Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: GestureDetector(
-                            onTap: () => controller.handleSubmit(
-                              textController.text,
+                        SizedBox(width: 10),
+                        Container(
+                          height: 50,
+                          width: 180,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                color: Color(0xFF0A487B), width: 1.5),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text('Activate New Tone'),
                             ),
-                            child: Container(
-                              height: 50,
-                              width: 120,
-                              padding: EdgeInsets.symmetric(horizontal: 8),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: sixdColor,
-                              ),
-                              child: Center(
-                                child: Text(
-                                  "SUBMIT",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
+                          ),
+                        ),
+                        SizedBox(width: 10),
+                        Container(
+                          height: 50,
+                          width: 180,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                color: Color(0xFF0A487B), width: 1.5),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text('Transaction History'),
                             ),
                           ),
                         ),
                       ],
                     ),
+                  ],
+                );
+              } else {
+                return Flexible(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 50,
+                        width: 600,
+                        decoration: BoxDecoration(
+                          border: Border.all(),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 16.0),
+                              child: Container(
+                                width: 300,
+                                child: TextField(
+                                  controller: textController,
+                                  keyboardType: TextInputType.number,
+                                  inputFormatters: <TextInputFormatter>[
+                                    FilteringTextInputFormatter.digitsOnly
+                                  ],
+                                  maxLength: 10,
+                                  decoration: InputDecoration(
+                                    counterText: '',
+                                    hintText:
+                                        'Enter mobile number of the subscriber',
+                                    hintStyle: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w500),
+                                    border: InputBorder.none,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 150),
+                            Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: GestureDetector(
+                                onTap: () => controller.handleSubmit(
+                                  textController.text,
+                                ),
+                                child: Container(
+                                  height: 50,
+                                  width: 120,
+                                  padding: EdgeInsets.symmetric(horizontal: 8),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: sixdColor,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "SUBMIT",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            );
-          }
-        }),
+                );
+              }
+            }),
+          ),
+        ],
       ),
     );
   }

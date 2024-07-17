@@ -69,3 +69,7 @@ String statusStr = 'Status';
 String suspendedStr = 'Suspended';
 String ChannelStr = 'Channel';
 String SelectStr = 'Select';
+String enterKeyWordToSearchStr = 'Enter key word to search';
+String songStr = "Song";
+String singerStr = "Singer";
+String songCodeStr = "Song Code";

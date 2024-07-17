@@ -17,6 +17,8 @@ const String subscriberDetailRoute = '/subscriberDetail';
 const String copyToneRoute = '/copyTone';
 const String tuneListRoute = '/tuneList';
 
+const String activateScreenRoute = '/activateScreen';
+
 
 
 //const String MessageTemplate = '/PackScreen';
