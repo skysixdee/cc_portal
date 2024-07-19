@@ -241,4 +241,6 @@ class ToneList {
       };
 
   static map(Function(dynamic tone) param0) {}
+
+  static void clear() {}
 }

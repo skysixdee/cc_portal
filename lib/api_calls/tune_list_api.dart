@@ -1,25 +1,23 @@
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 import 'package:sm_admin_portal/Models/list_settin_modal.dart';
 import 'package:sm_admin_portal/Models/subscribers_modal.dart';
 import 'package:sm_admin_portal/network_manager/network_manager.dart';
 
-Future<ListToneSettingModel> listSettingApi() async {
+Future<ListToneSettingModel> toneListApi() async {
   String url =
-      'http://10.0.14.4:8082/selfcare/subscriber-management/list-settings';
+      'http://10.0.14.4:8082/selfcare/subscriber-management/list-tones';
   //  jsonData: );;
   Map<String, dynamic> jsonData = {
-    "transactionId":"64834346535",
-    "featureId":1,
-    "msisdn" : "8182010000",
-    "offerCode":"CRBT_WEEKLY",
-    "languageCode":"en",
-    "channelId":3,
-    "serviceId":"DefaultSettings"
-};
+    "transactionId": "655652",
+    "featureId": 1,
+    "msisdn": "8182010000",
+    "languageCode": "en",
+    "channelId": 2
+  };
   await Future.delayed(Duration(seconds: 3));
   Map<String, dynamic> jsonMap =
       await NetworkManager().postResquest(url, jsonData);
-ListToneSettingModel modal =ListToneSettingModel.fromJson(jsonMap);
+  ListToneSettingModel modal = ListToneSettingModel.fromJson(jsonMap);
   print("modal =${modal.message}");
   // print("modal Offers=${modal.offers?.length}");
   // print("modal  respCode =${modal.respCode}");

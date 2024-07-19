@@ -1,20 +1,30 @@
 import 'package:get/get.dart';
+import 'package:sm_admin_portal/api_calls/buy_tone_api.dart';
 import 'package:sm_admin_portal/api_calls/delete_tone_api.dart';
 import 'package:sm_admin_portal/api_calls/get_subscription_detail_api.dart';
 import 'package:sm_admin_portal/api_calls/list_settings_api.dart';
 import 'package:sm_admin_portal/api_calls/tone_detail_api.dart';
+import 'package:sm_admin_portal/api_calls/tune_list_api.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
 
 class DashboardController extends GetxController {
   var isLoading = false.obs;
   var isSubmitted = false.obs;
   var mobileNumber = ''.obs;
+  var phoneNumber = ''.obs;
   // var contentId = '';
-                  
+
   void handleSubmit(String phonenumber) {
+    //   getSubscriptionDetailApi();
     getSubscriptionDetailApi(phonenumber);
-    getToneDetailApi();
-     //listSettingApi(phonenumber);
+    deleteToneApi();
+    BuyTone();
+    //listSettingApi();
+    // toneListApi();
+    // listSettingApi();
+    // toneListApi();
+    //getToneDetailApi();
+    //listSettingApi(phonenumber);
     if (phonenumber.length == 10) {
       isLoading.value = true;
 

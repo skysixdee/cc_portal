@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sm_admin_portal/api_calls/delete_pack_api.dart';
-import 'package:sm_admin_portal/api_calls/delete_tone_api.dart';
-import 'package:sm_admin_portal/api_calls/list_settings_api.dart';
-import 'package:sm_admin_portal/api_calls/tone_detail_api.dart';
+import 'package:sm_admin_portal/api_calls/tune_list_api.dart';
+
 
 import 'package:sm_admin_portal/controllers/dashboard_controller.dart';
 import 'package:sm_admin_portal/router/router_name.dart';
-import 'package:sm_admin_portal/screens/Tunelist_screen.dart';
+
 import 'package:sm_admin_portal/utilily/colors.dart';
 
 class DashBoardScreen extends StatelessWidget {
@@ -126,10 +124,8 @@ class DashBoardScreen extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () async {
-                        //listSettingApi(); //phonenumber
-                        // getToneDetailApi();
-                        deleteToneApi();
-                        //Get.to(() => TuneListScreen());
+                      
+                         toneListApi();
                         context.goNamed(tuneListRoute);
                       },
                       child: Container(
