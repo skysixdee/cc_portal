@@ -73,7 +73,7 @@ String enterKeyWordToSearchStr = 'Enter key word to search';
 String songStr = "Song";
 String singerStr = "Singer";
 String songCodeStr = "Song Code";
-
+String confirmCStr = "CONFIRM";
 String dailyStr = "Daily";
 String weeklyStr = "Weekly";
 String monthlyStr = "Monthly";

@@ -1,11 +1,14 @@
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
+import 'package:get/state_manager.dart';
 import 'package:sm_admin_portal/enums/search_type.dart';
 import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_view_model.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
 
 class ActivateTuneController extends GetxController {
   RxString value = ''.obs;
+  RxBool isConfirming = false.obs;
+  RxBool isLoading = false.obs;
   Rx<SearchType> searchType = SearchType.song.obs;
   RxList searchTypeList =
       [SearchType.song, SearchType.singer, SearchType.songCode].obs;
@@ -28,6 +31,12 @@ class ActivateTuneController extends GetxController {
 
   updateSearchType(SearchType searchType) {
     this.searchType.value = searchType;
+  }
+
+  confirmButtonAction() async {
+    isConfirming.value = true;
+    await Future.delayed(Duration(seconds: 2));
+    isConfirming.value = false;
   }
 
   createHeaderColumnList() {

@@ -10,7 +10,7 @@ class CustomReusableTextField extends StatelessWidget {
   // final String title;
   CustomReusableTextField({
     super.key,
-    this.borderWidth = 1,
+    this.borderWidth = 0.7,
     this.cornerRadius = 5,
     this.heigth = 40,
     this.width,

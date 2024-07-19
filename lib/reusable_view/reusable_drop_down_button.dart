@@ -8,12 +8,13 @@ import 'package:get/state_manager.dart';
 import 'package:popover/popover.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
+import 'package:sm_admin_portal/utilily/colors.dart';
 
 class ReusbaleDropDownButton extends StatelessWidget {
   List<String> items = [];
   ReusbaleDropDownButton({
     super.key,
-    this.borderWidth = 1,
+    this.borderWidth = 0.7,
     this.cornerRadius = 5,
     this.heigth = 40,
     this.width,
@@ -170,17 +171,21 @@ class ReusbaleDropDownButton extends StatelessWidget {
       context: context,
 
       bodyBuilder: (context) {
-        return ListView.builder(
-          padding: const EdgeInsets.all(1),
-          itemCount: items.length,
-          shrinkWrap: true,
-          itemBuilder: (context, index) {
-            return CustomOnHover(
-              builder: (isHovered) {
-                return listCell(context, index, isHovered);
-              },
-            );
-          },
+        return Container(
+          //decoration: BoxDecoration(border: Border.all(color: greyLight)),
+          //color: redColor,
+          child: ListView.builder(
+            padding: const EdgeInsets.all(1),
+            itemCount: items.length,
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              return CustomOnHover(
+                builder: (isHovered) {
+                  return listCell(context, index, isHovered);
+                },
+              );
+            },
+          ),
         );
       },
       onPop: () => print('Popover was popped!'),
@@ -210,21 +215,30 @@ class ReusbaleDropDownButton extends StatelessWidget {
                 ? selectedColor
                 : (isHovered ? hoverColor : Colors.white),
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(6.0),
-            child: SMText(
-                fontWeight: FontWeight.normal,
-                title: items[index],
-                textColor:
-                    selectedIndex.value == index ? Colors.white : Colors.black),
-            // Text(
-            //   items[index],
-            //   style: TextStyle(
-            //       fontWeight: FontWeight.normal,
-            //       color: selectedIndex.value == index
-            //           ? Colors.white
-            //           : Colors.black),
-            // )
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              index == 0 ? SizedBox() : Container(height: 1, color: greyLight),
+              Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: SMText(
+                    fontWeight: FontWeight.normal,
+                    title: items[index],
+                    textColor: selectedIndex.value == index
+                        ? Colors.white
+                        : Colors.black),
+                // Text(
+                //   items[index],
+                //   style: TextStyle(
+                //       fontWeight: FontWeight.normal,
+                //       color: selectedIndex.value == index
+                //           ? Colors.white
+                //           : Colors.black),
+                // )
+              ),
+            ],
           ),
         );
       },
