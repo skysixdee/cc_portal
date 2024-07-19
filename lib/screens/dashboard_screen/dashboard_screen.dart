@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sm_admin_portal/api_calls/tune_list_api.dart';
-
+import 'package:sm_admin_portal/controllers/Tone_list_controller.dart';
 
 import 'package:sm_admin_portal/controllers/dashboard_controller.dart';
 import 'package:sm_admin_portal/router/router_name.dart';
@@ -124,8 +124,8 @@ class DashBoardScreen extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () async {
-                      
-                         toneListApi();
+                        TuneListController cont = Get.find();
+                        cont.getToneList(controller.phoneNumber.value);
                         context.goNamed(tuneListRoute);
                       },
                       child: Container(

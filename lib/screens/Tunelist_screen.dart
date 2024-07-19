@@ -60,26 +60,26 @@ class _TuneListScreenState extends State<TuneListScreen> {
                             children: [
                               // searchNumberWidget(),
                               SizedBox(height: 10),
-                              Stack(
-                                children: [
-                                  Column(
-                                    children: [
-                                      Container(
-                                        height: tabButtonHeight,
-                                      ),
-                                      Container(
-                                        height: tabButtonHeight,
-                                        //      decoration: mainContainerDecoration(),
-                                      )
-                                    ],
-                                  ),
-                                  tabButtons(),
-                                  // Obx(() {
-                                  //   return SMText(title:
-                                  //       'items are =${cont.toneList[0].length}');
-                                  // })
-                                ],
-                              ),
+                              // Stack(
+                              //   children: [
+                              //     Column(
+                              //       children: [
+                              //         Container(
+                              //           height: tabButtonHeight,
+                              //         ),
+                              //         Container(
+                              //           height: tabButtonHeight,
+                              //           //      decoration: mainContainerDecoration(),
+                              //         )
+                              //       ],
+                              //     ),
+                              //     //tabButtons(),
+                              //     // Obx(() {
+                              //     //   return SMText(title:
+                              //     //       'items are =${cont.toneList[0].length}');
+                              //     // })
+                              //   ],
+                              // ),
 
                               // Row(
                               //   mainAxisAlignment: MainAxisAlignment.end,
@@ -95,11 +95,7 @@ class _TuneListScreenState extends State<TuneListScreen> {
                               //   ],
                               // ),
                               SizedBox(height: 8),
-                              Obx(() {
-                                return SMText(
-                                    title:
-                                        'items are =${cont.toneList[0].length}');
-                              }),
+
                               tableAndBottomSection()
 
                               //dropDownWidget(),
@@ -206,13 +202,7 @@ class _TuneListScreenState extends State<TuneListScreen> {
   Widget tableAndBottomSection() {
     return Column(
       children: [
-        Obx(() {
-          return selectedTab.value == 0
-              ? ToneDetailTable(
-                  key: null,
-                )
-              : SettingsListTable();
-        }),
+        SettingsListTable(),
         SizedBox(height: 8),
         BottomButtons(),
       ],
@@ -230,7 +220,7 @@ class _TuneListScreenState extends State<TuneListScreen> {
         if (selectedTab.value == 0) {
           CircularProgressIndicator();
           //cont.getToneList(msisdnCStr);
-          cont.getToneList(cont.searchedText);
+          //cont.getToneList(cont.searchedText);
           //cont.getPackDetail(cont.searchedText);
         } else {
           // cont.ToneList();

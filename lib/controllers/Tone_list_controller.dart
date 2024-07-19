@@ -53,6 +53,8 @@ import 'package:sm_admin_portal/Models/Generic_modal.dart';
 import 'package:sm_admin_portal/Models/list_settin_modal.dart';
 import 'package:sm_admin_portal/Models/subscribers_modal.dart';
 import 'package:sm_admin_portal/Models/tone_detail_modal.dart';
+import 'package:sm_admin_portal/Models/tone_list_model.dart';
+import 'package:sm_admin_portal/Models/tone_search_model.dart';
 import 'package:sm_admin_portal/api_calls/delete_pack_api.dart';
 import 'package:sm_admin_portal/api_calls/pack_detail_api.dart';
 import 'package:sm_admin_portal/api_calls/tone_detail_api.dart';
@@ -94,9 +96,12 @@ class TuneListController extends GetxController {
     isLoadingSettingsList.value = true;
     createTableToneListsHeaderColumnList();
     await Future.delayed(Duration(seconds: 3));
-    ListToneSettingModel model = await toneListApi();
+    ToneListModel model = await toneListApi();
+
+    print("SKY 1======${model.tonelist?.length} ");
     isLoadingSettingsList.value = false;
-    createToneDetailRowList(model.settingslist ?? [], msisdn);
+    createToneDetailRowList(model.tonelist ?? [], msisdn);
+    print("SKY 2====== ");
     print("tone detail list = ${toneList.length}");
   }
 
@@ -135,9 +140,10 @@ class TuneListController extends GetxController {
     ]);
   }
 
-  createToneDetailRowList(List<Settingslist> list, String msisdn) {
+  createToneDetailRowList(List<Tonelist> list, String msisdn) {
+    print("1 list ========= ${list.length}");
     if (list.isEmpty) return;
-    print('msisdn=$msisdn');
+    print("2 list ========= ${list.length}");
     for (var item in list) {
       toneList.add([
         CustomTableViewModel(
@@ -157,7 +163,7 @@ class TuneListController extends GetxController {
             isRemoveable: true,
             object: item),
         CustomTableViewModel(
-            value: item.contentId ?? '',
+            value: item.toneId ?? '',
             isVisible: true.obs,
             isRemoveable: false,
             object: item),
