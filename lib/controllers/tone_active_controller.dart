@@ -42,9 +42,6 @@ class ToneActiveController extends GetxController {
         onSubmit: (p0) {
           onChangeMsisdn(p0);
         },
-        Function: () {},
-        onChanged: (value) {},
-        isrequired: true,
       ),
       ReusbaleDropDownButton(
         items: ["ToneId ", "ToneName", "Artist"],
@@ -59,16 +56,14 @@ class ToneActiveController extends GetxController {
             print("Tone id tapped");
 
             widgitList[2] = CustomReusableTextField(
-                textController: TextEditingController(),
-                title: toneIdStr,
-                hintText: toneIdStr,
-                width: 260,
-                onChange: (p0) {
-                  print("Changed");
-                },
-                Function: () {},
-                onChanged: (value) {},
-                isrequired: true);
+              textController: TextEditingController(),
+              title: toneIdStr,
+              hintText: toneIdStr,
+              width: 260,
+              onChange: (p0) {
+                print("Changed");
+              },
+            );
           } else if (value == 1) {
             print("Tone name tapped");
             widgitList[2] = CustomReusableTextField(
@@ -79,9 +74,6 @@ class ToneActiveController extends GetxController {
               onChange: (p0) {
                 print("Changed");
               },
-              Function: () {},
-              onChanged: (value) {},
-              isrequired: true,
             );
           } else if (value == 2) {
             print("Artist tapped");
@@ -93,9 +85,6 @@ class ToneActiveController extends GetxController {
               onChange: (p0) {
                 print("Changed");
               },
-              Function: () {},
-              onChanged: (value) {},
-              isrequired: true,
             );
           }
 
@@ -103,10 +92,6 @@ class ToneActiveController extends GetxController {
         },
         direction: PopoverDirection.bottom,
         hintText: '',
-        onChange: (p0) {},
-        onSubmit: (p0) {},
-        Function: () {},
-        isrequired: true,
       ),
       CustomReusableTextField(
         textController: TextEditingController(),
@@ -116,9 +101,6 @@ class ToneActiveController extends GetxController {
         onChange: (p0) {
           print("Changed");
         },
-        Function: () {},
-        onChanged: (value) {},
-        isrequired: false,
       ),
       ReusbaleDropDownButton(
         items: ["Daily", "Weekly", "Montly"],
@@ -145,10 +127,6 @@ class ToneActiveController extends GetxController {
         },
         direction: PopoverDirection.bottom,
         hintText: '',
-        onChange: (p0) {},
-        onSubmit: (p0) {},
-        Function: () {},
-        isrequired: true,
       ),
       ReusbaleDropDownButton(
         items: [
@@ -163,10 +141,6 @@ class ToneActiveController extends GetxController {
         },
         direction: PopoverDirection.bottom,
         hintText: '',
-        onChange: (p0) {},
-        onSubmit: (p0) {},
-        Function: () {},
-        isrequired: true,
       ),
     ];
   }
@@ -218,10 +192,6 @@ class ToneActiveController extends GetxController {
         onChanged: (value) {},
         direction: PopoverDirection.bottom,
         hintText: '',
-        onChange: (p0) {},
-        onSubmit: (p0) {},
-        Function: () {},
-        isrequired: true,
       );
 
       ReusbaleDropDownButton toneDropDown = ReusbaleDropDownButton(
@@ -231,10 +201,6 @@ class ToneActiveController extends GetxController {
         onChanged: (value) {},
         direction: PopoverDirection.bottom,
         hintText: '',
-        onChange: (p0) {},
-        onSubmit: (p0) {},
-        Function: () {},
-        isrequired: true,
       );
       ReusbaleDropDownButton languageDropDown = ReusbaleDropDownButton(
         items: [
@@ -245,10 +211,6 @@ class ToneActiveController extends GetxController {
         onChanged: (value) {},
         direction: PopoverDirection.bottom,
         hintText: '',
-        onChange: (p0) {},
-        Function: () {},
-        onSubmit: (p0) {},
-        isrequired: true,
       );
       widgitList.add(offersDropDown);
       widgitList.add(toneDropDown);
@@ -420,7 +382,7 @@ class ToneActiveController extends GetxController {
       GenericModal modal = GenericModal.fromJson(jsonrequ);
 
       // setState(() {
-     // _isLoading = true;
+      // _isLoading = true;
       if (modal.respCode == 0) {
         onsuccess!();
       }

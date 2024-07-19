@@ -16,9 +16,10 @@ class CustomTableView extends StatelessWidget {
   final double? borderWidth;
   final double? cellHeight;
   final double? headerHeight;
-  final double? SingleChildScrollView;///////////bhavya
+  final double? SingleChildScrollView; ///////////bhavya
   //final Widget? button;
-  final Function(int row, int colum)? button;
+  final double rowVerticalPadding;
+  final Function(int row, int colum)? child;
   const CustomTableView({
     super.key,
     required this.headerColumList,
@@ -30,9 +31,10 @@ class CustomTableView extends StatelessWidget {
     this.headerBgColor = black12,
     this.borderWidth,
     this.cellHeight,
-    this.button,
+    this.child,
     this.headerHeight,
-    this.SingleChildScrollView,//////////////bhavya
+    this.SingleChildScrollView,
+    this.rowVerticalPadding = 4, //////////////bhavya
   });
 
   @override
@@ -121,14 +123,14 @@ class CustomTableView extends StatelessWidget {
                                     height: cellHeight,
                                     color: cellColor ?? Colors.white,
                                     child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        vertical: 0,
+                                      padding: EdgeInsets.symmetric(
+                                        vertical: rowVerticalPadding,
                                       ),
                                       child: Center(
                                           child: (rowList[index][column]
                                                   .isButton)
-                                              ? ((button != null)
-                                                  ? (button!(index, column))
+                                              ? ((child != null)
+                                                  ? (child!(index, column))
                                                   : const SizedBox(
                                                       child: Text(
                                                           "add button here"),

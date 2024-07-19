@@ -5,10 +5,8 @@ import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_vie
 
 import 'custom_alert_dialog.dart';
 
-
-
 class CopyDetailTable extends StatefulWidget {
-   CopyDetailTable({super.key});
+  CopyDetailTable({super.key});
 
   @override
   _CopyDetailTableState createState() => _CopyDetailTableState();
@@ -16,12 +14,13 @@ class CopyDetailTable extends StatefulWidget {
 
 class _CopyDetailTableState extends State<CopyDetailTable> {
   CopyTonecontroller cont = Get.find();
-  List<List<bool>> isSelected=[];
+  List<List<bool>> isSelected = [];
 
   @override
   void initState() {
     super.initState();
-    isSelected = List.generate(cont.copyDetailList.length, (_) => List.filled(cont.copyDetailList[0].length, false));
+    isSelected = List.generate(cont.copyDetailList.length,
+        (_) => List.filled(cont.copyDetailList[0].length, false));
   }
 
   @override
@@ -32,22 +31,24 @@ class _CopyDetailTableState extends State<CopyDetailTable> {
       headerBgColor: Colors.grey[300],
       headerColumList: cont.copyDetailList[0],
       rowList: cont.copyDetailList,
-      button: (row, column) {
+      child: (row, column) {
         return InkWell(
           onTap: () {
             setState(() {
               isSelected[row][column] = !isSelected[row][column];
-              if(isSelected[row][column]==true){
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return CustomAlertDialog(); 
-                },
-              );
-            }});
-          
+              if (isSelected[row][column] == true) {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return CustomAlertDialog();
+                  },
+                );
+              }
+            });
           },
-          child: isSelected[row][column] ? Icon(Icons.radio_button_checked) : Icon(Icons.radio_button_unchecked),
+          child: isSelected[row][column]
+              ? Icon(Icons.radio_button_checked)
+              : Icon(Icons.radio_button_unchecked),
         );
       },
     );

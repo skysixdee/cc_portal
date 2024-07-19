@@ -254,10 +254,6 @@ class BulkScreen extends StatelessWidget {
                           },
                           direction: PopoverDirection.bottom,
                           hintText: '',
-                          onChange: (p0) {},
-                          onSubmit: (p0) {},
-                          Function: () {},
-                          isrequired: true,
                         )
                       ],
                     ),

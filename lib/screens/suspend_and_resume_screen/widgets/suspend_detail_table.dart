@@ -213,7 +213,7 @@ class SuspendDetailTable extends StatelessWidget {
                   headerBgColor: Colors.grey[300],
                   headerColumList: cont.suspendDetailList[0],
                   rowList: cont.suspendDetailList,
-                  button: (row, colum) {
+                  child: (row, colum) {
                     return ResponsiveBuilder(
                         builder: (context, sizingInformation) {
                       return InkWell(

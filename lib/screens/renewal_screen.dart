@@ -22,7 +22,7 @@ class RenewalScreen extends StatelessWidget {
               cellHeight: 40,
               headerColumList: con.suspendDetailList[0],
               rowList: con.suspendDetailList,
-              button: (row, colum) {
+              child: (row, colum) {
                 return toggleButton(row, colum ?? 0);
               },
             );

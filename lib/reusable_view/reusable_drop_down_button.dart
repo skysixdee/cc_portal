@@ -28,10 +28,6 @@ class ReusbaleDropDownButton extends StatelessWidget {
     this.onTap,
     required PopoverDirection direction,
     required String hintText,
-    required Null Function(dynamic p0) onChange,
-    required Null Function(dynamic p0) onSubmit,
-    required Null Function() Function,
-    required bool isrequired,
   });
   final bool isDisplayPopup;
   Function(int)? onChanged;
@@ -53,20 +49,16 @@ class ReusbaleDropDownButton extends StatelessWidget {
   //late final List<String> items; // = ["Shiv", "Kumar", "Yadav"];////////////bhavya
   final Function()? onTap;
 
-  get text => null;
+  // //////////////////////bhavya/////////////////
 
-  get textController => null;
-
-  //////////////////////bhavya/////////////////
-
-  String getSelectedItem() {
-    if (selectedIndex.value >= 0 && selectedIndex.value < items.length) {
-      return items[selectedIndex.value];
-    } else {
-      return '';
-    }
-  }
-  /////////////////
+  // String getSelectedItem() {
+  //   if (selectedIndex.value >= 0 && selectedIndex.value < items.length) {
+  //     return items[selectedIndex.value];
+  //   } else {
+  //     return '';
+  //   }
+  // }
+  // /////////////////
 
   String? selectedItem;
 

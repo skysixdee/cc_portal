@@ -3,6 +3,11 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:sm_admin_portal/controllers/activate_tune_controller.dart';
 import 'package:sm_admin_portal/enums/search_type.dart';
+import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_view.dart';
+import 'package:sm_admin_portal/reusable_view/reusable_alert_dialog/reusable_alert_dialog_box.dart';
+import 'package:sm_admin_portal/screens/activate_tune_screen/widgets/activate_tune_popup.dart';
+import 'package:sm_admin_portal/screens/activate_tune_screen/widgets/activate_tune_textfield.dart';
+import 'package:sm_admin_portal/screens/activate_tune_screen/widgets/activate_tune_search_type_builder.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
@@ -16,82 +21,49 @@ class ActivateTuneScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        width: 400,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             SMText(title: toneActivationStr),
-            SmTextField(
-              textEditingController: TextEditingController(),
-              hint: enterKeyWordToSearchStr,
-              tailingWidget: searchButton(),
+            SizedBox(
+              child:
+                  activateTuneTextField(TextEditingController()), //textField(),
+              width: 400,
             ),
-            listBuilder(),
+            activateTuneSearchTypeBuilder(cont),
+            Expanded(child: tableBuilder())
           ],
         ),
       ),
     );
   }
 
-  Widget searchButton() {
-    return InkWell(
-        onTap: () {},
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Icon(
-            Icons.search,
-            size: 16,
-          ),
-        ));
-  }
-
-  SizedBox listBuilder() {
-    return SizedBox(
-      height: 40,
-      child: ListView.builder(
-        shrinkWrap: true,
-        scrollDirection: Axis.horizontal,
-        itemCount: cont.searchTypeList.length,
-        itemBuilder: (context, index) {
-          return radioButton(
-              cont.searchTypeList[index], cont.searchTypeTitlList[index]);
-        },
-      ),
-    );
-  }
-
-  Widget radioButton(SearchType searchType, String title) {
-    return Obx(() {
-      return InkWell(
-        focusColor: transparent,
-        hoverColor: transparent,
-        splashColor: transparent,
-        highlightColor: transparent,
-        onTap: () {
-          //cont.searchType.value =
-          cont.updateSearchType(searchType);
-        },
-        child: Padding(
-          padding: const EdgeInsets.only(right: 12),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                searchType == cont.searchType.value
-                    ? Icons.radio_button_checked
-                    : Icons.radio_button_unchecked,
-                size: 16,
+  Widget tableBuilder() {
+    return CustomTableView(
+      headerColumList: cont.purchaseList[0],
+      rowList: cont.purchaseList,
+      child: (row, colum) {
+        return InkWell(
+            onTap: () {
+              Get.dialog(Center(child: ActivateTunePopup()));
+              print("row = $row and column = $colum");
+            },
+            child: Container(
+              height: 20,
+              width: 20,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: greyLight,
               ),
-              SizedBox(width: 2),
-              SMText(
-                title: title,
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-              )
-            ],
-          ),
-        ),
-      );
-    });
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 2),
+                child: Icon(
+                  Icons.close,
+                  size: 10,
+                ),
+              ),
+            ));
+      },
+    );
   }
 }
