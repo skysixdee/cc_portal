@@ -166,49 +166,54 @@ class CustomTableView extends StatelessWidget {
                                                 vertical: rowVerticalPadding,
                                               ),
                                               child: Center(
-                                                  child:
-                                                      (rowList[index][column]
-                                                              .isButton)
-                                                          ? ((child != null)
-                                                              ? (child!(index,
-                                                                  column))
-                                                              : const SizedBox(
-                                                                  child: Text(
-                                                                      "add button here"),
-                                                                ))
-                                                          : Row(
-                                                              mainAxisAlignment:
-                                                                  column == 0
-                                                                      ? MainAxisAlignment
-                                                                          .start
-                                                                      : MainAxisAlignment
-                                                                          .center,
-                                                              children: [
-                                                                Flexible(
-                                                                  child:
-                                                                      Padding(
-                                                                    padding: EdgeInsets.symmetric(
-                                                                        horizontal: column ==
+                                                  child: (rowList[index][column]
+                                                          .isButton)
+                                                      ? ((child != null)
+                                                          ? (child!(
+                                                              index, column))
+                                                          : const SizedBox(
+                                                              child: Text(
+                                                                  "add button here"),
+                                                            ))
+                                                      : Row(
+                                                          mainAxisAlignment: column ==
+                                                                  0
+                                                              ? MainAxisAlignment
+                                                                  .start
+                                                              : MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Flexible(
+                                                              child: Padding(
+                                                                padding: EdgeInsets.symmetric(
+                                                                    horizontal:
+                                                                        column ==
                                                                                 0
                                                                             ? 4
                                                                             : 0),
-                                                                    child:
-                                                                        Column(
-                                                                      children: [
-                                                                        Text(
-                                                                          rowList[index][column]
-                                                                              .value,
-                                                                          style:
-                                                                              rowTextStyle,
-                                                                          textAlign:
-                                                                              TextAlign.start,
-                                                                        )
-                                                                      ],
-                                                                    ),
-                                                                  ),
+                                                                child: Column(
+                                                                  children: [
+                                                                    SelectableText(
+                                                                        rowList[index][column]
+                                                                            .value,
+                                                                        style:
+                                                                            rowTextStyle,
+                                                                        textAlign:
+                                                                            TextAlign.start),
+                                                                    // Text(
+                                                                    //   rowList[index][column]
+                                                                    //       .value,
+                                                                    //   style:
+                                                                    //       rowTextStyle,
+                                                                    //   textAlign:
+                                                                    //       TextAlign.start,
+                                                                    // )
+                                                                  ],
                                                                 ),
-                                                              ],
-                                                            )),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        )),
                                             )),
                                       ),
                                 ])

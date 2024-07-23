@@ -13,7 +13,6 @@ class HistoryAllTableView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: CustomTableView(
-        cellHeight: 40,
         headerColumList: con.allList[0],
         rowList: con.allList,
         child: (row, colum) {

@@ -54,8 +54,8 @@ class ActivateTuneController extends GetxController {
     OfferListModel offerListModel = await listOfferApi(index);
     print("Offer list ========= ${offerListModel.offerList?.length}");
 
-    for (var itm in offerListModel.offerList ?? []) {
-      serviceTypeMenuList.add(itm);
+    for (OfferList itm in offerListModel.offerList ?? []) {
+      serviceTypeMenuList.add(itm.offerName ?? '');
     }
   }
 
