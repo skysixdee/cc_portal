@@ -114,10 +114,15 @@ class ActivateTunePopup extends StatelessWidget {
 
   ReusbaleDropDownButton frequencyButton(BoxConstraints constraints) {
     return ReusbaleDropDownButton(
-        title: frequencyStr,
-        width: constraints.maxWidth,
-        items: controller.frequencyList,
-        direction: PopoverDirection.bottom,
-        hintText: "hintText");
+      title: frequencyStr,
+      width: constraints.maxWidth,
+      items: controller.frequencyList,
+      direction: PopoverDirection.bottom,
+      hintText: "hintText",
+      onChanged: (index) {
+        print("index sky = $index");
+        controller.getListOffer(index: index);
+      },
+    );
   }
 }

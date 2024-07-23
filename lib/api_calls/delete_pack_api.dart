@@ -2,13 +2,14 @@ import 'dart:convert';
 
 import 'package:sm_admin_portal/Models/Generic_modal.dart';
 import 'package:sm_admin_portal/network_manager/network_manager.dart';
+import 'package:sm_admin_portal/utilily/get_transaction_id.dart';
 import 'package:sm_admin_portal/utilily/urls.dart';
 
 Future<GenericModal> deletePackApi(String offerName) async {
   String url = deletepackurl;
 
   Map<String, dynamic> jsondata = {
-    "transactionId": "",
+    "transactionId": getTransactionId(),
     "featureId": "1",
     "msisdn": "",
     "offerId": "",
@@ -18,8 +19,8 @@ Future<GenericModal> deletePackApi(String offerName) async {
   // Map<String, dynamic> jsonrequ =
   //     await NetworkManager().postResquest(url, jsondata);
 
-Map<String, dynamic> jsonrequ = json.decode(responString);
-await Future.delayed(Duration(seconds: 2));
+  Map<String, dynamic> jsonrequ = json.decode(responString);
+  await Future.delayed(Duration(seconds: 2));
   GenericModal modal = GenericModal.fromJson(jsonrequ);
   return modal;
 }
