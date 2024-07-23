@@ -20,6 +20,7 @@ class ActivateTuneScreen extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            SizedBox(height: 20),
             SMText(title: toneActivationStr),
             SizedBox(
               child:
@@ -27,7 +28,14 @@ class ActivateTuneScreen extends StatelessWidget {
               width: 400,
             ),
             activateTuneSearchTypeBuilder(cont),
-            Expanded(child: tableBuilder())
+            SizedBox(height: 50),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(right: 12),
+                child: tableBuilder(),
+              ),
+            ),
+            SizedBox(height: 50),
           ],
         ),
       ),
@@ -35,23 +43,24 @@ class ActivateTuneScreen extends StatelessWidget {
   }
 
   Widget tableBuilder() {
-    return CustomTableView(
-      headerColumList: cont.purchaseList[0],
-      rowList: cont.purchaseList,
-      child: (row, colum) {
-        return InkWell(
+    return Obx(() {
+      return CustomTableView(
+        headerColumList: cont.purchaseList[0],
+        rowList: cont.purchaseList,
+        child: (row, colum) {
+          return InkWell(
             onTap: () {
               Get.dialog(
                 barrierDismissible: false,
                 Center(
                   child: ActivateTunePopup(
-                    toneName: cont.purchaseList[row][2].value,
+                    toneName: cont.purchaseList[row][1].value,
                   ),
                 ),
               );
 
               print("row = $row and column = $colum");
-              print("======= ${cont.purchaseList[row][2].value}");
+              print("======= ${cont.purchaseList[row][1].value}");
             },
             child: Container(
               height: 20,
@@ -67,8 +76,10 @@ class ActivateTuneScreen extends StatelessWidget {
                   size: 10,
                 ),
               ),
-            ));
-      },
-    );
+            ),
+          );
+        },
+      );
+    });
   }
 }

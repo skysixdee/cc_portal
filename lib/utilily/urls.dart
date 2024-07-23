@@ -7,5 +7,6 @@ const suspendUrl = "$baseUrl/selfcare/subscription/suspend";
 //const msisdn_numbwe='7000000033'
 //const buyurl=""
 const buyurl = "$baseUrl/selfcare/subscriber-management/buy-tone";
+const advanceSearchToneUrl = "http://10.0.14.4:8090/advanced-search";
 
 //http://10.0.10.33:5678

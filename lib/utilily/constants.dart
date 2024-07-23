@@ -1,3 +1,4 @@
+const int pagePerCount = 20;
 const double navBarheight = 50.0;
 const double sideMenuOpendWidth = 220.0;
 const double sideMenuClosedWidth = 80.0;

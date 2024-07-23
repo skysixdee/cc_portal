@@ -7,6 +7,7 @@ import 'package:get/state_manager.dart';
 import 'package:popover/popover.dart';
 import 'package:sm_admin_portal/Models/Generic_modal.dart';
 import 'package:sm_admin_portal/Models/tone_detail_modal.dart';
+import 'package:sm_admin_portal/Models/tone_info.dart';
 import 'package:sm_admin_portal/Models/tone_search_model.dart';
 import 'package:sm_admin_portal/network_manager/network_manager.dart';
 import 'package:sm_admin_portal/reusable_view/reusable_drop_down_button.dart';
@@ -20,7 +21,7 @@ class ToneActiveController extends GetxController {
   // List<Tone> toneList = [];//////////bhavya
 
   final Function()? onsuccess = null;
-  List<ToneList> toneList = [];
+  List<ToneInfo> toneList = [];
 
   late bool _isLoading;
   void onInit() {
@@ -313,7 +314,7 @@ class ToneActiveController extends GetxController {
       if (categoryIndex == 0) {
         print("Update for tone id ");
         List<String> toneNames = (model.responseMap?.toneList ?? [])
-            .map<String>((tone) => tone.toneNameEnglish ?? '')
+            .map<String>((tone) => 'Set toneNameEnglish1 ${tone.toneName}')
             .toList();
         ReusbaleDropDownButton toneDropdown =
             widgitList[6] as ReusbaleDropDownButton;
@@ -322,7 +323,7 @@ class ToneActiveController extends GetxController {
       } else if (categoryIndex == 1) {
         print("Update for tone name ");
         List<String> toneNames = (model.responseMap?.toneList ?? [])
-            .map<String>((tone) => tone.toneNameEnglish ?? '')
+            .map<String>((tone) => 'Set toneNameEnglish2${tone.toneName}')
             .toList();
         ReusbaleDropDownButton toneDropdown =
             widgitList[6] as ReusbaleDropDownButton;

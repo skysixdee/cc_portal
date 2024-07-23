@@ -131,6 +131,8 @@
 
 import 'dart:convert';
 
+import 'package:sm_admin_portal/Models/tone_info.dart';
+
 ToneActivationModall toneActivationModallFromJson(String str) =>
     ToneActivationModall.fromJson(json.decode(str));
 
@@ -171,7 +173,7 @@ class ToneActivationModall {
 }
 
 class ResponseMap {
-  List<ToneList>? toneList;
+  List<ToneInfo>? toneList;
 
   ResponseMap({
     this.toneList,
@@ -180,8 +182,8 @@ class ResponseMap {
   factory ResponseMap.fromJson(Map<String, dynamic> json) => ResponseMap(
         toneList: json["toneList"] == null
             ? []
-            : List<ToneList>.from(
-                json["toneList"]!.map((x) => ToneList.fromJson(x))),
+            : List<ToneInfo>.from(
+                json["toneList"]!.map((x) => ToneInfo.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -189,56 +191,4 @@ class ResponseMap {
             ? []
             : List<dynamic>.from(toneList!.map((x) => x.toJson())),
       };
-}
-
-class ToneList {
-  String? toneId;
-  String? toneName;
-  String? artistName;
-  String? albumName;
-  int? price;
-  int? categoryId;
-  String? expiryDate;
-  String? toneIdStreamingUrl;
-  String? toneIdpreviewImageUrl;
-
-  ToneList({
-    this.toneId,
-    this.toneName,
-    this.artistName,
-    this.albumName,
-    this.price,
-    this.categoryId,
-    this.expiryDate,
-    this.toneIdStreamingUrl,
-    this.toneIdpreviewImageUrl,
-  });
-
-  factory ToneList.fromJson(Map<String, dynamic> json) => ToneList(
-        toneId: json["toneId"],
-        toneName: json["toneName"],
-        artistName: json["artistName"],
-        albumName: json["albumName"],
-        price: json["price"],
-        categoryId: json["categoryId"],
-        expiryDate: json["expiryDate"],
-        toneIdStreamingUrl: json["toneIdStreamingUrl"],
-        toneIdpreviewImageUrl: json["toneIdpreviewImageUrl"],
-      );
-
-  get toneNameEnglish => null;
-
-  Map<String, dynamic> toJson() => {
-        "toneId": toneId,
-        "toneName": toneName,
-        "artistName": artistName,
-        "albumName": albumName,
-        "price": price,
-        "categoryId": categoryId,
-        "expiryDate": expiryDate,
-        "toneIdStreamingUrl": toneIdStreamingUrl,
-        "toneIdpreviewImageUrl": toneIdpreviewImageUrl,
-      };
-
-  static map(Function(dynamic tone) param0) {}
 }

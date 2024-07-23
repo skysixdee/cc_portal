@@ -5,8 +5,9 @@ import 'package:universal_io/io.dart';
 class NetworkManager {
   var client = HttpClient();
   Future<Map<String, dynamic>> postResquest(
-      String url, Map<String, dynamic> jsonData) async {
+      String url, Map<String, dynamic>? jsonData) async {
     HttpClientRequest request = await client.postUrl(Uri.parse(url));
+
     request.write(json.encode(jsonData));
     print("json request ${json.encode(jsonData)}");
     HttpClientResponse response = await request.close();

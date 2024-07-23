@@ -12,6 +12,8 @@ class SmTextField extends StatelessWidget {
     this.hint,
     this.fontSize = 14,
     this.tailingWidget,
+    this.onSubmit,
+    this.onChange,
   });
   final TextEditingController? textEditingController;
   final RxBool _isHideClearButton = true.obs;
@@ -19,6 +21,8 @@ class SmTextField extends StatelessWidget {
   final double? fontSize;
   final String? hint;
   final Widget? tailingWidget;
+  final Function(String)? onSubmit;
+  final Function(String)? onChange;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,11 +37,15 @@ class SmTextField extends StatelessWidget {
           children: [
             Expanded(
               child: TextField(
+                onSubmitted: onSubmit,
                 textAlign: TextAlign.left,
                 style: TextStyle(fontWeight: fontWeight, fontSize: fontSize),
                 controller: textEditingController,
                 onChanged: (value) {
                   _isHideClearButton.value = value.isEmpty;
+                  if (onChange != null) {
+                    onChange!(value);
+                  }
                 },
                 decoration: inutDecortion(),
               ),
@@ -66,22 +74,43 @@ class SmTextField extends StatelessWidget {
 
   Widget clearButton() {
     return Obx(() {
-      return smVisibilityView(
-          InkWell(
-            onTap: () {
-              textEditingController?.clear();
-              _isHideClearButton.value = true;
-              print("tapped");
-            },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-              child: Icon(
-                Icons.close,
-                size: 12,
-              ),
+      return Visibility(
+        visible: !_isHideClearButton.value,
+        child: InkWell(
+          onTap: () {
+            textEditingController?.clear();
+            _isHideClearButton.value = true;
+            if (onChange != null) {
+              onChange!("");
+            }
+
+            print("tapped");
+          },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+            child: Icon(
+              Icons.close,
+              size: 12,
             ),
           ),
-          !_isHideClearButton.value);
+        ),
+      );
+      // smVisibilityView(
+      //     InkWell(
+      //       onTap: () {
+      //         textEditingController?.clear();
+      //         _isHideClearButton.value = true;
+      //         print("tapped");
+      //       },
+      //       child: Padding(
+      //         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+      //         child: Icon(
+      //           Icons.close,
+      //           size: 12,
+      //         ),
+      //       ),
+      //     ),
+      //     !_isHideClearButton.value);
     });
   }
 }
