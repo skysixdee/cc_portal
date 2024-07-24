@@ -21,7 +21,7 @@ class CustomTableView extends StatelessWidget {
   //final double? SingleChildScrollView; ///////////bhavya
   final double tableMinWidth;
   final double rowVerticalPadding;
-  final Function(int row, int colum, CustomTableViewModel model)? child;
+  final Function(int row, int colum)? child;
   const CustomTableView({
     super.key,
     required this.headerColumList,
@@ -170,10 +170,7 @@ class CustomTableView extends StatelessWidget {
                                                           .isButton)
                                                       ? ((child != null)
                                                           ? (child!(
-                                                              index,
-                                                              column,
-                                                              rowList[index]
-                                                                  [column]))
+                                                              index, column))
                                                           : const SizedBox(
                                                               child: Text(
                                                                   "add button here"),

@@ -47,16 +47,16 @@ class ActivateTuneScreen extends StatelessWidget {
       return CustomTableView(
         headerColumList: cont.purchaseList[0],
         rowList: cont.purchaseList,
-        child: (row, colum, model) {
+        child: (row, colum) {
           return InkWell(
             onTap: () {
               Get.dialog(
                 barrierDismissible: false,
                 Center(
                   child: ActivateTunePopup(
-                      toneName: model.title,
-                      toneId: model.value //cont.purchaseList[row][2].value,
-                      ),
+                    toneName: cont.purchaseList[row][0].value,
+                    toneId: cont.purchaseList[row][2].value,
+                  ),
                 ),
               );
 
