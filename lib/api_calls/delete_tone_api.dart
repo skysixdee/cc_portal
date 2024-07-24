@@ -1,7 +1,7 @@
 //import 'package:sm_admin_portal/Models/Generic_Tone_modal.dart';
 import 'dart:convert';
 
-import 'package:sm_admin_portal/Models/Generic_modal.dart';
+import 'package:sm_admin_portal/Models/generic_modal.dart';
 import 'package:sm_admin_portal/network_manager/network_manager.dart';
 import 'package:sm_admin_portal/utilily/get_transaction_id.dart';
 import 'package:sm_admin_portal/utilily/urls.dart';

@@ -54,7 +54,8 @@ class ActivateTuneScreen extends StatelessWidget {
                 barrierDismissible: false,
                 Center(
                   child: ActivateTunePopup(
-                    toneName: cont.purchaseList[row][1].value,
+                    toneName: cont.purchaseList[row][0].value,
+                    toneId: cont.purchaseList[row][2].value,
                   ),
                 ),
               );

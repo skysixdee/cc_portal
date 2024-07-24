@@ -10,4 +10,6 @@ class StoreManager {
   }
 
   initStoreManager() async {}
+  String msisdn = '92000003';
+  String languageCode = 'en';
 }

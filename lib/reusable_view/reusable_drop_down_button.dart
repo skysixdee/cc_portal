@@ -20,22 +20,20 @@ class ReusbaleDropDownButton extends StatelessWidget {
     this.width,
     this.dropDownIcon,
     required this.items,
-    // required this.items,
     this.onChanged,
     this.title = ' ',
     this.selectedoption = '',
-    this.hinttext = '',
+    this.hintText = '',
     this.isDisplayPopup = true,
     this.onTap,
     required PopoverDirection direction,
-    required String hintText,
   });
   final bool isDisplayPopup;
   Function(int)? onChanged;
   final double borderWidth;
   final String title;
   final String selectedoption;
-  final String hinttext;
+  final String? hintText;
   final double cornerRadius;
   final double heigth;
   final double? width;
@@ -47,23 +45,10 @@ class ReusbaleDropDownButton extends StatelessWidget {
   final Color selectedColor = Colors.blue;
   final Color borderColor = Colors.grey.withOpacity(0.5);
 
-  //late final List<String> items; // = ["Shiv", "Kumar", "Yadav"];////////////bhavya
   final Function()? onTap;
-
-  // //////////////////////bhavya/////////////////
-
-  // String getSelectedItem() {
-  //   if (selectedIndex.value >= 0 && selectedIndex.value < items.length) {
-  //     return items[selectedIndex.value];
-  //   } else {
-  //     return '';
-  //   }
-  // }
-  // /////////////////
 
   String? selectedItem;
 
-  get value => null;
   @override
   Widget build(BuildContext context) {
     selectedIndex.value = -1;

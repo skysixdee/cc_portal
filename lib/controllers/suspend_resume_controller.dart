@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:sm_admin_portal/Models/Generic_modal.dart';
+import 'package:sm_admin_portal/Models/generic_modal.dart';
 import 'package:sm_admin_portal/Models/subscribers_modal.dart';
 import 'package:sm_admin_portal/Models/suspend_and_resume_model.dart';
 import 'package:sm_admin_portal/Models/tone_detail_modal.dart';
@@ -50,21 +50,19 @@ class SuspendResumeController extends GetxController {
   //   // print("tone detail list = ${toneDetailList.length}");
   // }
 
-   
-   getPackDetail(String phoneNumber) async {
+  getPackDetail(String phoneNumber) async {
     suspendDetailList.clear();
-  
+
     //isLoadingPackDetail.value = true;
-    isLoadingSuspendResumedetail.value=true;
+    isLoadingSuspendResumedetail.value = true;
     createTableSuspendResumeDetailsHeaderColumnList();
     SubscribersModal modal = await getPackDetailApi(phoneNumber);
     //isLoadingPackDetail.value = false;
-    isLoadingSuspendResumedetail.value=false;
+    isLoadingSuspendResumedetail.value = false;
     tonelist = modal.offers ?? [];
     createSuspendResumeDetailRowList(modal.offers, phoneNumber);
   }
 
-   
   // getPackDetail(String phoneNumber) async {
   //   await Future.delayed(Duration(seconds: 1));
   //   suspendDetailList.clear();
@@ -85,28 +83,27 @@ class SuspendResumeController extends GetxController {
     GenericModal genericModal = await suspendApi(msisdn);
     if (genericModal.respCode == 0) {
       print(" suspended");
-     
-tonelist?[index].isSuspended?.value = true;
-      
-      
-      changeStatus() ;
-    } else {
-      print("failed");
-    }
-  }
-  resumeService(int index) async {
-    GenericModal genericModal = await suspendApi(msisdn);
-    if (genericModal.respCode == 0) {
-      print(" suspended");
-      
-tonelist?[index].isSuspended?.value = false;
-      
-      changeStatus() ;
+
+      tonelist?[index].isSuspended?.value = true;
+
+      changeStatus();
     } else {
       print("failed");
     }
   }
 
+  resumeService(int index) async {
+    GenericModal genericModal = await suspendApi(msisdn);
+    if (genericModal.respCode == 0) {
+      print(" suspended");
+
+      tonelist?[index].isSuspended?.value = false;
+
+      changeStatus();
+    } else {
+      print("failed");
+    }
+  }
 
   changeStatus() {
     suspendDetailList.clear();
@@ -157,7 +154,7 @@ tonelist?[index].isSuspended?.value = false;
     print("Offers items Are = ${list?.length}");
     if (list != null) {
       if (list.isEmpty) return;
-print("suspendDetailList = ${suspendDetailList.length}");
+      print("suspendDetailList = ${suspendDetailList.length}");
       for (var item in list) {
         suspendDetailList.add([
           CustomTableViewModel(

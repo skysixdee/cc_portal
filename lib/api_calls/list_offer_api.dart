@@ -19,8 +19,10 @@ Future<OfferListModel> listOfferApi(int offerId) async {
   try {
     Map<String, dynamic> map =
         await NetworkManager().postResquest(listOfferUrl, myPost);
+
     return offerListModelFromJson(json.encode(map));
   } catch (e) {
+    print("error is ${e}");
     return OfferListModel();
   }
 }

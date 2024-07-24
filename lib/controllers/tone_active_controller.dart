@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
 import 'package:popover/popover.dart';
-import 'package:sm_admin_portal/Models/Generic_modal.dart';
+import 'package:sm_admin_portal/Models/generic_modal.dart';
 import 'package:sm_admin_portal/Models/tone_detail_modal.dart';
 import 'package:sm_admin_portal/Models/tone_info.dart';
 import 'package:sm_admin_portal/Models/tone_search_model.dart';

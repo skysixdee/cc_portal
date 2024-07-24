@@ -42,8 +42,8 @@ class OfferList {
   String? offerId;
   String? offerName;
   String? offerMarketingName;
-  int? validity;
-  double? pricePoint;
+  String? validity;
+  String? pricePoint;
 
   OfferList({
     this.offerId,
@@ -57,8 +57,8 @@ class OfferList {
         offerId: json["offerId"],
         offerName: json["offerName"],
         offerMarketingName: json["offerMarketingName"],
-        validity: json["validity"],
-        pricePoint: json["pricePoint"]?.toDouble(),
+        validity: "${json["validity"] ?? json["Validity"]}",
+        pricePoint: "${json["pricePoint"]}",
       );
 
   Map<String, dynamic> toJson() => {

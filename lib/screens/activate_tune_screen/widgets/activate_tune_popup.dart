@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:get/get_state_manager/src/simple/get_widget_cache.dart';
 import 'package:popover/popover.dart';
+import 'package:sm_admin_portal/Models/tone_info.dart';
 import 'package:sm_admin_portal/controllers/activate_tune_controller.dart';
 import 'package:sm_admin_portal/reusable_view/custom_text_field.dart';
 import 'package:sm_admin_portal/reusable_view/reusable_drop_down_button.dart';
@@ -10,17 +12,23 @@ import 'package:sm_admin_portal/reusable_view/reusable_textfield.dart';
 import 'package:sm_admin_portal/reusable_view/sm_activity_indicator.dart';
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
+import 'package:sm_admin_portal/reusable_view/sm_visibility_view.dart';
 import 'package:sm_admin_portal/screens/subscriber_deatil_screen/widget/pack_deatil_table.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
 
 class ActivateTunePopup extends StatelessWidget {
-  ActivateTunePopup({super.key, required this.toneName});
+  ActivateTunePopup({super.key, required this.toneName, required this.toneId});
 
   final ActivateTuneController controller = Get.find();
+
+  final String toneId;
   final String toneName;
   @override
   Widget build(BuildContext context) {
+    controller.updateFrequency('');
+    controller.updateSelectedServiceType("");
+    controller.isConfirming.value = false;
     return Material(
       color: transparent,
       child: Padding(
@@ -46,7 +54,8 @@ class ActivateTunePopup extends StatelessWidget {
                             SizedBox(height: 12),
                             serviceTypeButton(constraints),
                             SizedBox(height: 20),
-                            confirmButton(),
+                            errorMessage(),
+                            confirmButton(context),
                             SizedBox(height: 10),
                           ],
                         );
@@ -58,7 +67,27 @@ class ActivateTunePopup extends StatelessWidget {
     );
   }
 
-  Widget confirmButton() {
+  Widget errorMessage() {
+    return Obx(() {
+      return smVisibilityView(
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: Row(
+              children: [
+                Flexible(
+                    child: SMText(
+                  title: controller.errorMessage.value,
+                  textColor: redColor,
+                  fontWeight: FontWeight.normal,
+                )),
+              ],
+            ),
+          ),
+          controller.errorMessage.isNotEmpty);
+    });
+  }
+
+  Widget confirmButton(BuildContext context) {
     return Obx(() {
       return controller.isConfirming.value
           ? smActivityIndicator(height: 40)
@@ -67,7 +96,11 @@ class ActivateTunePopup extends StatelessWidget {
               textColor: white,
               title: confirmCStr,
               onTap: () {
-                controller.confirmButtonAction();
+                controller.confirmButtonAction(toneId);
+                controller.onBuySuccess = () async {
+                  print(" onBuySuccess on confirm tap");
+                  Navigator.of(context).pop();
+                };
                 print("on confirm tap");
               },
             );
@@ -103,13 +136,20 @@ class ActivateTunePopup extends StatelessWidget {
         child: Icon(Icons.close));
   }
 
-  ReusbaleDropDownButton serviceTypeButton(BoxConstraints constraints) {
-    return ReusbaleDropDownButton(
+  Widget serviceTypeButton(BoxConstraints constraints) {
+    return Obx(() {
+      return ReusbaleDropDownButton(
         title: serviceTypeStr,
         width: constraints.maxWidth,
-        items: controller.serviceTypeMenuList,
+        // ignore: invalid_use_of_protected_member
+        items: controller.serviceTypeMenuList.value,
         direction: PopoverDirection.bottom,
-        hintText: "hintText");
+        onChanged: (p0) {
+          controller
+              .updateSelectedServiceType(controller.serviceTypeValueList[p0]);
+        },
+      );
+    });
   }
 
   ReusbaleDropDownButton frequencyButton(BoxConstraints constraints) {
@@ -118,9 +158,9 @@ class ActivateTunePopup extends StatelessWidget {
       width: constraints.maxWidth,
       items: controller.frequencyList,
       direction: PopoverDirection.bottom,
-      hintText: "hintText",
       onChanged: (index) {
         print("index sky = $index");
+        controller.updateFrequency(controller.frequencyList[index]);
         controller.getListOffer(index: index);
       },
     );
