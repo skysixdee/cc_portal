@@ -12,7 +12,7 @@ import 'package:sm_admin_portal/api_calls/search_text_api.dart';
 import 'package:sm_admin_portal/api_calls/set_tone_api.dart';
 import 'package:sm_admin_portal/enums/search_type.dart';
 import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_view_model.dart';
-import 'package:sm_admin_portal/reusable_view/success_view.dart';
+import 'package:sm_admin_portal/reusable_view/open_generic_popup_view.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
 
@@ -111,9 +111,11 @@ class ActivateTuneController extends GetxController {
       if (onBuySuccess != null) {
         onBuySuccess!();
         await Future.delayed(Duration(milliseconds: 200));
-        Get.dialog(Center(
-          child: SuccessView(message: genericModal.message ?? 'No Message'),
-        ));
+        openGenericPopup(genericModal.message ?? 'No Message');
+        // Get.dialog(Center(
+        //   child:
+        //       GenericPopupView(message: genericModal.message ?? 'No Message'),
+        // ));
       }
     } else {
       errorMessage.value = genericModal.message ?? someThingWentWrongStr;

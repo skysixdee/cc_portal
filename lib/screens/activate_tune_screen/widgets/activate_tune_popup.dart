@@ -138,31 +138,39 @@ class ActivateTunePopup extends StatelessWidget {
 
   Widget serviceTypeButton(BoxConstraints constraints) {
     return Obx(() {
-      return ReusbaleDropDownButton(
-        title: serviceTypeStr,
-        width: constraints.maxWidth,
-        // ignore: invalid_use_of_protected_member
-        items: controller.serviceTypeMenuList.value,
-        direction: PopoverDirection.bottom,
-        onChanged: (p0) {
-          controller
-              .updateSelectedServiceType(controller.serviceTypeValueList[p0]);
-        },
+      return AbsorbPointer(
+        absorbing: controller.isConfirming.value,
+        child: ReusbaleDropDownButton(
+          title: serviceTypeStr,
+          width: constraints.maxWidth,
+          // ignore: invalid_use_of_protected_member
+          items: controller.serviceTypeMenuList.value,
+          direction: PopoverDirection.bottom,
+          onChanged: (p0) {
+            controller
+                .updateSelectedServiceType(controller.serviceTypeValueList[p0]);
+          },
+        ),
       );
     });
   }
 
-  ReusbaleDropDownButton frequencyButton(BoxConstraints constraints) {
-    return ReusbaleDropDownButton(
-      title: frequencyStr,
-      width: constraints.maxWidth,
-      items: controller.frequencyList,
-      direction: PopoverDirection.bottom,
-      onChanged: (index) {
-        print("index sky = $index");
-        controller.updateFrequency(controller.frequencyList[index]);
-        controller.getListOffer(index: index);
-      },
-    );
+  Widget frequencyButton(BoxConstraints constraints) {
+    return Obx(() {
+      return AbsorbPointer(
+        absorbing: controller.isConfirming.value,
+        child: ReusbaleDropDownButton(
+          title: frequencyStr,
+          width: constraints.maxWidth,
+          items: controller.frequencyList,
+          direction: PopoverDirection.bottom,
+          onChanged: (index) {
+            print("index sky = $index");
+            controller.updateFrequency(controller.frequencyList[index]);
+            controller.getListOffer(index: index);
+          },
+        ),
+      );
+    });
   }
 }

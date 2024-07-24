@@ -20,5 +20,6 @@ Future<GenericModal> setToneApi(String offerCode, String toneId) async {
   };
   Map<String, dynamic> jsonData =
       await NetworkManager().postResquest(setToneUrl, map);
+  await Future.delayed(Duration(seconds: 5));
   return genericModalFromJson(json.encode(jsonData));
 }

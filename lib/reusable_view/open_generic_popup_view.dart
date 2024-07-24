@@ -1,14 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
-import 'package:sm_admin_portal/reusable_view/sm_text_field/sm_text_field.dart';
+
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/constants.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
 
-class SuccessView extends StatelessWidget {
-  const SuccessView({super.key, required this.message});
+openGenericPopup(String message, {String? headerTitle, String? buttonTitle}) {
+  return Get.dialog(_GenericPopupView(
+    message: message,
+    buttonTitle: buttonTitle,
+    headerTitle: headerTitle,
+  ));
+}
+
+class _GenericPopupView extends StatelessWidget {
+  const _GenericPopupView(
+      {required this.message, this.buttonTitle, this.headerTitle});
   final String message;
+  final String? buttonTitle;
+  final String? headerTitle;
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -43,7 +55,7 @@ class SuccessView extends StatelessWidget {
       child: SMButton(
         width: 200,
         bgColor: sixdColor,
-        title: okCStr,
+        title: buttonTitle ?? okCStr,
         textColor: white,
         onTap: () {
           Navigator.of(context).pop();
@@ -60,7 +72,7 @@ class SuccessView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(width: 40),
-          SMText(title: successCStr),
+          SMText(title: headerTitle ?? successCStr),
           closeButton(context),
         ],
       ),
