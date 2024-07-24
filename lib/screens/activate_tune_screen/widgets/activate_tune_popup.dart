@@ -1,19 +1,19 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_widget_cache.dart';
+
 import 'package:popover/popover.dart';
-import 'package:sm_admin_portal/Models/tone_info.dart';
+
 import 'package:sm_admin_portal/controllers/activate_tune_controller.dart';
-import 'package:sm_admin_portal/reusable_view/custom_text_field.dart';
+
 import 'package:sm_admin_portal/reusable_view/reusable_drop_down_button.dart';
-import 'package:sm_admin_portal/reusable_view/reusable_textfield.dart';
+
 import 'package:sm_admin_portal/reusable_view/sm_activity_indicator.dart';
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
+import 'package:sm_admin_portal/reusable_view/sm_drop_down_button.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 import 'package:sm_admin_portal/reusable_view/sm_visibility_view.dart';
-import 'package:sm_admin_portal/screens/subscriber_deatil_screen/widget/pack_deatil_table.dart';
+
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
 
@@ -27,7 +27,7 @@ class ActivateTunePopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     controller.updateFrequency('');
-    controller.updateSelectedServiceType("");
+    controller.updateSelectedServiceType("", '');
     controller.isConfirming.value = false;
     return Material(
       color: transparent,
@@ -140,16 +140,20 @@ class ActivateTunePopup extends StatelessWidget {
     return Obx(() {
       return AbsorbPointer(
         absorbing: controller.isConfirming.value,
-        child: ReusbaleDropDownButton(
-          title: serviceTypeStr,
+        child: SMDropDownButton(
+          buttonHeaderTitle: serviceTypeStr,
           width: constraints.maxWidth,
           // ignore: invalid_use_of_protected_member
           items: controller.serviceTypeMenuList.value,
           direction: PopoverDirection.bottom,
+
           onChanged: (p0) {
-            controller
-                .updateSelectedServiceType(controller.serviceTypeValueList[p0]);
+            print("on shnage = $p0");
+            controller.updateSelectedServiceType(
+                controller.serviceTypeValueList[p0],
+                controller.serviceTypeMenuList[p0]);
           },
+          buttonTitle: controller.selectedServiceTypeTitle,
         ),
       );
     });
@@ -159,8 +163,8 @@ class ActivateTunePopup extends StatelessWidget {
     return Obx(() {
       return AbsorbPointer(
         absorbing: controller.isConfirming.value,
-        child: ReusbaleDropDownButton(
-          title: frequencyStr,
+        child: SMDropDownButton(
+          buttonHeaderTitle: frequencyStr,
           width: constraints.maxWidth,
           items: controller.frequencyList,
           direction: PopoverDirection.bottom,
@@ -169,6 +173,7 @@ class ActivateTunePopup extends StatelessWidget {
             controller.updateFrequency(controller.frequencyList[index]);
             controller.getListOffer(index: index);
           },
+          buttonTitle: controller.selectedFrequency,
         ),
       );
     });

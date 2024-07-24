@@ -22,8 +22,9 @@ class ActivateTuneController extends GetxController {
   RxBool isLoading = false.obs;
   String searchedText = '';
   RxString errorMessage = ''.obs;
-  String _selectedFrequency = '';
-  String _selectedServiceType = '';
+  String selectedFrequency = '';
+  String selectedServiceTypeValue = '';
+  String selectedServiceTypeTitle = '';
 
   RxList<ToneInfo> _toneList = <ToneInfo>[].obs;
 
@@ -47,25 +48,35 @@ class ActivateTuneController extends GetxController {
 
   searchText() async {
     purchaseList.clear();
+    _toneList.clear();
     createHeaderColumnList();
 
     print("Search type is ${searchType}");
-    SearchToneModel searchToneModel = await searchToneApi(searchedText, "148");
-    _toneList.value = searchToneModel.responseMap?.toneList ?? [];
+    if (searchType.value == SearchType.song) {
+      await _searchTone();
+    }
     print("Sky======== ${_toneList.length}");
     createRowList(_toneList);
   }
 
-  updateFrequency(String value) {
-    errorMessage.value = '';
-    _selectedFrequency = value;
-    _selectedServiceType = "";
+  Future<void> _searchTone() async {
+    SearchToneModel searchToneModel = await searchToneApi(searchedText, "148");
+    _toneList.value = searchToneModel.responseMap?.toneList ?? [];
+    return;
   }
 
-  updateSelectedServiceType(String value) {
+  updateFrequency(String value) {
+    errorMessage.value = '';
+    selectedFrequency = value;
+    selectedServiceTypeValue = "";
+    selectedServiceTypeTitle = '';
+  }
+
+  updateSelectedServiceType(String value, String title) {
     errorMessage.value = '';
 
-    _selectedServiceType = value;
+    selectedServiceTypeValue = value;
+    selectedServiceTypeTitle = title;
   }
 
   getListOffer({int index = 0}) async {
@@ -89,24 +100,29 @@ class ActivateTuneController extends GetxController {
 
   updateSearchType(SearchType searchType) {
     this.searchType.value = searchType;
+
+    purchaseList.clear();
+    _toneList.clear();
+    createHeaderColumnList();
   }
 
   confirmButtonAction(String toneId) async {
-    if (_selectedFrequency.isEmpty) {
+    if (selectedFrequency.isEmpty) {
       errorMessage.value = selectFrequencyErrorStr;
       return;
     }
-    if (_selectedServiceType.isEmpty) {
+    if (selectedServiceTypeValue.isEmpty) {
       print("Selecte some thing");
       errorMessage.value = selectServiceTypeErrorStr;
       return;
     }
     errorMessage.value = '';
     print(
-        "===============\n ${_selectedFrequency} \n service type == ${_selectedServiceType} \n========================");
+        "===============\n ${selectedFrequency} \n service type == ${selectedServiceTypeValue} \n========================");
     isConfirming.value = true;
 
-    GenericModal genericModal = await setToneApi(_selectedServiceType, toneId);
+    GenericModal genericModal =
+        await setToneApi(selectedServiceTypeValue, toneId);
     if (genericModal.respCode == 0) {
       if (onBuySuccess != null) {
         onBuySuccess!();
@@ -147,7 +163,6 @@ class ActivateTuneController extends GetxController {
               value: 'channel ', isVisible: true.obs, isButton: true),
         ],
       );
-      print("purchaseList ======== ${purchaseList.length}");
     }
   }
 }

@@ -78,6 +78,7 @@ String confirmCStr = "CONFIRM";
 String dailyStr = "Daily";
 String weeklyStr = "Weekly";
 String successCStr = "SUCCESSS";
+String selectStr = "Select";
 String okCStr = "OK";
 String monthlyStr = "Monthly";
 String frequencyStr = "Frequency";
