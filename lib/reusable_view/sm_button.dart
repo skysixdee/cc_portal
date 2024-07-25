@@ -16,6 +16,7 @@ class SMButton extends StatelessWidget {
     this.textColor,
     this.bgColor,
     this.addBorder = false,
+    this.borderColor = grey,
     this.titlePadding = const EdgeInsets.symmetric(horizontal: 36),
   });
   final double? height;
@@ -23,6 +24,7 @@ class SMButton extends StatelessWidget {
   final String title;
   final Color? textColor;
   final Color? bgColor;
+  final Color borderColor;
   final bool addBorder;
   final EdgeInsetsGeometry titlePadding;
   final Function()? onTap;
@@ -36,7 +38,7 @@ class SMButton extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-            border: addBorder ? Border.all(color: grey) : null,
+            border: addBorder ? Border.all(color: borderColor) : null,
             color: bgColor,
             borderRadius: BorderRadius.circular(buttonCornerRadius)),
         height: height,

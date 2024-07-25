@@ -1,7 +1,6 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -28,426 +27,249 @@ class DashBoardScreen extends StatelessWidget {
     final TextEditingController textController = TextEditingController();
 
     return Center(
-
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Obx(() {
-          if (controller.isLoading.value) {
-            return Center(child: CircularProgressIndicator());
-          } else if (controller.isSubmitted.value) {
-            return Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 20),
-                        child: Container(
-                          width: 100,
-                          height: 100,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: black12),
-                            shape: BoxShape.circle,
-                            color: sixdColor,
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: 20),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 25.0),
-                        child: SMText(
-                          title: '91+ ${controller.mobileNumber.value}',
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 30),
-                  Expanded(
-                    child: ListView.builder(
+        child: Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Obx(() {
+        if (controller.isLoading.value) {
+          return Center(child: CircularProgressIndicator());
+        } else if (controller.isSubmitted.value) {
+          return Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    userPic(),
+                    SizedBox(width: 20),
+                    userNumber(controller),
+                  ],
+                ),
+                SizedBox(height: 30),
+                Expanded(child: Obx(
+                  () {
+                    return ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
-                      itemCount: 1,
+                      itemCount: controller.subscriptionList.length,
                       itemBuilder: (context, index) {
-                        var detail = controller.subscriptionDetails[index];
-                        return Column(
+                        //var detail = controller.subscriptionDetails[index];
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children:
-                                  controller.subscriptionDetails.map((detail) {
-                                return buildDetailColumn(
-                                  
-                                    context, detail, controller, index);
-                              }).toList(),
-                            ),
-                            SizedBox(height: 20),
+                            firstColumn(controller, index),
+                            customDivider(),
+                            SMText(title: "title"),
+                            customDivider(),
+                            SMText(title: "title"),
+                            customDivider(),
+                            SMText(title: "title"),
                           ],
                         );
                       },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only( ),
-                    child: Divider(thickness: 1, color: sixdColor),
-                  ),
-                  SizedBox(height: 10),
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        GestureDetector(
-                          onTap: () async {
-                            TuneListController cont = Get.find();
-                            cont.getToneList(controller.phoneNumber.value);
-                            context.goNamed(tuneListRoute);
-                          },
-                          child: Container(
-                            height: 50,
-                            width: 150,
-                            decoration: BoxDecoration(
-                              border:
-                                  Border.all(color: darkBlueColor, width: 1.5),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Center(
-                              child: Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: SMText(
-                                  title: tuneListStr,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: 8),
-                        Container(
-                          height: 50,
-                          width: 150,
-                          decoration: BoxDecoration(
-                            border:
-                                Border.all(color: darkBlueColor, width: 1.5),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Center(
-                            child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: SMText(title: ActivateNewToneStr)),
-                          ),
-                        ),
-                        SizedBox(width: 7),
-                        Container(
-                          height: 50,
-                          width: 150,
-                          decoration: BoxDecoration(
-                            border:
-                                Border.all(color: darkBlueColor, width: 1.5),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Center(
-                            child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: SMText(title: transactionHistoryStr)),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            );
-          } else {
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                    child: Container(
-                      height: 50,
-                      decoration: BoxDecoration(
-                        border: Border.all(),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 16.0),
-                              child: TextField(
-                                controller: textController,
-                                keyboardType: TextInputType.number,
-                                inputFormatters: <TextInputFormatter>[
-                                  FilteringTextInputFormatter.digitsOnly
-                                ],
-                                maxLength: 10,
-                                decoration: InputDecoration(
-                                  counterText: '',
-                                  hintText:
-                                      'Enter mobile number of the subscriber',
-                                  hintStyle: TextStyle(
-                                    color: black,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                  border: InputBorder.none,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: GestureDetector(
-                              onTap: () => controller.handleSubmit(
-                                textController.text,
-                              ),
-                              child: Container(
-                                height: 50,
-                                width: 120,
-                                padding: EdgeInsets.symmetric(horizontal: 8),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: sixdColor,
-                                ),
-                                child: Center(
-                                  child: SMText(
-                                    title: "SUBMIT",
-                                    textColor: white,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                    );
+                  },
+                )),
+                Padding(
+                  padding: const EdgeInsets.only(),
+                  child: Divider(thickness: 1, color: sixdColor),
                 ),
-              ],
-            );
-          }
-        }),
-
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SMButton(
-            title: "Activate tune",
-            onTap: () {
-              context.goNamed(activateScreenRoute);
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.all(25.0),
-            child: Obx(() {
-              if (controller.isLoading.value) {
-                return Padding(
-                  padding: const EdgeInsets.only(top: 200),
-                  child: CircularProgressIndicator(),
-                );
-              } else if (controller.isSubmitted.value) {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 50.0, top: 20),
-                          child: Container(
-                            width: 100,
-                            height: 100,
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
-                              shape: BoxShape.circle,
-                              color: sixdColor,
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: 20),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 25.0),
-                          child: Text(
-                            '91+ ${controller.mobileNumber.value}',
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 30),
-                    Expanded(
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        itemCount: 1,
-                        itemBuilder: (context, index) {
-                          return Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: subscriptionDetails.map((detail) {
-                                  return buildDetailColumn(
-                                      context, detail, controller, index);
-                                }).toList(),
-                              ),
-                              SizedBox(height: 20),
-                            ],
-                          );
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 25.0, right: 25),
-                      child: Divider(
-                        thickness: 1,
-                        color: Colors.lightBlue,
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        GestureDetector(
-                          onTap: () async {
-                            //listSettingApi(); //phonenumber
-                            // getToneDetailApi();
-                            deleteToneApi();
-                            //Get.to(() => TuneListScreen());
-                            context.goNamed(tuneListRoute);
-                          },
-                          child: Container(
-                            height: 50,
-                            width: 180,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: Color(0xFF0A487B), width: 1.5),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Center(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text('Tune List'),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: 10),
-                        Container(
-                          height: 50,
-                          width: 180,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Color(0xFF0A487B), width: 1.5),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Center(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text('Activate New Tone'),
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: 10),
-                        Container(
-                          height: 50,
-                          width: 180,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Color(0xFF0A487B), width: 1.5),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Center(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text('Transaction History'),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                );
-              } else {
-                return Flexible(
+                SizedBox(height: 10),
+                Expanded(
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
+                      tuneListButton(controller, context),
+                      SizedBox(width: 8),
                       Container(
                         height: 50,
-                        width: 600,
+                        width: 150,
                         decoration: BoxDecoration(
-                          border: Border.all(),
+                          border: Border.all(color: darkBlueColor, width: 1.5),
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 16.0),
-                              child: Container(
-                                width: 300,
-                                child: TextField(
-                                  controller: textController,
-                                  keyboardType: TextInputType.number,
-                                  inputFormatters: <TextInputFormatter>[
-                                    FilteringTextInputFormatter.digitsOnly
-                                  ],
-                                  maxLength: 10,
-                                  decoration: InputDecoration(
-                                    counterText: '',
-                                    hintText:
-                                        'Enter mobile number of the subscriber',
-                                    hintStyle: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w500),
-                                    border: InputBorder.none,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(width: 150),
-                            Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: GestureDetector(
-                                onTap: () => controller.handleSubmit(
-                                  textController.text,
-                                ),
-                                child: Container(
-                                  height: 50,
-                                  width: 120,
-                                  padding: EdgeInsets.symmetric(horizontal: 8),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: sixdColor,
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      "SUBMIT",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+                        child: Center(
+                          child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SMText(title: ActivateNewToneStr)),
+                        ),
+                      ),
+                      SizedBox(width: 7),
+                      Container(
+                        height: 50,
+                        width: 150,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: darkBlueColor, width: 1.5),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Center(
+                          child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SMText(title: transactionHistoryStr)),
                         ),
                       ),
                     ],
                   ),
-                );
-              }
-            }),
-          ),
-        ],
+                ),
+              ],
+            ),
+          );
+        } else {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                  child: Container(
+                    height: 50,
+                    decoration: BoxDecoration(
+                      border: Border.all(),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 16.0),
+                            child: TextField(
+                              controller: textController,
+                              keyboardType: TextInputType.number,
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
+                              maxLength: 10,
+                              decoration: InputDecoration(
+                                counterText: '',
+                                hintText:
+                                    'Enter mobile number of the subscriber',
+                                hintStyle: TextStyle(
+                                  color: black,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                border: InputBorder.none,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: GestureDetector(
+                            onTap: () => controller.handleSubmit(
+                              textController.text,
+                            ),
+                            child: Container(
+                              height: 50,
+                              width: 120,
+                              padding: EdgeInsets.symmetric(horizontal: 8),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: sixdColor,
+                              ),
+                              child: Center(
+                                child: SMText(
+                                  title: "SUBMIT",
+                                  textColor: white,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          );
+        }
+      }),
+    ));
+  }
 
+  Widget customDivider() {
+    return Container(
+      width: 1,
+      color: grey,
+      height: 80,
+    );
+  }
+
+  SMButton tuneListButton(
+      DashboardController controller, BuildContext context) {
+    return SMButton(
+      title: tuneListStr,
+      textColor: black,
+      addBorder: true,
+      borderColor: sixdColor,
+      onTap: () {
+        TuneListController cont = Get.find();
+        cont.getToneList(controller.phoneNumber.value);
+        context.goNamed(tuneListRoute);
+      },
+    );
+  }
+
+  Padding userPic() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 20),
+      child: Container(
+        width: 100,
+        height: 100,
+        decoration: BoxDecoration(
+          border: Border.all(color: black12),
+          shape: BoxShape.circle,
+          color: sixdColor,
+        ),
       ),
     );
   }
 
+  Padding userNumber(DashboardController controller) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 25.0),
+      child: SMText(
+        title: '91+ ${controller.mobileNumber.value}',
+      ),
+    );
+  }
+
+  Column firstColumn(DashboardController controller, int index) {
+    return Column(
+      children: [
+        Row(
+          children: [
+            SMText(
+              title: SubscriptionStatusStr,
+              fontWeight: FontWeight.normal,
+              fontSize: 14,
+            ),
+            SMText(title: ":"),
+            SMText(
+              title: (controller.subscriptionList[index].offerStatus == "A")
+                  ? "Active"
+                  : "Suspend",
+              textColor: (controller.subscriptionList[index].offerStatus == "A")
+                  ? greenColor
+                  : redColor,
+            )
+          ],
+        ),
+        SMText(title: "${controller.subscriptionList[index].offerName}"),
+        SMButton(
+          bgColor: (controller.subscriptionList[index].offerStatus == "A")
+              ? redColor
+              : greenColor,
+          title: (controller.subscriptionList[index].offerStatus == "A")
+              ? DeactivateStr
+              : activateStr,
+          onTap: () {},
+        ),
+      ],
+    );
+  }
+/*
   Widget buildDetailColumn(BuildContext context, Map<String, dynamic> detail,
       DashboardController controller, int index) {
     return Row(
@@ -645,4 +467,5 @@ class DashBoardScreen extends StatelessWidget {
       ],
     );
   }
+  */
 }

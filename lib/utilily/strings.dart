@@ -72,6 +72,7 @@ String LanguageStr = 'Language';
 String ActionStr = 'Action';
 String statusStr = 'Status';
 String suspendedStr = 'Suspended';
+String activateStr = 'Activate';
 String ChannelStr = 'Channel';
 String SelectStr = 'Select';
 String enterKeyWordToSearchStr = 'Enter key word to search';
