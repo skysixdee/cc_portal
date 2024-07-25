@@ -262,7 +262,7 @@ class _SubscriberDetailScreen1State extends State<SubscriberDetailScreen1> {
     return Column(
       children: [
         Obx(() {
-          return selectedTab.value == 0 ? PackDetailTable(key: null,) : ToneDetailTable();
+          return selectedTab.value == 0 ? PackDetailTable(key: null,): ToneDetailTable();
         }),
         SizedBox(height: 8),
         BottomButtons(),

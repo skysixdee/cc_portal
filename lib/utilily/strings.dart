@@ -13,13 +13,17 @@ String resetStr = 'Reset';
 String searchMenuItemStr = "Search Menu Items";
 String packDetailsStr = "Pack Details";
 String toneDetailsStr = "Tone Details";
-
+String tuneListStr = "Tune List";
 String suspendAndResumeStr = "Suspend And Resume";
-String dashBoardStr = "DashBoard";
 
+String dashBoardStr = "DashBoard";
+String ActivateNewToneStr = "Activate New Tone";
 String toneActivationStr = "Tone Activation";
-String bulkUploadStr = "Bulk Upload";
 String transactionHistoryStr = "Transaction History";
+String submitStr = "Submit";
+
+String bulkUploadStr = "Bulk Upload";
+//String transactionHistoryStr = "Transaction History";
 String subscriberDetailAndDeactivationStr =
     "Subscriber Details and Deactivation";
 

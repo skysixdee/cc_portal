@@ -1,8 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:sm_admin_portal/Models/list_settin_modal.dart';
-import 'package:sm_admin_portal/Models/subscribers_modal.dart';
 import 'package:sm_admin_portal/Models/tone_list_model.dart';
-import 'package:sm_admin_portal/Models/tone_search_model.dart';
+
 import 'package:sm_admin_portal/network_manager/network_manager.dart';
 
 Future<ToneListModel> toneListApi() async {
@@ -21,8 +18,5 @@ Future<ToneListModel> toneListApi() async {
       await NetworkManager().postResquest(url, jsonData);
   ToneListModel modal = ToneListModel.fromJson(jsonMap);
   print("modal =${modal.message}");
-  // print("modal Offers=${modal.offers?.length}");
-  // print("modal  respCode =${modal.respCode}");
   return modal;
-  //createRowList(modal.offers, phoneNumber);
 }

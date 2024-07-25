@@ -29,7 +29,7 @@ Future<GetSubscriptionModel> getSubscriptionDetailApi(String phoneNumber) async 
       'http://10.0.10.33:6005/selfcare/subscription-service/get-subscription';
   //  jsonData: );;
   Map<String, dynamic> jsonData = {"msisdn":"9848858887"};
-  await Future.delayed(Duration(seconds: 3));
+ // await Future.delayed(Duration(seconds: 1));
   Map<String, dynamic> jsonMap =
       await NetworkManager().postResquest(url, jsonData);
   GetSubscriptionModel modal = GetSubscriptionModel.fromJson(jsonMap);
