@@ -17,7 +17,7 @@ class SettingsListTable extends StatelessWidget {
         headerBgColor: Colors.grey[300],
         headerColumList: cont.toneList[0],
         rowList: cont.toneList,
-        button: (row, colum) {
+        child: (row, colum) {
           return InkWell(
             onTap: () {
               showDialog(
