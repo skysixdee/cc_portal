@@ -166,22 +166,25 @@ class _SideMenuListViewState extends State<SideMenuListView> {
                   child: searchIcon(),
                 ))
             : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(width: 10),
                   Flexible(
                     child: Container(
-                      height: 30,
+                      height: 35,
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: white,
                         border: Border.all(color: Colors.transparent),
                         borderRadius: BorderRadius.circular(2),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 4.0, vertical: 8),
+                            horizontal: 4.0, vertical: 4),
                         child: TextField(
                           controller: searchController,
                           decoration: InputDecoration(
+                            isDense: true,
                             hintText: searchMenuItemStr,
                             hintStyle: TextStyle(fontSize: 10),
                             border: InputBorder.none,

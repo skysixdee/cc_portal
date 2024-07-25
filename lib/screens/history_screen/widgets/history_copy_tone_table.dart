@@ -15,7 +15,7 @@ class HistoryCopyToneTableView extends StatelessWidget {
         cellHeight: 40,
         headerColumList: con.copyList[0],
         rowList: con.copyList,
-        button: (row, colum) {
+        child: (row, colum) {
           return SMText(
             title: "csfsdf",
           );

@@ -51,7 +51,7 @@ class SubscriberDetailController extends GetxController {
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:sm_admin_portal/Models/Generic_modal.dart';
+import 'package:sm_admin_portal/Models/generic_modal.dart';
 import 'package:sm_admin_portal/Models/subscribers_modal.dart';
 import 'package:sm_admin_portal/Models/tone_detail_modal.dart';
 import 'package:sm_admin_portal/api_calls/delete_pack_api.dart';
@@ -165,7 +165,6 @@ class SubscriberDetailController extends GetxController {
             isRemoveable: false,
             isButton: true,
             object: item),
-
       ]);
     }
     print("Total items are ${toneDetailList.length}");
@@ -179,10 +178,7 @@ class SubscriberDetailController extends GetxController {
       for (var item in offers) {
         packDetailList.add([
           CustomTableViewModel(
-              value: msisdn, 
-              isVisible: true.obs, 
-              isRemoveable: true
-          ),
+              value: msisdn, isVisible: true.obs, isRemoveable: true),
           CustomTableViewModel(
               value: item.offerName ?? '',
               isVisible: true.obs,

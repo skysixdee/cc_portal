@@ -9,10 +9,11 @@ import 'package:popover/popover.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
+import 'package:sm_admin_portal/utilily/strings.dart';
 
-class ReusbaleDropDownButton extends StatelessWidget {
+class SMDropDownButton extends StatelessWidget {
   List<String> items = [];
-  ReusbaleDropDownButton({
+  SMDropDownButton({
     super.key,
     this.borderWidth = 0.7,
     this.cornerRadius = 5,
@@ -20,56 +21,51 @@ class ReusbaleDropDownButton extends StatelessWidget {
     this.width,
     this.dropDownIcon,
     required this.items,
-    // required this.items,
     this.onChanged,
-    this.title = ' ',
-    this.selectedoption = '',
-    this.hintText = '',
-    this.isDisplayPopup = true,
-    this.onTap,
+    this.onTitleChanged,
     required PopoverDirection direction,
+    this.buttonHeaderTitle = '',
+    this.buttonTitle = '',
+    this.buttonHintTitle,
   });
-  final bool isDisplayPopup;
+
   Function(int)? onChanged;
+  Function(String)? onTitleChanged;
   final double borderWidth;
-  final String title;
-  final String selectedoption;
-  final String? hintText;
+  final String buttonTitle;
   final double cornerRadius;
   final double heigth;
   final double? width;
-
+  final String? buttonHintTitle;
   final Widget? dropDownIcon;
-  final RxString selectedText = 'Select'.obs;
+  final String buttonHeaderTitle;
   final RxInt selectedIndex = 0.obs;
   final Color hoverColor = Colors.blue.withOpacity(0.2);
   final Color selectedColor = Colors.blue;
   final Color borderColor = Colors.grey.withOpacity(0.5);
-
-  final Function()? onTap;
-
-  String? selectedItem;
-
+  RxString _selectedLocalTitle = ''.obs;
   @override
   Widget build(BuildContext context) {
     selectedIndex.value = -1;
+    _selectedLocalTitle.value =
+        buttonTitle.isEmpty ? (buttonHintTitle ?? selectStr) : buttonTitle;
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        title.isEmpty
+        buttonHeaderTitle.isEmpty
             ? SizedBox()
             : SMText(
-                title: title,
+                title: buttonHeaderTitle,
                 fontWeight: FontWeight.normal,
               ),
         ResponsiveBuilder(
           builder: (ctx, sizingInformation) {
             return InkWell(
               onTap: () {
-                if (isDisplayPopup) {
-                  popupOverOpen(ctx);
-                }
+                //if (isDisplayPopup) {
+                popupOverOpen(ctx);
+                //}
                 print(
                     "CustomDropDownButton ${MediaQuery.of(context).size} \n ${Get.width}");
               },
@@ -104,7 +100,7 @@ class ReusbaleDropDownButton extends StatelessWidget {
         Expanded(
           child: Obx(() {
             return SMText(
-              title: selectedText.value,
+              title: _selectedLocalTitle.value,
               fontWeight: FontWeight.normal,
             );
           }),
@@ -188,10 +184,14 @@ class ReusbaleDropDownButton extends StatelessWidget {
     return InkWell(onTap: () {
       Navigator.of(context).pop();
       selectedIndex.value = index;
-      selectedText.value = items[index];
+      _selectedLocalTitle.value = items[index];
+      if (onTitleChanged != null) {
+        onTitleChanged!(items[index]);
+      }
       if (onChanged != null) {
         onChanged!(index);
       }
+      print("index = $index and title = ${items[index]}");
     }, child: Obx(
       () {
         return Container(

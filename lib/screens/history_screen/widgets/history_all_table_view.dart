@@ -13,10 +13,9 @@ class HistoryAllTableView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: CustomTableView(
-        cellHeight: 40,
         headerColumList: con.allList[0],
         rowList: con.allList,
-        button: (row, colum) {
+        child: (row, colum) {
           return SMText(
             title: "csfsdf",
           );

@@ -15,7 +15,7 @@ class HistoryToneRenewalTableView extends StatelessWidget {
         cellHeight: 40,
         headerColumList: con.renewalList[0],
         rowList: con.renewalList,
-        button: (row, colum) {
+        child: (row, colum) {
           return SMText(
             title: "csfsdf",
           );

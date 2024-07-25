@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/state_manager.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_view_model.dart';
+import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 
 class CustomTableView extends StatelessWidget {
@@ -16,9 +18,10 @@ class CustomTableView extends StatelessWidget {
   final double? borderWidth;
   final double? cellHeight;
   final double? headerHeight;
-  final double? SingleChildScrollView;///////////bhavya
-  //final Widget? button;
-  final Function(int row, int colum)? button;
+  //final double? SingleChildScrollView; ///////////bhavya
+  final double tableMinWidth;
+  final double rowVerticalPadding;
+  final Function(int row, int colum)? child;
   const CustomTableView({
     super.key,
     required this.headerColumList,
@@ -30,13 +33,34 @@ class CustomTableView extends StatelessWidget {
     this.headerBgColor = black12,
     this.borderWidth,
     this.cellHeight,
-    this.button,
+    this.child,
     this.headerHeight,
-    this.SingleChildScrollView,//////////////bhavya
+    //this.SingleChildScrollView,
+    this.rowVerticalPadding = 4,
+    this.tableMinWidth = 800, //////////////bhavya
   });
 
   @override
   Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return constraints.biggest.width < tableMinWidth
+            ? Row(
+                children: [
+                  Expanded(
+                    child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child:
+                            SizedBox(width: tableMinWidth, child: clipRRect())),
+                  ),
+                ],
+              )
+            : clipRRect();
+      },
+    );
+  }
+
+  ClipRRect clipRRect() {
     return ClipRRect(
       borderRadius: BorderRadius.circular(3),
       child: Column(
@@ -66,15 +90,25 @@ class CustomTableView extends StatelessWidget {
                 for (int column = 0; column < headerColumList.length; column++)
                   if (headerColumList[column].isVisible.value)
                     Container(
-                      //color: headerBgColor ?? Colors.grey,
+                      color: headerBgColor ?? Colors.grey,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Center(
-                          child: Text(
-                            headerColumList[column].title,
-                            style: headerTextStyle ??
-                                const TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 14),
+                          child: Row(
+                            mainAxisAlignment: column == 0
+                                ? MainAxisAlignment.start
+                                : MainAxisAlignment.center,
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  headerColumList[column].title,
+                                  style: headerTextStyle ??
+                                      const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -99,50 +133,95 @@ class CustomTableView extends StatelessWidget {
           //padding: const EdgeInsets.only(left: 1, right: 1, bottom: 1),
           itemCount: rowList.length,
           itemBuilder: (context, index) {
-            return (index == 0)
-                ? const SizedBox()
-                : Obx(() {
-                    return Table(
-                      children: [
-                        TableRow(children: [
-                          for (int column = 0;
-                              column < rowList[index].length;
-                              column++)
-                            if (rowList[0][column].isVisible.value)
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: 0,
-                                    right: 0,
-                                    top: 0,
-                                    bottom: ((rowList.length - 1) == index)
-                                        ? 0
-                                        : borderWidth ?? 1),
-                                child: Container(
-                                    height: cellHeight,
-                                    color: cellColor ?? Colors.white,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        vertical: 0,
+            return Container(
+                color: white,
+                child: Column(
+                  children: [
+                    Container(
+                        height: 1, color: index == 0 ? transparent : greyLight),
+                    (index == 0)
+                        ? const SizedBox()
+                        : Obx(() {
+                            return Table(
+                              children: [
+                                TableRow(children: [
+                                  for (int column = 0;
+                                      column < rowList[index].length;
+                                      column++)
+                                    if (rowList[0][column].isVisible.value)
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            left: 0,
+                                            right: 0,
+                                            top: 0,
+                                            bottom:
+                                                ((rowList.length - 1) == index)
+                                                    ? 0
+                                                    : borderWidth ?? 1),
+                                        child: Container(
+                                            height: cellHeight,
+                                            color: cellColor ?? Colors.white,
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                vertical: rowVerticalPadding,
+                                              ),
+                                              child: Center(
+                                                  child: (rowList[index][column]
+                                                          .isButton)
+                                                      ? ((child != null)
+                                                          ? (child!(
+                                                              index, column))
+                                                          : const SizedBox(
+                                                              child: Text(
+                                                                  "add button here"),
+                                                            ))
+                                                      : Row(
+                                                          mainAxisAlignment: column ==
+                                                                  0
+                                                              ? MainAxisAlignment
+                                                                  .start
+                                                              : MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Flexible(
+                                                              child: Padding(
+                                                                padding: EdgeInsets.symmetric(
+                                                                    horizontal:
+                                                                        column ==
+                                                                                0
+                                                                            ? 4
+                                                                            : 0),
+                                                                child: Column(
+                                                                  children: [
+                                                                    SelectableText(
+                                                                        rowList[index][column]
+                                                                            .value,
+                                                                        style:
+                                                                            rowTextStyle,
+                                                                        textAlign:
+                                                                            TextAlign.start),
+                                                                    // Text(
+                                                                    //   rowList[index][column]
+                                                                    //       .value,
+                                                                    //   style:
+                                                                    //       rowTextStyle,
+                                                                    //   textAlign:
+                                                                    //       TextAlign.start,
+                                                                    // )
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        )),
+                                            )),
                                       ),
-                                      child: Center(
-                                          child: (rowList[index][column]
-                                                  .isButton)
-                                              ? ((button != null)
-                                                  ? (button!(index, column))
-                                                  : const SizedBox(
-                                                      child: Text(
-                                                          "add button here"),
-                                                    ))
-                                              : Text(
-                                                  rowList[index][column].value,
-                                                  style: rowTextStyle,
-                                                )),
-                                    )),
-                              ),
-                        ])
-                      ],
-                    );
-                  });
+                                ])
+                              ],
+                            );
+                          }),
+                  ],
+                ));
           },
         ),
       ),

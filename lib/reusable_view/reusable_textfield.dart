@@ -10,20 +10,19 @@ class CustomReusableTextField extends StatelessWidget {
   // final String title;
   CustomReusableTextField({
     super.key,
-    this.borderWidth = 1,
+    this.borderWidth = 0.7,
     this.cornerRadius = 5,
     this.heigth = 40,
     this.width,
     this.hintText,
     this.onChange,
-
     this.onSubmit,
     required this.textController,
     this.isNumberInput = false,
     this.title = '',
-    
-    required Null Function(),
-    required Null Function(dynamic value) onChanged, required bool isrequired,
+    this.tailingChild,
+
+    //required Null Function(dynamic value) onChanged,
   });
 
   final double borderWidth;
@@ -32,10 +31,10 @@ class CustomReusableTextField extends StatelessWidget {
   final double? width;
   final String? hintText;
   final String title;
+  final Function()? tailingChild;
   final bool isNumberInput;
   final Function(String)? onChange;
   final Function(String)? onSubmit;
-
 
   final RxBool isHideClear = true.obs;
   final TextEditingController textController;
@@ -120,7 +119,8 @@ class CustomReusableTextField extends StatelessWidget {
             visible: !isHideClear.value,
             child: _clearIcon(),
           );
-        })
+        }),
+        tailingChild != null ? tailingChild!() : SizedBox(),
       ],
     );
   }

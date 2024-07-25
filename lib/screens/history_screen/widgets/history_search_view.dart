@@ -91,7 +91,6 @@ class HistorySearchView extends StatelessWidget {
       hintText: msisdnCStr,
       isNumberInput: true,
       title: msisdnCStr, ////bhavychanges
-      Function: () {}, onChanged: (value) {}, isrequired: false,
     );
   }
 
@@ -112,10 +111,6 @@ class HistorySearchView extends StatelessWidget {
       ),
       direction: PopoverDirection.bottom,
       hintText: '',
-      onChange: (p0) {},
-      onSubmit: (p0) {},
-      Function: () {},
-      isrequired: true,
     );
   }
 
@@ -136,10 +131,6 @@ class HistorySearchView extends StatelessWidget {
       ),
       direction: PopoverDirection.bottom,
       hintText: '',
-      onChange: (p0) {},
-      onSubmit: (p0) {},
-      Function: () {},
-      isrequired: true,
     );
   }
 
