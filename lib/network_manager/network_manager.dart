@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:sm_admin_portal/utilily/strings.dart';
 import 'package:universal_io/io.dart';
 
 class NetworkManager {
@@ -12,15 +13,23 @@ class NetworkManager {
     print("json request ${json.encode(jsonData)}");
     HttpClientResponse response = await request.close();
     if (response.statusCode == 200) {
-      String stringData = await response.transform(utf8.decoder).join();
-      Map<String, dynamic> map = json.decode(stringData);
-      return map;
+      try {
+        String stringData = await response.transform(utf8.decoder).join();
+
+        Map<String, dynamic> map = json.decode(stringData);
+        return map;
+      } catch (e) {
+        String message = someThingWentWrongStr + " Error = ${e.toString()}";
+        Map<String, dynamic> valueMap =
+            json.decode("""{"message": "${message}"}""");
+        return valueMap;
+      }
     } else {
       String code = "${response.statusCode}";
-      String message = "Some thing went wrong Status code = $code";
-      String stringResp = """{"respCode": $code,"message":$message}""";
-      Map<String, dynamic> map = json.decode(stringResp);
-      return map;
+      String message = someThingWentWrongStr + " Status = $code";
+      Map<String, dynamic> valueMap =
+          json.decode("""{"message": "${message}"}""");
+      return valueMap;
     }
   }
 
