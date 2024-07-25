@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -39,25 +40,9 @@ class DashBoardScreen extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20),
-                      child: Container(
-                        width: 100,
-                        height: 100,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: black12),
-                          shape: BoxShape.circle,
-                          color: sixdColor,
-                        ),
-                      ),
-                    ),
+                    userPic(),
                     SizedBox(width: 20),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 25.0),
-                      child: SMText(
-                        title: '91+ ${controller.mobileNumber.value}',
-                      ),
-                    ),
+                    userNumber(controller),
                   ],
                 ),
                 SizedBox(height: 30),
@@ -73,25 +58,14 @@ class DashBoardScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             firstColumn(controller, index),
+                            customDivider(),
                             SMText(title: "title"),
+                            customDivider(),
                             SMText(title: "title"),
-                            SMText(title: "title"),
+                            customDivider(),
                             SMText(title: "title"),
                           ],
                         );
-                        // Column(
-                        //   children: [
-                        //     Row(
-                        //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        //       children:
-                        //           controller.subscriptionDetails.map((detail) {
-                        //         return buildDetailColumn(
-                        //             context, detail, controller, index);
-                        //       }).toList(),
-                        //     ),
-                        //     SizedBox(height: 20),
-                        //   ],
-                        // );
                       },
                     );
                   },
@@ -105,30 +79,7 @@ class DashBoardScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      GestureDetector(
-                        onTap: () async {
-                          TuneListController cont = Get.find();
-                          cont.getToneList(controller.phoneNumber.value);
-                          context.goNamed(tuneListRoute);
-                        },
-                        child: Container(
-                          height: 50,
-                          width: 150,
-                          decoration: BoxDecoration(
-                            border:
-                                Border.all(color: darkBlueColor, width: 1.5),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Center(
-                            child: Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: SMText(
-                                title: tuneListStr,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                      tuneListButton(controller, context),
                       SizedBox(width: 8),
                       Container(
                         height: 50,
@@ -237,12 +188,63 @@ class DashBoardScreen extends StatelessWidget {
     ));
   }
 
+  Widget customDivider() {
+    return Container(
+      width: 1,
+      color: grey,
+      height: 80,
+    );
+  }
+
+  SMButton tuneListButton(
+      DashboardController controller, BuildContext context) {
+    return SMButton(
+      title: tuneListStr,
+      textColor: black,
+      addBorder: true,
+      borderColor: sixdColor,
+      onTap: () {
+        TuneListController cont = Get.find();
+        cont.getToneList(controller.phoneNumber.value);
+        context.goNamed(tuneListRoute);
+      },
+    );
+  }
+
+  Padding userPic() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 20),
+      child: Container(
+        width: 100,
+        height: 100,
+        decoration: BoxDecoration(
+          border: Border.all(color: black12),
+          shape: BoxShape.circle,
+          color: sixdColor,
+        ),
+      ),
+    );
+  }
+
+  Padding userNumber(DashboardController controller) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 25.0),
+      child: SMText(
+        title: '91+ ${controller.mobileNumber.value}',
+      ),
+    );
+  }
+
   Column firstColumn(DashboardController controller, int index) {
     return Column(
       children: [
         Row(
           children: [
-            SMText(title: SubscriptionStatusStr),
+            SMText(
+              title: SubscriptionStatusStr,
+              fontWeight: FontWeight.normal,
+              fontSize: 14,
+            ),
             SMText(title: ":"),
             SMText(
               title: (controller.subscriptionList[index].offerStatus == "A")
