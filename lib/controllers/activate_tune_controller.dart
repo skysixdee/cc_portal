@@ -27,14 +27,12 @@ class ActivateTuneController extends GetxController {
   String selectedServiceTypeTitle = '';
 
   RxList<ToneInfo> _toneList = <ToneInfo>[].obs;
-
+  RxString message = ''.obs;
   Rx<SearchType> searchType = SearchType.song.obs;
   RxList searchTypeList =
       [SearchType.song, SearchType.singer, SearchType.songCode].obs;
   RxList searchTypeTitlList = [songStr, singerStr, songCodeStr].obs;
 
-  RxList<List<CustomTableViewModel>> purchaseList =
-      <List<CustomTableViewModel>>[].obs;
   List<String> frequencyList = [dailyStr, weeklyStr, monthlyStr];
   RxList<String> serviceTypeMenuList = <String>[].obs;
   RxList<String> serviceTypeValueList = <String>[].obs;
@@ -42,27 +40,14 @@ class ActivateTuneController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    createHeaderColumnList();
+
     getListOffer();
   }
 
   searchText() async {
-    purchaseList.clear();
     _toneList.clear();
-    createHeaderColumnList();
 
     print("Search type is ${searchType}");
-    if (searchType.value == SearchType.song) {
-      await _searchTone();
-    }
-    print("Sky======== ${_toneList.length}");
-    createRowList(_toneList);
-  }
-
-  Future<void> _searchTone() async {
-    SearchToneModel searchToneModel = await searchToneApi(searchedText, "148");
-    _toneList.value = searchToneModel.responseMap?.toneList ?? [];
-    return;
   }
 
   updateFrequency(String value) {
@@ -93,6 +78,8 @@ class ActivateTuneController extends GetxController {
 
   onChangeText(String text) {
     searchedText = text;
+
+    message.value = '';
     print("$text");
   }
 
@@ -101,9 +88,8 @@ class ActivateTuneController extends GetxController {
   updateSearchType(SearchType searchType) {
     this.searchType.value = searchType;
 
-    purchaseList.clear();
     _toneList.clear();
-    createHeaderColumnList();
+    // createHeaderColumnList();
   }
 
   confirmButtonAction(String toneId) async {
@@ -137,32 +123,5 @@ class ActivateTuneController extends GetxController {
       errorMessage.value = genericModal.message ?? someThingWentWrongStr;
     }
     isConfirming.value = false;
-  }
-
-  createHeaderColumnList() {
-    purchaseList.add([
-      CustomTableViewModel(title: toneNameStr, isVisible: true.obs),
-      CustomTableViewModel(title: ArtistStr, isVisible: true.obs),
-      CustomTableViewModel(title: toneIdStr, isVisible: true.obs),
-      CustomTableViewModel(title: priceStr, isVisible: true.obs),
-      CustomTableViewModel(title: statusStr, isVisible: true.obs),
-    ]);
-  }
-
-  createRowList(List<ToneInfo> list) {
-    if (list.isEmpty) return;
-    for (var info in list) {
-      purchaseList.add(
-        [
-          CustomTableViewModel(value: '${info.toneName}', isVisible: true.obs),
-          CustomTableViewModel(
-              value: '${info.artistName}', isVisible: true.obs),
-          CustomTableViewModel(value: '${info.toneId}', isVisible: true.obs),
-          CustomTableViewModel(value: '${info.price}', isVisible: true.obs),
-          CustomTableViewModel(
-              value: 'channel ', isVisible: true.obs, isButton: true),
-        ],
-      );
-    }
   }
 }

@@ -14,6 +14,7 @@ String searchMenuItemStr = "Search Menu Items";
 String packDetailsStr = "Pack Details";
 String toneDetailsStr = "Tone Details";
 String tuneListStr = "Tune List";
+String noResultFoundStr = "No Result found";
 String suspendAndResumeStr = "Suspend And Resume";
 
 String dashBoardStr = "DashBoard";
@@ -70,6 +71,7 @@ String DeactivateStr = 'Deactivate';
 String RecordsPerPageStr = 'Records per page';
 String LanguageStr = 'Language';
 String ActionStr = 'Action';
+String viewStr = 'View';
 String statusStr = 'Status';
 String suspendedStr = 'Suspended';
 String activateStr = 'Activate';

@@ -18,6 +18,8 @@ class SMButton extends StatelessWidget {
     this.addBorder = false,
     this.borderColor = grey,
     this.titlePadding = const EdgeInsets.symmetric(horizontal: 36),
+    this.fontWeight = FontWeight.w600,
+    this.fontSize = 14,
   });
   final double? height;
   final double? width;
@@ -26,7 +28,9 @@ class SMButton extends StatelessWidget {
   final Color? bgColor;
   final Color borderColor;
   final bool addBorder;
+  final double? fontSize;
   final EdgeInsetsGeometry titlePadding;
+  final FontWeight fontWeight;
   final Function()? onTap;
   @override
   Widget build(BuildContext context) {
@@ -49,7 +53,8 @@ class SMButton extends StatelessWidget {
             child: SMText(
               title: title,
               textColor: textColor,
-              fontWeight: FontWeight.w600,
+              fontSize: fontSize,
+              fontWeight: fontWeight,
             ),
           ),
         ),

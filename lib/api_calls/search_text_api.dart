@@ -24,6 +24,7 @@ Future<SearchToneModel> searchToneApi(String text, String category,
   Map<String, dynamic> map =
       await NetworkManager().postResquest(advanceSearchToneUrl, myPost);
   print("SKY shiv====== ${map}");
+  await Future.delayed(Duration(seconds: 2));
   return searchToneModelFromJson(json.encode(map));
   //post(advanceSearchToneUrl, null, jsonData: myPost);
 }

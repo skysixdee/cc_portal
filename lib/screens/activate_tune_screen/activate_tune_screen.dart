@@ -1,5 +1,11 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:sm_admin_portal/enums/search_type.dart';
+import 'package:sm_admin_portal/reusable_view/sm_button.dart';
+import 'package:sm_admin_portal/screens/activate_tune_screen/widgets/views/artist_search_list_view.dart';
+import 'package:sm_admin_portal/screens/activate_tune_screen/widgets/views/searched_tone_list_view.dart';
+import 'package:sm_admin_portal/screens/activate_tune_screen/widgets/views/searched_toneid_list_view.dart';
+import 'package:sm_admin_portal/screens/subscriber_deatil_screen/widget/tone_list_table.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
@@ -32,7 +38,22 @@ class ActivateTuneScreen extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(right: 12),
-                child: tableBuilder(),
+                child: Obx(() {
+                  return cont.searchType.value == SearchType.singer
+                      ? ArtistSearchListView(artistName: cont.searchedText)
+                      : (cont.searchType.value == SearchType.songCode
+                          ? SearchedToneidListView()
+                          : SearchedToneListView(
+                              seachedText: cont.searchedText,
+                            ));
+                  // cont.isLoading.value
+                  //     ? loadingIndicatorView()
+                  //     : (cont.purchaseList.isEmpty
+                  //         ? Center(child: SMText(title: cont.message.value))
+                  //         : cont.searchType.value == SearchType.singer
+                  //             ? ArtistSearchListView()
+                  //             : tableBuilder());
+                }),
               ),
             ),
             SizedBox(height: 50),
@@ -40,47 +61,5 @@ class ActivateTuneScreen extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Widget tableBuilder() {
-    return Obx(() {
-      return CustomTableView(
-        headerColumList: cont.purchaseList[0],
-        rowList: cont.purchaseList,
-        child: (row, colum) {
-          return InkWell(
-            onTap: () {
-              Get.dialog(
-                barrierDismissible: false,
-                Center(
-                  child: ActivateTunePopup(
-                    toneName: cont.purchaseList[row][0].value,
-                    toneId: cont.purchaseList[row][2].value,
-                  ),
-                ),
-              );
-
-              print("row = $row and column = $colum");
-              print("======= ${cont.purchaseList[row][1].value}");
-            },
-            child: Container(
-              height: 20,
-              width: 20,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: greyLight,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 2),
-                child: Icon(
-                  Icons.close,
-                  size: 10,
-                ),
-              ),
-            ),
-          );
-        },
-      );
-    });
   }
 }
