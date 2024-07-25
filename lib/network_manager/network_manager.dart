@@ -6,7 +6,10 @@ import 'package:universal_io/io.dart';
 class NetworkManager {
   var client = HttpClient();
   Future<Map<String, dynamic>> postResquest(
-      String url, Map<String, dynamic>? jsonData) async {
+
+      String url, Map<String, dynamic> jsonData) async {
+    print("Urls sky========$url");
+
     HttpClientRequest request = await client.postUrl(Uri.parse(url));
 
     request.write(json.encode(jsonData));
@@ -23,6 +26,7 @@ class NetworkManager {
         Map<String, dynamic> valueMap =
             json.decode("""{"message": "${message}"}""");
         return valueMap;
+
       }
     } else {
       String code = "${response.statusCode}";

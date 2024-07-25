@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:sm_admin_portal/controllers/Tone_list_controller.dart';
+
 import 'package:sm_admin_portal/controllers/activate_tune_controller.dart';
+
 
 import 'package:sm_admin_portal/controllers/app_controller.dart';
 import 'package:sm_admin_portal/controllers/side_menu_controller.dart';
@@ -19,7 +23,11 @@ initialize() async {
   appCont = Get.put(AppController());
   Get.lazyPut(() => SubscriberDetailController());
   Get.lazyPut(() => SideMenuController());
+
+  Get.lazyPut(() => TuneListController());
+
   Get.lazyPut(() => ActivateTuneController());
+
   prefs = await SharedPreferences.getInstance();
 }
 

@@ -4,7 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:popover/popover.dart';
-import 'package:sm_admin_portal/controllers/Tune_list_controller.dart';
+
 import 'package:sm_admin_portal/reusable_view/bottom_buttons.dart';
 
 import '../../reusable_view/records_per_page_button.dart';
@@ -262,7 +262,7 @@ class _SubscriberDetailScreen1State extends State<SubscriberDetailScreen1> {
     return Column(
       children: [
         Obx(() {
-          return selectedTab.value == 0 ? PackDetailTable(key: null,) : ToneDetailTable();
+          return selectedTab.value == 0 ? PackDetailTable(key: null,): ToneDetailTable();
         }),
         SizedBox(height: 8),
         BottomButtons(),

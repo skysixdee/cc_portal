@@ -9,7 +9,6 @@ Future<ListSettingModel> listSettingApi() async {
       'http://10.0.14.4:8082/selfcare/subscriber-management/list-settings';
   //  jsonData: );;
   Map<String, dynamic> jsonData = {
-    
     "transactionId":"64834346535",
     "featureId":1,
     "msisdn" : "8182010000",
