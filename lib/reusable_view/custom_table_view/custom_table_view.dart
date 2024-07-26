@@ -99,24 +99,15 @@ class CustomTableView extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: column == 0
                                 ? MainAxisAlignment.start
-                                : column == (headerColumList.length - 1)
-                                    ? MainAxisAlignment.end
-                                    : MainAxisAlignment.center,
+                                : MainAxisAlignment.center,
                             children: [
                               Flexible(
-                                child: Padding(
-                                  padding: EdgeInsets.only(
-                                      right: (column ==
-                                              (headerColumList.length - 1))
-                                          ? 8
-                                          : 0),
-                                  child: Text(
-                                    headerColumList[column].title,
-                                    style: headerTextStyle ??
-                                        const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 14),
-                                  ),
+                                child: Text(
+                                  headerColumList[column].title,
+                                  style: headerTextStyle ??
+                                      const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14),
                                 ),
                               ),
                             ],
@@ -181,17 +172,8 @@ class CustomTableView extends StatelessWidget {
                                                   child: (rowList[index][column]
                                                           .isButton)
                                                       ? ((child != null)
-                                                          ? Padding(
-                                                              padding: EdgeInsets.only(
-                                                                  right: (column ==
-                                                                          (rowList[index].length -
-                                                                              1))
-                                                                      ? 8
-                                                                      : 0),
-                                                              child: (child!(
-                                                                  index,
-                                                                  column)),
-                                                            )
+                                                          ? (child!(
+                                                              index, column))
                                                           : const SizedBox(
                                                               child: Text(
                                                                   "add button here"),

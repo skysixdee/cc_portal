@@ -69,7 +69,7 @@ class _ArtistSearchListViewState extends State<ArtistSearchListView> {
         child: (row, colum) {
           return Row(
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SMButton(
                 height: 30,
