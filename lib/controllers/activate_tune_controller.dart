@@ -37,6 +37,7 @@ class ActivateTuneController extends GetxController {
   RxList<String> serviceTypeMenuList = <String>[].obs;
   RxList<String> serviceTypeValueList = <String>[].obs;
   Function()? onBuySuccess;
+  Function(String)? onSearchTap;
   @override
   void onInit() {
     super.onInit();
@@ -78,15 +79,18 @@ class ActivateTuneController extends GetxController {
 
   onChangeText(String text) {
     searchedText = text;
-
     message.value = '';
     print("$text");
   }
 
   //_searchApiCall() {}
 
-  updateSearchType(SearchType searchType) {
+  updateSearchType(SearchType searchType) async {
     this.searchType.value = searchType;
+    if (onSearchTap != null) {
+      await Future.delayed(Duration(milliseconds: 80));
+      onSearchTap!(searchedText);
+    }
 
     _toneList.clear();
     // createHeaderColumnList();

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:sm_admin_portal/controllers/search_controllers/search_artist_controller.dart';
 import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_view.dart';
@@ -21,7 +22,7 @@ class _ArtistSearchListViewState extends State<ArtistSearchListView> {
   @override
   void initState() {
     cont = Get.put(SearchArtistController());
-    cont.getArtistList(widget.artistName);
+    //cont.getArtistList(widget.artistName);
     super.initState();
   }
 
@@ -37,22 +38,38 @@ class _ArtistSearchListViewState extends State<ArtistSearchListView> {
       () {
         return cont.isLoading.value
             ? loadingIndicatorView()
-            : (cont.artistTableList.isEmpty
+            : (cont.artistNameTableList.isEmpty
                 ? SMText(title: cont.message.value)
-                : tableBuilder());
+                : cont.isArtistNameTable.value
+                    ? artistNametableBuilder()
+                    : artistTuneTable());
       },
     );
   }
 
-  Widget tableBuilder() {
+  Widget artistTuneTable() {
+    return Column(
+      children: [
+        SMButton(
+          title: " <-----View Artist name ",
+          onTap: () {
+            cont.isArtistNameTable.value = true;
+          },
+        ),
+        SMText(title: "Table here")
+      ],
+    );
+  }
+
+  Widget artistNametableBuilder() {
     return Obx(() {
       return CustomTableView(
-        headerColumList: cont.artistTableList[0],
-        rowList: cont.artistTableList,
+        headerColumList: cont.artistNameTableList[0],
+        rowList: cont.artistNameTableList,
         child: (row, colum) {
           return Row(
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               SMButton(
                 height: 30,
@@ -63,16 +80,9 @@ class _ArtistSearchListViewState extends State<ArtistSearchListView> {
                 bgColor: sixdColor,
                 textColor: white,
                 onTap: () {
+                  cont.isArtistNameTable.value = false;
+                  cont.getArtistTuneList();
                   print("dsfgdfgdfgd");
-                  // Get.dialog(
-                  //   barrierDismissible: false,
-                  //   Center(
-                  //     child: ActivateTunePopup(
-                  //       toneName: cont.purchaseList[row][0].value,
-                  //       toneId: cont.purchaseList[row][2].value,
-                  //     ),
-                  //   ),
-                  // );
                 },
               ),
             ],

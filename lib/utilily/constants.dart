@@ -1,4 +1,4 @@
-const int pagePerCount = 20;
+const int pagePerCount = 12;
 const int channelId = 4;
 const double popupWidth = 400.0;
 const double navBarheight = 50.0;

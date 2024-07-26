@@ -21,7 +21,7 @@ class _SearchedToneListViewState extends State<SearchedToneListView> {
   @override
   void initState() {
     cont = Get.put(SearchToneController());
-    cont.searchTone(widget.seachedText);
+    //cont.searchTone(widget.seachedText);
     super.initState();
   }
 
@@ -54,7 +54,7 @@ class _SearchedToneListViewState extends State<SearchedToneListView> {
         child: (row, colum) {
           return Row(
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               SMButton(
                 height: 30,

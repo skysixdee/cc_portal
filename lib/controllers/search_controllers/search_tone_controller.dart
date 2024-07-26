@@ -2,10 +2,12 @@ import 'package:get/get.dart';
 import 'package:sm_admin_portal/Models/search_tone_model.dart';
 import 'package:sm_admin_portal/Models/tone_info.dart';
 import 'package:sm_admin_portal/api_calls/search_text_api.dart';
+import 'package:sm_admin_portal/controllers/activate_tune_controller.dart';
 import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_view_model.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
 
 class SearchToneController extends GetxController {
+  ActivateTuneController activateTuneController = Get.find();
   RxList<List<CustomTableViewModel>> purchaseList =
       <List<CustomTableViewModel>>[].obs;
 
@@ -18,9 +20,13 @@ class SearchToneController extends GetxController {
   void onInit() {
     super.onInit();
     purchaseList.clear();
+    activateTuneController.onSearchTap = (value) {
+      print("activateTuneController.onSearchTap ==== $value");
+      _searchTone(value);
+    };
   }
 
-  Future<void> searchTone(String text) async {
+  Future<void> _searchTone(String text) async {
     searchedText = text;
     if (searchedText.isEmpty) {
       return;
@@ -39,6 +45,7 @@ class SearchToneController extends GetxController {
   }
 
   createHeaderColumnList() {
+    purchaseList.clear();
     purchaseList.add([
       CustomTableViewModel(title: toneNameStr, isVisible: true.obs),
       CustomTableViewModel(title: toneIdStr, isVisible: true.obs),

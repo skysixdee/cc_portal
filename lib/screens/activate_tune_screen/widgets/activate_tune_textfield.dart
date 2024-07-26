@@ -13,6 +13,9 @@ SmTextField activateTuneTextField(TextEditingController textEditingController) {
     },
     onSubmit: (p0) {
       cont.searchText();
+      if (cont.onSearchTap != null) {
+        cont.onSearchTap!(cont.searchedText);
+      }
     },
     textEditingController: textEditingController,
     hint: enterKeyWordToSearchStr,
