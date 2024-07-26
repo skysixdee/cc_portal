@@ -29,23 +29,23 @@ String _json = """{
     "responseMap": {
         "artistList": [
             {
-                "val": "katy perry",
+                "val": "ZA YAN DA",
                 "count": 55
             },
             {
-                "val": "katy perry and snoop dogg",
+                "val": "SLO9E KOROAR PGB",
                 "count": 2
             },
             {
-                "val": "3oh3 and katy perry",
+                "val": "CHAN MYAE AUNG + TAY ZA MC",
                 "count": 1
             },
             {
-                "val": "calvin harrispharrell williamskaty perrybig sean",
+                "val": "KHET SID",
                 "count": 1
             },
             {
-                "val": "katy perry ft migos",
+                "val": "Than Myat Soe",
                 "count": 1
             }
         ]

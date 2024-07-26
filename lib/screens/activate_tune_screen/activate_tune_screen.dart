@@ -19,38 +19,33 @@ class ActivateTuneScreen extends StatelessWidget {
   final ActivateTuneController cont = Get.find();
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: SizedBox(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(height: 20),
-            SMText(title: toneActivationStr),
-            SizedBox(
-              child:
-                  activateTuneTextField(TextEditingController()), //textField(),
-              width: 400,
-            ),
-            activateTuneSearchTypeBuilder(cont),
-            SizedBox(height: 50),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(right: 12),
-                child: Obx(() {
-                  return cont.searchType.value == SearchType.singer
-                      ? ArtistSearchListView(artistName: cont.searchedText)
-                      : (cont.searchType.value == SearchType.songCode
-                          ? SearchedToneidListView()
-                          : SearchedToneListView(
-                              seachedText: cont.searchedText,
-                            ));
-                }),
-              ),
-            ),
-            SizedBox(height: 50),
-          ],
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SizedBox(height: 20),
+        SMText(title: toneActivationStr),
+        SizedBox(
+          child: activateTuneTextField(TextEditingController()), //textField(),
+          width: 400,
         ),
-      ),
+        activateTuneSearchTypeBuilder(cont),
+        SizedBox(height: 10),
+        Flexible(
+          child: Padding(
+            padding: const EdgeInsets.only(right: 12),
+            child: Obx(() {
+              return cont.searchType.value == SearchType.singer
+                  ? ArtistSearchListView(artistName: cont.searchedText)
+                  : (cont.searchType.value == SearchType.songCode
+                      ? SearchedToneidListView()
+                      : SearchedToneListView(
+                          seachedText: cont.searchedText,
+                        ));
+            }),
+          ),
+        ),
+        SizedBox(height: 20),
+      ],
     );
   }
 }

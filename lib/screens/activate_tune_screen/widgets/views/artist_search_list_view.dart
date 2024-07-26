@@ -5,6 +5,7 @@ import 'package:sm_admin_portal/controllers/search_controllers/search_artist_con
 import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_view.dart';
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
+import 'package:sm_admin_portal/screens/activate_tune_screen/widgets/activate_tune_popup.dart';
 import 'package:sm_admin_portal/screens/subscriber_deatil_screen/widget/tone_list_table.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/constants.dart';
@@ -41,27 +42,88 @@ class _ArtistSearchListViewState extends State<ArtistSearchListView> {
             : (cont.artistNameTableList.isEmpty
                 ? SMText(title: cont.message.value)
                 : cont.isArtistNameTable.value
-                    ? artistNametableBuilder()
-                    : artistTuneTable());
+                    ? artistNameTableBuilder()
+                    : artistTunesTableBuilder());
       },
     );
   }
 
-  Widget artistTuneTable() {
+  Widget artistTunesTableBuilder() {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: [
-        SMButton(
-          title: " <-----View Artist name ",
-          onTap: () {
-            cont.isArtistNameTable.value = true;
-          },
+        Padding(
+          padding: const EdgeInsets.only(bottom: 20),
+          child: SMButton(
+            leadingChild: Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: Container(
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(buttonCornerRadius),
+                    color: sixdColor,
+                  ),
+                  child: Center(
+                      child: Icon(
+                    Icons.arrow_back,
+                    size: 22,
+                    color: white,
+                  ))),
+            ),
+            title: cont.artistName,
+            titlePadding: EdgeInsets.zero,
+            onTap: () {
+              cont.isArtistNameTable.value = true;
+            },
+          ),
         ),
-        SMText(title: "Table here")
+        Flexible(
+          child: Obx(() {
+            return CustomTableView(
+                headerColumList: cont.artistsTuneTableList[0],
+                rowList: cont.artistsTuneTableList,
+                child: (row, colum) {
+                  return Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SMButton(
+                        height: 30,
+                        titlePadding: EdgeInsets.symmetric(horizontal: 20),
+                        title: activateStr,
+                        fontWeight: FontWeight.normal,
+                        fontSize: 12,
+                        bgColor: sixdColor,
+                        textColor: white,
+                        onTap: () {
+                          openBuyTunePopup(
+                              cont.artistsTuneTableList[row][0].value,
+                              cont.artistsTuneTableList[row][1].value);
+                          // Get.dialog(
+                          //   barrierDismissible: false,
+                          //   Center(
+                          //     child: BuyTunePopup(
+                          //       toneName:
+                          //           cont.artistsTuneTableList[row][0].value,
+                          //       toneId: cont.artistsTuneTableList[row][1].value,
+                          //     ),
+                          //   ),
+                          // );
+                        },
+                      ),
+                    ],
+                  );
+                });
+          }),
+        )
       ],
     );
   }
 
-  Widget artistNametableBuilder() {
+  Widget artistNameTableBuilder() {
     return Obx(() {
       return CustomTableView(
         headerColumList: cont.artistNameTableList[0],
@@ -81,7 +143,8 @@ class _ArtistSearchListViewState extends State<ArtistSearchListView> {
                 textColor: white,
                 onTap: () {
                   cont.isArtistNameTable.value = false;
-                  cont.getArtistTuneList();
+                  cont.getArtistTuneList(
+                      cont.artistNameTableList[row][0].value);
                   print("dsfgdfgdfgd");
                 },
               ),

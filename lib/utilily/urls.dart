@@ -8,7 +8,9 @@ const suspendUrl = "$baseUrl/selfcare/subscription/suspend";
 //const buyurl=""
 const buyurl = "$baseUrl/selfcare/subscriber-management/buy-tone";
 const advanceSearchToneUrl = "http://10.0.14.4:8090/advanced-search";
+const advanceArtistTuneSearchUrl = "http://10.0.14.4:8090/advanced-search";
 const advanceArtistSearchUrl = "http://10.0.14.4:8090/advanced-search";
+const advanceToneIdSearchUrl = "http://10.0.14.4:8090/advanced-search";
 const listOfferUrl =
     "http://10.0.14.4:8082/selfcare/subscriber-management/list-offers";
 const setToneUrl =

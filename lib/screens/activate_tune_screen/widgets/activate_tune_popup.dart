@@ -2,33 +2,46 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import 'package:popover/popover.dart';
-
-import 'package:sm_admin_portal/controllers/activate_tune_controller.dart';
-
-import 'package:sm_admin_portal/reusable_view/reusable_drop_down_button.dart';
+import 'package:sm_admin_portal/controllers/buy_tune_controller.dart';
 
 import 'package:sm_admin_portal/reusable_view/sm_activity_indicator.dart';
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
-import 'package:sm_admin_portal/reusable_view/sm_drop_down_button.dart';
+
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 import 'package:sm_admin_portal/reusable_view/sm_visibility_view.dart';
 
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
 
-class ActivateTunePopup extends StatelessWidget {
-  ActivateTunePopup({super.key, required this.toneName, required this.toneId});
+openBuyTunePopup(String toneName, String toneId) {
+  Get.dialog(Center(child: _BuyTunePopup(toneName: toneName, toneId: toneId)),
+      barrierDismissible: false);
+}
 
-  final ActivateTuneController controller = Get.find();
-
+class _BuyTunePopup extends StatefulWidget {
+  _BuyTunePopup({required this.toneName, required this.toneId});
   final String toneId;
   final String toneName;
   @override
+  State<_BuyTunePopup> createState() => _BuyTunePopupState();
+}
+
+class _BuyTunePopupState extends State<_BuyTunePopup> {
+  late BuyTuneController cont;
+  @override
+  void initState() {
+    cont = Get.put(BuyTuneController());
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    Get.delete<BuyTuneController>();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    controller.updateFrequency('');
-    controller.updateSelectedServiceType("", '');
-    controller.isConfirming.value = false;
     return Material(
       color: transparent,
       child: Padding(
@@ -50,9 +63,9 @@ class ActivateTunePopup extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             SizedBox(height: 10),
-                            frequencyButton(constraints),
+                            //frequencyButton(constraints),
                             SizedBox(height: 12),
-                            serviceTypeButton(constraints),
+                            //serviceTypeButton(constraints),
                             SizedBox(height: 20),
                             errorMessage(),
                             confirmButton(context),
@@ -76,31 +89,33 @@ class ActivateTunePopup extends StatelessWidget {
               children: [
                 Flexible(
                     child: SMText(
-                  title: controller.errorMessage.value,
+                  title: cont.errorMessage.value,
                   textColor: redColor,
                   fontWeight: FontWeight.normal,
                 )),
               ],
             ),
           ),
-          controller.errorMessage.isNotEmpty);
+          cont.errorMessage.isNotEmpty);
     });
   }
 
   Widget confirmButton(BuildContext context) {
     return Obx(() {
-      return controller.isConfirming.value
+      return cont.isConfirming.value
           ? smActivityIndicator(height: 40)
           : SMButton(
               bgColor: sixdColor,
               textColor: white,
               title: confirmCStr,
               onTap: () {
-                controller.confirmButtonAction(toneId);
-                controller.onBuySuccess = () async {
+                /*
+                cont.confirmButtonAction(toneId);
+                cont.onBuySuccess = () async {
                   print(" onBuySuccess on confirm tap");
                   Navigator.of(context).pop();
                 };
+                */
                 print("on confirm tap");
               },
             );
@@ -108,22 +123,26 @@ class ActivateTunePopup extends StatelessWidget {
   }
 
   Widget popupHeaderBuilder(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(width: 30),
-          Expanded(
-              child: SMText(
-            title: toneName,
-            fontWeight: FontWeight.bold,
-            fontSize: 14,
-            textAlign: TextAlign.center,
-          )),
-          closeButton(context),
-        ],
+    return Container(
+      color: sixdColor,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 8),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(width: 30),
+            Expanded(
+                child: SMText(
+              title: widget.toneName,
+              textColor: white,
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+              textAlign: TextAlign.center,
+            )),
+            closeButton(context),
+          ],
+        ),
       ),
     );
   }
@@ -133,9 +152,12 @@ class ActivateTunePopup extends StatelessWidget {
         onTap: () {
           Navigator.of(context).pop();
         },
-        child: Icon(Icons.close));
+        child: Icon(
+          Icons.close,
+          color: white,
+        ));
   }
-
+/*
   Widget serviceTypeButton(BoxConstraints constraints) {
     return Obx(() {
       return AbsorbPointer(
@@ -178,4 +200,5 @@ class ActivateTunePopup extends StatelessWidget {
       );
     });
   }
+  */
 }

@@ -65,15 +65,17 @@ class _SearchedToneListViewState extends State<SearchedToneListView> {
                 bgColor: sixdColor,
                 textColor: white,
                 onTap: () {
-                  Get.dialog(
-                    barrierDismissible: false,
-                    Center(
-                      child: ActivateTunePopup(
-                        toneName: cont.purchaseList[row][0].value,
-                        toneId: cont.purchaseList[row][2].value,
-                      ),
-                    ),
-                  );
+                  openBuyTunePopup(cont.purchaseList[row][0].value,
+                      cont.purchaseList[row][2].value);
+                  // Get.dialog(
+                  //   barrierDismissible: false,
+                  //   Center(
+                  //     child: BuyTunePopup(
+                  //       toneName: cont.purchaseList[row][0].value,
+                  //       toneId: cont.purchaseList[row][2].value,
+                  //     ),
+                  //   ),
+                  // );
                 },
               ),
             ],
