@@ -7,6 +7,77 @@ import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
 import 'package:sm_admin_portal/reusable_view/custom_border_tab_view.dart';
 
+
+class TuneListScreen extends StatefulWidget {
+  const TuneListScreen({super.key});
+
+  @override
+  State<TuneListScreen> createState() => _TuneListScreenState();
+}
+
+class _TuneListScreenState extends State<TuneListScreen> {
+  final TuneListController cont = Get.find();
+
+  Color borderColor = const Color.fromRGBO(224, 224, 224, 1);
+  RxInt selectedTab = 0.obs;
+  double borderWidth = 1;
+  double tabButtonHeight = 45;
+  List<String> tabItems = [
+    packDetailsStr,
+    toneDetailsStr,
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    cont.getToneList(cont.searchedText);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() {
+      return SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          child: Container(
+            color: dividerColor,
+            child: cont.isLoading.value
+                ? Center(child: CircularProgressIndicator())
+                : ListView(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(28.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(height: 10),
+                            tableAndBottomSection(),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+          ),
+        ),
+      );
+    });
+  }
+  
+
+  Widget tableAndBottomSection() {
+    return Center(
+      child: Column(
+        children: [
+          SettingsListTable(),
+          SizedBox(height: 8),
+          BottomButtons(),
+        ],
+      ),
+    );
+  }
+}
+
 // class TuneListScreen extends StatefulWidget {
 //   const TuneListScreen({super.key});
 
@@ -236,72 +307,3 @@ import 'package:sm_admin_portal/reusable_view/custom_border_tab_view.dart';
 
 
 
-
-class TuneListScreen extends StatefulWidget {
-  const TuneListScreen({super.key});
-
-  @override
-  State<TuneListScreen> createState() => _TuneListScreenState();
-}
-
-class _TuneListScreenState extends State<TuneListScreen> {
-  final TuneListController cont = Get.find();
-
-  Color borderColor = const Color.fromRGBO(224, 224, 224, 1);
-  RxInt selectedTab = 0.obs;
-  double borderWidth = 1;
-  double tabButtonHeight = 45;
-  List<String> tabItems = [
-    packDetailsStr,
-    toneDetailsStr,
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-    cont.getToneList(cont.searchedText);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Obx(() {
-      return SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          child: Container(
-            color: dividerColor,
-            child: cont.isLoading.value
-                ? Center(child: CircularProgressIndicator())
-                : ListView(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(28.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(height: 10),
-                            tableAndBottomSection(),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-          ),
-        ),
-      );
-    });
-  }
-
-  Widget tableAndBottomSection() {
-    return Center(
-      child: Column(
-        children: [
-          SettingsListTable(),
-          SizedBox(height: 8),
-          BottomButtons(),
-        ],
-      ),
-    );
-  }
-}
