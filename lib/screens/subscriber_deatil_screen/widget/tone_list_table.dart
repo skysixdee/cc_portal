@@ -48,7 +48,7 @@ class SettingsListTable extends StatelessWidget {
 
 Widget loadingIndicatorView() {
   return Container(
-    color: Colors.black.withOpacity(0.5),
+    //color: Colors.black.withOpacity(0.5),
     child: Center(
       child: Container(
         decoration: BoxDecoration(

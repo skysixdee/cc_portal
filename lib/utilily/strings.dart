@@ -14,6 +14,8 @@ String searchMenuItemStr = "Search Menu Items";
 String packDetailsStr = "Pack Details";
 String toneDetailsStr = "Tone Details";
 String tuneListStr = "Tune List";
+String loadingServiceMenuStr = "Loading service menu...";
+String noResultFoundStr = "No Result found";
 String suspendAndResumeStr = "Suspend And Resume";
 String actionStr = "Action";
 
@@ -76,6 +78,7 @@ String suspendServiceStr = 'Suspend Service';
 String RecordsPerPageStr = 'Records per page';
 String LanguageStr = 'Language';
 String ActionStr = 'Action';
+String viewStr = 'View';
 String statusStr = 'Status';
 String suspendedStr = 'Suspend';
 String activateStr = 'Activate';

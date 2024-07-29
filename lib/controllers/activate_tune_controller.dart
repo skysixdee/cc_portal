@@ -27,42 +27,25 @@ class ActivateTuneController extends GetxController {
   String selectedServiceTypeTitle = '';
 
   RxList<ToneInfo> _toneList = <ToneInfo>[].obs;
-
+  RxString message = ''.obs;
   Rx<SearchType> searchType = SearchType.song.obs;
   RxList searchTypeList =
       [SearchType.song, SearchType.singer, SearchType.songCode].obs;
   RxList searchTypeTitlList = [songStr, singerStr, songCodeStr].obs;
 
-  RxList<List<CustomTableViewModel>> purchaseList =
-      <List<CustomTableViewModel>>[].obs;
-  List<String> frequencyList = [dailyStr, weeklyStr, monthlyStr];
   RxList<String> serviceTypeMenuList = <String>[].obs;
   RxList<String> serviceTypeValueList = <String>[].obs;
   Function()? onBuySuccess;
+  Function(String)? onSearchTap;
   @override
   void onInit() {
     super.onInit();
-    createHeaderColumnList();
-    getListOffer();
   }
 
   searchText() async {
-    purchaseList.clear();
     _toneList.clear();
-    createHeaderColumnList();
 
     print("Search type is ${searchType}");
-    if (searchType.value == SearchType.song) {
-      await _searchTone();
-    }
-    print("Sky======== ${_toneList.length}");
-    createRowList(_toneList);
-  }
-
-  Future<void> _searchTone() async {
-    SearchToneModel searchToneModel = await searchToneApi(searchedText, "148");
-    _toneList.value = searchToneModel.responseMap?.toneList ?? [];
-    return;
   }
 
   updateFrequency(String value) {
@@ -79,90 +62,22 @@ class ActivateTuneController extends GetxController {
     selectedServiceTypeTitle = title;
   }
 
-  getListOffer({int index = 0}) async {
-    serviceTypeMenuList.clear();
-    serviceTypeValueList.clear();
-    OfferListModel offerListModel = await listOfferApi(index);
-    print("Offer list ========= ${offerListModel.offerList?.length}");
-
-    for (OfferList itm in offerListModel.offerList ?? []) {
-      serviceTypeMenuList.add(itm.offerMarketingName ?? '');
-      serviceTypeValueList.add(itm.offerName ?? '');
-    }
-  }
-
   onChangeText(String text) {
     searchedText = text;
+    message.value = '';
     print("$text");
   }
 
   //_searchApiCall() {}
 
-  updateSearchType(SearchType searchType) {
+  updateSearchType(SearchType searchType) async {
     this.searchType.value = searchType;
+    if (onSearchTap != null) {
+      await Future.delayed(Duration(milliseconds: 80));
+      onSearchTap!(searchedText);
+    }
 
-    purchaseList.clear();
     _toneList.clear();
-    createHeaderColumnList();
-  }
-
-  confirmButtonAction(String toneId) async {
-    if (selectedFrequency.isEmpty) {
-      errorMessage.value = selectFrequencyErrorStr;
-      return;
-    }
-    if (selectedServiceTypeValue.isEmpty) {
-      print("Selecte some thing");
-      errorMessage.value = selectServiceTypeErrorStr;
-      return;
-    }
-    errorMessage.value = '';
-    print(
-        "===============\n ${selectedFrequency} \n service type == ${selectedServiceTypeValue} \n========================");
-    isConfirming.value = true;
-
-    GenericModal genericModal =
-        await setToneApi(selectedServiceTypeValue, toneId);
-    if (genericModal.respCode == 0) {
-      if (onBuySuccess != null) {
-        onBuySuccess!();
-        await Future.delayed(Duration(milliseconds: 200));
-        openGenericPopup(genericModal.message ?? 'No Message');
-        // Get.dialog(Center(
-        //   child:
-        //       GenericPopupView(message: genericModal.message ?? 'No Message'),
-        // ));
-      }
-    } else {
-      errorMessage.value = genericModal.message ?? someThingWentWrongStr;
-    }
-    isConfirming.value = false;
-  }
-
-  createHeaderColumnList() {
-    purchaseList.add([
-      CustomTableViewModel(title: toneNameStr, isVisible: true.obs),
-      CustomTableViewModel(title: ArtistStr, isVisible: true.obs),
-      CustomTableViewModel(title: toneIdStr, isVisible: true.obs),
-      CustomTableViewModel(title: priceStr, isVisible: true.obs),
-      CustomTableViewModel(title: statusStr, isVisible: true.obs),
-    ]);
-  }
-
-  createRowList(List<ToneInfo> list) {
-    if (list.isEmpty) return;
-    for (var info in list) {
-      purchaseList.add(
-        [
-          CustomTableViewModel(value: '${info.toneName}', isVisible: true.obs),
-          CustomTableViewModel(
-              value: '${info.artistName}', isVisible: true.obs),
-          CustomTableViewModel(value: '${info.toneId}', isVisible: true.obs),
-          CustomTableViewModel(value: '${info.price}', isVisible: true.obs),
-          CustomTableViewModel(
-              value: 'channel ', isVisible: true.obs, isButton: true),
-        ],
-      );
-    }
+    // createHeaderColumnList();
   }
 }

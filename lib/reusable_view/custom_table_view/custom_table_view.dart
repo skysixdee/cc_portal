@@ -19,6 +19,7 @@ class CustomTableView extends StatelessWidget {
   //final double? SingleChildScrollView; ///////////bhavya
   final double tableMinWidth;
   final double rowVerticalPadding;
+  final ScrollPhysics? physics;
   final Function(int row, int colum)? child;
   const CustomTableView({
     super.key,
@@ -35,7 +36,8 @@ class CustomTableView extends StatelessWidget {
     this.headerHeight,
     //this.SingleChildScrollView,
     this.rowVerticalPadding = 4,
-    this.tableMinWidth = 800, //////////////bhavya
+    this.tableMinWidth = 800,
+    this.physics, //////////////bhavya
   });
 
   @override
@@ -126,6 +128,7 @@ class CustomTableView extends StatelessWidget {
         borderRadius: const BorderRadius.only(
             bottomLeft: Radius.circular(3), bottomRight: Radius.circular(3)),
         child: ListView.builder(
+          physics: physics,
           clipBehavior: Clip.hardEdge,
           shrinkWrap: true,
           //padding: const EdgeInsets.only(left: 1, right: 1, bottom: 1),
