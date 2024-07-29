@@ -298,22 +298,22 @@ class DashBoardScreen extends StatelessWidget {
 
                     try {
                       // Perform the API call
-                      if (controller.subscriptionList[index].offerStatus ==
-                          "A") {
-                        await deleteToneApi(
-                            controller.subscriptionList[index].offerStatus);
-                      } else {
-                        await BuyToneApi(
-                            controller.subscriptionList[index].offerStatus);
-                      }
+                      // if (controller.subscriptionList[index].offerStatus ==
+                      //     "A") {
+                      //   await deleteToneApi(
+                      //       controller.subscriptionList[index].offerStatus);
+                      // } else {
+                      //   await BuyToneApi(
+                      //       controller.subscriptionList[index].offerStatus);
+                      // }
 
-                      // Update the offer status and refresh the list
-                      controller.subscriptionList[index].offerStatus =
-                          (controller.subscriptionList[index].offerStatus ==
-                                  "A")
-                              ? "S"
-                              : "A";
-                      controller.subscriptionList.refresh();
+                      // // Update the offer status and refresh the list
+                      // controller.subscriptionList[index].offerStatus =
+                      //     (controller.subscriptionList[index].offerStatus ==
+                      //             "A")
+                      //         ? "S"
+                      //         : "A";
+                      // controller.subscriptionList.refresh();
                     } finally {
                       // Close the loading indicator dialog
                       Navigator.of(dialogContext)

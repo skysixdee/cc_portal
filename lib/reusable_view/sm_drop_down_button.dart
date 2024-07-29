@@ -46,7 +46,8 @@ class SMDropDownButton extends StatelessWidget {
   RxString _selectedLocalTitle = ''.obs;
   @override
   Widget build(BuildContext context) {
-    selectedIndex.value = -1;
+    //selectedIndex.value = -1;
+    selectedIndex.value = items.indexOf(buttonTitle);
     _selectedLocalTitle.value =
         buttonTitle.isEmpty ? (buttonHintTitle ?? selectStr) : buttonTitle;
     return Column(

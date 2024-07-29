@@ -191,17 +191,21 @@ class _BuyTunePopupState extends State<_BuyTunePopup> {
     return Obx(() {
       return AbsorbPointer(
         absorbing: cont.isConfirming.value,
-        child: SMDropDownButton(
-          buttonHeaderTitle: frequencyStr,
-          width: constraints.maxWidth,
-          items: cont.frequencyMenuList,
-          direction: PopoverDirection.bottom,
-          onChanged: (index) {
-            print("index sky = $index");
-            cont.updateFrequency(index);
-            // controller.getListOffer(index: index);
+        child: Obx(
+          () {
+            return SMDropDownButton(
+              buttonHeaderTitle: frequencyStr,
+              width: constraints.maxWidth,
+              items: cont.frequencyMenuList,
+              direction: PopoverDirection.bottom,
+              onChanged: (index) {
+                print("index sky = $index");
+                cont.updateFrequency(index);
+                // controller.getListOffer(index: index);
+              },
+              buttonTitle: cont.selectedFrequencyTitle.value,
+            );
           },
-          buttonTitle: cont.selectedFrequencyTitle.value,
         ),
       );
     });
