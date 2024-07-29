@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
 import 'package:sm_admin_portal/Models/search_tone_model.dart';
 import 'package:sm_admin_portal/Models/tone_info.dart';
 import 'package:sm_admin_portal/api_calls/search_text_api.dart';
@@ -14,7 +15,7 @@ class SearchToneController extends GetxController {
   RxBool isLoading = false.obs;
   RxList<ToneInfo> _toneList = <ToneInfo>[].obs;
   RxString message = ''.obs;
-
+  RxInt totolCount = 0.obs;
   String searchedText = '';
   @override
   void onInit() {
@@ -26,14 +27,17 @@ class SearchToneController extends GetxController {
     };
   }
 
-  Future<void> _searchTone(String text) async {
+  Future<void> _searchTone(String text, {int pageNo = 0}) async {
     searchedText = text;
     if (searchedText.isEmpty) {
       return;
     }
+    purchaseList.clear();
     isLoading.value = true;
-    SearchToneModel searchToneModel = await searchToneApi(text, "148");
+    SearchToneModel searchToneModel =
+        await searchToneApi(text, "148", pageNo: pageNo);
     _toneList.value = searchToneModel.responseMap?.toneList ?? [];
+    totolCount.value = searchToneModel.responseMap?.resultCount ?? 0;
     message.value = _toneList.isEmpty ? noResultFoundStr : '';
     isLoading.value = false;
     if (_toneList.isNotEmpty) {
@@ -42,6 +46,20 @@ class SearchToneController extends GetxController {
     }
 
     return;
+  }
+
+  loadMoreData(int index) async {
+    _toneList.clear();
+    isLoading.value = true;
+    SearchToneModel searchToneModel =
+        await searchToneApi(searchedText, "148", pageNo: index);
+    _toneList.value = searchToneModel.responseMap?.toneList ?? [];
+    message.value = _toneList.isEmpty ? noResultFoundStr : '';
+    isLoading.value = false;
+    if (_toneList.isNotEmpty) {
+      createHeaderColumnList();
+      createRowList(_toneList);
+    }
   }
 
   createHeaderColumnList() {
