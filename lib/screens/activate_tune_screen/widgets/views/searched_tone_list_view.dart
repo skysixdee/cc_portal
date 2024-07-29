@@ -50,19 +50,23 @@ class _SearchedToneListViewState extends State<SearchedToneListView> {
             },
           ),
         ),
-        Obx(
-          () {
-            return cont.totolCount < pagePerCount
-                ? SizedBox()
-                : NumberPagination(
-                    totalItem: cont.totolCount.value,
-                    tappedIndex: (value) {
-                      print("tapped on $value");
-                      cont.loadMoreData(value);
-                    });
-          },
-        )
+        numberPageBuilder()
       ],
+    );
+  }
+
+  Obx numberPageBuilder() {
+    return Obx(
+      () {
+        return cont.totolCount < pagePerCount
+            ? SizedBox()
+            : NumberPagination(
+                totalItem: cont.totolCount.value,
+                tappedIndex: (value) {
+                  print("tapped on $value");
+                  cont.loadMoreData(value);
+                });
+      },
     );
   }
 
