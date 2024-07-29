@@ -58,6 +58,7 @@ import 'package:sm_admin_portal/network_manager/network_manager.dart';
 
 Future<ListSettingModel> BuyToneApi() async {
   String url = 'http://10.0.10.33:5679/selfcare/subscriber-management/buy-tone';
+
   // 'http://10.0.14.4:8082/selfcare/subscriber-management/list-settings';
   //  jsonData: );;
   Map<String, dynamic> jsonData =

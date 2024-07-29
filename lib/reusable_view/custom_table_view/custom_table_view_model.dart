@@ -5,6 +5,8 @@ class CustomTableViewModel {
   String value;
   bool isRemoveable;
   bool isButton;
+  bool isactivationButton;
+  bool isSMButton;
   RxBool isVisible;
   dynamic object;
 
@@ -12,6 +14,8 @@ class CustomTableViewModel {
     this.title = 'No title',
     this.value = 'No value ',
     this.isButton = false,
+    this.isSMButton=false,
+    this.isactivationButton = false,
     this.isRemoveable = true,
     this.object,
     required this.isVisible,

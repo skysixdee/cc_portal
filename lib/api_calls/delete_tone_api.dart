@@ -40,7 +40,7 @@ import 'package:sm_admin_portal/Models/list_setting_modal.dart';
 import 'package:sm_admin_portal/Models/subscribers_modal.dart';
 import 'package:sm_admin_portal/network_manager/network_manager.dart';
 
-Future<GenericModal> deleteToneApi() async {
+Future<GenericModal> deleteToneApi(String? offerStatus) async {
   String url =
       'http://10.0.10.33:5679/selfcare/subscriber-management/delete-tone';
   //  jsonData: );;
