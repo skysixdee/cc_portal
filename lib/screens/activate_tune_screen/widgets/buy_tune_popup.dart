@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:popover/popover.dart';
 
 import 'package:sm_admin_portal/controllers/buy_tune_controller.dart';
 
 import 'package:sm_admin_portal/reusable_view/sm_activity_indicator.dart';
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
+import 'package:sm_admin_portal/reusable_view/sm_drop_down_button.dart';
 
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 import 'package:sm_admin_portal/reusable_view/sm_visibility_view.dart';
@@ -31,6 +33,7 @@ class _BuyTunePopupState extends State<_BuyTunePopup> {
   @override
   void initState() {
     cont = Get.put(BuyTuneController());
+
     super.initState();
   }
 
@@ -63,9 +66,9 @@ class _BuyTunePopupState extends State<_BuyTunePopup> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             SizedBox(height: 10),
-                            //frequencyButton(constraints),
+                            frequencyButton(constraints),
                             SizedBox(height: 12),
-                            //serviceTypeButton(constraints),
+                            serviceTypeButton(constraints),
                             SizedBox(height: 20),
                             errorMessage(),
                             confirmButton(context),
@@ -109,14 +112,15 @@ class _BuyTunePopupState extends State<_BuyTunePopup> {
               textColor: white,
               title: confirmCStr,
               onTap: () {
-                /*
-                cont.confirmButtonAction(toneId);
+                cont.confirmButtonAction(widget.toneId);
+
+                // cont.confirmButtonAction(toneId);
                 cont.onBuySuccess = () async {
                   print(" onBuySuccess on confirm tap");
                   Navigator.of(context).pop();
                 };
-                */
-                print("on confirm tap");
+
+                print("on confirm tap 12");
               },
             );
     });
@@ -157,25 +161,27 @@ class _BuyTunePopupState extends State<_BuyTunePopup> {
           color: white,
         ));
   }
-/*
+
   Widget serviceTypeButton(BoxConstraints constraints) {
     return Obx(() {
       return AbsorbPointer(
-        absorbing: controller.isConfirming.value,
-        child: SMDropDownButton(
-          buttonHeaderTitle: serviceTypeStr,
-          width: constraints.maxWidth,
-          // ignore: invalid_use_of_protected_member
-          items: controller.serviceTypeMenuList.value,
-          direction: PopoverDirection.bottom,
+        absorbing: cont.isConfirming.value,
+        child: Obx(
+          () {
+            return SMDropDownButton(
+              buttonHeaderTitle: serviceTypeStr,
+              width: constraints.maxWidth,
+              // ignore: invalid_use_of_protected_member
+              items: cont.serviceTypeMenuList.value,
+              direction: PopoverDirection.bottom,
 
-          onChanged: (p0) {
-            print("on shnage = $p0");
-            controller.updateSelectedServiceType(
-                controller.serviceTypeValueList[p0],
-                controller.serviceTypeMenuList[p0]);
+              onChanged: (p0) {
+                print("on shnage = $p0");
+                cont.updateServiceType(p0);
+              },
+              buttonTitle: cont.selectedServiceTitle.value,
+            );
           },
-          buttonTitle: controller.selectedServiceTypeTitle,
         ),
       );
     });
@@ -184,21 +190,20 @@ class _BuyTunePopupState extends State<_BuyTunePopup> {
   Widget frequencyButton(BoxConstraints constraints) {
     return Obx(() {
       return AbsorbPointer(
-        absorbing: controller.isConfirming.value,
+        absorbing: cont.isConfirming.value,
         child: SMDropDownButton(
           buttonHeaderTitle: frequencyStr,
           width: constraints.maxWidth,
-          items: controller.frequencyList,
+          items: cont.frequencyMenuList,
           direction: PopoverDirection.bottom,
           onChanged: (index) {
             print("index sky = $index");
-            controller.updateFrequency(controller.frequencyList[index]);
-            controller.getListOffer(index: index);
+            cont.updateFrequency(index);
+            // controller.getListOffer(index: index);
           },
-          buttonTitle: controller.selectedFrequency,
+          buttonTitle: cont.selectedFrequencyTitle.value,
         ),
       );
     });
   }
-  */
 }

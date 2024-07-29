@@ -60,7 +60,7 @@ class SearchArtistController extends GetxController {
   getArtistTuneList(String artistName) async {
     this.artistName = artistName;
     isLoading.value = true;
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(milliseconds: 100));
     ArtistsToneModel artistsToneModel = await artistTuneSearchApi(artistName);
     artistTuneList.value = artistsToneModel.responseMap?.toneList ?? [];
     createArtistTuneHeaderColumnList();

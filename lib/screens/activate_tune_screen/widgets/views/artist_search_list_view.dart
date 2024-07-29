@@ -5,7 +5,7 @@ import 'package:sm_admin_portal/controllers/search_controllers/search_artist_con
 import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_view.dart';
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
-import 'package:sm_admin_portal/screens/activate_tune_screen/widgets/activate_tune_popup.dart';
+import 'package:sm_admin_portal/screens/activate_tune_screen/widgets/buy_tune_popup.dart';
 import 'package:sm_admin_portal/screens/subscriber_deatil_screen/widget/tone_list_table.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/constants.dart';

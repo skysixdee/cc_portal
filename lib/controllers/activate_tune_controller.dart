@@ -33,7 +33,6 @@ class ActivateTuneController extends GetxController {
       [SearchType.song, SearchType.singer, SearchType.songCode].obs;
   RxList searchTypeTitlList = [songStr, singerStr, songCodeStr].obs;
 
-  List<String> frequencyList = [dailyStr, weeklyStr, monthlyStr];
   RxList<String> serviceTypeMenuList = <String>[].obs;
   RxList<String> serviceTypeValueList = <String>[].obs;
   Function()? onBuySuccess;
@@ -41,8 +40,6 @@ class ActivateTuneController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-
-    getListOffer();
   }
 
   searchText() async {
@@ -65,18 +62,6 @@ class ActivateTuneController extends GetxController {
     selectedServiceTypeTitle = title;
   }
 
-  getListOffer({int index = 0}) async {
-    serviceTypeMenuList.clear();
-    serviceTypeValueList.clear();
-    OfferListModel offerListModel = await listOfferApi(index);
-    print("Offer list ========= ${offerListModel.offerList?.length}");
-
-    for (OfferList itm in offerListModel.offerList ?? []) {
-      serviceTypeMenuList.add(itm.offerMarketingName ?? '');
-      serviceTypeValueList.add(itm.offerName ?? '');
-    }
-  }
-
   onChangeText(String text) {
     searchedText = text;
     message.value = '';
@@ -94,38 +79,5 @@ class ActivateTuneController extends GetxController {
 
     _toneList.clear();
     // createHeaderColumnList();
-  }
-
-  confirmButtonAction(String toneId) async {
-    if (selectedFrequency.isEmpty) {
-      errorMessage.value = selectFrequencyErrorStr;
-      return;
-    }
-    if (selectedServiceTypeValue.isEmpty) {
-      print("Selecte some thing");
-      errorMessage.value = selectServiceTypeErrorStr;
-      return;
-    }
-    errorMessage.value = '';
-    print(
-        "===============\n ${selectedFrequency} \n service type == ${selectedServiceTypeValue} \n========================");
-    isConfirming.value = true;
-
-    GenericModal genericModal =
-        await setToneApi(selectedServiceTypeValue, toneId);
-    if (genericModal.respCode == 0) {
-      if (onBuySuccess != null) {
-        onBuySuccess!();
-        await Future.delayed(Duration(milliseconds: 200));
-        openGenericPopup(genericModal.message ?? 'No Message');
-        // Get.dialog(Center(
-        //   child:
-        //       GenericPopupView(message: genericModal.message ?? 'No Message'),
-        // ));
-      }
-    } else {
-      errorMessage.value = genericModal.message ?? someThingWentWrongStr;
-    }
-    isConfirming.value = false;
   }
 }

@@ -15,7 +15,7 @@ Future<ArtistsToneModel> searchToneIdApi(String toneId) async {
     "pageNo": "0",
     "perPageCount": pagePerCount,
     "filter": "ToneId",
-    "filterPref": "custom",
+    "filterPref": "begin",
     "locale": "en",
     "searchKey": [toneId],
   };

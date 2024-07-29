@@ -57,8 +57,7 @@ import 'package:sm_admin_portal/Models/subscribers_modal.dart';
 import 'package:sm_admin_portal/network_manager/network_manager.dart';
 
 Future<ListSettingModel> BuyToneApi() async {
-  String url =
-      'http://10.0.10.33:5679/selfcare/subscriber-management/buy-tone';
+  String url = 'http://10.0.10.33:5679/selfcare/subscriber-management/buy-tone';
   // 'http://10.0.14.4:8082/selfcare/subscriber-management/list-settings';
   //  jsonData: );;
   Map<String, dynamic> jsonData =
@@ -84,7 +83,6 @@ Future<ListSettingModel> BuyToneApi() async {
     "userData": "some data"
   };
 
-  await Future.delayed(Duration(seconds: 3));
   Map<String, dynamic> jsonMap =
       await NetworkManager().postResquest(url, jsonData);
   ListSettingModel modal = ListSettingModel.fromJson(jsonMap);
