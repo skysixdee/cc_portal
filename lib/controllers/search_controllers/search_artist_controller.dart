@@ -15,6 +15,8 @@ class SearchArtistController extends GetxController {
   RxString message = ''.obs;
   RxBool isArtistNameTable = true.obs;
   String artistName = '';
+  RxInt totalSongCount = 0.obs;
+  RxInt totalArtistCount = 0.obs;
   RxList<ArtistList> _artistList = <ArtistList>[].obs;
 
   RxList<ToneInfo> artistTuneList = <ToneInfo>[].obs;
@@ -39,6 +41,8 @@ class SearchArtistController extends GetxController {
   }
 
   _getArtistList(String name) async {
+    totalArtistCount.value = 0;
+    totalSongCount.value = 0;
     searchedName = name;
     if (searchedName.isEmpty) {
       return;
@@ -57,16 +61,34 @@ class SearchArtistController extends GetxController {
     isLoading.value = false;
   }
 
+  loadMoreArtistList(int index) {
+    print("Load more artist list $index");
+  }
+
   getArtistTuneList(String artistName) async {
+    totalArtistCount.value = 0;
+    totalSongCount.value = 0;
     this.artistName = artistName;
     isLoading.value = true;
     await Future.delayed(Duration(milliseconds: 100));
     ArtistsToneModel artistsToneModel = await artistTuneSearchApi(artistName);
     artistTuneList.value = artistsToneModel.responseMap?.toneList ?? [];
+    totalSongCount.value = artistsToneModel.responseMap?.resultCount ?? 0;
     createArtistTuneHeaderColumnList();
     createArtistTuneRowList(artistTuneList);
     print("SKY======= ${artistName}");
     isLoading.value = false;
+  }
+
+  loadMoreArtistTuneList(int pageNo) async {
+    isLoading.value = true;
+    ArtistsToneModel artistsToneModel =
+        await artistTuneSearchApi(artistName, pageNo: pageNo);
+    artistTuneList.value = artistsToneModel.responseMap?.toneList ?? [];
+    createArtistTuneHeaderColumnList();
+    createArtistTuneRowList(artistTuneList);
+    isLoading.value = false;
+    print("SKY======= ${artistName}");
   }
 
   createArtistNameHeaderColumnList() {

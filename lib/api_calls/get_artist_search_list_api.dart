@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:sm_admin_portal/Models/artist_searched_model.dart';
 import 'package:sm_admin_portal/network_manager/network_manager.dart';
 import 'package:sm_admin_portal/store_manager/store_manager.dart';
