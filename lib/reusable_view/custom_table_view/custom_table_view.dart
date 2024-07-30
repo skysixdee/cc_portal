@@ -137,6 +137,8 @@ class CustomTableView extends StatelessWidget {
             return Container(
                 color: white,
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
                         height: 1, color: index == 0 ? transparent : greyLight),
@@ -200,7 +202,7 @@ class CustomTableView extends StatelessWidget {
                                                                         style:
                                                                             rowTextStyle,
                                                                         textAlign:
-                                                                            TextAlign.start),
+                                                                            TextAlign.center),
                                                                     // Text(
                                                                     //   rowList[index][column]
                                                                     //       .value,
