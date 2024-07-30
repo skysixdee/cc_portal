@@ -23,19 +23,29 @@ class ActivateTuneScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding:
-              const EdgeInsets.only(top: 20, left: 20, right: 10, bottom: 20),
+              const EdgeInsets.only(top: 8, left: 20, right: 10, bottom: 0),
+          child: SMText(
+            title: toneActivationStr,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Padding(
+          padding:
+              const EdgeInsets.only(top: 4, left: 20, right: 10, bottom: 20),
           child: Container(
             decoration: BoxDecoration(boxShadow: boxShadow, color: white),
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20),
+              padding: const EdgeInsets.only(top: 20, bottom: 10),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SMText(title: toneActivationStr),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,

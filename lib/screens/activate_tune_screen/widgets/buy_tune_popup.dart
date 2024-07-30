@@ -13,6 +13,7 @@ import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 import 'package:sm_admin_portal/reusable_view/sm_visibility_view.dart';
 
 import 'package:sm_admin_portal/utilily/colors.dart';
+import 'package:sm_admin_portal/utilily/constants.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
 
 openBuyTunePopup(String toneName, String toneId) {
@@ -168,18 +169,44 @@ class _BuyTunePopupState extends State<_BuyTunePopup> {
         absorbing: cont.isConfirming.value,
         child: Obx(
           () {
-            return SMDropDownButton(
-              buttonHeaderTitle: serviceTypeStr,
-              width: constraints.maxWidth,
-              // ignore: invalid_use_of_protected_member
-              items: cont.serviceTypeMenuList.value,
-              direction: PopoverDirection.bottom,
+            return Stack(
+              children: [
+                SMDropDownButton(
+                  buttonHeaderTitle: serviceTypeStr,
+                  width: constraints.maxWidth,
+                  // ignore: invalid_use_of_protected_member
+                  items: cont.serviceTypeMenuList.value,
+                  direction: PopoverDirection.bottom,
 
-              onChanged: (p0) {
-                print("on shnage = $p0");
-                cont.updateServiceType(p0);
-              },
-              buttonTitle: cont.selectedServiceTitle.value,
+                  onChanged: (p0) {
+                    print("on shnage = $p0");
+                    cont.updateServiceType(p0);
+                  },
+                  buttonTitle: cont.selectedServiceTitle.value,
+                ),
+                cont.loadingOffer.value
+                    ? Container(
+                        decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.circular(buttonCornerRadius),
+                            color: sixdColor),
+                        height: 60,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            smActivityIndicator(color: white),
+                            SizedBox(width: 10),
+                            SMText(
+                              title: loadingServiceMenuStr,
+                              textColor: white,
+                              fontWeight: FontWeight.normal,
+                            )
+                          ],
+                        ),
+                      )
+                    : SizedBox()
+              ],
             );
           },
         ),
@@ -191,17 +218,21 @@ class _BuyTunePopupState extends State<_BuyTunePopup> {
     return Obx(() {
       return AbsorbPointer(
         absorbing: cont.isConfirming.value,
-        child: SMDropDownButton(
-          buttonHeaderTitle: frequencyStr,
-          width: constraints.maxWidth,
-          items: cont.frequencyMenuList,
-          direction: PopoverDirection.bottom,
-          onChanged: (index) {
-            print("index sky = $index");
-            cont.updateFrequency(index);
-            // controller.getListOffer(index: index);
+        child: Obx(
+          () {
+            return SMDropDownButton(
+              buttonHeaderTitle: frequencyStr,
+              width: constraints.maxWidth,
+              items: cont.frequencyMenuList,
+              direction: PopoverDirection.bottom,
+              onChanged: (index) {
+                print("index sky = $index");
+                cont.updateFrequency(index);
+                // controller.getListOffer(index: index);
+              },
+              buttonTitle: cont.selectedFrequencyTitle.value,
+            );
           },
-          buttonTitle: cont.selectedFrequencyTitle.value,
         ),
       );
     });

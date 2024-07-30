@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
 import 'package:sm_admin_portal/Models/Generic_modal.dart';
 import 'package:sm_admin_portal/Models/offer_list_model.dart';
 import 'package:sm_admin_portal/api_calls/list_offer_api.dart';
@@ -9,6 +10,7 @@ import 'package:sm_admin_portal/utilily/strings.dart';
 class BuyTuneController extends GetxController {
   RxString errorMessage = ''.obs;
   RxBool isConfirming = false.obs;
+  RxBool loadingOffer = false.obs;
   int _selectedFrequencyIndex = 0;
   RxString selectedServiceTitle = ''.obs;
   RxString selectedFrequencyTitle = ''.obs;
@@ -23,8 +25,9 @@ class BuyTuneController extends GetxController {
     serviceTypeMenuList.clear();
     selectedFrequencyTitle.value = '';
     selectedServiceTitle.value = '';
-    errorMessage.value = loadingServiceMenuStr;
-    await Future.delayed(Duration(seconds: 1));
+
+    loadingOffer.value = true;
+
     OfferListModel offerListModel = await listOfferApi(index);
     errorMessage.value = '';
     print("Offer list ========= ${offerListModel.offerList?.length}");
@@ -33,6 +36,10 @@ class BuyTuneController extends GetxController {
       offerList.add(itm);
       serviceTypeMenuList.add(itm.offerMarketingName ?? '');
     }
+    errorMessage.value = offerList.isEmpty ? someThingWentWrongStr : "";
+    selectedServiceTitle.value = offerList.isEmpty ? someThingWentWrongStr : "";
+    ;
+    loadingOffer.value = false;
   }
 
   updateFrequency(int index) {

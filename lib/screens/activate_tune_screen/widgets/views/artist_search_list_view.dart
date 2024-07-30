@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:sm_admin_portal/controllers/search_controllers/search_artist_controller.dart';
 import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_view.dart';
+import 'package:sm_admin_portal/reusable_view/number_pagination.dart';
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 import 'package:sm_admin_portal/screens/activate_tune_screen/widgets/buy_tune_popup.dart';
@@ -35,16 +36,42 @@ class _ArtistSearchListViewState extends State<ArtistSearchListView> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () {
-        return cont.isLoading.value
-            ? loadingIndicatorView()
-            : (cont.artistNameTableList.isEmpty
-                ? SMText(title: cont.message.value)
-                : cont.isArtistNameTable.value
-                    ? artistNameTableBuilder()
-                    : artistTunesTableBuilder());
-      },
+    return Column(
+      children: [
+        Expanded(
+          child: Obx(
+            () {
+              return cont.isLoading.value
+                  ? loadingIndicatorView()
+                  : (cont.artistNameTableList.isEmpty
+                      ? SMText(title: cont.message.value)
+                      : cont.isArtistNameTable.value
+                          ? artistNameTableBuilder()
+                          : artistTunesTableBuilder());
+            },
+          ),
+        ),
+        Obx(
+          () {
+            return (cont.isArtistNameTable.value
+                        ? cont.totalArtistCount.value
+                        : cont.totalSongCount.value) <
+                    pagePerCount
+                ? SizedBox()
+                : NumberPagination(
+                    totalItem: cont.isArtistNameTable.value
+                        ? cont.totalArtistCount.value
+                        : cont.totalSongCount.value,
+                    tappedIndex: (value) {
+                      if (cont.isArtistNameTable.value) {
+                        cont.loadMoreArtistList(value);
+                      } else {
+                        cont.loadMoreArtistTuneList(value);
+                      }
+                    });
+          },
+        )
+      ],
     );
   }
 

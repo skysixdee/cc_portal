@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sm_admin_portal/controllers/search_controllers/search_tone_controller.dart';
 import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_view.dart';
+import 'package:sm_admin_portal/reusable_view/number_pagination.dart';
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 import 'package:sm_admin_portal/screens/activate_tune_screen/widgets/buy_tune_popup.dart';
 import 'package:sm_admin_portal/screens/subscriber_deatil_screen/widget/tone_list_table.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
+import 'package:sm_admin_portal/utilily/constants.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
 
 class SearchedToneListView extends StatefulWidget {
@@ -33,15 +35,37 @@ class _SearchedToneListViewState extends State<SearchedToneListView> {
 
   @override
   Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Expanded(
+          child: Obx(
+            () {
+              return cont.isLoading.value
+                  ? Center(child: loadingIndicatorView())
+                  : cont.purchaseList.isEmpty
+                      ? Center(
+                          child: SMText(title: cont.message.value),
+                        )
+                      : tableBuilder();
+            },
+          ),
+        ),
+        numberPageBuilder()
+      ],
+    );
+  }
+
+  Obx numberPageBuilder() {
     return Obx(
       () {
-        return cont.isLoading.value
-            ? Center(child: loadingIndicatorView())
-            : cont.purchaseList.isEmpty
-                ? Center(
-                    child: SMText(title: cont.message.value),
-                  )
-                : tableBuilder();
+        return cont.totolCount < pagePerCount
+            ? SizedBox()
+            : NumberPagination(
+                totalItem: cont.totolCount.value,
+                tappedIndex: (value) {
+                  print("tapped on $value");
+                  cont.loadMoreData(value);
+                });
       },
     );
   }
@@ -67,15 +91,6 @@ class _SearchedToneListViewState extends State<SearchedToneListView> {
                 onTap: () {
                   openBuyTunePopup(cont.purchaseList[row][0].value,
                       cont.purchaseList[row][2].value);
-                  // Get.dialog(
-                  //   barrierDismissible: false,
-                  //   Center(
-                  //     child: BuyTunePopup(
-                  //       toneName: cont.purchaseList[row][0].value,
-                  //       toneId: cont.purchaseList[row][2].value,
-                  //     ),
-                  //   ),
-                  // );
                 },
               ),
             ],

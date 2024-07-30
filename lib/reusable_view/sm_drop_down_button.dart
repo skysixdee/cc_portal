@@ -46,7 +46,8 @@ class SMDropDownButton extends StatelessWidget {
   RxString _selectedLocalTitle = ''.obs;
   @override
   Widget build(BuildContext context) {
-    selectedIndex.value = -1;
+    //selectedIndex.value = -1;
+    selectedIndex.value = items.indexOf(buttonTitle);
     _selectedLocalTitle.value =
         buttonTitle.isEmpty ? (buttonHintTitle ?? selectStr) : buttonTitle;
     return Column(
@@ -64,7 +65,9 @@ class SMDropDownButton extends StatelessWidget {
             return InkWell(
               onTap: () {
                 //if (isDisplayPopup) {
-                popupOverOpen(ctx);
+                items.isEmpty
+                    ? print("No data to display")
+                    : popupOverOpen(ctx);
                 //}
                 print(
                     "CustomDropDownButton ${MediaQuery.of(context).size} \n ${Get.width}");
@@ -180,7 +183,7 @@ class SMDropDownButton extends StatelessWidget {
     );
   }
 
-  InkWell listCell(BuildContext context, int index, bool isHovered) {
+  Widget listCell(BuildContext context, int index, bool isHovered) {
     return InkWell(onTap: () {
       Navigator.of(context).pop();
       selectedIndex.value = index;
@@ -230,8 +233,6 @@ class SMDropDownButton extends StatelessWidget {
       },
     ));
   }
-
-  void refresh() {}
 }
 
 // ignore_for_file: library_private_types_in_public_api
@@ -271,6 +272,7 @@ class _CustomOnHoverState extends State<CustomOnHover> {
   void onEntered(bool isHovered) {
     setState(() {
       this.isHovered = isHovered;
+      print("hovered ");
     });
   }
 }
