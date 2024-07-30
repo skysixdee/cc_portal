@@ -10,6 +10,8 @@ import 'package:sm_admin_portal/utilily/strings.dart';
 class SearchToneIdController extends GetxController {
   ActivateTuneController activateTuneController = Get.find();
   RxList<ToneInfo> toneList = <ToneInfo>[].obs;
+  RxInt totolCount = 0.obs;
+  RxString message = ''.obs;
   RxList<List<CustomTableViewModel>> purchaseList =
       <List<CustomTableViewModel>>[].obs;
   RxBool isLoading = false.obs;
@@ -23,19 +25,31 @@ class SearchToneIdController extends GetxController {
   }
 
   _searchToneId(String toneId) async {
+    totolCount.value = 0;
+    toneList.clear();
+    purchaseList.clear();
+
     if (toneId.isEmpty) {
+      message.value = searchResultHereStr;
       return;
     }
-    toneList.clear();
     isLoading.value = true;
+
     ArtistsToneModel artistsToneModel = await searchToneIdApi(toneId);
     toneList.value = artistsToneModel.responseMap?.toneList ?? [];
+    totolCount.value = artistsToneModel.responseMap?.resultCount ?? 0;
     if (toneList.isNotEmpty) {
       createHeaderColumnList();
       createRowList(toneList);
+    } else {
+      message.value = noResultFoundStr;
     }
 
     isLoading.value = false;
+  }
+
+  loadMoreData(int index) {
+    print("index tapped $index");
   }
 
   createHeaderColumnList() {

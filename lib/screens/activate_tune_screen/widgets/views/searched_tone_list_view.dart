@@ -36,6 +36,8 @@ class _SearchedToneListViewState extends State<SearchedToneListView> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
           child: Obx(
@@ -44,7 +46,10 @@ class _SearchedToneListViewState extends State<SearchedToneListView> {
                   ? Center(child: loadingIndicatorView())
                   : cont.purchaseList.isEmpty
                       ? Center(
-                          child: SMText(title: cont.message.value),
+                          child: SMText(
+                            title: cont.message.value,
+                            fontSize: 16,
+                          ),
                         )
                       : tableBuilder();
             },

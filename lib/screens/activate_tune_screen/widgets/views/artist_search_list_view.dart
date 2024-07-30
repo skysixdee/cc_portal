@@ -37,6 +37,8 @@ class _ArtistSearchListViewState extends State<ArtistSearchListView> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
           child: Obx(
@@ -44,7 +46,11 @@ class _ArtistSearchListViewState extends State<ArtistSearchListView> {
               return cont.isLoading.value
                   ? loadingIndicatorView()
                   : (cont.artistNameTableList.isEmpty
-                      ? SMText(title: cont.message.value)
+                      ? Center(
+                          child: SMText(
+                          title: cont.message.value,
+                          fontSize: 16,
+                        ))
                       : cont.isArtistNameTable.value
                           ? artistNameTableBuilder()
                           : artistTunesTableBuilder());

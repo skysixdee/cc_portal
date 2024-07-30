@@ -12,7 +12,7 @@ import 'package:sm_admin_portal/utilily/strings.dart';
 class SearchArtistController extends GetxController {
   RxBool isLoading = false.obs;
   String searchedName = '';
-  RxString message = ''.obs;
+  RxString message = searchResultHereStr.obs;
   RxBool isArtistNameTable = true.obs;
   String artistName = '';
   RxInt totalSongCount = 0.obs;
@@ -44,7 +44,10 @@ class SearchArtistController extends GetxController {
     totalArtistCount.value = 0;
     totalSongCount.value = 0;
     searchedName = name;
+    artistNameTableList.clear();
+    artistsTuneTableList.clear();
     if (searchedName.isEmpty) {
+      message.value = searchResultHereStr;
       return;
     }
     _artistList.clear();

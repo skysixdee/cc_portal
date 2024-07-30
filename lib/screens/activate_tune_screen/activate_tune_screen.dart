@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:sm_admin_portal/enums/search_type.dart';
 import 'package:sm_admin_portal/reusable_view/box_shadow.dart';
+import 'package:sm_admin_portal/reusable_view/sm_button.dart';
 
 import 'package:sm_admin_portal/screens/activate_tune_screen/widgets/views/artist_search_list_view.dart';
 import 'package:sm_admin_portal/screens/activate_tune_screen/widgets/views/searched_tone_list_view.dart';
@@ -55,6 +56,22 @@ class ActivateTuneScreen extends StatelessWidget {
                             TextEditingController()), //textField(),
                         width: 400,
                       ),
+                      SizedBox(width: 20),
+                      Flexible(
+                        child: SMButton(
+                          height: 38,
+                          width: 140,
+                          bgColor: sixdColor,
+                          textColor: white,
+                          title: searchCStr,
+                          onTap: () {
+                            cont.searchText();
+                            if (cont.onSearchTap != null) {
+                              cont.onSearchTap!(cont.searchedText);
+                            }
+                          },
+                        ),
+                      ),
                     ],
                   ),
                   activateTuneSearchTypeBuilder(cont),
@@ -63,7 +80,7 @@ class ActivateTuneScreen extends StatelessWidget {
             ),
           ),
         ),
-        Flexible(
+        Expanded(
           child: Padding(
             padding: const EdgeInsets.only(right: 12),
             child: Obx(() {

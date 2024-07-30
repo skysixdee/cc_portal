@@ -1,10 +1,9 @@
-
 import 'package:flutter/material.dart';
 
 import 'package:get/state_manager.dart';
 import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_view_model.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
-                        
+
 class CustomTableView extends StatelessWidget {
   final List<CustomTableViewModel> headerColumList;
   final List<List<CustomTableViewModel>> rowList;
@@ -64,7 +63,8 @@ class CustomTableView extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(3),
       child: Column(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           tableHeaderView(),
           Flexible(

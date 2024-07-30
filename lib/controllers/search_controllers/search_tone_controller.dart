@@ -14,7 +14,7 @@ class SearchToneController extends GetxController {
 
   RxBool isLoading = false.obs;
   RxList<ToneInfo> _toneList = <ToneInfo>[].obs;
-  RxString message = ''.obs;
+  RxString message = searchResultHereStr.obs;
   RxInt totolCount = 0.obs;
   String searchedText = '';
   @override
@@ -29,10 +29,13 @@ class SearchToneController extends GetxController {
 
   Future<void> _searchTone(String text, {int pageNo = 0}) async {
     searchedText = text;
+    purchaseList.clear();
+    totolCount.value = 0;
     if (searchedText.isEmpty) {
+      message.value = searchResultHereStr;
       return;
     }
-    purchaseList.clear();
+
     isLoading.value = true;
     SearchToneModel searchToneModel =
         await searchToneApi(text, "148", pageNo: pageNo);
@@ -43,6 +46,8 @@ class SearchToneController extends GetxController {
     if (_toneList.isNotEmpty) {
       createHeaderColumnList();
       createRowList(_toneList);
+    } else {
+      message.value = noResultFoundStr;
     }
 
     return;
