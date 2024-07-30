@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
+import 'package:sm_admin_portal/Models/Generic_modal.dart';
+import 'package:sm_admin_portal/api_calls/delete_tone_api.dart';
 import 'package:sm_admin_portal/controllers/Tone_list_controller.dart';
 import 'package:sm_admin_portal/reusable_view/reusable_alert_dialog/reusable_alert_dialog_box.dart';
+import 'package:sm_admin_portal/reusable_view/sm_button.dart';
+import 'package:sm_admin_portal/reusable_view/sm_text.dart';
+import 'package:sm_admin_portal/utilily/colors.dart';
+import 'package:sm_admin_portal/utilily/strings.dart';
 import '../../../reusable_view/custom_table_view/custom_table_view.dart';
 
 class SettingsListTable extends StatelessWidget {
@@ -12,34 +19,88 @@ class SettingsListTable extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() {
       return CustomTableView(
-        cellHeight: 60,
-        headerHeight: 60,
-        headerBgColor: Colors.grey[300],
+        // cellHeight: 60,
+        //  headerHeight: 60,
+        // headerBgColor: Colors.grey[300],
         headerColumList: cont.toneList[0],
         rowList: cont.toneList,
         child: (row, colum) {
           return InkWell(
-            onTap: () {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return ReusableAlertDialog(
-                    // isLoading: false,
-                    textLine1:
-                        '  Are you sure you want to unsubscribe talk to me?',
-                    textLine2: "  You can't undo this action.",
-                    onYesPressed: () {
-                      loadingIndicatorView();
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return ReusableAlertDialog(
+                      // isLoading: false,
+                      textLine1:
+                          '  Are you sure you want to unsubscribe talk to me?',
+                      textLine2: "  You can't undo this action.",
+                      onYesPressed: () {
+                        loadingIndicatorView();
+                     
+                        // cont.ToneList.removeAt(row);
+                        Navigator.of(context).pop();
+                      },
+                    
+                    );
+                  },
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SMButton(
+                  // title: DeactivateStr,
+                  // fontSize: 10,
+                  // textColor: white,
+                  // bgColor: sixdColor,
+                   height: 40,
+                        titlePadding: EdgeInsets.symmetric(horizontal: 20),
+                        title: DeactivateStr,
+                        fontWeight: FontWeight.normal,
+                        fontSize: 14,
+                        bgColor: sixdColor,
+                        textColor: white,
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return ReusableAlertDialog(
+                          // isLoading: false,
+                          textLine1: '  Are you sure you want to Deactivate?',
+                          textLine2: "  You can't undo this action.",
+                          onYesPressed: () async {
+                            print("odd");
 
-                      // cont.ToneList.removeAt(row);
-                      Navigator.of(context).pop();
-                    },
-                  );
-                },
-              );
-            },
-            child: Icon(Icons.clear, size: 25),
-          );
+                            //  GenericModal modal = await deleteToneApi(offerStatus);
+                            loadingIndicatorView();
+                            cont.toneList.removeAt(row);
+
+                            Navigator.of(context).pop();
+                          },
+                        );
+                      },
+                    );
+                    print("object");
+                  },
+                ),
+                // child: Container(
+                //                 height: 50,
+                //                 width: 120,
+                //                 padding: EdgeInsets.symmetric(horizontal: 8),
+                //                 decoration: BoxDecoration(
+                //                   borderRadius: BorderRadius.circular(10),
+                //                   color: sixdColor,
+                //                 ),
+                //                 child: Center(
+                //                   child: SMText(
+                //                     title: submitStr,
+                //                     textColor: white,
+                //                   ),
+                //                 ),
+                //               ),
+                // ),
+                //    child: SMText(title: activateStr),
+              ));
         },
       );
     });

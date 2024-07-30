@@ -56,13 +56,15 @@ Future<GenericModal> deleteToneApi(String? offerStatus) async {
 
 };
 
-  await Future.delayed(Duration(seconds: 3));
+ //await Future.delayed(Duration(seconds: 3));
   Map<String, dynamic> jsonMap =
       await NetworkManager().postResquest(url, jsonData);
 GenericModal modal =GenericModal.fromJson(jsonMap);
   print("modal =${modal.message}");
-  // print("modal Offers=${modal.offers?.length}");
-  // print("modal  respCode =${modal.respCode}");
+ 
   return modal;
-  //createRowList(modal.offers, phoneNumber);
+ 
 }
+ // print("modal Offers=${modal.offers?.length}");
+  // print("modal  respCode =${modal.respCode}");
+   //createRowList(modal.offers, phoneNumber);

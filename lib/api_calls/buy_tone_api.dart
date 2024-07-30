@@ -56,11 +56,12 @@ import 'package:sm_admin_portal/Models/list_setting_modal.dart';
 import 'package:sm_admin_portal/Models/subscribers_modal.dart';
 import 'package:sm_admin_portal/network_manager/network_manager.dart';
 
-Future<ListSettingModel> BuyToneApi() async {
+Future<ListSettingModel> BuyToneApi(offerstatus) async {
   String url = 'http://10.0.10.33:5679/selfcare/subscriber-management/buy-tone';
 
   // 'http://10.0.14.4:8082/selfcare/subscriber-management/list-settings';
   //  jsonData: );;
+  //await Future.delayed(Duration(seconds: 1));
   Map<String, dynamic> jsonData =
       //{
       // "transactionId": "64834346535",

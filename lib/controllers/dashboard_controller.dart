@@ -92,6 +92,7 @@ import 'package:intl/intl.dart';
 
 class DashboardController extends GetxController {
   var isLoading = false.obs;
+ 
   var isSubmitted = false.obs;
   var mobileNumber = ''.obs;
   var phoneNumber = ''.obs;
@@ -99,6 +100,7 @@ class DashboardController extends GetxController {
   RxList<Offer> subscriptionList = <Offer>[].obs;
   RxList<SettingsList> settingsList = <SettingsList>[].obs;
   var subscriptionDetails = <Map<String, dynamic>>[].obs;
+  
 
   void handleSubmit(String phoneNumber) async {
     isLoading.value = true;
@@ -123,18 +125,36 @@ class DashboardController extends GetxController {
       isSubmitted.value = true;
     }
   }
+ String _formatDate(String? date) {
+  if (date == null || date.isEmpty) return "";
 
-   
+  DateTime parsedDate = DateTime.parse(date);
+  String day = DateFormat('d').format(parsedDate); 
+  String month = DateFormat('MMM').format(parsedDate); 
+  String year = DateFormat('yyyy').format(parsedDate); 
 
+ 
+  String dayWithSuffix = _getDayWithSuffix(int.parse(day));
 
+  return '$dayWithSuffix $month $year';
+}
 
-  String _formatDate(String? date) {
-    if (date == null || date.isEmpty) return "";
-    DateTime parsedDate = DateTime.parse(date);
-    return DateFormat('dd-MM-yyyy').format(parsedDate);
-
-    
+String _getDayWithSuffix(int day) {
+  if (day >= 11 && day <= 13) {
+    return '${day}th';
   }
+  switch (day % 10) {
+    case 1:
+      return '${day}st';
+    case 2:
+      return '${day}nd';
+    case 3:
+      return '${day}rd';
+    default:
+      return '${day}th';
+  }
+}
+
 }
 
 
