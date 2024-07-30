@@ -53,7 +53,7 @@ class SideMenuController extends GetxController {
       SideSubMenuModel(dashBoardStr, dashBoardRoute),
       SideSubMenuModel(suspendAndResumeStr, suspendResumeRoute),
       SideSubMenuModel(toneActivationStr, toneActivationRoute),
-      SideSubMenuModel(toneActivationStr, activateScreenRoute),
+      //SideSubMenuModel(toneActivationStr, activateScreenRoute),
       SideSubMenuModel(transactionHistoryStr, transactionHistoryRoute),
       SideSubMenuModel(
           subscriberDetailAndDeactivationStr, subscriberDetailRoute),
