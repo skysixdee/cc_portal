@@ -33,8 +33,8 @@ class _SkyDashboardViewState extends State<SkyDashboardView> {
               value: 'toneName${i}', isVisible: true.obs, isButton: true),
           CustomTableViewModel(
               value: 'toneId${i}', isVisible: true.obs, isButton: true),
-          CustomTableViewModel(value: 'artistName${i}', isVisible: true.obs),
-          CustomTableViewModel(value: 'price${i}', isVisible: true.obs),
+          CustomTableViewModel(value: '30/05/2024', isVisible: true.obs),
+          CustomTableViewModel(value: '30/06/2024', isVisible: true.obs),
         ],
       );
     }
@@ -77,34 +77,30 @@ class _SkyDashboardViewState extends State<SkyDashboardView> {
                     ),
                   ],
                 )
-              : Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Expanded(
-                    child: SizedBox(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          SMText(
-                            title: row == 1 ? "DeActivate" : "Activate",
-                            textColor: row == 1 ? redColor : greenColor,
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              SMButton(
-                                titlePadding:
-                                    EdgeInsets.symmetric(horizontal: 8),
-                                height: 30,
-                                fontWeight: FontWeight.normal,
-                                title: row == 1 ? "Activate" : "Deactivate",
-                                textColor: white,
-                                bgColor: row == 1 ? greenColor : redColor,
-                              ),
-                            ],
-                          )
-                        ],
+              : Expanded(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SMText(
+                        title: row == 1 ? "DeActivate" : "Activate",
+                        textColor: row == 1 ? redColor : greenColor,
                       ),
-                    ),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SMButton(
+                            titlePadding: EdgeInsets.symmetric(horizontal: 8),
+                            height: 30,
+                            fontWeight: FontWeight.normal,
+                            title: row == 1 ? "Activate" : "Deactivate",
+                            textColor: white,
+                            bgColor: row == 1 ? greenColor : redColor,
+                          ),
+                        ],
+                      )
+                    ],
                   ),
                 );
         },
