@@ -11,7 +11,6 @@ import 'package:sm_admin_portal/controllers/dashboard_controller.dart';
 import 'package:sm_admin_portal/reusable_view/open_generic_popup_view.dart';
 import 'package:sm_admin_portal/reusable_view/reusable_alert_dialog/resuable.dart';
 
-
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
@@ -144,13 +143,11 @@ class DashBoardScreen extends StatelessWidget {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(5),
                                 color: sixdColor,
-                               
                               ),
                               child: Center(
                                 child: SMText(
                                   title: submitStr,
                                   textColor: white,
-
                                 ),
                               ),
                             ),
@@ -198,6 +195,9 @@ class DashBoardScreen extends StatelessWidget {
       textColor: black,
       addBorder: true,
       borderColor: sixdColor,
+      onTap: () {
+        context.goNamed(activateScreenRoute);
+      },
     );
   }
 
@@ -277,204 +277,208 @@ class DashBoardScreen extends StatelessWidget {
           () => controller.isLoading.value
               ? Center(child: CircularProgressIndicator())
               : SMButton(
-  bgColor: (controller.subscriptionList[index].offerStatus == "A")
-      ? redColor
-      : greenColor,
-  title: (controller.subscriptionList[index].offerStatus == "A")
-      ? DeactivateStr
-      : activateStr,
-  textColor: white,
-  onTap: () {
-    String action = (controller.subscriptionList[index].offerStatus == "A")
-        ? "deactivate"
-        : "activate";
+                  bgColor:
+                      (controller.subscriptionList[index].offerStatus == "A")
+                          ? redColor
+                          : greenColor,
+                  title: (controller.subscriptionList[index].offerStatus == "A")
+                      ? DeactivateStr
+                      : activateStr,
+                  textColor: white,
+                  onTap: () {
+                    String action =
+                        (controller.subscriptionList[index].offerStatus == "A")
+                            ? "deactivate"
+                            : "activate";
 
+                    Get.dialog(
+                      ReusableAlertDialogBox(
+                        textLine1: 'Are you sure you want to $action?',
+                        onYesPressed: (dialogContext) async {
+                          Navigator.of(dialogContext).pop();
 
-   
-    Get.dialog(
-      ReusableAlertDialogBox(
-        textLine1: 'Are you sure you want to $action?',
-        onYesPressed: (dialogContext) async {
-          
-          Navigator.of(dialogContext).pop();
+                          try {
+                            if (controller
+                                    .subscriptionList[index].offerStatus ==
+                                "A") {
+                              final response = await deleteToneApi(controller
+                                  .subscriptionList[index].offerStatus);
+                              if (response.respCode == 0 ||
+                                  response.respCode == 2001) {
+                                controller.subscriptionList[index].offerStatus =
+                                    "S";
+                                controller.subscriptionList.refresh();
+                              } else {
+                                openGenericPopup(
+                                  'Failed to update the offer status.',
+                                  headerTitle: 'Error',
+                                );
+                              }
+                            } else {
+                              final response = await BuyToneApi(controller
+                                  .subscriptionList[index].offerStatus);
+                              if (response.respCode == 0) {
+                                controller.subscriptionList[index].offerStatus =
+                                    "A";
+                                controller.subscriptionList.refresh();
+                              } else {
+                                // openGenericPopup(
+                                //   'Failed to update the offer status.',
+                                //   headerTitle: 'Error',
 
-          try {
-            if (controller.subscriptionList[index].offerStatus == "A") {
-              final response = await deleteToneApi(
-                  controller.subscriptionList[index].offerStatus);
-              if (response.respCode == 0 || response.respCode == 2001) {
-                controller.subscriptionList[index].offerStatus = "S";
-                controller.subscriptionList.refresh();
-              } else {
-                openGenericPopup(
-                  'Failed to update the offer status.',
-                  headerTitle: 'Error',
-                );
-              }
-            } else {
-              final response = await BuyToneApi(
-                  controller.subscriptionList[index].offerStatus);
-              if (response.respCode == 0) {
-                controller.subscriptionList[index].offerStatus = "A";
-                controller.subscriptionList.refresh();
-              } else {
-                openGenericPopup(
-                  'Failed to update the offer status.',
-                  headerTitle: 'Error',
+                                //     try {
+                                //       // Perform the API call
+                                //       // if (controller.subscriptionList[index].offerStatus ==
+                                //       //     "A") {
+                                //       //   await deleteToneApi(
+                                //       //       controller.subscriptionList[index].offerStatus);
+                                //       // } else {
+                                //       //   await BuyToneApi(
+                                //       //       controller.subscriptionList[index].offerStatus);
+                                //       // }
 
-                    try {
-                      // Perform the API call
-                      // if (controller.subscriptionList[index].offerStatus ==
-                      //     "A") {
-                      //   await deleteToneApi(
-                      //       controller.subscriptionList[index].offerStatus);
-                      // } else {
-                      //   await BuyToneApi(
-                      //       controller.subscriptionList[index].offerStatus);
-                      // }
+                                //       // // Update the offer status and refresh the list
+                                //       // controller.subscriptionList[index].offerStatus =
+                                //       //     (controller.subscriptionList[index].offerStatus ==
+                                //       //             "A")
+                                //       //         ? "S"
+                                //       //         : "A";
+                                //       // controller.subscriptionList.refresh();
+                                //     } finally {
+                                //       // Close the loading indicator dialog
+                                //       Navigator.of(dialogContext)
+                                //           .pop(); // Dismiss loading dialog
+                                //     }
+                                //   },
 
-                      // // Update the offer status and refresh the list
-                      // controller.subscriptionList[index].offerStatus =
-                      //     (controller.subscriptionList[index].offerStatus ==
-                      //             "A")
-                      //         ? "S"
-                      //         : "A";
-                      // controller.subscriptionList.refresh();
-                    } finally {
-                      // Close the loading indicator dialog
-                      Navigator.of(dialogContext)
-                          .pop(); // Dismiss loading dialog
-                    }
+                                // );
+                              }
+                            }
+                          } catch (e) {
+                            openGenericPopup(
+                              'Failed to update the offer status.',
+                              headerTitle: 'Error',
+                            );
+                          }
+                        },
+                      ),
+                    );
                   },
+                ),
+        ),
+      ],
+    );
+  }
+}
 
-                );
-              }
-            }
-          } catch (e) {
-            openGenericPopup(
-              'Failed to update the offer status.',
-              headerTitle: 'Error',
+Column secondColumn(DashboardController controller, int index) {
+  return Column(
+    children: [
+      Row(
+        children: [
+          SMText(
+            title: tempStatusStr,
+            fontWeight: FontWeight.normal,
+            fontSize: 14,
+          ),
+          SMText(title: " : "),
+          Obx(() {
+            return SMText(
+              title: (controller.settingsList[index].status == "A")
+                  ? "ACTIVE"
+                  : "SUSPEND",
+              fontWeight: FontWeight.normal,
+              fontSize: 14,
+              textColor: (controller.settingsList[index].status == "A")
+                  ? greenColor
+                  : redColor,
             );
-          }
-        },
+          })
+        ],
       ),
-    );
-  },
-),
+      SMText(title: " "),
+      Obx(() {
+        return SMButton(
+          bgColor: (controller.settingsList[index].status == "A")
+              ? redColor
+              : greenColor,
+          title: (controller.settingsList[index].status == "A")
+              ? "Resume" //resumeServiceStr
+              : "Suspend", //suspendServiceStr,
+          textColor: white,
+          onTap: () {
+            String action = (controller.settingsList[index].status == "A")
+                ? "Resume" //"resumeServiceStr
+                : "Suspend"; //suspendServiceStr;
+            showDialog(
+              context: Get.context!,
+              builder: (BuildContext context) {
+                return ReusableAlertDialogBox(
+                  textLine1: 'Are you sure you want to $action?',
+                  onYesPressed: (dialogContext) {
+                    controller.settingsList[index].status =
+                        (controller.settingsList[index].status == "A")
+                            ? "S"
+                            : "A";
 
-        ),
-      ],
-    );
-  }}
+                    controller.settingsList.refresh();
+                    Navigator.of(dialogContext).pop();
+                    String? currentStatus =
+                        controller.settingsList[index].status;
+                    print("Current Status in Button: $currentStatus");
+                    print("Current Status in Dialog: $currentStatus");
+                  },
+                );
+              },
+            );
+          },
+        );
+      }),
+    ],
+  );
+}
 
-  Column secondColumn(DashboardController controller, int index) {
-    return Column(
-      children: [
-        Row(
-          children: [
-            SMText(
-              title: tempStatusStr,
-              fontWeight: FontWeight.normal,
-              fontSize: 14,
-            ),
-            SMText(title: " : "),
-            Obx(() {
-              return SMText(
-                title: (controller.settingsList[index].status == "A")
-                    ? "ACTIVE"
-                    : "SUSPEND",
-                fontWeight: FontWeight.normal,
-                fontSize: 14,
-                textColor: (controller.settingsList[index].status == "A")
-                    ? greenColor
-                    : redColor,
-              );
-            })
-          ],
-        ),
-        SMText(title: " "),
-        Obx(() {
-          return SMButton(
-            bgColor: (controller.settingsList[index].status == "A")
-                ? redColor
-                : greenColor,
-            title: (controller.settingsList[index].status == "A")
-                ? "Resume" //resumeServiceStr
-                : "Suspend", //suspendServiceStr,
-            textColor: white,
-            onTap: () {
-              String action = (controller.settingsList[index].status == "A")
-                  ? "Resume" //"resumeServiceStr
-                  : "Suspend"; //suspendServiceStr;
-              showDialog(
-                context: Get.context!,
-                builder: (BuildContext context) {
-                  return ReusableAlertDialogBox(
-                    textLine1: 'Are you sure you want to $action?',
-                    onYesPressed: (dialogContext) {
-                      controller.settingsList[index].status =
-                          (controller.settingsList[index].status == "A")
-                              ? "S"
-                              : "A";
+Column thirdColumn(DashboardController controller, int index) {
+  return Column(
+    children: [
+      Row(
+        children: [
+          SMText(
+            title: lastRenewedStr,
+            fontWeight: FontWeight.normal,
+            fontSize: 14,
+          ),
+        ],
+      ),
+      SMText(
+        title: "${controller.subscriptionList[index].chargedDate}",
+        fontWeight: FontWeight.normal,
+        fontSize: 14,
+      ),
+    ],
+  );
+}
 
-                      controller.settingsList.refresh();
-                      Navigator.of(dialogContext).pop();
-                      String? currentStatus =
-                          controller.settingsList[index].status;
-                      print("Current Status in Button: $currentStatus");
-                      print("Current Status in Dialog: $currentStatus");
-                    },
-                  );
-                },
-              );
-            },
-          );
-        }),
-      ],
-    );
-  }
-
-  Column thirdColumn(DashboardController controller, int index) {
-    return Column(
-      children: [
-        Row(
-          children: [
-            SMText(
-              title: lastRenewedStr,
-              fontWeight: FontWeight.normal,
-              fontSize: 14,
-            ),
-          ],
-        ),
-        SMText(
-          title: "${controller.subscriptionList[index].chargedDate}",
-          fontWeight: FontWeight.normal,
-          fontSize: 14,
-        ),
-      ],
-    );
-  }
-
-  Column fourthColumn(DashboardController controller, int index) {
-    return Column(
-      children: [
-        Row(
-          children: [
-            SMText(
-              title: nextRenewalDateStr,
-              fontWeight: FontWeight.normal,
-              fontSize: 14,
-            ),
-          ],
-        ),
-        SMText(
-          title: "${controller.subscriptionList[index].expiryDate}",
-          fontWeight: FontWeight.normal,
-          fontSize: 14,
-        )
-      ],
-    );
-  }
+Column fourthColumn(DashboardController controller, int index) {
+  return Column(
+    children: [
+      Row(
+        children: [
+          SMText(
+            title: nextRenewalDateStr,
+            fontWeight: FontWeight.normal,
+            fontSize: 14,
+          ),
+        ],
+      ),
+      SMText(
+        title: "${controller.subscriptionList[index].expiryDate}",
+        fontWeight: FontWeight.normal,
+        fontSize: 14,
+      )
+    ],
+  );
+}
 
 
 // class DashBoardScreen extends StatelessWidget {
