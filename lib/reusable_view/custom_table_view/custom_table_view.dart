@@ -202,7 +202,7 @@ class CustomTableView extends StatelessWidget {
                                                                         style:
                                                                             rowTextStyle,
                                                                         textAlign:
-                                                                            TextAlign.center),
+                                                                            TextAlign.start),
                                                                     // Text(
                                                                     //   rowList[index][column]
                                                                     //       .value,

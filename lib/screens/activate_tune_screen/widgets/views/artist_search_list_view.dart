@@ -45,15 +45,7 @@ class _ArtistSearchListViewState extends State<ArtistSearchListView> {
             () {
               return cont.isLoading.value
                   ? loadingIndicatorView()
-                  : (cont.artistNameTableList.isEmpty
-                      ? Center(
-                          child: SMText(
-                          title: cont.message.value,
-                          fontSize: 16,
-                        ))
-                      : cont.isArtistNameTable.value
-                          ? artistNameTableBuilder()
-                          : artistTunesTableBuilder());
+                  : loadTableBuilder();
             },
           ),
         ),
@@ -79,6 +71,69 @@ class _ArtistSearchListViewState extends State<ArtistSearchListView> {
         )
       ],
     );
+  }
+
+  Widget loadTableBuilder() {
+    return cont.isArtistNameTable.value
+        ? (cont.artistNameTableList.isEmpty
+            ? Center(
+                child: SMText(
+                title: cont.message.value,
+                fontSize: 16,
+              ))
+            : artistNameTableBuilder())
+        : (cont.artistTuneList.isEmpty
+            ? Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 20),
+                    child: SMButton(
+                      leadingChild: Padding(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: Container(
+                            height: 40,
+                            width: 40,
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.circular(buttonCornerRadius),
+                              color: sixdColor,
+                            ),
+                            child: Center(
+                                child: Icon(
+                              Icons.arrow_back,
+                              size: 22,
+                              color: white,
+                            ))),
+                      ),
+                      title: cont.artistName,
+                      titlePadding: EdgeInsets.zero,
+                      onTap: () {
+                        cont.isArtistNameTable.value = true;
+                      },
+                    ),
+                  ),
+                  Flexible(
+                    child: Center(
+                        child: SMText(
+                      title: cont.message.value,
+                      fontSize: 16,
+                    )),
+                  ),
+                ],
+              )
+            : artistTunesTableBuilder());
+    /*
+    (cont.artistNameTableList.isEmpty
+        ? 
+        Center(
+            child: SMText(
+            title: cont.message.value,
+            fontSize: 16,
+          ))
+        : cont.isArtistNameTable.value
+            ? artistNameTableBuilder()
+            : artistTunesTableBuilder());
+            */
   }
 
   Widget artistTunesTableBuilder() {
@@ -135,16 +190,6 @@ class _ArtistSearchListViewState extends State<ArtistSearchListView> {
                           openBuyTunePopup(
                               cont.artistsTuneTableList[row][0].value,
                               cont.artistsTuneTableList[row][1].value);
-                          // Get.dialog(
-                          //   barrierDismissible: false,
-                          //   Center(
-                          //     child: BuyTunePopup(
-                          //       toneName:
-                          //           cont.artistsTuneTableList[row][0].value,
-                          //       toneId: cont.artistsTuneTableList[row][1].value,
-                          //     ),
-                          //   ),
-                          // );
                         },
                       ),
                     ],

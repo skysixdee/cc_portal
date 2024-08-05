@@ -11,44 +11,47 @@ String artistSearchModelToJson(ArtistSearchModel data) =>
     json.encode(data.toJson());
 
 class ArtistSearchModel {
+  ResponseMap? responseMap;
   String? message;
   String? respTime;
   String? statusCode;
-  ResponseMap? responseMap;
 
   ArtistSearchModel({
+    this.responseMap,
     this.message,
     this.respTime,
     this.statusCode,
-    this.responseMap,
   });
 
   factory ArtistSearchModel.fromJson(Map<String, dynamic> json) =>
       ArtistSearchModel(
-        message: json["message"],
-        respTime: json["respTime"],
-        statusCode: json["statusCode"],
         responseMap: json["responseMap"] == null
             ? null
             : ResponseMap.fromJson(json["responseMap"]),
+        message: json["message"],
+        respTime: json["respTime"],
+        statusCode: json["statusCode"],
       );
 
   Map<String, dynamic> toJson() => {
+        "responseMap": responseMap?.toJson(),
         "message": message,
         "respTime": respTime,
         "statusCode": statusCode,
-        "responseMap": responseMap?.toJson(),
       };
 }
 
 class ResponseMap {
+  int? resultCount;
   List<ArtistList>? artistList;
 
   ResponseMap({
+    this.resultCount,
     this.artistList,
   });
 
   factory ResponseMap.fromJson(Map<String, dynamic> json) => ResponseMap(
+        resultCount: json["resultCount"],
         artistList: json["artistList"] == null
             ? []
             : List<ArtistList>.from(
@@ -56,6 +59,7 @@ class ResponseMap {
       );
 
   Map<String, dynamic> toJson() => {
+        "resultCount": resultCount,
         "artistList": artistList == null
             ? []
             : List<dynamic>.from(artistList!.map((x) => x.toJson())),

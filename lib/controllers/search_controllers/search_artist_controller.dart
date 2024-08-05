@@ -55,6 +55,7 @@ class SearchArtistController extends GetxController {
     isLoading.value = true;
     ArtistSearchModel artistSearchModel = await getArtistSearchListApi(name);
     _artistList.value = artistSearchModel.responseMap?.artistList ?? [];
+    totalArtistCount.value = artistSearchModel.responseMap?.resultCount ?? 0;
     if (_artistList.isEmpty) {
       message.value = noResultFoundStr;
     } else {
@@ -64,8 +65,19 @@ class SearchArtistController extends GetxController {
     isLoading.value = false;
   }
 
-  loadMoreArtistList(int index) {
+  loadMoreArtistList(int index) async {
+    isLoading.value = true;
     print("Load more artist list $index");
+    ArtistSearchModel artistSearchModel =
+        await getArtistSearchListApi(searchedName, pageNo: index);
+    _artistList.value = artistSearchModel.responseMap?.artistList ?? [];
+    if (_artistList.isEmpty) {
+      message.value = noResultFoundStr;
+    } else {
+      createArtistNameHeaderColumnList();
+      createArtistNameRowList(_artistList);
+    }
+    isLoading.value = false;
   }
 
   getArtistTuneList(String artistName) async {
@@ -77,8 +89,13 @@ class SearchArtistController extends GetxController {
     ArtistsToneModel artistsToneModel = await artistTuneSearchApi(artistName);
     artistTuneList.value = artistsToneModel.responseMap?.toneList ?? [];
     totalSongCount.value = artistsToneModel.responseMap?.resultCount ?? 0;
-    createArtistTuneHeaderColumnList();
-    createArtistTuneRowList(artistTuneList);
+    if (artistTuneList.isEmpty) {
+      message.value = noResultFoundStr;
+    } else {
+      createArtistTuneHeaderColumnList();
+      createArtistTuneRowList(artistTuneList);
+    }
+
     print("SKY======= ${artistName}");
     isLoading.value = false;
   }
@@ -88,6 +105,9 @@ class SearchArtistController extends GetxController {
     ArtistsToneModel artistsToneModel =
         await artistTuneSearchApi(artistName, pageNo: pageNo);
     artistTuneList.value = artistsToneModel.responseMap?.toneList ?? [];
+    if (artistTuneList.isEmpty) {
+      message.value = noResultFoundStr;
+    } else {}
     createArtistTuneHeaderColumnList();
     createArtistTuneRowList(artistTuneList);
     isLoading.value = false;
