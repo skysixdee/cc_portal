@@ -7,7 +7,7 @@ import 'package:sm_admin_portal/router/router_name.dart';
 import 'package:sm_admin_portal/Models/side_sub_menu_model.dart';
 
 class SideMenuController extends GetxController {
-  String selectedSubMenuTitle = suspendAndResumeStr;
+  String selectedSubMenuTitle = dashBoardStr;
   RxString selectedMenuTitle = "".obs;
   RxList<SideSubMenuModel> subMenuList = <SideSubMenuModel>[].obs;
 
@@ -54,6 +54,7 @@ class SideMenuController extends GetxController {
       SideSubMenuModel(suspendAndResumeStr, suspendResumeRoute),
       SideSubMenuModel(toneActivationStr, toneActivationRoute),
       //SideSubMenuModel(toneActivationStr, activateScreenRoute),
+      SideSubMenuModel(bulkUploadStr, bulkUploadRoute),
       SideSubMenuModel(transactionHistoryStr, transactionHistoryRoute),
       SideSubMenuModel(
           subscriberDetailAndDeactivationStr, subscriberDetailRoute),

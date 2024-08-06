@@ -10,6 +10,11 @@ SmTextField activateTuneTextField(TextEditingController textEditingController) {
   return SmTextField(
     onChange: (p0) {
       cont.onChangeText(p0);
+      if (cont.onSearchTap != null) {
+        if (p0.isEmpty) {
+          cont.onSearchTap!("");
+        }
+      }
     },
     onSubmit: (p0) {
       cont.searchText();
@@ -19,6 +24,6 @@ SmTextField activateTuneTextField(TextEditingController textEditingController) {
     },
     textEditingController: textEditingController,
     hint: enterKeyWordToSearchStr,
-    tailingWidget: activateTuneSearchButton(), //searchButton(),
+    //tailingWidget: activateTuneSearchButton(), //searchButton(),
   );
 }

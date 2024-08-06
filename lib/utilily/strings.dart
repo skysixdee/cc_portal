@@ -22,6 +22,7 @@ String suspendAndResumeStr = "Suspend And Resume";
 String actionStr = "Action";
 
 String dashBoardStr = "DashBoard";
+String searchResultHereStr = "Your search result";
 String ActivateNewToneStr = "Activate New Tone";
 String toneActivationStr = "Tone Activation";
 String tempStatusStr = "Temp Status";

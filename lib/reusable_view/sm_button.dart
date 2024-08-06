@@ -17,7 +17,7 @@ class SMButton extends StatelessWidget {
     this.bgColor,
     this.addBorder = false,
     this.borderColor = grey,
-    this.titlePadding = const EdgeInsets.symmetric(horizontal: 36),
+    this.titlePadding = const EdgeInsets.symmetric(horizontal: 26),
     this.fontWeight = FontWeight.w600,
     this.fontSize = 14,
     this.leadingChild,
