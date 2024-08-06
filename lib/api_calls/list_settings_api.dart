@@ -5,14 +5,14 @@ import 'package:sm_admin_portal/Models/subscribers_modal.dart';
 import 'package:sm_admin_portal/network_manager/network_manager.dart';
 import 'package:sm_admin_portal/utilily/get_transaction_id.dart';
 
-Future<ListSettingModel> listSettingApi() async {
+Future<ListSettingModel> listSettingApi(phoneNumber) async {
   String url =
       'http://10.0.14.4:8082/selfcare/subscriber-management/list-settings';
   //  jsonData: );;
   Map<String, dynamic> jsonData = {
     "transactionId": getTransactionId(),
     "featureId": 1,
-    "msisdn": "8182010000",
+    "msisdn": phoneNumber,
     "offerCode": "CRBT_WEEKLY",
     "languageCode": "en",
     "channelId": 3,

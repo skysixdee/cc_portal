@@ -6,6 +6,7 @@ import 'package:sm_admin_portal/api_calls/pack_detail_api.dart';
 import 'package:sm_admin_portal/api_calls/tone_detail_api.dart';
 import 'package:sm_admin_portal/reusable_view/cross_button_controller.dart';
 import 'package:sm_admin_portal/reusable_view/reusable_view_delete.dart';
+import 'package:sm_admin_portal/utilily/colors.dart';
 
 // class ReusableAlertDialog extends StatelessWidget {
 //   final String textLine1;
@@ -211,7 +212,7 @@ class ReusableAlertDialog extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                color: Colors.red,
+                color: sixdColor,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(5),
                   topRight: Radius.circular(5),
@@ -280,7 +281,7 @@ class ReusableAlertDialog extends StatelessWidget {
                       width: 100,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
-                        color: Colors.red,
+                        color: sixdColor,
                       ),
                       child: Center(
                         child: Text(
