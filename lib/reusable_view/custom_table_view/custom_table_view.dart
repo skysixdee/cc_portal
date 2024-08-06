@@ -178,45 +178,48 @@ class CustomTableView extends StatelessWidget {
                                                               child: Text(
                                                                   "add button here"),
                                                             ))
-                                                      : Row(
-                                                          mainAxisAlignment: column ==
-                                                                  0
-                                                              ? MainAxisAlignment
-                                                                  .start
-                                                              : MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Flexible(
-                                                              child: Padding(
-                                                                padding: EdgeInsets.symmetric(
-                                                                    horizontal:
-                                                                        column ==
-                                                                                0
-                                                                            ? 4
-                                                                            : 0),
-                                                                child: Column(
-                                                                  children: [
-                                                                    SelectableText(
-                                                                        rowList[index][column]
-                                                                            .value,
-                                                                        style:
-                                                                            rowTextStyle,
-                                                                        textAlign:
-                                                                            TextAlign.start),
-                                                                    // Text(
-                                                                    //   rowList[index][column]
-                                                                    //       .value,
-                                                                    //   style:
-                                                                    //       rowTextStyle,
-                                                                    //   textAlign:
-                                                                    //       TextAlign.start,
-                                                                    // )
-                                                                  ],
+                                                      : Padding(
+                                                        padding: const EdgeInsets.only(top: 15.0,bottom: 15),
+                                                        child: Row(
+                                                            mainAxisAlignment: column ==
+                                                                    0
+                                                                ? MainAxisAlignment
+                                                                    .start
+                                                                : MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Flexible(
+                                                                child: Padding(
+                                                                  padding: EdgeInsets.symmetric(
+                                                                      horizontal:
+                                                                          column ==
+                                                                                  0
+                                                                              ? 4
+                                                                              : 0),
+                                                                  child: Column(
+                                                                    children: [
+                                                                      SelectableText(
+                                                                          rowList[index][column]
+                                                                              .value,
+                                                                          style:
+                                                                              rowTextStyle,
+                                                                          textAlign:
+                                                                              TextAlign.start),
+                                                                      // Text(
+                                                                      //   rowList[index][column]
+                                                                      //       .value,
+                                                                      //   style:
+                                                                      //       rowTextStyle,
+                                                                      //   textAlign:
+                                                                      //       TextAlign.start,
+                                                                      // )
+                                                                    ],
+                                                                  ),
                                                                 ),
                                                               ),
-                                                            ),
-                                                          ],
-                                                        )),
+                                                            ],
+                                                          ),
+                                                      )),
                                             )),
                                       ),
                                 ])

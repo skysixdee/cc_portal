@@ -287,7 +287,7 @@ class TuneListController extends GetxController {
             // isRemoveable: false,
             // isButton: false,
             // object: item),
-             //  value: item.expiryDate ?? '', // Next billing date-----value
+          //  value: item.expiryDate ?? '', // Next billing date-----value
             isVisible: true.obs,
             isRemoveable: false,
             object: item),
@@ -297,8 +297,8 @@ class TuneListController extends GetxController {
         //     isRemoveable: false,
         //     object: item),
         CustomTableViewModel(
-          value:
-           item.firstActivationDate ?? "",
+          value:item.isContentPackage ?? "",
+        //   item.firstActivationDate ?? "",
            // value: item.contentType ?? '', // Channel ID-----value
             isVisible: true.obs,
             isRemoveable: false,

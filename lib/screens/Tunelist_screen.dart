@@ -1,10 +1,20 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sm_admin_portal/controllers/Tone_list_controller.dart';
 import 'package:sm_admin_portal/reusable_view/bottom_buttons.dart';
+import 'package:sm_admin_portal/reusable_view/sm_button.dart';
+import 'package:sm_admin_portal/router/router_name.dart';
+import 'package:sm_admin_portal/screens/dashboard_screen/dashboard_screen.dart';
 import 'package:sm_admin_portal/screens/subscriber_deatil_screen/widget/tone_list_table.dart';
 import 'package:flutter/material.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
+
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';  // Make sure you have go_router imported
 
 class TuneListScreen extends StatefulWidget {
   const TuneListScreen({super.key});
@@ -34,27 +44,43 @@ class _TuneListScreenState extends State<TuneListScreen> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      return SizedBox(
-        width: MediaQuery.of(context).size.width,
-        child: Container(
-          color: dividerColor,
-          child: cont.isLoading.value
-              ? Center(child: CircularProgressIndicator())
-              : ListView(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(28.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(height: 10),
-                          tableAndBottomSection(),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-        ),
+      return Stack(
+        children: [
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: Container(
+              color: dividerColor,
+              child: cont.isLoading.value
+                  ? Center(child: CircularProgressIndicator())
+                  : ListView(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(28.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: 10),
+                              tableAndBottomSection(),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+            ),
+          ),
+         
+          Positioned(
+            top: 10,
+            left: 10,
+            child: IconButton(
+              icon: Icon(Icons.dashboard),
+              onPressed: () {
+               
+                context.goNamed(dashBoardRoute);
+              },
+            ),
+          ),
+        ],
       );
     });
   }
@@ -71,6 +97,109 @@ class _TuneListScreenState extends State<TuneListScreen> {
     );
   }
 }
+
+
+// class TuneListScreen extends StatefulWidget {
+//   const TuneListScreen({super.key});
+
+//   @override
+//   State<TuneListScreen> createState() => _TuneListScreenState();
+// }
+
+// class _TuneListScreenState extends State<TuneListScreen> {
+//   final TuneListController cont = Get.find();
+
+//   Color borderColor = const Color.fromRGBO(224, 224, 224, 1);
+//   RxInt selectedTab = 0.obs;
+//   double borderWidth = 1;
+//   double tabButtonHeight = 45;
+//   List<String> tabItems = [
+//     packDetailsStr,
+//     toneDetailsStr,
+//   ];
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     cont.getToneList(cont.searchedText);
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Obx(() {
+//       return SizedBox(
+//         width: MediaQuery.of(context).size.width,
+//         child: Container(
+//           color: dividerColor,
+//           child: cont.isLoading.value
+//               ? Center(child: CircularProgressIndicator())
+//               : ListView(
+//                   children: [
+//                     Padding(
+//                       padding: const EdgeInsets.all(28.0),
+//                       child: Column(
+//                         crossAxisAlignment: CrossAxisAlignment.start,
+//                         children: [
+//                           SizedBox(height: 10),
+//                           tableAndBottomSection(),
+//                          // dashBoardIcon()
+//                         ],
+//                       ),
+//                     )
+//                   ],
+//                 ),
+//         ),
+//       );
+//     });
+//   }
+//    SMButton Iconsss(
+//      ) {
+//     return SMButton(
+   
+//       title: "dashboardIconn",
+//       textColor: black,
+//       addBorder: true,
+//       borderColor: sixdColor,
+//       onTap: () {
+     
+       
+//         context.goNamed(dashBoardRoute);
+//       },
+//     );
+//   }
+
+// Widget dashboardIcon(){
+//   return IconButton(onPressed: (){}, icon:Icon(Icons.dashboard));
+// }
+ 
+
+//   // Widget dashBoardIcon() {
+//   //   return IconButton(
+//   //     icon: Icon(Icons.dashboard),
+//   //     onPressed: () {
+//   //       Navigator.of(context).push(
+//   //         MaterialPageRoute(
+//   //           builder: (context) => DashBoardScreen(),
+//   //         ),
+//   //       );
+//   //     },
+//   //   );
+//   // }
+
+//   Widget tableAndBottomSection() {
+//     return Center(
+//       child: Column(
+//         children: [
+//           SettingsListTable(),
+//           SizedBox(height: 8),
+//           BottomButtons(),
+//         ],
+//       ),
+//     );
+//   }
+// }
+
+
 
 // class TuneListScreen extends StatefulWidget {
 //   const TuneListScreen({super.key});

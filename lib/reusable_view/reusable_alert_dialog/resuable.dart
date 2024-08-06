@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sm_admin_portal/utilily/colors.dart';
 
 // class ReusableAlertDialogBox extends StatelessWidget {
 //   final String textLine1;
@@ -145,7 +146,7 @@ class ReusableAlertDialogBox extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                color: Colors.red,
+                color: sixdColor,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(5),
                   topRight: Radius.circular(5),
@@ -218,7 +219,7 @@ class ReusableAlertDialogBox extends StatelessWidget {
                       width: 100,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
-                        color: Colors.red,
+                        color: sixdColor,
                       ),
                       child: Center(
                         child: Text(

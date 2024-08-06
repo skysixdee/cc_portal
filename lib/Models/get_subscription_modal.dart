@@ -74,6 +74,8 @@ class Offer {
         deactivationChannel: json["deactivationChannel"],
     );
 
+  get respCode => null;
+
     Map<String, dynamic> toJson() => {
         "offerName": offerName,
         "offerStatus": offerStatus,
