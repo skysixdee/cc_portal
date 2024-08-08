@@ -84,7 +84,13 @@ String ActionStr = 'Action';
 String viewStr = 'View';
 String statusStr = 'Status';
 String suspendedStr = 'Suspend';
+String suspendedCStr = 'SUSPEND';
 String activateStr = 'Activate';
+String activeCStr = 'ACTIVE';
+String enterCustomerMsisdnStr = 'Please enter customer msisdn.';
+String pendingCStr = 'PENDING';
+
+String graceCStr = 'GRACE';
 String ChannelStr = 'Channel';
 String SelectStr = 'Select';
 String enterKeyWordToSearchStr = 'Enter key word to search';

@@ -284,6 +284,7 @@ import 'package:sm_admin_portal/screens/Bulk_Screen.dart';
 import 'package:sm_admin_portal/screens/Tunelist_screen.dart';
 import 'package:sm_admin_portal/screens/activate_tune_screen/activate_tune_screen.dart';
 import 'package:sm_admin_portal/screens/circle.dart';
+import 'package:sm_admin_portal/screens/dashboard_screen/dashboard_new_screen.dart';
 import 'package:sm_admin_portal/screens/dashboard_screen/dashboard_screen.dart';
 import 'package:sm_admin_portal/screens/first_screen.dart';
 import 'package:sm_admin_portal/screens/history_screen/history_screen.dart';
@@ -307,17 +308,17 @@ final _sectionNavigatorKey = GlobalKey<NavigatorState>();
 
 final router = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: suspendResumeRoute,
+  initialLocation: dashBoardRoute,
   routes: <RouteBase>[
     StatefulShellRoute.indexedStack(
       builder: shellRouteIndex,
       branches: [
+        dashBoardShell(),
         _suspendAndResumeShell(),
         _toneActivationShell(),
         _subscriberDetailShell(),
         _bulkScreenShell(),
         _transactionHistoryShell(),
-        dashBoardShell(),
         _copyScreenShell(),
         tuneListShell(),
         _activateScreenShell(),
@@ -382,7 +383,7 @@ StatefulShellBranch dashBoardShell() {
         name: dashBoardRoute,
         path: dashBoardRoute,
         builder: (context, state) {
-          return DashBoardScreen();
+          return DashboardNewScreen();
         },
       ),
     ],

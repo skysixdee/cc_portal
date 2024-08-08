@@ -14,6 +14,7 @@ import 'package:sm_admin_portal/reusable_view/sm_button.dart';
 import 'package:sm_admin_portal/screens/activate_tune_screen/widgets/buy_tune_popup.dart';
 import 'package:sm_admin_portal/screens/dashboard_screen/widgets/bottom_button_view.dart';
 import 'package:sm_admin_portal/screens/dashboard_screen/widgets/customer_textfield_view.dart';
+import 'package:sm_admin_portal/store_manager/store_manager.dart';
 
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
@@ -32,26 +33,24 @@ class DashBoardScreen extends StatelessWidget {
         child: Obx(() {
           if (controller.isLoading.value) {
             return Center(child: CircularProgressIndicator());
-          } else if (controller.isSubmitted.value) {
-            return Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  UserInfo(controller),
-                  Expanded(child: Obx(
-                    () {
-                      return controller.userType.value == UserType.newUser
-                          ? newUserBuilder(controller, context)
-                          : userInfoList(controller);
-                    },
-                  )),
-                  SizedBox(height: 30),
-                  veriticalDivider(),
-                  SizedBox(height: 10),
-                  bottomButtons(controller, context),
-                ],
-              ),
+          } else if (controller.isCustomerLoggedIn.value) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                UserInfo(controller),
+                Expanded(child: Obx(
+                  () {
+                    return controller.userType.value == UserType.newUser
+                        ? newUserBuilder(controller, context)
+                        : userInfoList(controller);
+                  },
+                )),
+                SizedBox(height: 30),
+                veriticalDivider(),
+                SizedBox(height: 10),
+                bottomButtons(controller, context),
+              ],
             );
           } else {
             return customerTextFieldBuilder(textController, controller);
@@ -73,24 +72,20 @@ class DashBoardScreen extends StatelessWidget {
       return ListView.builder(
         shrinkWrap: true,
         scrollDirection: Axis.vertical,
-        itemCount: controller.subscriptionList.length,
+        itemCount: controller.offers.length,
         itemBuilder: (context, index) {
-          Offer offer = controller.subscriptionList[index];
-          return Column(
+          Offer offer = controller.offers[index];
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  firstColumn(controller, index, context),
-                  if (offer.offerStatus != "D") customDivider(),
-                  secondColumn(controller, index),
-                  if (offer.offerStatus != "D") customDivider(),
-                  thirdColumn(controller, index),
-                  if (offer.offerStatus != "D") customDivider(),
-                  fourthColumn(controller, index),
-                ],
-              ),
+              firstColumn(controller, index, context),
+              if (offer.offerStatus != "D") customDivider(),
+              secondColumn(controller, index),
+              if (offer.offerStatus != "D") customDivider(),
+              thirdColumn(controller, index),
+              if (offer.offerStatus != "D") customDivider(),
+              fourthColumn(controller, index),
             ],
           );
         },
@@ -115,7 +110,8 @@ class DashBoardScreen extends StatelessWidget {
           title: "",
           leadingChild: Icon(Icons.logout),
           onTap: () {
-            controller.isSubmitted.value = false;
+            StoreManager().setCustomerLoggedin(false);
+            //controller.isSubmitted.value = false;
           },
         )
       ],
@@ -154,7 +150,7 @@ Padding userNumber(DashboardController controller) {
   return Padding(
     padding: const EdgeInsets.only(top: 25.0),
     child: SMText(
-      title: '91+ ${controller.mobileNumber.value}',
+      title: '91+ ${controller.phoneNumber.value}',
       fontWeight: FontWeight.normal,
       fontSize: 14,
     ),
@@ -163,11 +159,6 @@ Padding userNumber(DashboardController controller) {
 
 Widget newSubscriberColumn(
     DashboardController controller, int index, BuildContext context) {
-  final offerStatus = (index >= 0 && index < controller.subscriptionList.length)
-      ? controller.subscriptionList[index].offerStatus
-      : '';
-  // final offerStatus = controller.subscriptionList[index].offerStatus;
-
   return Column(
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
@@ -210,51 +201,13 @@ Widget newSubscriberColumn(
           ],
         ),
       )
-      // Padding(
-      //   padding: const EdgeInsets.symmetric(vertical: 4.0),
-      //   child: SMText(
-      //     title: "",
-      //     fontSize: 14,
-      //     fontWeight: FontWeight.normal,
-      //   ),
-      // ),
-      // Row(
-      //   mainAxisAlignment: MainAxisAlignment.start,
-      //   children: [
-      //     Obx(
-      //       () => controller.isLoading.value
-      //           ? Center(child: CircularProgressIndicator())
-      //           : SMButton(
-      //               onTap: () async {
-      //                 GenericPopup("Do you want to activate");
-      //                 ListSettingModel model = await BuyToneApi(offerStatus);
-      //               },
-      //               height: 40,
-      //               width: 200,
-      //               bgColor: (offerStatus != "A" ||
-      //                       offerStatus != "S" ||
-      //                       offerStatus != "G" ||
-      //                       offerStatus == "D")
-      //                   ? greenColor
-      //                   : red,
-      //               title: (offerStatus != "A" ||
-      //                       offerStatus != "S" ||
-      //                       offerStatus != "G" ||
-      //                       offerStatus == "D")
-      //                   ? activateStr
-      //                   : DeactivateStr,
-      //               textColor: white,
-      //             ),
-      //     ),
-      //   ],
-      // ),
     ],
   );
 }
 
 Column firstColumn(
     DashboardController controller, int index, BuildContext context) {
-  String status = controller.subscriptionList[index].offerStatus ?? '';
+  String status = controller.offers[index].offerStatus ?? '';
   return Column(
     children: [
       Row(
@@ -266,44 +219,25 @@ Column firstColumn(
           ),
           SMText(title: " : "),
           SMText(
-            title: status == 'A'
-                //  (controller.subscriptionList[index].offerStatus == "A")
-                ? "ACTIVE"
-                : (status == "G")
-                    ? "GRACE"
-                    : (status == "S")
-                        ? "SUSPEND"
-                        : (status == "P")
-                            ? "PENDING"
-                            : "INACTIVE",
-            // (controller.subscriptionList[index].offerStatus == "A" ||
-            //         controller.subscriptionList[index].offerStatus == "G" ||
-            //         controller.subscriptionList[index].offerStatus == "S" ||
-            //         controller.subscriptionList[index].offerStatus != "D")
-            //     ? "ACTIVE"
-            //     : "INACTIVE",
-            fontWeight: FontWeight.normal,
-            fontSize: 14,
-            textColor: (status == "A") ? green : red,
-          )
+              title: controller.getFirstColumnButtonName(status),
+              textColor: (status == "A") ? green : red)
         ],
       ),
-      if (status == "D")
-        SMText(title: " ")
-      else
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4.0),
-              child: SMText(
-                title: "${controller.subscriptionList[index].offerName}",
-                fontSize: 14,
-                fontWeight: FontWeight.normal,
-              ),
+      status == "D"
+          ? SMText(title: " ")
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4.0),
+                  child: SMText(
+                    title: "${controller.offers[index].offerName}",
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
       Obx(
         () => controller.isLoading.value
             ? Center(child: CircularProgressIndicator())
@@ -449,7 +383,7 @@ Column firstColumn(
 // }
 
 Widget secondColumn(DashboardController controller, int index) {
-  if (controller.subscriptionList[index].offerStatus == "D") {
+  if (controller.offers[index].offerStatus == "D") {
     return SizedBox();
   }
   return Column(
@@ -519,7 +453,7 @@ Widget secondColumn(DashboardController controller, int index) {
 }
 
 Column thirdColumn(DashboardController controller, int index) {
-  if (controller.subscriptionList[index].offerStatus == "D") {
+  if (controller.offers[index].offerStatus == "D") {
     return Column(
       children: [
         SizedBox.shrink(),
@@ -540,7 +474,7 @@ Column thirdColumn(DashboardController controller, int index) {
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 4.0),
         child: SMText(
-          title: "${controller.subscriptionList[index].chargedDate}",
+          title: "${controller.offers[index].chargedDate}",
           fontSize: 14,
           fontWeight: FontWeight.normal,
         ),
@@ -554,7 +488,7 @@ Column thirdColumn(DashboardController controller, int index) {
 }
 
 Column fourthColumn(DashboardController controller, int index) {
-  if (controller.subscriptionList[index].offerStatus == "D") {
+  if (controller.offers[index].offerStatus == "D") {
     return Column(
       children: [
         SizedBox.shrink(),
@@ -575,7 +509,7 @@ Column fourthColumn(DashboardController controller, int index) {
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 4.0),
         child: SMText(
-          title: "${controller.subscriptionList[index].expiryDate}",
+          title: "${controller.offers[index].expiryDate}",
           fontSize: 14,
           fontWeight: FontWeight.normal,
         ),
@@ -587,8 +521,6 @@ Column fourthColumn(DashboardController controller, int index) {
     ],
   );
 }
-
-
 
 // Column thirdColumn(DashboardController controller, int index) {
 //   return Column(

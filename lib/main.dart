@@ -8,6 +8,7 @@ import 'package:sm_admin_portal/controllers/activate_tune_controller.dart';
 
 import 'package:sm_admin_portal/controllers/app_controller.dart';
 import 'package:sm_admin_portal/controllers/dashboard_controller.dart';
+import 'package:sm_admin_portal/controllers/new_dash_board_controller.dart';
 import 'package:sm_admin_portal/controllers/side_menu_controller.dart';
 import 'package:sm_admin_portal/controllers/subscriber_detail_controler.dart';
 import 'package:sm_admin_portal/router/router.dart';
@@ -29,6 +30,7 @@ initialize() async {
 
   Get.lazyPut(() => ActivateTuneController());
   Get.lazyPut(() => DashboardController());
+  Get.lazyPut(() => NewDashBoardController());
 
   prefs = await SharedPreferences.getInstance();
   StoreManager().initStoreManager();

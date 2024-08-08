@@ -25,29 +25,23 @@ Widget bottomButtons(DashboardController controller, BuildContext context) {
   );
 }
 
-Obx _tuneListButton(DashboardController controller, BuildContext context) {
-  return Obx(
-    () {
-      bool isClickable = controller.respCode.value == 0 &&
-          controller.subscriptionList
-              .every((subscription) => subscription.offerStatus != "D");
+Widget _tuneListButton(DashboardController controller, BuildContext context) {
+  bool isClickable = true;
 
-      return SMButton(
-        title: tuneListStr,
-        textColor: black,
-        addBorder: true,
-        borderColor: sixdColor,
-        onTap: isClickable
-            ? () {
-                print("object");
-                TuneListController cont = Get.find();
-                cont.getToneList(controller.phoneNumber.value);
-                context.goNamed(tuneListRoute);
-              }
-            : null,
-        bgColor: isClickable ? sixdColor : grey,
-      );
-    },
+  return SMButton(
+    title: tuneListStr,
+    textColor: black,
+    addBorder: true,
+    borderColor: sixdColor,
+    onTap: isClickable
+        ? () {
+            print("object");
+            TuneListController cont = Get.find();
+            cont.getToneList(controller.phoneNumber.value);
+            context.goNamed(tuneListRoute);
+          }
+        : null,
+    bgColor: isClickable ? sixdColor : grey,
   );
 }
 

@@ -22,14 +22,13 @@ class StoreManager {
   }
 
   initStoreManager() async {
-    DashboardController cont = Get.find();
-
+    cont = Get.find();
     isAgentLoggedIn = prefs.getBool('is_agent_logged_in') ?? false;
     isCustomerLoggedIn = prefs.getBool('is_customer_logged_in') ?? false;
     isEnglish = prefs.getBool('is_english') ?? true;
     agentNumber = prefs.getString('agent_number') ?? '92000003';
     customerNumber = prefs.getString('customer_number') ?? '92000003';
-    cont.isSubmitted.value = isCustomerLoggedIn;
+    cont.isCustomerLoggedIn.value = isCustomerLoggedIn;
   }
 
   setAgentLoggedin(bool isLoggedIn) {
@@ -40,6 +39,8 @@ class StoreManager {
   setCustomerLoggedin(bool isLoggedIn) {
     isCustomerLoggedIn = isLoggedIn;
     prefs.setBool('is_customer_logged_in', isLoggedIn);
+    print("is loggedin ============$isCustomerLoggedIn");
+    cont.isCustomerLoggedIn.value = isLoggedIn;
   }
 
   setLanguageEnglish(bool isEnglish) {
