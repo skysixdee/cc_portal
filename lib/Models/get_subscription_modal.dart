@@ -4,64 +4,71 @@
 
 import 'dart:convert';
 
-GetSubscriptionModel getSubscriptionModelFromJson(String str) => GetSubscriptionModel.fromJson(json.decode(str));
+GetSubscriptionModel getSubscriptionModelFromJson(String str) =>
+    GetSubscriptionModel.fromJson(json.decode(str));
 
-String getSubscriptionModelToJson(GetSubscriptionModel data) => json.encode(data.toJson());
+String getSubscriptionModelToJson(GetSubscriptionModel data) =>
+    json.encode(data.toJson());
 
 class GetSubscriptionModel {
-    String? msisdn;
-    int? respCode;
-    String? message;
-    List<Offer>? offers;
+  String? msisdn;
+  int? respCode;
+  String? message;
+  List<Offer>? offers;
 
-    GetSubscriptionModel({
-        this.msisdn,
-        this.respCode,
-        this.message,
-        this.offers,
-    });
+  GetSubscriptionModel({
+    this.msisdn,
+    this.respCode,
+    this.message,
+    this.offers,
+  });
 
-    factory GetSubscriptionModel.fromJson(Map<String, dynamic> json) => GetSubscriptionModel(
+  factory GetSubscriptionModel.fromJson(Map<String, dynamic> json) =>
+      GetSubscriptionModel(
         msisdn: json["msisdn"],
         respCode: json["respCode"],
         message: json["message"],
-        offers: json["offers"] == null ? [] : List<Offer>.from(json["offers"]!.map((x) => Offer.fromJson(x))),
-    );
+        offers: json["offers"] == null
+            ? []
+            : List<Offer>.from(json["offers"]!.map((x) => Offer.fromJson(x))),
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "msisdn": msisdn,
         "respCode": respCode,
         "message": message,
-        "offers": offers == null ? [] : List<dynamic>.from(offers!.map((x) => x.toJson())),
-    };
+        "offers": offers == null
+            ? []
+            : List<dynamic>.from(offers!.map((x) => x.toJson())),
+      };
 }
 
 class Offer {
-    String? offerName;
-    String? offerStatus;
-    String? expiryDate;
-    String? chargedAmount;
-    String? chargedDate;
-    String? chargedValidity;
-    String? firstActivationDate;
-    String? activationChannel;
-    String? deactivationDate;
-    String? deactivationChannel;
+  String? offerName;
+  String? offerStatus;
+  String? expiryDate;
+  String? chargedAmount;
+  String? chargedDate;
+  String? chargedValidity;
+  String? firstActivationDate;
+  String? activationChannel;
+  String? deactivationDate;
+  String? deactivationChannel;
 
-    Offer({
-        this.offerName,
-        this.offerStatus,
-        this.expiryDate,
-        this.chargedAmount,
-        this.chargedDate,
-        this.chargedValidity,
-        this.firstActivationDate,
-        this.activationChannel,
-        this.deactivationDate,
-        this.deactivationChannel,
-    });
+  Offer({
+    this.offerName,
+    this.offerStatus,
+    this.expiryDate,
+    this.chargedAmount,
+    this.chargedDate,
+    this.chargedValidity,
+    this.firstActivationDate,
+    this.activationChannel,
+    this.deactivationDate,
+    this.deactivationChannel,
+  });
 
-    factory Offer.fromJson(Map<String, dynamic> json) => Offer(
+  factory Offer.fromJson(Map<String, dynamic> json) => Offer(
         offerName: json["offerName"],
         offerStatus: json["offerStatus"],
         expiryDate: json["expiryDate"],
@@ -72,11 +79,11 @@ class Offer {
         activationChannel: json["activationChannel"],
         deactivationDate: json["deactivationDate"],
         deactivationChannel: json["deactivationChannel"],
-    );
+      );
 
   get respCode => null;
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "offerName": offerName,
         "offerStatus": offerStatus,
         "expiryDate": expiryDate,
@@ -87,5 +94,5 @@ class Offer {
         "activationChannel": activationChannel,
         "deactivationDate": deactivationDate,
         "deactivationChannel": deactivationChannel,
-    };
+      };
 }

@@ -10,6 +10,7 @@ import 'package:sm_admin_portal/api_calls/buy_tone_api.dart';
 
 import 'package:sm_admin_portal/controllers/Tone_list_controller.dart';
 import 'package:sm_admin_portal/controllers/dashboard_controller.dart';
+import 'package:sm_admin_portal/enums/user_type.dart';
 import 'package:sm_admin_portal/reusable_view/generic_popup.dart';
 import 'package:sm_admin_portal/reusable_view/open_generic_popup_view.dart';
 import 'package:sm_admin_portal/reusable_view/pop_over.dart';
@@ -22,6 +23,8 @@ import 'package:sm_admin_portal/reusable_view/sm_button.dart';
 
 import 'package:sm_admin_portal/router/router_name.dart';
 import 'package:sm_admin_portal/screens/activate_tune_screen/widgets/buy_tune_popup.dart';
+import 'package:sm_admin_portal/screens/dashboard_screen/widgets/bottom_button_view.dart';
+import 'package:sm_admin_portal/screens/dashboard_screen/widgets/customer_textfield_view.dart';
 
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
@@ -47,148 +50,80 @@ class DashBoardScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Icon(Icons.logout),
-                  Row(
-                    children: [
-                      userPic(),
-                      SizedBox(width: 20),
-                      userNumber(controller),
-                    ],
-                  ),
-                  if (controller.respCode.value == 1) ...[
-                    Padding(
-                        padding: const EdgeInsets.only(top: 20.0),
-                        child: newSubscriberColumn(controller, 0, context)),
-                  ],
+                  UserInfo(controller),
+                  // if (controller.userType == UserType.newUser)
+                  //   {
+                  newUserBuilder(controller, context),
+                  // }else{}
                   SizedBox(height: 30),
                   Expanded(
-                    child: Obx(() {
-                      return ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        itemCount: controller.subscriptionList.length,
-                        itemBuilder: (context, index) {
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  firstColumn(controller, index, context),
-                                  if (controller.subscriptionList[index]
-                                          .offerStatus !=
-                                      "D")
-                                    customDivider(),
-                                  secondColumn(controller, index),
-                                  if (controller.subscriptionList[index]
-                                          .offerStatus !=
-                                      "D")
-                                    customDivider(),
-                                  thirdColumn(controller, index),
-                                  if (controller.subscriptionList[index]
-                                          .offerStatus !=
-                                      "D")
-                                    customDivider(),
-                                  fourthColumn(controller, index),
-                                ],
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    }),
+                    child: userInfoList(controller),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(),
                     child: Divider(thickness: 1, color: sixdColor),
                   ),
                   SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      tuneListButton(controller, context),
-                      SizedBox(width: 8),
-                      ActivateNewToneButton(controller, context),
-                      SizedBox(width: 8),
-                      TransactionHistoryButton(controller, context),
-                      SizedBox(width: 7),
-                    ],
-                  ),
+                  bottomButtons(controller, context),
                 ],
               ),
             );
           } else {
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                    child: Container(
-                      height: 50,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: grey),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 16.0),
-                              child: TextField(
-                                controller: textController,
-                                keyboardType: TextInputType.number,
-                                inputFormatters: <TextInputFormatter>[
-                                  FilteringTextInputFormatter.digitsOnly
-                                ],
-                                maxLength: 10,
-                                decoration: InputDecoration(
-                                  counterText: '',
-                                  hintText:
-                                      'Enter mobile number of the subscriber',
-                                  hintStyle: TextStyle(
-                                    color: black,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                  border: InputBorder.none,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: GestureDetector(
-                              onTap: () => controller.handleSubmit(
-                                textController.text,
-                              ),
-                              child: Container(
-                                height: 50,
-                                width: 120,
-                                padding: EdgeInsets.symmetric(horizontal: 8),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  color: sixdColor,
-                                ),
-                                child: Center(
-                                  child: SMText(
-                                    title: submitStr,
-                                    textColor: white,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            );
+            return customerTextFieldBuilder(textController, controller);
           }
         }),
       ),
+    );
+  }
+
+ 
+
+  Obx userInfoList(DashboardController controller) {
+    return Obx(() {
+      return ListView.builder(
+        shrinkWrap: true,
+        scrollDirection: Axis.vertical,
+        itemCount: controller.subscriptionList.length,
+        itemBuilder: (context, index) {
+          Offer offer = controller.subscriptionList[index];
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  firstColumn(controller, index, context),
+                  if (offer.offerStatus != "D") customDivider(),
+                  secondColumn(controller, index),
+                  if (offer.offerStatus != "D") customDivider(),
+                  thirdColumn(controller, index),
+                  if (offer.offerStatus != "D") customDivider(),
+                  fourthColumn(controller, index),
+                ],
+              ),
+            ],
+          );
+        },
+      );
+    });
+  }
+
+  SingleChildRenderObjectWidget newUserBuilder(
+      DashboardController controller, BuildContext context) {
+    return (controller.userType == UserType.newUser)
+        ? Padding(
+            padding: const EdgeInsets.only(top: 20.0),
+            child: newSubscriberColumn(controller, 0, context))
+        : SizedBox();
+  }
+
+  Row UserInfo(DashboardController controller) {
+    return Row(
+      children: [
+        userPic(),
+        SizedBox(width: 20),
+        userNumber(controller),
+      ],
     );
   }
 }
@@ -201,55 +136,7 @@ Widget customDivider() {
   );
 }
 
-Obx tuneListButton(DashboardController controller, BuildContext context) {
-  return Obx(
-    () {
-      bool isClickable = controller.respCode.value == 0 &&
-          controller.subscriptionList
-              .every((subscription) => subscription.offerStatus != "D");
 
-      return SMButton(
-        title: tuneListStr,
-        textColor: black,
-        addBorder: true,
-        borderColor: sixdColor,
-        onTap: isClickable
-            ? () {
-                print("object");
-                TuneListController cont = Get.find();
-                cont.getToneList(controller.phoneNumber.value);
-                context.goNamed(tuneListRoute);
-              }
-            : null,
-        bgColor: isClickable ? sixdColor : grey,
-      );
-    },
-  );
-}
-
-SMButton ActivateNewToneButton(
-    DashboardController controller, BuildContext context) {
-  return SMButton(
-    title: ActivateNewToneStr,
-    textColor: black,
-    addBorder: true,
-    borderColor: sixdColor,
-    onTap: () {
-      context.goNamed(activateScreenRoute);
-    },
-  );
-}
-
-SMButton TransactionHistoryButton(
-    DashboardController controller, BuildContext context) {
-  return SMButton(
-    title: transactionHistoryStr,
-    textColor: black,
-    addBorder: true,
-    bgColor: sixdColor,
-    borderColor: sixdColor,
-  );
-}
 
 Padding userPic() {
   return Padding(
@@ -357,6 +244,7 @@ Widget newSubscriberColumn(
 
 Column firstColumn(
     DashboardController controller, int index, BuildContext context) {
+  String status = controller.subscriptionList[index].offerStatus ?? '';
   return Column(
     children: [
       Row(
@@ -368,14 +256,14 @@ Column firstColumn(
           ),
           SMText(title: " : "),
           SMText(
-            title: (controller.subscriptionList[index].offerStatus == "A")
+            title: status == 'A'
+                //  (controller.subscriptionList[index].offerStatus == "A")
                 ? "ACTIVE"
-                : (controller.subscriptionList[index].offerStatus == "G")
+                : (status == "G")
                     ? "GRACE"
-                    : (controller.subscriptionList[index].offerStatus == "S")
+                    : (status == "S")
                         ? "SUSPEND"
-                        : (controller.subscriptionList[index].offerStatus ==
-                                "P")
+                        : (status == "P")
                             ? "PENDING"
                             : "INACTIVE",
             // (controller.subscriptionList[index].offerStatus == "A" ||
@@ -386,13 +274,11 @@ Column firstColumn(
             //     : "INACTIVE",
             fontWeight: FontWeight.normal,
             fontSize: 14,
-            textColor: (controller.subscriptionList[index].offerStatus == "A")
-                ? greenColor
-                : redColor,
+            textColor: (status == "A") ? greenColor : redColor,
           )
         ],
       ),
-      if (controller.subscriptionList[index].offerStatus == "D")
+      if (status == "D")
         SMText(title: " ")
       else
         Column(
@@ -413,21 +299,16 @@ Column firstColumn(
             ? Center(child: CircularProgressIndicator())
             : SMButton(
                 onTap: () {
-                  String action = (controller
-                              .subscriptionList[index].offerStatus ==
-                          "A")
+                  String action = (status == "A")
                       ? "ACTIVE"
-                      : (controller.subscriptionList[index].offerStatus == "G")
+                      : (status == "G")
                           ? "GRACE"
-                          : (controller.subscriptionList[index].offerStatus ==
-                                  "S")
+                          : (status == "S")
                               ? "SUSPEND"
-                              : (controller.subscriptionList[index]
-                                          .offerStatus ==
-                                      "P")
+                              : (status == "P")
                                   ? "PENDING"
                                   : "INACTIVE";
-                  openBuyTunePopup('','');
+                  openBuyTunePopup('', '');
                   // showDialog(
                   //   context: Get.context!,
                   //   builder: (BuildContext context) {
@@ -461,16 +342,13 @@ Column firstColumn(
                   //   },
                   // );
                 },
-                bgColor: (controller.subscriptionList[index].offerStatus ==
-                            "A" ||
-                        controller.subscriptionList[index].offerStatus == "S" ||
-                        controller.subscriptionList[index].offerStatus == "G" ||
-                        controller.subscriptionList[index].offerStatus != "D")
+                bgColor: (status == "A" ||
+                        status == "S" ||
+                        status == "G" ||
+                        status != "D")
                     ? redColor
                     : greenColor,
-                title: (controller.subscriptionList[index].offerStatus == "A" ||
-                        controller.subscriptionList[index].offerStatus == "S" ||
-                        controller.subscriptionList[index].offerStatus == "G")
+                title: (status == "A" || status == "S" || status == "G")
                     ? DeactivateStr
                     : activateStr,
                 textColor: white,
@@ -560,13 +438,9 @@ Column firstColumn(
 //   );
 // }
 
-Column secondColumn(DashboardController controller, int index) {
+Widget secondColumn(DashboardController controller, int index) {
   if (controller.subscriptionList[index].offerStatus == "D") {
-    return Column(
-      children: [
-        SizedBox.shrink(),
-      ],
-    );
+    return SizedBox();
   }
   return Column(
     children: [
