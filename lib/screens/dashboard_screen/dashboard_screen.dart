@@ -1,27 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:go_router/go_router.dart';
-import 'package:sm_admin_portal/Models/get_subscription_modal.dart';
-import 'package:sm_admin_portal/Models/list_setting_modal.dart';
-import 'package:sm_admin_portal/api_calls/buy_tone_api.dart';
 
-import 'package:sm_admin_portal/controllers/Tone_list_controller.dart';
+import 'package:sm_admin_portal/Models/get_subscription_modal.dart';
+
 import 'package:sm_admin_portal/controllers/dashboard_controller.dart';
 import 'package:sm_admin_portal/enums/user_type.dart';
-import 'package:sm_admin_portal/reusable_view/generic_popup.dart';
-import 'package:sm_admin_portal/reusable_view/open_generic_popup_view.dart';
-import 'package:sm_admin_portal/reusable_view/pop_over.dart';
-
 import 'package:sm_admin_portal/reusable_view/reusable_alert_dialog/resuable.dart';
 
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
 
-import 'package:sm_admin_portal/router/router_name.dart';
 import 'package:sm_admin_portal/screens/activate_tune_screen/widgets/buy_tune_popup.dart';
 import 'package:sm_admin_portal/screens/dashboard_screen/widgets/bottom_button_view.dart';
 import 'package:sm_admin_portal/screens/dashboard_screen/widgets/customer_textfield_view.dart';
@@ -34,7 +23,7 @@ class DashBoardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DashboardController controller = Get.put(DashboardController());
+    final DashboardController controller = Get.find();
     final TextEditingController textController = TextEditingController();
 
     return Center(
@@ -49,20 +38,16 @@ class DashBoardScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Icon(Icons.logout),
                   UserInfo(controller),
-                  // if (controller.userType == UserType.newUser)
-                  //   {
-                  newUserBuilder(controller, context),
-                  // }else{}
+                  Expanded(child: Obx(
+                    () {
+                      return controller.userType.value == UserType.newUser
+                          ? newUserBuilder(controller, context)
+                          : userInfoList(controller);
+                    },
+                  )),
                   SizedBox(height: 30),
-                  Expanded(
-                    child: userInfoList(controller),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(),
-                    child: Divider(thickness: 1, color: sixdColor),
-                  ),
+                  veriticalDivider(),
                   SizedBox(height: 10),
                   bottomButtons(controller, context),
                 ],
@@ -76,7 +61,12 @@ class DashBoardScreen extends StatelessWidget {
     );
   }
 
- 
+  Padding veriticalDivider() {
+    return Padding(
+      padding: const EdgeInsets.only(),
+      child: Divider(thickness: 1, color: sixdColor),
+    );
+  }
 
   Obx userInfoList(DashboardController controller) {
     return Obx(() {
@@ -108,13 +98,10 @@ class DashBoardScreen extends StatelessWidget {
     });
   }
 
-  SingleChildRenderObjectWidget newUserBuilder(
-      DashboardController controller, BuildContext context) {
-    return (controller.userType == UserType.newUser)
-        ? Padding(
-            padding: const EdgeInsets.only(top: 20.0),
-            child: newSubscriberColumn(controller, 0, context))
-        : SizedBox();
+  Widget newUserBuilder(DashboardController controller, BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.only(top: 20.0),
+        child: newSubscriberColumn(controller, 0, context));
   }
 
   Row UserInfo(DashboardController controller) {
@@ -123,6 +110,14 @@ class DashBoardScreen extends StatelessWidget {
         userPic(),
         SizedBox(width: 20),
         userNumber(controller),
+        Expanded(child: SizedBox()),
+        SMButton(
+          title: "",
+          leadingChild: Icon(Icons.logout),
+          onTap: () {
+            controller.isSubmitted.value = false;
+          },
+        )
       ],
     );
   }
@@ -135,8 +130,6 @@ Widget customDivider() {
     height: 80,
   );
 }
-
-
 
 Padding userPic() {
   return Padding(
@@ -174,10 +167,13 @@ Widget newSubscriberColumn(
       ? controller.subscriptionList[index].offerStatus
       : '';
   // final offerStatus = controller.subscriptionList[index].offerStatus;
+
   return Column(
+    crossAxisAlignment: CrossAxisAlignment.center,
     children: [
       Row(
         mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.max,
         children: [
           SMText(
             title: subscriptionDateStr,
@@ -186,58 +182,72 @@ Widget newSubscriberColumn(
           ),
           SMText(title: " : "),
           SMText(
-            title: (offerStatus != "A" ||
-                    offerStatus != "G" ||
-                    offerStatus != "S" ||
-                    offerStatus == "D")
-                ? "INACTIVE"
-                : "ACTIVE",
+            title: inActiveCStr,
             fontWeight: FontWeight.normal,
             fontSize: 14,
-            textColor: (offerStatus != "A" || offerStatus == "D")
-                ? redColor
-                : greenColor,
+            textColor: red,
           ),
         ],
       ),
       Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4.0),
-        child: SMText(
-          title: "",
-          fontSize: 14,
-          fontWeight: FontWeight.normal,
+        padding: const EdgeInsets.only(left: 40, top: 10),
+        child: Row(
+          children: [
+            SMButton(
+              bgColor: green,
+              title: activateStr,
+              textColor: white,
+              onTap: () {
+                openBuyTunePopup(
+                  "toneName",
+                  "toneId",
+                  onSuccess: () {
+                    controller.activateNewUser();
+                  },
+                );
+              },
+            ),
+          ],
         ),
-      ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Obx(
-            () => controller.isLoading.value
-                ? Center(child: CircularProgressIndicator())
-                : SMButton(
-                    onTap: () async {
-                      GenericPopup("Do you want to activate");
-                      ListSettingModel model = await BuyToneApi(offerStatus);
-                    },
-                    height: 40,
-                    width: 200,
-                    bgColor: (offerStatus != "A" ||
-                            offerStatus != "S" ||
-                            offerStatus != "G" ||
-                            offerStatus == "D")
-                        ? greenColor
-                        : redColor,
-                    title: (offerStatus != "A" ||
-                            offerStatus != "S" ||
-                            offerStatus != "G" ||
-                            offerStatus == "D")
-                        ? activateStr
-                        : DeactivateStr,
-                    textColor: white,
-                  ),
-          ),
-        ],
-      ),
+      )
+      // Padding(
+      //   padding: const EdgeInsets.symmetric(vertical: 4.0),
+      //   child: SMText(
+      //     title: "",
+      //     fontSize: 14,
+      //     fontWeight: FontWeight.normal,
+      //   ),
+      // ),
+      // Row(
+      //   mainAxisAlignment: MainAxisAlignment.start,
+      //   children: [
+      //     Obx(
+      //       () => controller.isLoading.value
+      //           ? Center(child: CircularProgressIndicator())
+      //           : SMButton(
+      //               onTap: () async {
+      //                 GenericPopup("Do you want to activate");
+      //                 ListSettingModel model = await BuyToneApi(offerStatus);
+      //               },
+      //               height: 40,
+      //               width: 200,
+      //               bgColor: (offerStatus != "A" ||
+      //                       offerStatus != "S" ||
+      //                       offerStatus != "G" ||
+      //                       offerStatus == "D")
+      //                   ? greenColor
+      //                   : red,
+      //               title: (offerStatus != "A" ||
+      //                       offerStatus != "S" ||
+      //                       offerStatus != "G" ||
+      //                       offerStatus == "D")
+      //                   ? activateStr
+      //                   : DeactivateStr,
+      //               textColor: white,
+      //             ),
+      //     ),
+      //   ],
+      // ),
     ],
   );
 }
@@ -274,7 +284,7 @@ Column firstColumn(
             //     : "INACTIVE",
             fontWeight: FontWeight.normal,
             fontSize: 14,
-            textColor: (status == "A") ? greenColor : redColor,
+            textColor: (status == "A") ? green : red,
           )
         ],
       ),
@@ -346,8 +356,8 @@ Column firstColumn(
                         status == "S" ||
                         status == "G" ||
                         status != "D")
-                    ? redColor
-                    : greenColor,
+                    ? red
+                    : green,
                 title: (status == "A" || status == "S" || status == "G")
                     ? DeactivateStr
                     : activateStr,
@@ -459,9 +469,8 @@ Widget secondColumn(DashboardController controller, int index) {
                   : "SUSPEND",
               fontWeight: FontWeight.normal,
               fontSize: 14,
-              textColor: (controller.settingsList[index].status == "A")
-                  ? greenColor
-                  : redColor,
+              textColor:
+                  (controller.settingsList[index].status == "A") ? green : red,
             );
           })
         ],
@@ -472,9 +481,7 @@ Widget secondColumn(DashboardController controller, int index) {
       ),
       Obx(() {
         return SMButton(
-          bgColor: (controller.settingsList[index].status == "A")
-              ? redColor
-              : greenColor,
+          bgColor: (controller.settingsList[index].status == "A") ? red : green,
           title: (controller.settingsList[index].status == "A")
               ? "Suspend" //resumeServiceStr
               : "Resume", //suspendServiceStr,

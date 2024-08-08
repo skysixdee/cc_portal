@@ -26,6 +26,11 @@ Widget customerTextFieldBuilder(
                   child: Padding(
                     padding: const EdgeInsets.only(left: 16.0),
                     child: TextField(
+                      onSubmitted: (value) {
+                        controller.handleSubmit(
+                          textController.text,
+                        );
+                      },
                       controller: textController,
                       keyboardType: TextInputType.number,
                       inputFormatters: <TextInputFormatter>[

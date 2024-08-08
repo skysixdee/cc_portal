@@ -6,11 +6,12 @@ import 'package:sm_admin_portal/controllers/Tone_list_controller.dart';
 
 import 'package:sm_admin_portal/controllers/activate_tune_controller.dart';
 
-
 import 'package:sm_admin_portal/controllers/app_controller.dart';
+import 'package:sm_admin_portal/controllers/dashboard_controller.dart';
 import 'package:sm_admin_portal/controllers/side_menu_controller.dart';
 import 'package:sm_admin_portal/controllers/subscriber_detail_controler.dart';
 import 'package:sm_admin_portal/router/router.dart';
+import 'package:sm_admin_portal/store_manager/store_manager.dart';
 
 late AppController appCont;
 late SharedPreferences prefs;
@@ -27,8 +28,10 @@ initialize() async {
   Get.lazyPut(() => TuneListController());
 
   Get.lazyPut(() => ActivateTuneController());
+  Get.lazyPut(() => DashboardController());
 
   prefs = await SharedPreferences.getInstance();
+  StoreManager().initStoreManager();
 }
 
 class MyApp extends StatelessWidget {

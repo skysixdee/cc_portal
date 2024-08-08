@@ -77,6 +77,7 @@ class BuyTuneController extends GetxController {
 
     if (genericModal.respCode == 0) {
       if (onBuySuccess != null) {
+        print("SKY Buy Success 3");
         onBuySuccess!();
         await Future.delayed(Duration(milliseconds: 200));
         openGenericPopup(genericModal.message ?? 'No Message');

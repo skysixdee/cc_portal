@@ -16,6 +16,7 @@ import 'package:sm_admin_portal/api_calls/list_settings_api.dart';
 
 import 'package:intl/intl.dart';
 import 'package:sm_admin_portal/enums/user_type.dart';
+import 'package:sm_admin_portal/store_manager/store_manager.dart';
 
 class DashboardController extends GetxController {
   var isLoading = false.obs;
@@ -28,6 +29,13 @@ class DashboardController extends GetxController {
   var subscriptionDetails = <Map<String, dynamic>>[].obs;
 
   var respCode = 0.obs;
+
+  //@override
+  @override
+  void onInit() {
+    super.onInit();
+  }
+
   void handleSubmit(String phoneNumber) async {
     isLoading.value = true;
     isSubmitted.value = true;
@@ -37,8 +45,12 @@ class DashboardController extends GetxController {
         await getSubscriptionDetailApi(phoneNumber);
     if (getSubscriptionModel.respCode == 1) {
       userType.value = UserType.newUser;
+      StoreManager().setCustomerLoggedin(true);
+      StoreManager().setCustomerNumber(phoneNumber);
     } else if (getSubscriptionModel.respCode == 0) {
       userType.value = UserType.existingUser;
+      StoreManager().setCustomerLoggedin(true);
+      StoreManager().setCustomerNumber(phoneNumber);
     } else {
       userType.value = UserType.invalidUser;
     }
@@ -47,12 +59,6 @@ class DashboardController extends GetxController {
     // Update settings and subscription lists
     settingsList.value = listSettingData.settingsList ?? [];
     subscriptionList.value = getSubscriptionModel.offers ?? [];
-    // subscriptionList.value = getSubscriptionModel.offers?.map((offer) {
-    //       offer.expiryDate = _formatDate(offer.expiryDate);
-    //       offer.chargedDate = _formatDate(offer.chargedDate);
-    //       return offer;
-    //     })?.toList() ??
-    [];
 
     // Log the updated respCodes for debugging
     print(
@@ -82,6 +88,10 @@ class DashboardController extends GetxController {
     String dayWithSuffix = _getDayWithSuffix(int.parse(day));
 
     return '$dayWithSuffix $month $year';
+  }
+
+  activateNewUser() {
+    print("Make api call here");
   }
 
   String _getDayWithSuffix(int day) {

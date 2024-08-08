@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sm_admin_portal/navigation_bar_view/sixd_logo.dart';
+import 'package:sm_admin_portal/reusable_view/sm_button.dart';
 import 'package:sm_admin_portal/router/router_name.dart';
+import 'package:sm_admin_portal/store_manager/store_manager.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/images.dart';
+import 'package:sm_admin_portal/utilily/strings.dart';
 
 class NavigationBarView extends StatelessWidget {
   final double navBarheight;
@@ -30,23 +33,29 @@ class NavigationBarView extends StatelessWidget {
                   color: white,
                   child: sixDeeLogo(sideMenuWidth),
                 ),
-                IconButton(
-                  icon: Icon(Icons.dashboard),
-                  onPressed: () {
-                    context.goNamed(dashBoardRoute);
-                  },
-                ),
-                Text('Dashboard'),
-                SizedBox(
-                  width: 850,
-                ),
-                IconButton(
-                  icon: Icon(Icons.logout),
-                  onPressed: () {
-                    // context.goNamed(dashBoardRoute);
-                  },
-                ),
-                Text('Logout')
+                Flexible(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SMButton(
+                        title: dashBoardStr,
+                        leadingChild: Icon(Icons.dashboard),
+                        onTap: () {
+                          context.goNamed(dashBoardRoute);
+                        },
+                      ),
+                      SMButton(
+                        title: logoutStr,
+                        leadingChild: Icon(Icons.logout),
+                        onTap: () {
+                          StoreManager().setCustomerLoggedin(false);
+
+                          context.goNamed(dashBoardRoute);
+                        },
+                      )
+                    ],
+                  ),
+                )
               ],
             ),
           ),

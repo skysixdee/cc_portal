@@ -106,7 +106,7 @@ class _emptyView extends StatelessWidget {
           SMText(
             textAlign: TextAlign.center,
             title: noDataMessageStr,
-            textColor: redColor,
+            textColor: red,
           )
         ],
       ),
