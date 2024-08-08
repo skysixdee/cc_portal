@@ -7,10 +7,6 @@
 // import 'package:sm_admin_portal/Models/get_subscription_modal.dart';
 // import 'package:sm_admin_portal/api_calls/list_settings_api.dart';
 
-
-
-
-
 import 'package:get/get.dart';
 
 import 'package:sm_admin_portal/Models/list_setting_modal.dart';
@@ -19,53 +15,61 @@ import 'package:sm_admin_portal/Models/get_subscription_modal.dart';
 import 'package:sm_admin_portal/api_calls/list_settings_api.dart';
 
 import 'package:intl/intl.dart';
-
-
+import 'package:sm_admin_portal/enums/user_type.dart';
 
 class DashboardController extends GetxController {
   var isLoading = false.obs;
   var isSubmitted = false.obs;
   var mobileNumber = ''.obs;
   var phoneNumber = ''.obs;
-
+  Rx<UserType> userType = UserType.existingUser.obs;
   RxList<Offer> subscriptionList = <Offer>[].obs;
   RxList<SettingsList> settingsList = <SettingsList>[].obs;
   var subscriptionDetails = <Map<String, dynamic>>[].obs;
 
   var respCode = 0.obs;
-void handleSubmit(String phoneNumber) async {
-  isLoading.value = true;
-  isSubmitted.value = true;
-  mobileNumber.value = phoneNumber;
-
-  // Fetch data from APIs
-  GetSubscriptionModel getSubscriptionModel = await getSubscriptionDetailApi(phoneNumber);
-  ListSettingModel listSettingData = await listSettingApi(phoneNumber);
-
-  // Update settings and subscription lists
-  settingsList.value = listSettingData.settingsList ?? [];
-  subscriptionList.value = getSubscriptionModel.offers?.map((offer) {
-        offer.expiryDate = _formatDate(offer.expiryDate);
-        offer.chargedDate = _formatDate(offer.chargedDate);
-        return offer;
-      })?.toList() ??
-      [];
-
-  // Log the updated respCodes for debugging
-  print("Updated getSubscriptionModel respCode: ${getSubscriptionModel.respCode}");
-  print("Updated listSettingData respCode: ${listSettingData.respCode}");
-
-  // Update isLoading and respCode based on the API responses
-  isLoading.value = false;
-
-  // Set respCode based on getSubscriptionDetailApi
-  respCode.value = getSubscriptionModel.respCode ?? 0;
-
-  // Optionally, update isSubmitted based on the respCode from getSubscriptionDetailApi
-  if (respCode.value == 0) {
+  void handleSubmit(String phoneNumber) async {
+    isLoading.value = true;
     isSubmitted.value = true;
+    mobileNumber.value = phoneNumber;
+
+    GetSubscriptionModel getSubscriptionModel =
+        await getSubscriptionDetailApi(phoneNumber);
+    if (getSubscriptionModel.respCode == 1) {
+      userType.value = UserType.newUser;
+    } else if (getSubscriptionModel.respCode == 0) {
+      userType.value = UserType.existingUser;
+    } else {
+      userType.value = UserType.invalidUser;
+    }
+    ListSettingModel listSettingData = await listSettingApi(phoneNumber);
+
+    // Update settings and subscription lists
+    settingsList.value = listSettingData.settingsList ?? [];
+    subscriptionList.value = getSubscriptionModel.offers ?? [];
+    // subscriptionList.value = getSubscriptionModel.offers?.map((offer) {
+    //       offer.expiryDate = _formatDate(offer.expiryDate);
+    //       offer.chargedDate = _formatDate(offer.chargedDate);
+    //       return offer;
+    //     })?.toList() ??
+    [];
+
+    // Log the updated respCodes for debugging
+    print(
+        "Updated getSubscriptionModel respCode: ${getSubscriptionModel.respCode}");
+    print("Updated listSettingData respCode: ${listSettingData.respCode}");
+
+    // Update isLoading and respCode based on the API responses
+    isLoading.value = false;
+
+    // Set respCode based on getSubscriptionDetailApi
+    respCode.value = getSubscriptionModel.respCode ?? 0;
+
+    // Optionally, update isSubmitted based on the respCode from getSubscriptionDetailApi
+    // if (respCode.value == 0) {
+    //   isSubmitted.value = true;
+    // }
   }
-}
 
   String _formatDate(String? date) {
     if (date == null || date.isEmpty) return "";
