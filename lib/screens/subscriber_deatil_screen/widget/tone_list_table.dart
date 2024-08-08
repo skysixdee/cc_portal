@@ -21,7 +21,8 @@ class SettingsListTable extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Padding(
            padding: const EdgeInsets.all(8.0),
-          child: CustomTableView(
+          child:
+           CustomTableView(
             // cellHeight: 60,
             //  headerHeight: 60,
             // headerBgColor: Colors.grey[300],

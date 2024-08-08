@@ -4,17 +4,15 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sm_admin_portal/controllers/Tone_list_controller.dart';
 import 'package:sm_admin_portal/reusable_view/bottom_buttons.dart';
-import 'package:sm_admin_portal/reusable_view/sm_button.dart';
+
 import 'package:sm_admin_portal/router/router_name.dart';
-import 'package:sm_admin_portal/screens/dashboard_screen/dashboard_screen.dart';
+
 import 'package:sm_admin_portal/screens/subscriber_deatil_screen/widget/tone_list_table.dart';
 import 'package:flutter/material.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
 
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';  // Make sure you have go_router imported
+// Make sure you have go_router imported
 
 class TuneListScreen extends StatefulWidget {
   const TuneListScreen({super.key});
@@ -49,37 +47,40 @@ class _TuneListScreenState extends State<TuneListScreen> {
           SizedBox(
             width: MediaQuery.of(context).size.width,
             child: Container(
-              color: dividerColor,
-              child: cont.isLoading.value
-                  ? Center(child: CircularProgressIndicator())
-                  : ListView(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(28.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(height: 10),
-                              tableAndBottomSection(),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-            ),
-          ),
-         
-          Positioned(
-            top: 10,
-            left: 10,
-            child: IconButton(
-              icon: Icon(Icons.dashboard),
-              onPressed: () {
+                color: dividerColor,
+                child: cont.isLoading.value
+                    ? Center(child: CircularProgressIndicator())
+                    :  SettingsListTable(), 
+                     
+                         
+                          // tableAndBottomSection(),
+                      
+                      ),
+                    // ListView.builder(itemBuilder: (context, index) {
+                    //     return Column(
+                    //       crossAxisAlignment: CrossAxisAlignment.start,
+                    //       children: [
+                    //         SettingsListTable(),
+                    //         SizedBox(height: 10),
+                    //         tableAndBottomSection(),
+                    //       ],
+                    //     );
+                    //   })
                
-                context.goNamed(dashBoardRoute);
-              },
-            ),
-          ),
+                ),
+          
+
+          // Positioned(
+          //   top: 10,
+          //   left: 10,
+          //   child: IconButton(
+          //     icon: Icon(Icons.dashboard),
+          //     onPressed: () {
+
+          //       context.goNamed(dashBoardRoute);
+          //     },
+          //   ),
+          // ),
         ],
       );
     });

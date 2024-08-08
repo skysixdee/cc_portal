@@ -174,7 +174,6 @@ import 'package:get/get.dart';
 import 'package:sm_admin_portal/Models/tone_detail_modal.dart';
 import 'package:sm_admin_portal/Models/tone_list_model.dart';
 
-
 import 'package:sm_admin_portal/api_calls/tune_list_api.dart';
 import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_view_model.dart';
 
@@ -191,10 +190,9 @@ class TuneListController extends GetxController {
   void onInit() {
     super.onInit();
     createTableToneListsHeaderColumnList();
-  }                      
+  }
 
   Future<void> getToneList(String phoneNumber) async {
-   
     toneList.clear();
     isLoading.value = true;
     createTableToneListsHeaderColumnList();
@@ -207,25 +205,31 @@ class TuneListController extends GetxController {
   void createTableToneListsHeaderColumnList() {
     toneList.add([
       CustomTableViewModel(
-        title: toneIdStr, isVisible: true.obs, isRemoveable: true),
+          title: toneIdStr, isVisible: true.obs, isRemoveable: true),
 
-         // title: MsisdnStr, isVisible: true.obs, isRemoveable: true),
+      // title: MsisdnStr, isVisible: true.obs, isRemoveable: true),
       CustomTableViewModel(
-        title: ToneNameStr, isVisible: true.obs, isRemoveable: false, isButton: false),
+          title: ToneNameStr,
+          isVisible: true.obs,
+          isRemoveable: false,
+          isButton: false),
 
-        //  title: ToneStatusStr,isVisible: true.obs,isRemoveable: true,isButton: false),
+      //  title: ToneStatusStr,isVisible: true.obs,isRemoveable: true,isButton: false),
       CustomTableViewModel(
-        title: ToneStatusStr,isVisible: true.obs,isRemoveable: true,isButton: false),
+          title: ToneStatusStr,
+          isVisible: true.obs,
+          isRemoveable: true,
+          isButton: false),
 
-         // title: ActivationDateStr, isVisible: true.obs, isRemoveable: true),
+      // title: ActivationDateStr, isVisible: true.obs, isRemoveable: true),
       CustomTableViewModel(
-        title: ActivationDateStr, isVisible: true.obs, isRemoveable: true),
+          title: ActivationDateStr, isVisible: true.obs, isRemoveable: true),
 
-         // title: toneIdStr, isVisible: true.obs, isRemoveable: true),
+      // title: toneIdStr, isVisible: true.obs, isRemoveable: true),
       CustomTableViewModel(
-        title: NextBillingDateStr, isVisible: true.obs, isRemoveable: false),
+          title: NextBillingDateStr, isVisible: true.obs, isRemoveable: false),
 
-         // title: ToneNameStr, isVisible: true.obs, isRemoveable: false, isButton: false),
+      // title: ToneNameStr, isVisible: true.obs, isRemoveable: false, isButton: false),
       // CustomTableViewModel(
       //     title: NextBillingDateStr, isVisible: true.obs, isRemoveable: false),
       CustomTableViewModel(
@@ -255,7 +259,7 @@ class TuneListController extends GetxController {
             // isRemoveable: true,
             // isButton: false,
             // object: item),
-             value: item.contentName ?? '',
+            value: item.contentName ?? '',
             isVisible: true.obs,
             isRemoveable: false,
             isButton: false,
@@ -272,22 +276,22 @@ class TuneListController extends GetxController {
             isButton: false,
             object: item),
         CustomTableViewModel(
-          value: item.firstActivationDate ?? '',
+            value: item.firstActivationDate ?? '',
             isVisible: true.obs,
             isRemoveable: true,
             object: item),
 
-           // value: item.contentId ?? '',
-            // isVisible: true.obs,
-            // isRemoveable: false,
-            // object: item),
+        // value: item.contentId ?? '',
+        // isVisible: true.obs,
+        // isRemoveable: false,
+        // object: item),
         CustomTableViewModel(
             // value: item.contentName ?? '',
             // isVisible: true.obs,
             // isRemoveable: false,
             // isButton: false,
             // object: item),
-          //  value: item.expiryDate ?? '', // Next billing date-----value
+            value: item.expiryDate?? '', // Next billing date-----value
             isVisible: true.obs,
             isRemoveable: false,
             object: item),
@@ -297,9 +301,9 @@ class TuneListController extends GetxController {
         //     isRemoveable: false,
         //     object: item),
         CustomTableViewModel(
-          value:item.isContentPackage ?? "",
-        //   item.firstActivationDate ?? "",
-           // value: item.contentType ?? '', // Channel ID-----value
+            value: item.isContentPackage ?? "",
+            //   item.firstActivationDate ?? "",
+            // value: item.contentType ?? '', // Channel ID-----value
             isVisible: true.obs,
             isRemoveable: false,
             object: item),

@@ -10,6 +10,9 @@ import 'package:sm_admin_portal/api_calls/buy_tone_api.dart';
 
 import 'package:sm_admin_portal/controllers/Tone_list_controller.dart';
 import 'package:sm_admin_portal/controllers/dashboard_controller.dart';
+import 'package:sm_admin_portal/reusable_view/generic_popup.dart';
+import 'package:sm_admin_portal/reusable_view/open_generic_popup_view.dart';
+import 'package:sm_admin_portal/reusable_view/pop_over.dart';
 
 import 'package:sm_admin_portal/reusable_view/reusable_alert_dialog/resuable.dart';
 
@@ -18,6 +21,7 @@ import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
 
 import 'package:sm_admin_portal/router/router_name.dart';
+import 'package:sm_admin_portal/screens/activate_tune_screen/widgets/buy_tune_popup.dart';
 
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
@@ -42,7 +46,7 @@ class DashBoardScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(Icons.logout),
+                  // Icon(Icons.logout),
                   Row(
                     children: [
                       userPic(),
@@ -71,11 +75,20 @@ class DashBoardScreen extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   firstColumn(controller, index, context),
-                                  customDivider(),
+                                  if (controller.subscriptionList[index]
+                                          .offerStatus !=
+                                      "D")
+                                    customDivider(),
                                   secondColumn(controller, index),
-                                  customDivider(),
+                                  if (controller.subscriptionList[index]
+                                          .offerStatus !=
+                                      "D")
+                                    customDivider(),
                                   thirdColumn(controller, index),
-                                  customDivider(),
+                                  if (controller.subscriptionList[index]
+                                          .offerStatus !=
+                                      "D")
+                                    customDivider(),
                                   fourthColumn(controller, index),
                                 ],
                               ),
@@ -191,7 +204,10 @@ Widget customDivider() {
 Obx tuneListButton(DashboardController controller, BuildContext context) {
   return Obx(
     () {
-      bool isClickable = controller.respCode.value == 0;
+      bool isClickable = controller.respCode.value == 0 &&
+          controller.subscriptionList
+              .every((subscription) => subscription.offerStatus != "D");
+
       return SMButton(
         title: tuneListStr,
         textColor: black,
@@ -205,6 +221,7 @@ Obx tuneListButton(DashboardController controller, BuildContext context) {
                 context.goNamed(tuneListRoute);
               }
             : null,
+        bgColor: isClickable ? sixdColor : grey,
       );
     },
   );
@@ -229,6 +246,7 @@ SMButton TransactionHistoryButton(
     title: transactionHistoryStr,
     textColor: black,
     addBorder: true,
+    bgColor: sixdColor,
     borderColor: sixdColor,
   );
 }
@@ -268,7 +286,7 @@ Widget newSubscriberColumn(
   final offerStatus = (index >= 0 && index < controller.subscriptionList.length)
       ? controller.subscriptionList[index].offerStatus
       : '';
-
+  // final offerStatus = controller.subscriptionList[index].offerStatus;
   return Column(
     children: [
       Row(
@@ -310,8 +328,9 @@ Widget newSubscriberColumn(
             () => controller.isLoading.value
                 ? Center(child: CircularProgressIndicator())
                 : SMButton(
-                    onTap: () async{
-                       ListSettingModel model =await BuyToneApi(offerStatus);
+                    onTap: () async {
+                      GenericPopup("Do you want to activate");
+                      ListSettingModel model = await BuyToneApi(offerStatus);
                     },
                     height: 40,
                     width: 200,
@@ -349,12 +368,22 @@ Column firstColumn(
           ),
           SMText(title: " : "),
           SMText(
-            title: (controller.subscriptionList[index].offerStatus == "A" ||
-                    controller.subscriptionList[index].offerStatus == "G" ||
-                    controller.subscriptionList[index].offerStatus == "S" ||
-                    controller.subscriptionList[index].offerStatus != "D")
+            title: (controller.subscriptionList[index].offerStatus == "A")
                 ? "ACTIVE"
-                : "INACTIVE",
+                : (controller.subscriptionList[index].offerStatus == "G")
+                    ? "GRACE"
+                    : (controller.subscriptionList[index].offerStatus == "S")
+                        ? "SUSPEND"
+                        : (controller.subscriptionList[index].offerStatus ==
+                                "P")
+                            ? "PENDING"
+                            : "INACTIVE",
+            // (controller.subscriptionList[index].offerStatus == "A" ||
+            //         controller.subscriptionList[index].offerStatus == "G" ||
+            //         controller.subscriptionList[index].offerStatus == "S" ||
+            //         controller.subscriptionList[index].offerStatus != "D")
+            //     ? "ACTIVE"
+            //     : "INACTIVE",
             fontWeight: FontWeight.normal,
             fontSize: 14,
             textColor: (controller.subscriptionList[index].offerStatus == "A")
@@ -363,18 +392,75 @@ Column firstColumn(
           )
         ],
       ),
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4.0),
-        child: SMText(
-          title: "${controller.subscriptionList[index].offerName}",
-          fontSize: 14,
-          fontWeight: FontWeight.normal,
+      if (controller.subscriptionList[index].offerStatus == "D")
+        SMText(title: " ")
+      else
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4.0),
+              child: SMText(
+                title: "${controller.subscriptionList[index].offerName}",
+                fontSize: 14,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+          ],
         ),
-      ),
       Obx(
         () => controller.isLoading.value
             ? Center(child: CircularProgressIndicator())
             : SMButton(
+                onTap: () {
+                  String action = (controller
+                              .subscriptionList[index].offerStatus ==
+                          "A")
+                      ? "ACTIVE"
+                      : (controller.subscriptionList[index].offerStatus == "G")
+                          ? "GRACE"
+                          : (controller.subscriptionList[index].offerStatus ==
+                                  "S")
+                              ? "SUSPEND"
+                              : (controller.subscriptionList[index]
+                                          .offerStatus ==
+                                      "P")
+                                  ? "PENDING"
+                                  : "INACTIVE";
+                  openBuyTunePopup('','');
+                  // showDialog(
+                  //   context: Get.context!,
+                  //   builder: (BuildContext context) {
+                  //     return ReusableAlertDialogBox(
+                  //       textLine1: 'Are you sure you want to $action?',
+                  //       onYesPressed: (dialogContext) {
+                  //         controller.subscriptionList[index].offerStatus =
+                  //             (controller
+                  //             .subscriptionList[index].offerStatus ==
+                  //         "A")
+                  //     ? "ACTIVE"
+                  //     : (controller.subscriptionList[index].offerStatus == "G")
+                  //         ? "GRACE"
+                  //         : (controller.subscriptionList[index].offerStatus ==
+                  //                 "S")
+                  //             ? "SUSPEND"
+                  //             : (controller.subscriptionList[index]
+                  //                         .offerStatus ==
+                  //                     "P")
+                  //                 ? "PENDING"
+                  //                 : "INACTIVE";
+
+                  //         controller.subscriptionList.refresh();
+                  //         Navigator.of(dialogContext).pop();
+                  //         String? currentStatus =
+                  //             controller.subscriptionList[index].offerStatus;
+                  //         print("Current Status in Button: $currentStatus");
+                  //         print("Current Status in Dialog: $currentStatus");
+                  //       },
+                  //     );
+                  //   },
+                  // );
+                },
                 bgColor: (controller.subscriptionList[index].offerStatus ==
                             "A" ||
                         controller.subscriptionList[index].offerStatus == "S" ||
@@ -394,7 +480,94 @@ Column firstColumn(
   );
 }
 
+// Column firstColumn(
+//     DashboardController controller, int index, BuildContext context) {
+//   return Column(
+//     children: [
+//       Row(
+//         children: [
+//           SMText(
+//             title: SubscriptionStatusStr,
+//             fontWeight: FontWeight.normal,
+//             fontSize: 14,
+//           ),
+//           SMText(title: " : "),
+//           SMText(
+//             title: (controller.subscriptionList[index].offerStatus == "A")
+//                 ? "ACTIVE"
+//                 : (controller.subscriptionList[index].offerStatus == "G")
+//                     ? "GRACE"
+//                     : (controller.subscriptionList[index].offerStatus == "S")
+//                         ? "SUSPEND"
+//                         : (controller.subscriptionList[index].offerStatus ==
+//                                 "P")
+//                             ? "PENDING"
+//                             : "INACTIVE",
+//             // (controller.subscriptionList[index].offerStatus == "A" ||
+//             //         controller.subscriptionList[index].offerStatus == "G" ||
+//             //         controller.subscriptionList[index].offerStatus == "S" ||
+//             //         controller.subscriptionList[index].offerStatus != "D")
+//             //     ? "ACTIVE"
+//             //     : "INACTIVE",
+//             fontWeight: FontWeight.normal,
+//             fontSize: 14,
+//             textColor: (controller.subscriptionList[index].offerStatus == "A")
+//                 ? greenColor
+//                 : redColor,
+//           )
+//         ],
+//       ),
+//       if (controller.subscriptionList[index].offerStatus == "D")
+//         SMText(title: " ")
+//       else
+//         Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             Padding(
+//               padding: const EdgeInsets.symmetric(vertical: 4.0),
+//               child: SMText(
+//                 title: "${controller.subscriptionList[index].offerName}",
+//                 fontSize: 14,
+//                 fontWeight: FontWeight.normal,
+//               ),
+//             ),
+//           ],
+//         ),
+//       Obx(
+//         () => controller.isLoading.value
+//             ? Center(child: CircularProgressIndicator())
+//             : SMButton(
+//                 onTap: () {
+//                  ReusableAlertDialogBox(
+//                   textLine1: ' ',);
+//                 },
+//                 bgColor: (controller.subscriptionList[index].offerStatus ==
+//                             "A" ||
+//                         controller.subscriptionList[index].offerStatus == "S" ||
+//                         controller.subscriptionList[index].offerStatus == "G" ||
+//                         controller.subscriptionList[index].offerStatus != "D")
+//                     ? redColor
+//                     : greenColor,
+//                 title: (controller.subscriptionList[index].offerStatus == "A" ||
+//                         controller.subscriptionList[index].offerStatus == "S" ||
+//                         controller.subscriptionList[index].offerStatus == "G")
+//                     ? DeactivateStr
+//                     : activateStr,
+//                 textColor: white,
+//               ),
+//       ),
+//     ],
+//   );
+// }
+
 Column secondColumn(DashboardController controller, int index) {
+  if (controller.subscriptionList[index].offerStatus == "D") {
+    return Column(
+      children: [
+        SizedBox.shrink(),
+      ],
+    );
+  }
   return Column(
     children: [
       Row(
@@ -465,6 +638,13 @@ Column secondColumn(DashboardController controller, int index) {
 }
 
 Column thirdColumn(DashboardController controller, int index) {
+  if (controller.subscriptionList[index].offerStatus == "D") {
+    return Column(
+      children: [
+        SizedBox.shrink(),
+      ],
+    );
+  }
   return Column(
     children: [
       Row(
@@ -493,6 +673,13 @@ Column thirdColumn(DashboardController controller, int index) {
 }
 
 Column fourthColumn(DashboardController controller, int index) {
+  if (controller.subscriptionList[index].offerStatus == "D") {
+    return Column(
+      children: [
+        SizedBox.shrink(),
+      ],
+    );
+  }
   return Column(
     children: [
       Row(

@@ -57,6 +57,7 @@ class Tonelist {
   String? contentPreviewImageUrl;
   String? status;
   String? firstActivationDate;
+  String? expiryDate;
   String? price;
   RxBool? isSuspend = true.obs;
   Tonelist({
@@ -70,6 +71,7 @@ class Tonelist {
     this.contentPreviewImageUrl,
     this.status,
     this.firstActivationDate,
+    this.expiryDate,
     this.price,
   });
 
@@ -84,6 +86,7 @@ class Tonelist {
         contentPreviewImageUrl: json["contentPreviewImageURL"],
         status: json["status"],
         firstActivationDate: json["firstActivationDate"],
+        expiryDate: json["expiryDate"],
         price: json["price"],
       );
 
