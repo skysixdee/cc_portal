@@ -154,17 +154,14 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
           ],
         ),
         SMButton(
-          addBorder: true,
-          borderColor: sixdColor,
           title: "Switch Account",
           fontWeight: FontWeight.bold,
           fontSize: 12,
-          textColor: sixdColor,
           leadingChild: Padding(
             padding: const EdgeInsets.only(right: 4),
             child: Icon(
               Icons.switch_account_rounded,
-              color: sixdColor,
+              //color: sixdColor,
             ),
           ),
           onTap: () {

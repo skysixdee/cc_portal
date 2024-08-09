@@ -2,8 +2,10 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:sm_admin_portal/Models/generic_modal.dart';
 import 'package:sm_admin_portal/api_calls/delete_tone_api.dart';
+import 'package:sm_admin_portal/api_calls/resume_api.dart';
 
 import 'package:sm_admin_portal/api_calls/set_tone_api.dart';
+import 'package:sm_admin_portal/api_calls/suspend_api.dart';
 import 'package:sm_admin_portal/reusable_view/sm_snack_bar.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/constants.dart';
@@ -140,32 +142,53 @@ class NewDashBoardController extends GetxController {
     isLoading.value = false;
   }
 
-  deactivateTapped() async {
+  deactivateTapped(String offerCode) async {
     print("deactivate tapped");
-    deleteToneApi("offerStatus");
     isLoading.value = true;
-    await Future.delayed(Duration(seconds: 2));
+    GenericModal model = await deleteToneApi('All', offerCode);
+    if (model.respCode == 0) {
+    } else {
+      smSnackBar(model.message ?? someThingWentWrongStr);
+    }
+
+    //await Future.delayed(Duration(seconds: 2));
     isLoading.value = false;
   }
 
   activateTapped() async {
     print("activate tapped");
     isLoading.value = true;
-    await Future.delayed(Duration(seconds: 2));
+
+    GenericModal model = await setToneApi(defaultOfferCode, defaultToneId);
+    if (model.respCode == 0) {
+      onSubmitButtonAction(StoreManager().customerNumber);
+      smSnackBar(model.message ?? someThingWentWrongStr);
+    } else {
+      smSnackBar(model.message ?? someThingWentWrongStr);
+    }
     isLoading.value = false;
   }
 
   suspendTapped() async {
     print("suspend Tapped ");
     isLoading.value = true;
-    await Future.delayed(Duration(seconds: 2));
+    GenericModal model = await suspendApi(StoreManager().customerNumber);
+    if (model.respCode == 0) {
+    } else {
+      smSnackBar(model.message ?? someThingWentWrongStr);
+    }
     isLoading.value = false;
   }
 
   resumeTapped() async {
     print("resume Tapped ");
     isLoading.value = true;
-    await Future.delayed(Duration(seconds: 2));
+    isLoading.value = true;
+    GenericModal model = await resumeApi(StoreManager().customerNumber);
+    if (model.respCode == 0) {
+    } else {
+      smSnackBar(model.message ?? someThingWentWrongStr);
+    }
     isLoading.value = false;
   }
 }

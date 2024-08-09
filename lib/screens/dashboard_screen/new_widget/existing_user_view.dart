@@ -47,6 +47,12 @@ Column _secondColumn(NewDashBoardController cont, int index) {
     btnName: secondColumnButtonTitle,
     keyTag: tempStatusStr,
     onTap: () {
+      print("Status========$status2");
+      if (status2 == "A") {
+        cont.suspendTapped();
+      } else {
+        cont.resumeTapped();
+      }
       print("Tapped 2");
     },
   );
@@ -66,7 +72,7 @@ Column _firstColumn(NewDashBoardController cont, int index) {
     btnName: firstColumnButtonTitle,
     onTap: () {
       if (status1 == "A") {
-        cont.deactivateTapped();
+        cont.deactivateTapped(cont.offers[index].offerName ?? '');
       } else {
         cont.activateTapped();
       }
