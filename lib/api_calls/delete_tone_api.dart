@@ -33,18 +33,20 @@
 import 'package:sm_admin_portal/Models/generic_modal.dart';
 
 import 'package:sm_admin_portal/network_manager/network_manager.dart';
+import 'package:sm_admin_portal/store_manager/store_manager.dart';
+import 'package:sm_admin_portal/utilily/get_transaction_id.dart';
 
 Future<GenericModal> deleteToneApi(String? offerStatus) async {
   String url =
       'http://10.0.10.33:5679/selfcare/subscriber-management/delete-tone';
   //  jsonData: );;
   Map<String, dynamic> jsonData = {
-    "transactionId": "9234567822",
+    "transactionId": getTransactionId(),
     "featureId": 1,
-    "msisdn": "92000002",
+    "msisdn": StoreManager().customerNumber,
     "contentId": "1157833",
     "channelId": 2,
-    "offerCode": "CRBT_MONTHLY_REC"
+    "offerCode": offerStatus
   };
 
   //await Future.delayed(Duration(seconds: 3));

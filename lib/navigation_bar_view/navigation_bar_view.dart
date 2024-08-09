@@ -39,7 +39,7 @@ class NavigationBarView extends StatelessWidget {
                     children: [
                       SMButton(
                         title: dashBoardStr,
-                        leadingChild: Icon(Icons.dashboard),
+                        leadingChild: Icon(Icons.dashboard_outlined),
                         onTap: () {
                           context.goNamed(dashBoardRoute);
                         },

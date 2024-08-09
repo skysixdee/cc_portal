@@ -95,7 +95,7 @@ class _SearchedToneListViewState extends State<SearchedToneListView> {
                 textColor: white,
                 onTap: () {
                   openBuyTunePopup(cont.purchaseList[row][0].value,
-                      cont.purchaseList[row][2].value);
+                      cont.purchaseList[row][1].value);
                 },
               ),
             ],

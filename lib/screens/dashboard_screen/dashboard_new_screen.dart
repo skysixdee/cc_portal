@@ -155,9 +155,18 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
         ),
         SMButton(
           addBorder: true,
-          borderColor: greyLight,
+          borderColor: sixdColor,
           title: "Switch Account",
-          leadingChild: Icon(Icons.switch_account_rounded),
+          fontWeight: FontWeight.bold,
+          fontSize: 12,
+          textColor: sixdColor,
+          leadingChild: Padding(
+            padding: const EdgeInsets.only(right: 4),
+            child: Icon(
+              Icons.switch_account_rounded,
+              color: sixdColor,
+            ),
+          ),
           onTap: () {
             controller.isVerified.value = false;
             controller.msisdn = '';

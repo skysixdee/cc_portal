@@ -1,8 +1,10 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:sm_admin_portal/Models/generic_modal.dart';
+import 'package:sm_admin_portal/api_calls/delete_tone_api.dart';
 
 import 'package:sm_admin_portal/api_calls/set_tone_api.dart';
+import 'package:sm_admin_portal/reusable_view/sm_snack_bar.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/constants.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
@@ -26,8 +28,11 @@ class NewDashBoardController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+
     await Future.delayed(Duration(milliseconds: 30));
     if (StoreManager().isCustomerLoggedIn) {
+      isLoading.value = true;
+      isVerified.value = false;
       onSubmitButtonAction(StoreManager().customerNumber);
     }
   }
@@ -40,7 +45,7 @@ class NewDashBoardController extends GetxController {
     }
     isLoading.value = true;
     this.msisdn = msisdn;
-    isVerified.value = false;
+    //isVerified.value = false;
     GetSubscriptionModel subscriptionModel =
         await getSubscriptionDetailApi(msisdn);
 
@@ -124,9 +129,43 @@ class NewDashBoardController extends GetxController {
 
   activateNewUser() async {
     isLoading.value = true;
-    await Future.delayed(Duration(seconds: 3));
+
     GenericModal model = await setToneApi(defaultOfferCode, defaultToneId);
+    if (model.respCode == 0) {
+      onSubmitButtonAction(StoreManager().customerNumber);
+      smSnackBar(model.message ?? someThingWentWrongStr);
+    } else {
+      smSnackBar(model.message ?? someThingWentWrongStr);
+    }
     isLoading.value = false;
-    print("Make api call here");
+  }
+
+  deactivateTapped() async {
+    print("deactivate tapped");
+    deleteToneApi("offerStatus");
+    isLoading.value = true;
+    await Future.delayed(Duration(seconds: 2));
+    isLoading.value = false;
+  }
+
+  activateTapped() async {
+    print("activate tapped");
+    isLoading.value = true;
+    await Future.delayed(Duration(seconds: 2));
+    isLoading.value = false;
+  }
+
+  suspendTapped() async {
+    print("suspend Tapped ");
+    isLoading.value = true;
+    await Future.delayed(Duration(seconds: 2));
+    isLoading.value = false;
+  }
+
+  resumeTapped() async {
+    print("resume Tapped ");
+    isLoading.value = true;
+    await Future.delayed(Duration(seconds: 2));
+    isLoading.value = false;
   }
 }

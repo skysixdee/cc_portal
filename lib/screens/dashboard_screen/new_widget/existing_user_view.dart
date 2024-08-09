@@ -65,7 +65,11 @@ Column _firstColumn(NewDashBoardController cont, int index) {
     btnColor: firstColumnBtnColor,
     btnName: firstColumnButtonTitle,
     onTap: () {
-      print("Tapped 2");
+      if (status1 == "A") {
+        cont.deactivateTapped();
+      } else {
+        cont.activateTapped();
+      }
     },
   );
 }
