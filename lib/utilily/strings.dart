@@ -84,6 +84,7 @@ String ActionStr = 'Action';
 String viewStr = 'View';
 String statusStr = 'Status';
 String suspendedStr = 'Suspend';
+String resumeStr = 'Resume';
 String suspendedCStr = 'SUSPEND';
 String activateStr = 'Activate';
 String activeCStr = 'ACTIVE';

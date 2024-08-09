@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:sm_admin_portal/controllers/dashboard_controller.dart';
+import 'package:sm_admin_portal/controllers/new_dash_board_controller.dart';
 import 'package:sm_admin_portal/main.dart';
 
 class StoreManager {
@@ -12,7 +13,7 @@ class StoreManager {
   bool isEnglish = true;
   bool isAgentLoggedIn = false;
   bool isCustomerLoggedIn = false;
-  late DashboardController cont;
+  late NewDashBoardController cont;
   StoreManager._internal() {
     initStoreManager();
     print("initiali stro manager");
@@ -28,7 +29,7 @@ class StoreManager {
     isEnglish = prefs.getBool('is_english') ?? true;
     agentNumber = prefs.getString('agent_number') ?? '92000003';
     customerNumber = prefs.getString('customer_number') ?? '92000003';
-    cont.isCustomerLoggedIn.value = isCustomerLoggedIn;
+    cont.isVerified.value = isCustomerLoggedIn;
   }
 
   setAgentLoggedin(bool isLoggedIn) {
@@ -40,7 +41,7 @@ class StoreManager {
     isCustomerLoggedIn = isLoggedIn;
     prefs.setBool('is_customer_logged_in', isLoggedIn);
     print("is loggedin ============$isCustomerLoggedIn");
-    cont.isCustomerLoggedIn.value = isLoggedIn;
+    cont.isVerified.value = isLoggedIn;
   }
 
   setLanguageEnglish(bool isEnglish) {

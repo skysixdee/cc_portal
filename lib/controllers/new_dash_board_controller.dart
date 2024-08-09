@@ -1,6 +1,10 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:sm_admin_portal/Models/generic_modal.dart';
+
+import 'package:sm_admin_portal/api_calls/set_tone_api.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
+import 'package:sm_admin_portal/utilily/constants.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
 import 'package:sm_admin_portal/enums/user_type.dart';
 import 'package:sm_admin_portal/Models/list_setting_modal.dart';
@@ -19,12 +23,22 @@ class NewDashBoardController extends GetxController {
   Rx<UserType> userType = UserType.existingUser.obs;
   RxList<SettingsList> settingsList = <SettingsList>[].obs;
 
+  @override
+  void onInit() async {
+    super.onInit();
+    await Future.delayed(Duration(milliseconds: 30));
+    if (StoreManager().isCustomerLoggedIn) {
+      onSubmitButtonAction(StoreManager().customerNumber);
+    }
+  }
+
   onSubmitButtonAction(String msisdn) async {
     print("msis========= $msisdn");
     if (msisdn.isEmpty) {
       openGenericPopup("Enter some message here");
       return;
     }
+    isLoading.value = true;
     this.msisdn = msisdn;
     isVerified.value = false;
     GetSubscriptionModel subscriptionModel =
@@ -43,14 +57,13 @@ class NewDashBoardController extends GetxController {
       return;
     }
 
-    StoreManager().setCustomerLoggedin(true);
-    StoreManager().setCustomerNumber(msisdn);
-
     ListSettingModel settingModel = await listSettingApi(msisdn);
     settingsList.value = settingModel.settingsList ?? [];
 
     isLoading.value = false;
     isVerified.value = true;
+    StoreManager().setCustomerLoggedin(true);
+    StoreManager().setCustomerNumber(msisdn);
   }
 
   String getColumnStatusName(String status) {
@@ -64,6 +77,20 @@ class NewDashBoardController extends GetxController {
       return pendingCStr;
     } else {
       return inActiveCStr;
+    }
+  }
+
+  String getSecondColumnStatusName(String status) {
+    if (status == "A") {
+      return activeCStr;
+    } else if (status == "G") {
+      return suspendedCStr;
+    } else if (status == "S") {
+      return suspendedCStr;
+    } else if (status == "P") {
+      return suspendedCStr;
+    } else {
+      return suspendedCStr;
     }
   }
 
@@ -81,7 +108,25 @@ class NewDashBoardController extends GetxController {
     }
   }
 
-  activateNewUser() {
+  String getSecondColumnButtonName(String status) {
+    if (status == "A") {
+      return suspendedCStr;
+    } else if (status == "G") {
+      return resumeStr;
+    } else if (status == "S") {
+      return resumeStr;
+    } else if (status == "P") {
+      return resumeStr;
+    } else {
+      return resumeStr;
+    }
+  }
+
+  activateNewUser() async {
+    isLoading.value = true;
+    await Future.delayed(Duration(seconds: 3));
+    GenericModal model = await setToneApi(defaultOfferCode, defaultToneId);
+    isLoading.value = false;
     print("Make api call here");
   }
 }

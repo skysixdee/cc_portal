@@ -5,11 +5,15 @@ import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
 
-Widget newUserBuilder(NewDashBoardController cont) {
+Widget newUserView(NewDashBoardController cont) {
   return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    crossAxisAlignment: CrossAxisAlignment.center,
     children: [
       Column(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Row(
             mainAxisSize: MainAxisSize.min,
@@ -37,7 +41,7 @@ Widget newUserBuilder(NewDashBoardController cont) {
                 textColor: white,
                 fontWeight: FontWeight.normal,
                 onTap: () {
-                  print("object");
+                  cont.activateNewUser();
                 },
               ),
             ],

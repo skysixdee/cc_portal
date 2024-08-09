@@ -18,7 +18,7 @@ Future<ListSettingModel> listSettingApi(phoneNumber) async {
     "channelId": 3,
     "serviceId": "DefaultSettings"
   };
-  await Future.delayed(Duration(seconds: 3));
+  await Future.delayed(Duration(milliseconds: 20));
   Map<String, dynamic> jsonMap =
       await NetworkManager().postResquest(url, jsonData);
   ListSettingModel modal = ListSettingModel.fromJson(jsonMap);

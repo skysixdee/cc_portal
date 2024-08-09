@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
-import 'package:sm_admin_portal/Models/Generic_modal.dart';
+import 'package:sm_admin_portal/Models/generic_modal.dart';
+
 import 'package:sm_admin_portal/Models/offer_list_model.dart';
 import 'package:sm_admin_portal/api_calls/list_offer_api.dart';
 import 'package:sm_admin_portal/api_calls/set_tone_api.dart';

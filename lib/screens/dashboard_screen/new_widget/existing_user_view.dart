@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
 import 'package:sm_admin_portal/controllers/new_dash_board_controller.dart';
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
@@ -35,16 +36,16 @@ Row card(NewDashBoardController cont, int index) {
 
 Column _secondColumn(NewDashBoardController cont, int index) {
   String status2 = cont.settingsList[index].status ?? '';
-  String secondColumnTitle = cont.getColumnStatusName(status2);
-  String secondColumnButtonTitle = cont.getColumnButtonName(status2);
+  String secondColumnTitle = cont.getSecondColumnStatusName(status2);
+  String secondColumnButtonTitle = cont.getSecondColumnButtonName(status2);
   Color secondColumnTitlecolor = status2 == "A" ? green : red;
-  Color secondColumnBtnColor =
-      (status2 == "D" || status2 == "NA") ? green : red;
+  Color secondColumnBtnColor = (status2 == "A") ? red : green;
   return _column(
     secondColumnTitle,
     titleColor: secondColumnTitlecolor,
     btnColor: secondColumnBtnColor,
     btnName: secondColumnButtonTitle,
+    keyTag: tempStatusStr,
     onTap: () {
       print("Tapped 2");
     },
@@ -82,6 +83,7 @@ Column _column(String title,
     Color btnColor = red,
     String? offerName,
     String btnName = '',
+    String? keyTag,
     Function()? onTap}) {
   return Column(
     mainAxisSize: MainAxisSize.min,
@@ -90,7 +92,7 @@ Column _column(String title,
         mainAxisSize: MainAxisSize.min,
         children: [
           SMText(
-            title: SubscriptionStatusStr,
+            title: keyTag ?? SubscriptionStatusStr,
             fontWeight: FontWeight.normal,
           ),
           SMText(title: " : ", fontWeight: FontWeight.normal),
@@ -139,9 +141,20 @@ Widget _dateColumn(String title, String value) {
         fontWeight: FontWeight.normal,
       ),
       SMText(
-        title: value,
+        title: _dateFormate(value),
         fontWeight: FontWeight.normal,
       )
     ],
   );
+}
+
+String _dateFormate(String date) {
+  if (date.isEmpty) {
+    return "";
+  }
+  DateTime dateTime = DateTime.parse(date);
+  final DateFormat formatter = DateFormat('dd-MM-yyyy  HH:mm');
+  final String formatted = formatter.format(dateTime);
+  print("SKY ==== $formatted");
+  return formatted;
 }

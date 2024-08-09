@@ -37,6 +37,7 @@ dependencies:
   go_router: ^13.2.0
   google_fonts: ^6.1.0
   http: any
+  intl: ^0.19.0
   navigator: any
   number_paginator: ^0.4.1
   popover: ^0.3.0
@@ -65,6 +66,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/pngs/
+    - properties.json
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
