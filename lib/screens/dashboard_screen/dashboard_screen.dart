@@ -1,30 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:go_router/go_router.dart';
-import 'package:sm_admin_portal/Models/get_subscription_modal.dart';
-import 'package:sm_admin_portal/Models/list_setting_modal.dart';
-import 'package:sm_admin_portal/api_calls/buy_tone_api.dart';
 
-import 'package:sm_admin_portal/controllers/Tone_list_controller.dart';
+import 'package:sm_admin_portal/Models/get_subscription_modal.dart';
+
 import 'package:sm_admin_portal/controllers/dashboard_controller.dart';
 import 'package:sm_admin_portal/enums/user_type.dart';
-import 'package:sm_admin_portal/reusable_view/generic_popup.dart';
-import 'package:sm_admin_portal/reusable_view/open_generic_popup_view.dart';
-import 'package:sm_admin_portal/reusable_view/pop_over.dart';
-
 import 'package:sm_admin_portal/reusable_view/reusable_alert_dialog/resuable.dart';
 
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
 
-import 'package:sm_admin_portal/router/router_name.dart';
 import 'package:sm_admin_portal/screens/activate_tune_screen/widgets/buy_tune_popup.dart';
 import 'package:sm_admin_portal/screens/dashboard_screen/widgets/bottom_button_view.dart';
 import 'package:sm_admin_portal/screens/dashboard_screen/widgets/customer_textfield_view.dart';
+import 'package:sm_admin_portal/store_manager/store_manager.dart';
 
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
@@ -34,7 +24,7 @@ class DashBoardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DashboardController controller = Get.put(DashboardController());
+    final DashboardController controller = Get.find();
     final TextEditingController textController = TextEditingController();
 
     return Center(
@@ -43,30 +33,24 @@ class DashBoardScreen extends StatelessWidget {
         child: Obx(() {
           if (controller.isLoading.value) {
             return Center(child: CircularProgressIndicator());
-          } else if (controller.isSubmitted.value) {
-            return Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Icon(Icons.logout),
-                  UserInfo(controller),
-                  // if (controller.userType == UserType.newUser)
-                  //   {
-                  newUserBuilder(controller, context),
-                  // }else{}
-                  SizedBox(height: 30),
-                  Expanded(
-                    child: userInfoList(controller),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(),
-                    child: Divider(thickness: 1, color: sixdColor),
-                  ),
-                  SizedBox(height: 10),
-                  bottomButtons(controller, context),
-                ],
-              ),
+          } else if (controller.isCustomerLoggedIn.value) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                UserInfo(controller),
+                Expanded(child: Obx(
+                  () {
+                    return controller.userType.value == UserType.newUser
+                        ? newUserBuilder(controller, context)
+                        : userInfoList(controller);
+                  },
+                )),
+                SizedBox(height: 30),
+                veriticalDivider(),
+                SizedBox(height: 10),
+                bottomButtons(controller, context),
+              ],
             );
           } else {
             return customerTextFieldBuilder(textController, controller);
@@ -76,31 +60,32 @@ class DashBoardScreen extends StatelessWidget {
     );
   }
 
- 
+  Padding veriticalDivider() {
+    return Padding(
+      padding: const EdgeInsets.only(),
+      child: Divider(thickness: 1, color: sixdColor),
+    );
+  }
 
   Obx userInfoList(DashboardController controller) {
     return Obx(() {
       return ListView.builder(
         shrinkWrap: true,
         scrollDirection: Axis.vertical,
-        itemCount: controller.subscriptionList.length,
+        itemCount: controller.offers.length,
         itemBuilder: (context, index) {
-          Offer offer = controller.subscriptionList[index];
-          return Column(
+          Offer offer = controller.offers[index];
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  firstColumn(controller, index, context),
-                  if (offer.offerStatus != "D") customDivider(),
-                  secondColumn(controller, index),
-                  if (offer.offerStatus != "D") customDivider(),
-                  thirdColumn(controller, index),
-                  if (offer.offerStatus != "D") customDivider(),
-                  fourthColumn(controller, index),
-                ],
-              ),
+              firstColumn(controller, index, context),
+              if (offer.offerStatus != "D") customDivider(),
+              secondColumn(controller, index),
+              if (offer.offerStatus != "D") customDivider(),
+              thirdColumn(controller, index),
+              if (offer.offerStatus != "D") customDivider(),
+              fourthColumn(controller, index),
             ],
           );
         },
@@ -108,13 +93,10 @@ class DashBoardScreen extends StatelessWidget {
     });
   }
 
-  SingleChildRenderObjectWidget newUserBuilder(
-      DashboardController controller, BuildContext context) {
-    return (controller.userType == UserType.newUser)
-        ? Padding(
-            padding: const EdgeInsets.only(top: 20.0),
-            child: newSubscriberColumn(controller, 0, context))
-        : SizedBox();
+  Widget newUserBuilder(DashboardController controller, BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.only(top: 20.0),
+        child: newSubscriberColumn(controller, 0, context));
   }
 
   Row UserInfo(DashboardController controller) {
@@ -123,6 +105,15 @@ class DashBoardScreen extends StatelessWidget {
         userPic(),
         SizedBox(width: 20),
         userNumber(controller),
+        Expanded(child: SizedBox()),
+        SMButton(
+          title: "",
+          leadingChild: Icon(Icons.logout),
+          onTap: () {
+            StoreManager().setCustomerLoggedin(false);
+            //controller.isSubmitted.value = false;
+          },
+        )
       ],
     );
   }
@@ -135,8 +126,6 @@ Widget customDivider() {
     height: 80,
   );
 }
-
-
 
 Padding userPic() {
   return Padding(
@@ -161,7 +150,7 @@ Padding userNumber(DashboardController controller) {
   return Padding(
     padding: const EdgeInsets.only(top: 25.0),
     child: SMText(
-      title: '91+ ${controller.mobileNumber.value}',
+      title: '91+ ${controller.phoneNumber.value}',
       fontWeight: FontWeight.normal,
       fontSize: 14,
     ),
@@ -170,14 +159,12 @@ Padding userNumber(DashboardController controller) {
 
 Widget newSubscriberColumn(
     DashboardController controller, int index, BuildContext context) {
-  final offerStatus = (index >= 0 && index < controller.subscriptionList.length)
-      ? controller.subscriptionList[index].offerStatus
-      : '';
-  // final offerStatus = controller.subscriptionList[index].offerStatus;
   return Column(
+    crossAxisAlignment: CrossAxisAlignment.center,
     children: [
       Row(
         mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.max,
         children: [
           SMText(
             title: subscriptionDateStr,
@@ -186,65 +173,41 @@ Widget newSubscriberColumn(
           ),
           SMText(title: " : "),
           SMText(
-            title: (offerStatus != "A" ||
-                    offerStatus != "G" ||
-                    offerStatus != "S" ||
-                    offerStatus == "D")
-                ? "INACTIVE"
-                : "ACTIVE",
+            title: inActiveCStr,
             fontWeight: FontWeight.normal,
             fontSize: 14,
-            textColor: (offerStatus != "A" || offerStatus == "D")
-                ? redColor
-                : greenColor,
+            textColor: red,
           ),
         ],
       ),
       Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4.0),
-        child: SMText(
-          title: "",
-          fontSize: 14,
-          fontWeight: FontWeight.normal,
+        padding: const EdgeInsets.only(left: 40, top: 10),
+        child: Row(
+          children: [
+            SMButton(
+              bgColor: green,
+              title: activateStr,
+              textColor: white,
+              onTap: () {
+                openBuyTunePopup(
+                  "toneName",
+                  "toneId",
+                  onSuccess: () {
+                    controller.activateNewUser();
+                  },
+                );
+              },
+            ),
+          ],
         ),
-      ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Obx(
-            () => controller.isLoading.value
-                ? Center(child: CircularProgressIndicator())
-                : SMButton(
-                    onTap: () async {
-                      GenericPopup("Do you want to activate");
-                      ListSettingModel model = await BuyToneApi(offerStatus);
-                    },
-                    height: 40,
-                    width: 200,
-                    bgColor: (offerStatus != "A" ||
-                            offerStatus != "S" ||
-                            offerStatus != "G" ||
-                            offerStatus == "D")
-                        ? greenColor
-                        : redColor,
-                    title: (offerStatus != "A" ||
-                            offerStatus != "S" ||
-                            offerStatus != "G" ||
-                            offerStatus == "D")
-                        ? activateStr
-                        : DeactivateStr,
-                    textColor: white,
-                  ),
-          ),
-        ],
-      ),
+      )
     ],
   );
 }
 
 Column firstColumn(
     DashboardController controller, int index, BuildContext context) {
-  String status = controller.subscriptionList[index].offerStatus ?? '';
+  String status = controller.offers[index].offerStatus ?? '';
   return Column(
     children: [
       Row(
@@ -256,44 +219,25 @@ Column firstColumn(
           ),
           SMText(title: " : "),
           SMText(
-            title: status == 'A'
-                //  (controller.subscriptionList[index].offerStatus == "A")
-                ? "ACTIVE"
-                : (status == "G")
-                    ? "GRACE"
-                    : (status == "S")
-                        ? "SUSPEND"
-                        : (status == "P")
-                            ? "PENDING"
-                            : "INACTIVE",
-            // (controller.subscriptionList[index].offerStatus == "A" ||
-            //         controller.subscriptionList[index].offerStatus == "G" ||
-            //         controller.subscriptionList[index].offerStatus == "S" ||
-            //         controller.subscriptionList[index].offerStatus != "D")
-            //     ? "ACTIVE"
-            //     : "INACTIVE",
-            fontWeight: FontWeight.normal,
-            fontSize: 14,
-            textColor: (status == "A") ? greenColor : redColor,
-          )
+              title: controller.getFirstColumnButtonName(status),
+              textColor: (status == "A") ? green : red)
         ],
       ),
-      if (status == "D")
-        SMText(title: " ")
-      else
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4.0),
-              child: SMText(
-                title: "${controller.subscriptionList[index].offerName}",
-                fontSize: 14,
-                fontWeight: FontWeight.normal,
-              ),
+      status == "D"
+          ? SMText(title: " ")
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4.0),
+                  child: SMText(
+                    title: "${controller.offers[index].offerName}",
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
       Obx(
         () => controller.isLoading.value
             ? Center(child: CircularProgressIndicator())
@@ -346,8 +290,8 @@ Column firstColumn(
                         status == "S" ||
                         status == "G" ||
                         status != "D")
-                    ? redColor
-                    : greenColor,
+                    ? red
+                    : green,
                 title: (status == "A" || status == "S" || status == "G")
                     ? DeactivateStr
                     : activateStr,
@@ -439,7 +383,7 @@ Column firstColumn(
 // }
 
 Widget secondColumn(DashboardController controller, int index) {
-  if (controller.subscriptionList[index].offerStatus == "D") {
+  if (controller.offers[index].offerStatus == "D") {
     return SizedBox();
   }
   return Column(
@@ -459,9 +403,8 @@ Widget secondColumn(DashboardController controller, int index) {
                   : "SUSPEND",
               fontWeight: FontWeight.normal,
               fontSize: 14,
-              textColor: (controller.settingsList[index].status == "A")
-                  ? greenColor
-                  : redColor,
+              textColor:
+                  (controller.settingsList[index].status == "A") ? green : red,
             );
           })
         ],
@@ -472,9 +415,7 @@ Widget secondColumn(DashboardController controller, int index) {
       ),
       Obx(() {
         return SMButton(
-          bgColor: (controller.settingsList[index].status == "A")
-              ? redColor
-              : greenColor,
+          bgColor: (controller.settingsList[index].status == "A") ? red : green,
           title: (controller.settingsList[index].status == "A")
               ? "Suspend" //resumeServiceStr
               : "Resume", //suspendServiceStr,
@@ -512,7 +453,7 @@ Widget secondColumn(DashboardController controller, int index) {
 }
 
 Column thirdColumn(DashboardController controller, int index) {
-  if (controller.subscriptionList[index].offerStatus == "D") {
+  if (controller.offers[index].offerStatus == "D") {
     return Column(
       children: [
         SizedBox.shrink(),
@@ -533,7 +474,7 @@ Column thirdColumn(DashboardController controller, int index) {
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 4.0),
         child: SMText(
-          title: "${controller.subscriptionList[index].chargedDate}",
+          title: "${controller.offers[index].chargedDate}",
           fontSize: 14,
           fontWeight: FontWeight.normal,
         ),
@@ -547,7 +488,7 @@ Column thirdColumn(DashboardController controller, int index) {
 }
 
 Column fourthColumn(DashboardController controller, int index) {
-  if (controller.subscriptionList[index].offerStatus == "D") {
+  if (controller.offers[index].offerStatus == "D") {
     return Column(
       children: [
         SizedBox.shrink(),
@@ -568,7 +509,7 @@ Column fourthColumn(DashboardController controller, int index) {
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 4.0),
         child: SMText(
-          title: "${controller.subscriptionList[index].expiryDate}",
+          title: "${controller.offers[index].expiryDate}",
           fontSize: 14,
           fontWeight: FontWeight.normal,
         ),
@@ -580,8 +521,6 @@ Column fourthColumn(DashboardController controller, int index) {
     ],
   );
 }
-
-
 
 // Column thirdColumn(DashboardController controller, int index) {
 //   return Column(

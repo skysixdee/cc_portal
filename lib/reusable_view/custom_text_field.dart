@@ -23,7 +23,7 @@ class CustomTextField extends StatelessWidget {
         children: [
           Container(
               height: isTextView ? null : double.infinity,
-              color: redColor,
+              color: red,
               width: 2),
           Flexible(
               child: TextField(

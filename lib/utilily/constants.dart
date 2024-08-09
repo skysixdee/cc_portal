@@ -8,3 +8,5 @@ const double hideButtonWidth = 30.0;
 const double buttonCornerRadius = 2.0;
 const double boxCornerRadius = 2.0;
 const Duration animationTime = Duration(milliseconds: 200);
+String defaultToneId = '';
+String defaultOfferCode = '';

@@ -17,7 +17,7 @@
 // //   //createRowList(modal.offers, phoneNumber);
 // // }
 
-// import 'package:sm_admin_portal/Models/Generic_modal.dart';
+//   ;
 // import 'package:sm_admin_portal/Models/get_subscription_modal.dart';
 
 // import 'package:sm_admin_portal/network_manager/network_manager.dart';

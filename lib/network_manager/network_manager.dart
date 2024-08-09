@@ -6,7 +6,6 @@ import 'package:universal_io/io.dart';
 class NetworkManager {
   var client = HttpClient();
   Future<Map<String, dynamic>> postResquest(
-
       String url, Map<String, dynamic> jsonData) async {
     print("Urls sky========$url");
 
@@ -14,23 +13,31 @@ class NetworkManager {
 
     request.write(json.encode(jsonData));
     print("json request ${json.encode(jsonData)}");
-    HttpClientResponse response = await request.close();
-    if (response.statusCode == 200) {
-      try {
-        String stringData = await response.transform(utf8.decoder).join();
+    try {
+      HttpClientResponse response = await request.close();
+      if (response.statusCode == 200) {
+        try {
+          String stringData = await response.transform(utf8.decoder).join();
 
-        Map<String, dynamic> map = json.decode(stringData);
-        return map;
-      } catch (e) {
-        String message = someThingWentWrongStr + " Error = ${e.toString()}";
+          Map<String, dynamic> map = json.decode(stringData);
+          return map;
+        } catch (e) {
+          String message = someThingWentWrongStr + " Error = ${e.toString()}";
+          Map<String, dynamic> valueMap =
+              json.decode("""{"message": "${message}"}""");
+          return valueMap;
+        }
+      } else {
+        print("SKY ====== 1");
+        String code = "${response.statusCode}";
+        String message = someThingWentWrongStr + " Status = $code";
         Map<String, dynamic> valueMap =
             json.decode("""{"message": "${message}"}""");
         return valueMap;
-
       }
-    } else {
-      String code = "${response.statusCode}";
-      String message = someThingWentWrongStr + " Status = $code";
+    } catch (e) {
+      print("SKY ====== 2 ${e.toString()}");
+      String message = someThingWentWrongStr;
       Map<String, dynamic> valueMap =
           json.decode("""{"message": "${message}"}""");
       return valueMap;

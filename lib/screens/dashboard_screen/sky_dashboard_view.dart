@@ -55,7 +55,7 @@ class _SkyDashboardViewState extends State<SkyDashboardView> {
                         children: [
                           SMText(
                             title: row == 1 ? "DeActivate" : "Activate",
-                            textColor: row == 1 ? redColor : greenColor,
+                            textColor: row == 1 ? red : green,
                           ),
                           SMText(title: "CRBT"),
                           Row(
@@ -68,7 +68,7 @@ class _SkyDashboardViewState extends State<SkyDashboardView> {
                                 fontWeight: FontWeight.normal,
                                 title: row == 1 ? "Activate" : "Deactivate",
                                 textColor: white,
-                                bgColor: row == 1 ? greenColor : redColor,
+                                bgColor: row == 1 ? green : red,
                               ),
                             ],
                           )
@@ -85,7 +85,7 @@ class _SkyDashboardViewState extends State<SkyDashboardView> {
                     children: [
                       SMText(
                         title: row == 1 ? "DeActivate" : "Activate",
-                        textColor: row == 1 ? redColor : greenColor,
+                        textColor: row == 1 ? red : green,
                       ),
                       Row(
                         mainAxisSize: MainAxisSize.min,
@@ -96,7 +96,7 @@ class _SkyDashboardViewState extends State<SkyDashboardView> {
                             fontWeight: FontWeight.normal,
                             title: row == 1 ? "Activate" : "Deactivate",
                             textColor: white,
-                            bgColor: row == 1 ? greenColor : redColor,
+                            bgColor: row == 1 ? green : red,
                           ),
                         ],
                       )

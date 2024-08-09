@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
-import 'package:sm_admin_portal/Models/Generic_modal.dart';
+import 'package:sm_admin_portal/Models/generic_modal.dart';
+
 import 'package:sm_admin_portal/Models/offer_list_model.dart';
 import 'package:sm_admin_portal/api_calls/list_offer_api.dart';
 import 'package:sm_admin_portal/api_calls/set_tone_api.dart';
@@ -77,6 +78,7 @@ class BuyTuneController extends GetxController {
 
     if (genericModal.respCode == 0) {
       if (onBuySuccess != null) {
+        print("SKY Buy Success 3");
         onBuySuccess!();
         await Future.delayed(Duration(milliseconds: 200));
         openGenericPopup(genericModal.message ?? 'No Message');

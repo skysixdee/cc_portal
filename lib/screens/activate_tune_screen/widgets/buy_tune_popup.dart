@@ -16,15 +16,23 @@ import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/constants.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
 
-openBuyTunePopup(String toneName, String toneId) {
-  Get.dialog(Center(child: _BuyTunePopup(toneName: toneName, toneId: toneId)),
+openBuyTunePopup(String toneName, String toneId, {Function()? onSuccess}) {
+  Get.dialog(
+      Center(
+          child: _BuyTunePopup(
+        toneName: toneName,
+        toneId: toneId,
+        onSuccess: onSuccess,
+      )),
       barrierDismissible: false);
 }
 
 class _BuyTunePopup extends StatefulWidget {
-  _BuyTunePopup({required this.toneName, required this.toneId});
+  _BuyTunePopup(
+      {required this.toneName, required this.toneId, required this.onSuccess});
   final String toneId;
   final String toneName;
+  final Function()? onSuccess;
   @override
   State<_BuyTunePopup> createState() => _BuyTunePopupState();
 }
@@ -40,6 +48,7 @@ class _BuyTunePopupState extends State<_BuyTunePopup> {
 
   @override
   void dispose() {
+    print("On dispose SKY");
     Get.delete<BuyTuneController>();
     super.dispose();
   }
@@ -94,7 +103,7 @@ class _BuyTunePopupState extends State<_BuyTunePopup> {
                 Flexible(
                     child: SMText(
                   title: cont.errorMessage.value,
-                  textColor: redColor,
+                  textColor: red,
                   fontWeight: FontWeight.normal,
                 )),
               ],
@@ -118,6 +127,9 @@ class _BuyTunePopupState extends State<_BuyTunePopup> {
                 // cont.confirmButtonAction(toneId);
                 cont.onBuySuccess = () async {
                   print(" onBuySuccess on confirm tap");
+                  if (widget.onSuccess != null) {
+                    widget.onSuccess!();
+                  }
                   Navigator.of(context).pop();
                 };
 

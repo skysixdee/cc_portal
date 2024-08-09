@@ -1,4 +1,3 @@
-
 // import 'package:sm_admin_portal/Models/subscribers_modal.dart';
 // import 'package:sm_admin_portal/network_manager/network_manager.dart';
 
@@ -18,20 +17,17 @@
 //   //createRowList(modal.offers, phoneNumber);
 // }
 
-
-
 import 'package:sm_admin_portal/Models/get_subscription_modal.dart';
 
 import 'package:sm_admin_portal/network_manager/network_manager.dart';
 
-Future<GetSubscriptionModel> getSubscriptionDetailApi(String phoneNumber) async {
+Future<GetSubscriptionModel> getSubscriptionDetailApi(
+    String phoneNumber) async {
   String url =
       'http://10.0.10.33:6005/selfcare/subscription-service/get-subscription';
   //  jsonData: );;
-  Map<String, dynamic> jsonData = {
-    "msisdn":phoneNumber
-    };
- // await Future.delayed(Duration(seconds: 1));
+  Map<String, dynamic> jsonData = {"msisdn": phoneNumber};
+  // await Future.delayed(Duration(seconds: 1));
   Map<String, dynamic> jsonMap =
       await NetworkManager().postResquest(url, jsonData);
   GetSubscriptionModel modal = GetSubscriptionModel.fromJson(jsonMap);

@@ -31,7 +31,7 @@ String responString = """{
 }
 """;
 
-/*import 'package:sm_admin_portal/Models/Generic_modal.dart';
+/*  ;
 import 'package:sm_admin_portal/network_manager/network_manager.dart';
 import 'package:sm_admin_portal/utilily/urls.dart';
 
@@ -67,7 +67,7 @@ Future<GenericModal> deletePackApi(String offerName) async {
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:sm_admin_portal/Models/Generic_modal.dart';
+  ;
 import 'package:sm_admin_portal/network_manager/network_manager.dart';
 import 'package:sm_admin_portal/utilily/urls.dart';
 
