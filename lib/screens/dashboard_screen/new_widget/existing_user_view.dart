@@ -1,6 +1,12 @@
+import 'dart:js';
+
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 import 'package:sm_admin_portal/controllers/new_dash_board_controller.dart';
+import 'package:sm_admin_portal/reusable_view/reusable_alert_dialog/resuable.dart';
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
@@ -24,20 +30,28 @@ Row card(NewDashBoardController cont, int index) {
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       _firstColumn(cont, index),
-      verticalDivider(),
+      if (cont.offers[index].offerStatus != "D") verticalDivider(),
       _secondColumn(cont, index),
-      verticalDivider(),
-      _dateColumn(lastRenewedStr, cont.offers[index].chargedDate ?? ''),
-      verticalDivider(),
-      _dateColumn(nextRenewalDateStr, cont.offers[index].expiryDate ?? ''),
+      if (cont.offers[index].offerStatus != "D") verticalDivider(),
+      _dateColumn(
+          lastRenewedStr, cont.offers[index].chargedDate ?? '', cont, index),
+      if (cont.offers[index].offerStatus != "D") verticalDivider(),
+      _dateColumn(
+          nextRenewalDateStr, cont.offers[index].expiryDate ?? '', cont, index),
     ],
   );
 }
 
-Column _secondColumn(NewDashBoardController cont, int index) {
+Widget _secondColumn(NewDashBoardController cont, int index) {
+  if (cont.offers[index].offerStatus == "D") {
+    return SizedBox();
+  }
   String status2 = cont.settingsList[index].status ?? '';
   String secondColumnTitle = cont.getSecondColumnStatusName(status2);
+ 
+
   String secondColumnButtonTitle = cont.getSecondColumnButtonName(status2);
+
   Color secondColumnTitlecolor = status2 == "A" ? green : red;
   Color secondColumnBtnColor = (status2 == "A") ? red : green;
   return _column(
@@ -143,7 +157,10 @@ Column _column(String title,
   );
 }
 
-Widget _dateColumn(String title, String value) {
+Widget _dateColumn(String title, String value, cont, index) {
+  if (cont.offers[index].offerStatus == "D") {
+    return SizedBox();
+  }
   return Column(
     children: [
       SMText(
@@ -151,19 +168,23 @@ Widget _dateColumn(String title, String value) {
         fontWeight: FontWeight.normal,
       ),
       SMText(
-        title: _dateFormate(value),
+        title: _dateFormate(value, cont, index),
         fontWeight: FontWeight.normal,
-      )
+      ),
+      SizedBox(height: 10,),
+      SMText(title: " ")
     ],
   );
 }
 
-String _dateFormate(String date) {
+String _dateFormate(String date, cont, index) {
   if (date.isEmpty) {
     return "";
   }
   DateTime dateTime = DateTime.parse(date);
-  final DateFormat formatter = DateFormat('dd-MM-yyyy  HH:mm');
+  final DateFormat formatter = DateFormat('dd-MM-yyyy');
+
+  // HH:mm');
   final String formatted = formatter.format(dateTime);
   print("SKY ==== $formatted");
   return formatted;

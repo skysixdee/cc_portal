@@ -8,6 +8,7 @@ import 'package:sm_admin_portal/utilily/get_transaction_id.dart';
 import 'package:sm_admin_portal/utilily/urls.dart';
 
 Future<GenericModal> suspendApi(String msisdn) async {
+  String suspendUrl = 'http://10.0.10.33:9089/selfcare/subscription/suspend';
   Map<String, dynamic> jsonData = {
     "transactionId": getTransactionId(),
     "featureId": 1,

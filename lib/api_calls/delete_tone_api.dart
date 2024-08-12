@@ -40,13 +40,22 @@ import 'package:sm_admin_portal/utilily/urls.dart';
 Future<GenericModal> deleteToneApi(String toneId, String offerStatus) async {
   String url = deleteToneUrl;
 
-  Map<String, dynamic> jsonData = {
-    "transactionId": getTransactionId(),
+  Map<String, dynamic> jsonData =
+      // {
+      //   "transactionId": getTransactionId(),
+      //   "featureId": 1,
+      //   "msisdn": StoreManager().customerNumber,
+      //   "contentId": toneId,
+      //   "channelId": 2,
+      //   "offerCode": offerStatus
+      // };
+      {
+    "transactionId": "9234567822",
     "featureId": 1,
-    "msisdn": StoreManager().customerNumber,
-    "contentId": toneId,
+    "msisdn": "92000002",
+    "contentId": "1157833",
     "channelId": 2,
-    "offerCode": offerStatus
+    "offerCode": "CRBT_MONTHLY_REC"
   };
 
   Map<String, dynamic> jsonMap =
