@@ -61,6 +61,11 @@ class StoreManager {
   }
 
   logout() async {
+    cont.msisdn = '';
+    StoreManager().customerNumber = '';
+    StoreManager().isAgentLoggedIn = false;
+    StoreManager().agentNumber = '';
+    StoreManager().isCustomerLoggedIn = false;
     prefs.remove('is_agent_logged_in');
     prefs.remove('is_customer_logged_in');
     prefs.remove('is_english');

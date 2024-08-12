@@ -52,6 +52,10 @@ class NewDashBoardController extends GetxController {
         await getSubscriptionDetailApi(msisdn);
 
     offers.value = subscriptionModel.offers ?? [];
+    // offers.value += subscriptionModel.offers ?? [];
+    // offers.value += subscriptionModel.offers ?? [];
+    // offers.value += subscriptionModel.offers ?? [];
+    // offers.value += subscriptionModel.offers ?? [];
 
     if (subscriptionModel.respCode == 1) {
       userType.value = UserType.newUser;
@@ -60,12 +64,17 @@ class NewDashBoardController extends GetxController {
     } else {
       userType.value = UserType.invalidUser;
       isLoading.value = false;
+      smSnackBar(subscriptionModel.message ?? someThingWentWrongStr);
       print("helo ======= ${subscriptionModel.respCode}");
       return;
     }
 
     ListSettingModel settingModel = await listSettingApi(msisdn);
     settingsList.value = settingModel.settingsList ?? [];
+    // settingsList.value += settingModel.settingsList ?? [];
+    // settingsList.value += settingModel.settingsList ?? [];
+    // settingsList.value += settingModel.settingsList ?? [];
+    // settingsList.value += settingModel.settingsList ?? [];
 
     isLoading.value = false;
     isVerified.value = true;

@@ -18,6 +18,7 @@ import 'package:sm_admin_portal/screens/subscriber_deatil_screen/widget/tone_lis
 
 import 'package:sm_admin_portal/store_manager/store_manager.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
+import 'package:sm_admin_portal/utilily/constants.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
 
 class DashboardNewScreen extends StatefulWidget {
@@ -75,7 +76,7 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 10, bottom: 10),
+          padding: const EdgeInsets.only(top: 1, bottom: 10),
           child: Container(
             color: sixdColor,
             height: 1,
@@ -84,9 +85,11 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            tuneListButton(context),
-            newTuneActivateButton(),
-            transactionButton(),
+            Expanded(child: tuneListButton(context)),
+            SizedBox(width: 12),
+            Expanded(child: newTuneActivateButton()),
+            SizedBox(width: 12),
+            Expanded(child: transactionButton()),
           ],
         ),
       ],
@@ -95,20 +98,23 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
 
   SMButton transactionButton() {
     return SMButton(
-        height: 35,
-        title: transactionHistoryStr,
-        bgColor: sixdColor,
-        fontWeight: FontWeight.normal,
-        textColor: white);
+      addBorder: true,
+      height: 55,
+      title: transactionHistoryStr,
+      borderColor: sixdColor,
+      //bgColor: sixdColor,
+      //fontWeight: FontWeight.normal,
+    );
   }
 
   SMButton newTuneActivateButton() {
     return SMButton(
-      height: 35,
+      addBorder: true,
+      borderColor: sixdColor,
+      height: 55,
       title: ActivateNewToneStr,
-      bgColor: sixdColor,
-      fontWeight: FontWeight.normal,
-      textColor: white,
+      //bgColor: sixdColor,
+      //fontWeight: FontWeight.normal,
       onTap: () {
         context.goNamed(activateScreenRoute);
       },
@@ -122,11 +128,12 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
     } catch (e) {}
     bool enable = (status == "A" || status == "G" || status == "S");
     return SMButton(
-      height: 35,
+      height: 55,
       title: tuneListStr,
-      bgColor: enable ? sixdColor : greyLight,
-      fontWeight: FontWeight.normal,
-      textColor: enable ? white : black,
+      borderColor: enable ? sixdColor : red,
+      //bgColor: enable ? sixdColor : greyLight,
+      //fontWeight: FontWeight.normal,
+      addBorder: true,
       onTap: () {
         if (enable) {
           context.goNamed(tuneListRoute);
@@ -139,19 +146,32 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
-          children: [
-            Container(
-              height: 80,
-              width: 80,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(40),
-                  border: Border.all(color: greyLight)),
-              child: Icon(Icons.person),
+        Container(
+          decoration: BoxDecoration(
+              border: Border.all(color: greyLight),
+              borderRadius: BorderRadius.circular(8)),
+          child: Padding(
+            padding: const EdgeInsets.only(
+                left: 20,
+                top: 14,
+                bottom: 14,
+                right: 50), //symmetric(horizontal: 20, vertical: 14),
+            child: Row(
+              children: [
+                Container(
+                  height: 80,
+                  width: 80,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(40),
+                      border: Border.all(color: greyLight)),
+                  child: Icon(Icons.person),
+                ),
+                SizedBox(width: 12),
+                SMText(title: countryCode),
+                SMText(title: StoreManager().customerNumber)
+              ],
             ),
-            SizedBox(width: 8),
-            SMText(title: StoreManager().customerNumber)
-          ],
+          ),
         ),
         SMButton(
           title: "Switch Account",

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:sm_admin_portal/utilily/constants.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
 import 'package:universal_io/io.dart';
 
@@ -14,7 +15,8 @@ class NetworkManager {
     request.write(json.encode(jsonData));
     print("json request ${json.encode(jsonData)}");
     try {
-      HttpClientResponse response = await request.close();
+      HttpClientResponse response =
+          await request.close().timeout(Duration(seconds: connectionTimeOut));
       if (response.statusCode == 200) {
         try {
           String stringData = await response.transform(utf8.decoder).join();
@@ -39,7 +41,7 @@ class NetworkManager {
       print("SKY ====== 2 ${e.toString()}");
       String message = someThingWentWrongStr;
       Map<String, dynamic> valueMap =
-          json.decode("""{"message": "${message}"}""");
+          json.decode("""{"message": "$message"}""");
       return valueMap;
     }
   }

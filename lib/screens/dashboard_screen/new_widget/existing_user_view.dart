@@ -10,8 +10,10 @@ import 'package:sm_admin_portal/reusable_view/reusable_alert_dialog/resuable.dar
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
+import 'package:sm_admin_portal/utilily/constants.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
 
+double _cardHeight = 140;
 Widget existingUserView(NewDashBoardController cont) {
   return ListView.builder(
     shrinkWrap: true,
@@ -28,16 +30,24 @@ Widget existingUserView(NewDashBoardController cont) {
 Row card(NewDashBoardController cont, int index) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    crossAxisAlignment: CrossAxisAlignment.center,
     children: [
-      _firstColumn(cont, index),
-      if (cont.offers[index].offerStatus != "D") verticalDivider(),
-      _secondColumn(cont, index),
-      if (cont.offers[index].offerStatus != "D") verticalDivider(),
-      _dateColumn(
-          lastRenewedStr, cont.offers[index].chargedDate ?? '', cont, index),
-      if (cont.offers[index].offerStatus != "D") verticalDivider(),
-      _dateColumn(
-          nextRenewalDateStr, cont.offers[index].expiryDate ?? '', cont, index),
+      Expanded(child: _firstColumn(cont, index)),
+      SizedBox(width: 10),
+      //if (cont.offers[index].offerStatus != "D") verticalDivider(),
+      Expanded(child: _secondColumn(cont, index)),
+      SizedBox(width: 10),
+      //if (cont.offers[index].offerStatus != "D") verticalDivider(),
+      Expanded(
+        child: _dateColumn(
+            lastRenewedStr, cont.offers[index].chargedDate ?? '', cont, index),
+      ),
+      SizedBox(width: 10),
+      //if (cont.offers[index].offerStatus != "D") verticalDivider(),
+      Expanded(
+        child: _dateColumn(nextRenewalDateStr,
+            cont.offers[index].expiryDate ?? '', cont, index),
+      ),
     ],
   );
 }
@@ -48,7 +58,6 @@ Widget _secondColumn(NewDashBoardController cont, int index) {
   }
   String status2 = cont.settingsList[index].status ?? '';
   String secondColumnTitle = cont.getSecondColumnStatusName(status2);
- 
 
   String secondColumnButtonTitle = cont.getSecondColumnButtonName(status2);
 
@@ -72,7 +81,7 @@ Widget _secondColumn(NewDashBoardController cont, int index) {
   );
 }
 
-Column _firstColumn(NewDashBoardController cont, int index) {
+Widget _firstColumn(NewDashBoardController cont, int index) {
   String status1 = cont.offers[index].offerStatus ?? '';
   String firstColumnTitle = cont.getColumnStatusName(status1);
   Color firstColumnTitlecolor = status1 == "A" ? green : red;
@@ -98,62 +107,71 @@ Widget verticalDivider() {
   return Container(
     height: 120,
     width: 1,
-    color: grey,
+    color: greyLight,
   );
 }
 
-Column _column(String title,
+Widget _column(String title,
     {Color titleColor = red,
     Color btnColor = red,
     String? offerName,
     String btnName = '',
     String? keyTag,
     Function()? onTap}) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Row(
+  return Container(
+    height: _cardHeight,
+    decoration: BoxDecoration(
+        border: Border.all(color: greyLight),
+        borderRadius: BorderRadius.circular(8)),
+    child: Center(
+      child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SMText(
-            title: keyTag ?? SubscriptionStatusStr,
-            fontWeight: FontWeight.normal,
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SMText(
+                title: keyTag ?? SubscriptionStatusStr,
+                fontWeight: FontWeight.normal,
+              ),
+              SMText(title: " : ", fontWeight: FontWeight.normal),
+              SMText(
+                  title: title,
+                  textColor: titleColor,
+                  fontWeight: FontWeight.normal),
+            ],
           ),
-          SMText(title: " : ", fontWeight: FontWeight.normal),
-          SMText(
-              title: title,
-              textColor: titleColor,
-              fontWeight: FontWeight.normal),
+          offerName != null
+              ? Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child:
+                      SMText(title: offerName, fontWeight: FontWeight.normal),
+                )
+              : SMText(
+                  title: "",
+                ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SMButton(
+                height: 30,
+                bgColor: btnColor,
+                title: btnName,
+                textColor: white,
+                fontWeight: FontWeight.normal,
+                onTap: () {
+                  print("object");
+                  if (onTap != null) {
+                    onTap();
+                  }
+                },
+              ),
+            ],
+          )
         ],
       ),
-      offerName != null
-          ? Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: SMText(title: offerName, fontWeight: FontWeight.normal),
-            )
-          : SMText(
-              title: "",
-            ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SMButton(
-            height: 30,
-            bgColor: btnColor,
-            title: btnName,
-            textColor: white,
-            fontWeight: FontWeight.normal,
-            onTap: () {
-              print("object");
-              if (onTap != null) {
-                onTap();
-              }
-            },
-          ),
-        ],
-      )
-    ],
+    ),
   );
 }
 
@@ -161,19 +179,31 @@ Widget _dateColumn(String title, String value, cont, index) {
   if (cont.offers[index].offerStatus == "D") {
     return SizedBox();
   }
-  return Column(
-    children: [
-      SMText(
-        title: title,
-        fontWeight: FontWeight.normal,
+  return Container(
+    height: _cardHeight,
+    decoration: BoxDecoration(
+        border: Border.all(color: greyLight),
+        borderRadius: BorderRadius.circular(8)),
+    child: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SMText(
+            title: title,
+            fontWeight: FontWeight.normal,
+          ),
+          SMText(
+            title: _dateFormate(value, cont, index),
+            fontWeight: FontWeight.normal,
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          //SMText(title: " ")
+        ],
       ),
-      SMText(
-        title: _dateFormate(value, cont, index),
-        fontWeight: FontWeight.normal,
-      ),
-      SizedBox(height: 10,),
-      SMText(title: " ")
-    ],
+    ),
   );
 }
 
