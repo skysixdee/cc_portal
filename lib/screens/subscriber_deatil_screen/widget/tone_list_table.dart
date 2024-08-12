@@ -119,16 +119,14 @@ Widget loadingIndicatorView() {
       child: Container(
         decoration: BoxDecoration(
           boxShadow: [
-            BoxShadow(
-              color: Colors.grey,
-              blurRadius: 4,
-              offset: Offset(2, 2),
-            ),
+            BoxShadow(color: Colors.black12, blurRadius: 12, spreadRadius: 4
+                //offset: Offset(2, 2),
+                ),
           ],
           border: Border.all(
             color: Color.fromARGB(255, 220, 218, 218),
           ),
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(8),
           color: Colors.white,
         ),
         height: 100,
@@ -149,7 +147,7 @@ Widget loadingIndicatorView() {
             Text(
               'Loading, please wait...',
               style: TextStyle(
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.normal,
               ),
             ),
           ],

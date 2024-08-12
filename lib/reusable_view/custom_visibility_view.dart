@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:sm_admin_portal/enums/visiblity_type.dart';
 import 'package:sm_admin_portal/reusable_view/box_shadow.dart';
+import 'package:sm_admin_portal/reusable_view/sm_activity_indicator.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
+import 'package:sm_admin_portal/screens/subscriber_deatil_screen/widget/tone_list_table.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/constants.dart';
 import 'package:sm_admin_portal/utilily/images.dart';
@@ -22,6 +24,7 @@ class CustomVisibiltyView extends StatelessWidget {
 
   Widget loadViewType(VisibilityType type) {
     print("Type ========= $type");
+
     if (type == VisibilityType.empty) {
       return _emptyView();
     } else if (type == VisibilityType.loading) {
