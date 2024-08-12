@@ -421,6 +421,7 @@ Widget secondColumn(DashboardController controller, int index) {
               : "Resume", //suspendServiceStr,
           textColor: white,
           onTap: () {
+            
             String action = (controller.settingsList[index].status == "A")
                 ? "Resume" //"resumeServiceStr
                 : "Suspend"; //suspendServiceStr;
