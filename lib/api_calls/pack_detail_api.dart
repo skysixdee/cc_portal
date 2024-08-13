@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:sm_admin_portal/Models/subscribers_modal.dart';
 import 'package:sm_admin_portal/network_manager/network_manager.dart';
+import 'package:sm_admin_portal/utilily/urls.dart';
 
 Future<SubscribersModal> getPackDetailApi(String phoneNumber) async {
-  String url =
-      'http://10.0.10.33:8085/selfcare/subscription-service/get-subscription';
+  String url = getPackDetailUrl;
+  //'http://10.0.10.33:8085/selfcare/subscription-service/get-subscription';
   //  jsonData: );;
   Map<String, dynamic> jsonData = {"msisdn": phoneNumber};
   await Future.delayed(Duration(seconds: 3));

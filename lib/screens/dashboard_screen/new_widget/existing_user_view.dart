@@ -1,16 +1,16 @@
-import 'dart:js';
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+
 import 'package:intl/intl.dart';
 import 'package:sm_admin_portal/controllers/new_dash_board_controller.dart';
-import 'package:sm_admin_portal/reusable_view/reusable_alert_dialog/resuable.dart';
+import 'package:sm_admin_portal/reusable_view/open_generic_popup_view.dart';
+
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
-import 'package:sm_admin_portal/utilily/constants.dart';
+
 import 'package:sm_admin_portal/utilily/strings.dart';
 
 double _cardHeight = 140;
@@ -72,9 +72,26 @@ Widget _secondColumn(NewDashBoardController cont, int index) {
     onTap: () {
       print("Status========$status2");
       if (status2 == "A") {
-        cont.suspendTapped();
+        // cont.suspendTapped();
+        openGenericPopup(
+          suspendPopupMessageStr,
+            headerTitle: '',
+            primaryButtonTitle: confirmCStr,
+            secondryButtonTitle: cancelCStr, primaryAction: () {
+          cont.suspendTapped();
+        });
       } else {
-        cont.resumeTapped();
+        //  cont.resumeTapped();
+        openGenericPopup(
+          resumePopupMessageStr,
+            headerTitle: '',
+            primaryButtonTitle: confirmCStr,
+            secondryButtonTitle: cancelCStr, primaryAction: () {
+          cont.resumeTapped();
+        }
+
+            // cont.getColumnButtonName(status1)
+            );
       }
       print("Tapped 2");
     },
@@ -95,20 +112,35 @@ Widget _firstColumn(NewDashBoardController cont, int index) {
     btnName: firstColumnButtonTitle,
     onTap: () {
       if (status1 == "A") {
-        cont.deactivateTapped(cont.offers[index].offerName ?? '');
+        //cont.deactivateTapped(cont.offers[index].offerName ?? '');
+        openGenericPopup(deactivatePopupMessageStr,
+            headerTitle: '',
+            primaryButtonTitle: confirmCStr,
+            secondryButtonTitle: cancelCStr, primaryAction: () {
+          cont.deactivateTapped(cont.offers[index].offerName ?? '');
+        }
+
+            // cont.getColumnButtonName(status1)
+            );
+        //openGenericPopup(cont.offers[index].offerName ?? '');
       } else {
-        cont.activateTapped();
+        //cont.activateTapped();
+        openGenericPopup(
+          activatePopupMessageStr,
+            headerTitle: '',
+            primaryButtonTitle: confirmCStr,
+            secondryButtonTitle: cancelCStr, primaryAction: () {
+          cont.activateTapped();
+        }
+            // cont.getColumnButtonName(status1)
+            );
       }
     },
   );
 }
 
 Widget verticalDivider() {
-  return Container(
-    height: 120,
-    width: 1,
-    color: greyLight,
-  );
+  return Container(height: 120, width: 1, color: greyLight);
 }
 
 Widget _column(String title,

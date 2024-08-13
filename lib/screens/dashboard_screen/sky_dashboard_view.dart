@@ -54,10 +54,10 @@ class _SkyDashboardViewState extends State<SkyDashboardView> {
                       child: Column(
                         children: [
                           SMText(
-                            title: row == 1 ? "DeActivate" : "Activate",
+                            title: row == 1 ? DeactivateStr : activateStr,
                             textColor: row == 1 ? red : green,
                           ),
-                          SMText(title: "CRBT"),
+                          SMText(title: crbtStr),
                           Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -66,7 +66,7 @@ class _SkyDashboardViewState extends State<SkyDashboardView> {
                                     EdgeInsets.symmetric(horizontal: 8),
                                 height: 30,
                                 fontWeight: FontWeight.normal,
-                                title: row == 1 ? "Activate" : "Deactivate",
+                                title: row == 1 ? activateStr : DeactivateStr,
                                 textColor: white,
                                 bgColor: row == 1 ? green : red,
                               ),
@@ -84,7 +84,7 @@ class _SkyDashboardViewState extends State<SkyDashboardView> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SMText(
-                        title: row == 1 ? "DeActivate" : "Activate",
+                        title: row == 1 ? DeactivateStr : activateStr,
                         textColor: row == 1 ? red : green,
                       ),
                       Row(
@@ -94,7 +94,7 @@ class _SkyDashboardViewState extends State<SkyDashboardView> {
                             titlePadding: EdgeInsets.symmetric(horizontal: 8),
                             height: 30,
                             fontWeight: FontWeight.normal,
-                            title: row == 1 ? "Activate" : "Deactivate",
+                            title: row == 1 ? activateStr : DeactivateStr,
                             textColor: white,
                             bgColor: row == 1 ? green : red,
                           ),

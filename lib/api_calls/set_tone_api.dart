@@ -16,7 +16,7 @@ Future<GenericModal> setToneApi(String offerCode, String toneId) async {
     "contentId": toneId,
     "contentType": "1",
     "languageCode": StoreManager().languageCode,
-    "channelId": channelId,
+    "channelId": channelId
   };
   Map<String, dynamic> jsonData =
       await NetworkManager().postResquest(setToneUrl, map);

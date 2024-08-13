@@ -55,9 +55,11 @@ import 'package:sm_admin_portal/Models/list_settin_modal.dart';
 import 'package:sm_admin_portal/Models/list_setting_modal.dart';
 import 'package:sm_admin_portal/Models/subscribers_modal.dart';
 import 'package:sm_admin_portal/network_manager/network_manager.dart';
+import 'package:sm_admin_portal/utilily/urls.dart';
 
 Future<ListSettingModel> BuyToneApi(offerstatus) async {
-  String url = 'http://10.0.10.33:5679/selfcare/subscriber-management/buy-tone';
+  String url = buyToneUrl;
+  //'http://10.0.10.33:5679/selfcare/subscriber-management/buy-tone';
 
   // 'http://10.0.14.4:8082/selfcare/subscriber-management/list-settings';
   //  jsonData: );;

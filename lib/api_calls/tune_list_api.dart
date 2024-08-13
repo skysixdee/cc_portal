@@ -1,10 +1,11 @@
 import 'package:sm_admin_portal/Models/tone_list_model.dart';
 
 import 'package:sm_admin_portal/network_manager/network_manager.dart';
+import 'package:sm_admin_portal/utilily/urls.dart';
 
 Future<ToneListModel> toneListApi() async {
-  String url =
-      'http://10.0.14.4:8082/selfcare/subscriber-management/list-tones';
+  String url = toneListUrl;
+
   //  jsonData: );;
   Map<String, dynamic> jsonData = {
     "transactionId": "655652",

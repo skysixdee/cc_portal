@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sm_admin_portal/controllers/new_dash_board_controller.dart';
 
 import 'package:sm_admin_portal/enums/user_type.dart';
+import 'package:sm_admin_portal/reusable_view/open_generic_popup_view.dart';
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 
@@ -66,7 +67,7 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
               child: controller.userType == UserType.newUser
                   ? newUserView(controller)
                   : Center(child: existingUserView(controller))),
-          bottomButton(context)
+          bottomButton(context),
         ],
       ),
     );
@@ -116,6 +117,7 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
       //bgColor: sixdColor,
       //fontWeight: FontWeight.normal,
       onTap: () {
+       
         context.goNamed(activateScreenRoute);
       },
     );
@@ -136,6 +138,7 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
       addBorder: true,
       onTap: () {
         if (enable) {
+         
           context.goNamed(tuneListRoute);
         }
       },

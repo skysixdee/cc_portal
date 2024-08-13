@@ -5,7 +5,7 @@ import 'package:sm_admin_portal/utilily/get_transaction_id.dart';
 import 'package:sm_admin_portal/utilily/urls.dart';
 
 Future<GenericModal> resumeApi(String msisdn) async {
-  String resumeUrl = 'http://10.0.10.33:9089/selfcare/subscription/resume';
+  String url = resumeUrl;
   Map<String, dynamic> jsonData = {
     "transactionId": "3422",
     "featureId": 1,
@@ -18,8 +18,9 @@ Future<GenericModal> resumeApi(String msisdn) async {
   //   "msisdn": msisdn,
   //   "channelId": channelId,
   // };
+  // await Future.delayed(Duration(seconds: 2));
   Map<String, dynamic> response =
-      await NetworkManager().postResquest(resumeUrl, jsonData);
+      await NetworkManager().postResquest(url, jsonData);
   GenericModal model = GenericModal.fromJson(response);
   print("Model = $model");
   return model;

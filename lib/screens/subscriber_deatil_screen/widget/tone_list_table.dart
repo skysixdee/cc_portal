@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:sm_admin_portal/controllers/Tone_list_controller.dart';
+import 'package:sm_admin_portal/reusable_view/open_generic_popup_view.dart';
 import 'package:sm_admin_portal/reusable_view/reusable_alert_dialog/reusable_alert_dialog_box.dart';
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
 
@@ -30,23 +31,26 @@ class SettingsListTable extends StatelessWidget {
             child: (row, colum) {
               return InkWell(
                   onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return ReusableAlertDialog(
-                          // isLoading: false,
-                          textLine1:
-                              '  Are you sure you want to unsubscribe talk to me?',
-                          textLine2: "  You can't undo this action.",
-                          onYesPressed: () {
-                            loadingIndicatorView();
+                    // openGenericPopup("are you sure",primaryButtonTitle: confirmCStr,secondryButtonTitle: cancelStr,primaryAction: (){
+                    //    Navigator.of(context).pop();
+                    // });
+                    // showDialog(
+                    //   context: context,
+                    //   builder: (BuildContext context) {
+                    //     return ReusableAlertDialog(
+                    //       // isLoading: false,
+                    //       textLine1:
+                    //           '  Are you sure you want to unsubscribe talk to me?',
+                    //       textLine2: "  You can't undo this action.",
+                    //       onYesPressed: () {
+                    //         loadingIndicatorView();
 
-                            // cont.ToneList.removeAt(row);
-                            Navigator.of(context).pop();
-                          },
-                        );
-                      },
-                    );
+                    //         // cont.ToneList.removeAt(row);
+                    //         Navigator.of(context).pop();
+                    //       },
+                    //     );
+                    //   },
+                    // );
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -63,26 +67,31 @@ class SettingsListTable extends StatelessWidget {
                       bgColor: sixdColor,
                       textColor: white,
                       onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return ReusableAlertDialog(
-                              // isLoading: false,
-                              textLine1:
-                                  '  Are you sure you want to Deactivate?',
-                              textLine2: "  You can't undo this action.",
-                              onYesPressed: () async {
-                                print("odd");
+                        openGenericPopup(deactivatePopupMessageStr,
+                            primaryButtonTitle: confirmCStr,
+                            secondryButtonTitle: cancelCStr, primaryAction: () {
+                          cont.toneList.removeAt(row);
+                        });
+                        // showDialog(R
+                        //   context: context,
+                        //   builder: (BuildContext context) {
+                        //     return ReusableAlertDialog(
+                        //       // isLoading: false,
+                        //       textLine1:
+                        //           '  Are you sure you want to Deactivate?',
+                        //       textLine2: "  You can't undo this action.",
+                        //       onYesPressed: () async {
+                        //         print("odd");
 
-                                //  GenericModal modal = await deleteToneApi(offerStatus);
-                                loadingIndicatorView();
-                                cont.toneList.removeAt(row);
+                        //         //  GenericModal modal = await deleteToneApi(offerStatus);
+                        //         loadingIndicatorView();
+                        //         cont.toneList.removeAt(row);
 
-                                Navigator.of(context).pop();
-                              },
-                            );
-                          },
-                        );
+                        //         Navigator.of(context).pop();
+                        //       },
+                        //     );
+                        //   },
+                        // );
                         print("object");
                       },
                     ),

@@ -4,10 +4,11 @@ import 'package:sm_admin_portal/Models/list_setting_modal.dart';
 import 'package:sm_admin_portal/Models/subscribers_modal.dart';
 import 'package:sm_admin_portal/network_manager/network_manager.dart';
 import 'package:sm_admin_portal/utilily/get_transaction_id.dart';
+import 'package:sm_admin_portal/utilily/urls.dart';
 
 Future<ListSettingModel> listSettingApi(phoneNumber) async {
-  String url =
-      'http://10.0.14.4:8082/selfcare/subscriber-management/list-settings';
+  String url = listSettingUrl;
+
   //  jsonData: );;
   Map<String, dynamic> jsonData = {
     "transactionId": getTransactionId(),

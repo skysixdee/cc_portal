@@ -126,7 +126,7 @@ class NewDashBoardController extends GetxController {
 
   String getSecondColumnButtonName(String status) {
     if (status == "A") {
-      return suspendedCStr;
+      return suspendedStr;
     } else if (status == "G") {
       return resumeStr;
     } else if (status == "S") {
@@ -140,7 +140,6 @@ class NewDashBoardController extends GetxController {
 
   activateNewUser() async {
     isLoading.value = true;
-
     GenericModal model = await setToneApi(defaultOfferCode, defaultToneId);
     if (model.respCode == 0) {
       onSubmitButtonAction(StoreManager().customerNumber);
@@ -167,7 +166,6 @@ class NewDashBoardController extends GetxController {
   activateTapped() async {
     print("activate tapped");
     isLoading.value = true;
-
     GenericModal model = await setToneApi(defaultOfferCode, defaultToneId);
     if (model.respCode == 0) {
       onSubmitButtonAction(StoreManager().customerNumber);
@@ -178,6 +176,7 @@ class NewDashBoardController extends GetxController {
     isLoading.value = false;
   }
 
+
   suspendTapped() async {
     print("suspend Tapped ");
     isLoading.value = true;
@@ -185,6 +184,18 @@ class NewDashBoardController extends GetxController {
     if (model.respCode == 0) {
     } else {
       smSnackBar(model.message ?? someThingWentWrongStr);
+    }
+    isLoading.value = false;
+  }
+
+ suspendPopup() async {
+    print("suspend Tapped ");
+    isLoading.value = true;
+    GenericModal model = await suspendApi(StoreManager().customerNumber);
+    if (model.respCode == 1002)
+     {smSnackBar(model.message ?? someThingWentWrongStr);
+    } else {
+      
     }
     isLoading.value = false;
   }

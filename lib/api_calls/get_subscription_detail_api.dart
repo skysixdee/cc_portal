@@ -20,11 +20,12 @@
 import 'package:sm_admin_portal/Models/get_subscription_modal.dart';
 
 import 'package:sm_admin_portal/network_manager/network_manager.dart';
+import 'package:sm_admin_portal/utilily/urls.dart';
 
 Future<GetSubscriptionModel> getSubscriptionDetailApi(
     String phoneNumber) async {
-  String url =
-      'http://10.0.10.33:6005/selfcare/subscription-service/get-subscription';
+  String url = getSubscriptionUrl;
+ // 'http://10.0.10.33:6005/selfcare/subscription-service/get-subscription';
   //  jsonData: );;
   Map<String, dynamic> jsonData = {"msisdn": phoneNumber};
   // await Future.delayed(Duration(seconds: 1));
