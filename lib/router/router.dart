@@ -544,7 +544,7 @@ Widget shellRouteIndex(
     title: 'SM ADMIN PORTAL',
     debugShowCheckedModeBanner: false,
     home: Material(
-        color: white,
+        color: offWhite,
         child: Stack(
           children: [
             Column(

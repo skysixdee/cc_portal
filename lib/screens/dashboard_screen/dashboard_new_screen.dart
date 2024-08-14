@@ -8,6 +8,7 @@ import 'package:sm_admin_portal/controllers/new_dash_board_controller.dart';
 
 import 'package:sm_admin_portal/enums/user_type.dart';
 import 'package:sm_admin_portal/reusable_view/open_generic_popup_view.dart';
+import 'package:sm_admin_portal/reusable_view/sm_shadow.dart';
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 
@@ -68,6 +69,7 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
                   ? newUserView(controller)
                   : Center(child: existingUserView(controller))),
           bottomButton(context),
+          SizedBox(height: 10),
         ],
       ),
     );
@@ -76,20 +78,20 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
   Widget bottomButton(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 1, bottom: 10),
-          child: Container(
-            color: sixdColor,
-            height: 1,
-          ),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.only(top: 1, bottom: 10),
+        //   child: Container(
+        //     color: sixdColor,
+        //     height: 1,
+        //   ),
+        // ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Expanded(child: tuneListButton(context)),
-            SizedBox(width: 12),
+            SizedBox(width: 20),
             Expanded(child: newTuneActivateButton()),
-            SizedBox(width: 12),
+            SizedBox(width: 20),
             Expanded(child: transactionButton()),
           ],
         ),
@@ -99,10 +101,13 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
 
   SMButton transactionButton() {
     return SMButton(
-      addBorder: true,
+      //addBorder: true,
+      addHoverEffect: true,
+      onHoverColor: hoverColor,
       height: 55,
       title: transactionHistoryStr,
-      borderColor: sixdColor,
+      boxShadow: smShadow(),
+      bgColor: white,
       //bgColor: sixdColor,
       //fontWeight: FontWeight.normal,
     );
@@ -110,14 +115,14 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
 
   SMButton newTuneActivateButton() {
     return SMButton(
-      addBorder: true,
-      borderColor: sixdColor,
+      boxShadow: smShadow(),
+      addHoverEffect: true,
+      onHoverColor: hoverColor,
+      //addBorder: true,
       height: 55,
       title: ActivateNewToneStr,
-      //bgColor: sixdColor,
-      //fontWeight: FontWeight.normal,
+      bgColor: white,
       onTap: () {
-       
         context.goNamed(activateScreenRoute);
       },
     );
@@ -130,15 +135,18 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
     } catch (e) {}
     bool enable = (status == "A" || status == "G" || status == "S");
     return SMButton(
+      boxShadow: enable ? smShadow() : null,
+      addHoverEffect: enable,
+      onHoverColor: hoverColor,
       height: 55,
       title: tuneListStr,
-      borderColor: enable ? sixdColor : red,
-      //bgColor: enable ? sixdColor : greyLight,
+      textColor: enable ? black : black.withOpacity(0.2),
+      //borderColor: enable ? sixdColor : greyLight,
+      bgColor: enable ? white : hoverColor,
       //fontWeight: FontWeight.normal,
-      addBorder: true,
+      addBorder: enable,
       onTap: () {
         if (enable) {
-         
           context.goNamed(tuneListRoute);
         }
       },
@@ -151,14 +159,13 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
       children: [
         Container(
           decoration: BoxDecoration(
-              border: Border.all(color: greyLight),
+              color: white,
+              boxShadow: smShadow(),
+              //border: Border.all(color: greyLight),
               borderRadius: BorderRadius.circular(8)),
           child: Padding(
-            padding: const EdgeInsets.only(
-                left: 20,
-                top: 14,
-                bottom: 14,
-                right: 50), //symmetric(horizontal: 20, vertical: 14),
+            padding:
+                const EdgeInsets.only(left: 20, top: 14, bottom: 14, right: 50),
             child: Row(
               children: [
                 Container(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sm_admin_portal/controllers/new_dash_board_controller.dart';
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
+import 'package:sm_admin_portal/reusable_view/sm_shadow.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
@@ -13,8 +14,10 @@ Widget newUserView(NewDashBoardController cont) {
       Container(
         height: 130,
         decoration: BoxDecoration(
+          boxShadow: smShadow(),
+          color: white,
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: greyLight),
+          //border: Border.all(color: greyLight),
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 50),

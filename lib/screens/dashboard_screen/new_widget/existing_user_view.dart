@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -8,6 +6,7 @@ import 'package:sm_admin_portal/controllers/new_dash_board_controller.dart';
 import 'package:sm_admin_portal/reusable_view/open_generic_popup_view.dart';
 
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
+import 'package:sm_admin_portal/reusable_view/sm_shadow.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 
@@ -33,16 +32,16 @@ Row card(NewDashBoardController cont, int index) {
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
       Expanded(child: _firstColumn(cont, index)),
-      SizedBox(width: 10),
+      SizedBox(width: 20),
       //if (cont.offers[index].offerStatus != "D") verticalDivider(),
       Expanded(child: _secondColumn(cont, index)),
-      SizedBox(width: 10),
+      SizedBox(width: 20),
       //if (cont.offers[index].offerStatus != "D") verticalDivider(),
       Expanded(
         child: _dateColumn(
             lastRenewedStr, cont.offers[index].chargedDate ?? '', cont, index),
       ),
-      SizedBox(width: 10),
+      SizedBox(width: 20),
       //if (cont.offers[index].offerStatus != "D") verticalDivider(),
       Expanded(
         child: _dateColumn(nextRenewalDateStr,
@@ -73,8 +72,7 @@ Widget _secondColumn(NewDashBoardController cont, int index) {
       print("Status========$status2");
       if (status2 == "A") {
         // cont.suspendTapped();
-        openGenericPopup(
-          suspendPopupMessageStr,
+        openGenericPopup(suspendPopupMessageStr,
             headerTitle: '',
             primaryButtonTitle: confirmCStr,
             secondryButtonTitle: cancelCStr, primaryAction: () {
@@ -82,8 +80,7 @@ Widget _secondColumn(NewDashBoardController cont, int index) {
         });
       } else {
         //  cont.resumeTapped();
-        openGenericPopup(
-          resumePopupMessageStr,
+        openGenericPopup(resumePopupMessageStr,
             headerTitle: '',
             primaryButtonTitle: confirmCStr,
             secondryButtonTitle: cancelCStr, primaryAction: () {
@@ -125,8 +122,7 @@ Widget _firstColumn(NewDashBoardController cont, int index) {
         //openGenericPopup(cont.offers[index].offerName ?? '');
       } else {
         //cont.activateTapped();
-        openGenericPopup(
-          activatePopupMessageStr,
+        openGenericPopup(activatePopupMessageStr,
             headerTitle: '',
             primaryButtonTitle: confirmCStr,
             secondryButtonTitle: cancelCStr, primaryAction: () {
@@ -153,6 +149,8 @@ Widget _column(String title,
   return Container(
     height: _cardHeight,
     decoration: BoxDecoration(
+        boxShadow: smShadow(),
+        color: white,
         border: Border.all(color: greyLight),
         borderRadius: BorderRadius.circular(8)),
     child: Center(
@@ -214,7 +212,9 @@ Widget _dateColumn(String title, String value, cont, index) {
   return Container(
     height: _cardHeight,
     decoration: BoxDecoration(
-        border: Border.all(color: greyLight),
+        boxShadow: smShadow(),
+        color: white,
+        //border: Border.all(color: greyLight),
         borderRadius: BorderRadius.circular(8)),
     child: Center(
       child: Column(
