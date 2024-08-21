@@ -16,7 +16,7 @@ const dividerColor = Color.fromRGBO(245, 243, 243, 1);
 const bgColor = Color.fromRGBO(249, 249, 249, 1);
 const sideMenuShadowColor = Colors.black12;
 const red = Colors.red;
-const offWhite = Color.fromRGBO(250, 249, 246, 1);
+const offWhite = Color.fromRGBO(250, 249, 246, 0.8);
 
 const black12 = Colors.black12;
 const green = Colors.green;

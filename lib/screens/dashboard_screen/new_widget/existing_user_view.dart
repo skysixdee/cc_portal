@@ -151,7 +151,7 @@ Widget _column(String title,
     decoration: BoxDecoration(
         boxShadow: smShadow(),
         color: white,
-        border: Border.all(color: greyLight),
+        //border: Border.all(color: greyLight),
         borderRadius: BorderRadius.circular(8)),
     child: Center(
       child: Column(

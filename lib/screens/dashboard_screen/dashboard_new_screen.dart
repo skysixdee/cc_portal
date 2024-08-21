@@ -78,13 +78,13 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
   Widget bottomButton(BuildContext context) {
     return Column(
       children: [
-        // Padding(
-        //   padding: const EdgeInsets.only(top: 1, bottom: 10),
-        //   child: Container(
-        //     color: sixdColor,
-        //     height: 1,
-        //   ),
-        // ),
+        Padding(
+          padding: const EdgeInsets.only(top: 1, bottom: 10),
+          child: Container(
+            color: sixdColor,
+            height: 1,
+          ),
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -101,7 +101,7 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
 
   SMButton transactionButton() {
     return SMButton(
-      //addBorder: true,
+      addBorder: true,
       addHoverEffect: true,
       onHoverColor: hoverColor,
       height: 55,
@@ -118,7 +118,7 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
       boxShadow: smShadow(),
       addHoverEffect: true,
       onHoverColor: hoverColor,
-      //addBorder: true,
+      addBorder: true,
       height: 55,
       title: ActivateNewToneStr,
       bgColor: white,
@@ -156,6 +156,7 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
   Widget userDetail() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
           decoration: BoxDecoration(
