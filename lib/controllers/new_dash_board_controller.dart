@@ -176,7 +176,6 @@ class NewDashBoardController extends GetxController {
     isLoading.value = false;
   }
 
-
   suspendTapped() async {
     print("suspend Tapped ");
     isLoading.value = true;
@@ -188,15 +187,13 @@ class NewDashBoardController extends GetxController {
     isLoading.value = false;
   }
 
- suspendPopup() async {
+  suspendPopup() async {
     print("suspend Tapped ");
     isLoading.value = true;
     GenericModal model = await suspendApi(StoreManager().customerNumber);
-    if (model.respCode == 1002)
-     {smSnackBar(model.message ?? someThingWentWrongStr);
-    } else {
-      
-    }
+    if (model.respCode == 1002) {
+      smSnackBar(model.message ?? someThingWentWrongStr);
+    } else {}
     isLoading.value = false;
   }
 

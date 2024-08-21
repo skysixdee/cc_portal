@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:keycloak_flutter/keycloak_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:sm_admin_portal/controllers/Tone_list_controller.dart';
@@ -20,9 +22,25 @@ import 'package:sm_admin_portal/utilily/constants.dart';
 
 late AppController appCont;
 late SharedPreferences prefs;
-void main() {
+late KeycloakService keycloakService;
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   initialize();
+// below code added for key clock login remove if not requiredVVVVVVVVVVVVVVVVV
+  keycloakService = KeycloakService(KeycloakConfig(
+      url: 'http://10.0.10.207:9094/auth/', // Keycloak auth base url
+      realm: '6D_IN',
+      clientId: 'VIL_ISAFE'));
+  bool isAuth = await keycloakService.init(
+    initOptions: KeycloakInitOptions(onLoad: 'login-required'),
+  );
+  print("is aut =========== $isAuth");
+  if (isAuth) {
+    StoreManager().setAgentLoggedin(true);
+  }
+  print("is aut =========== ${keycloakService}");
+// Above code added for key clock login remove if not required^^^^^^^^^^^^^^^^^
+
   runApp(const MyApp());
 }
 
@@ -40,6 +58,14 @@ initialize() async {
   prefs = await SharedPreferences.getInstance();
   StoreManager().initStoreManager();
   _extractValueFromPropertiesFile();
+
+  // keycloakService = KeycloakService(new KeycloakConfig(
+  //     url: 'http://10.0.10.207:9094/auth/', // Keycloak auth base url
+  //     realm: '6D_IN',
+  //     clientId: 'VIL_ISAFE'));
+  // keycloakService.init(
+  //   initOptions: KeycloakInitOptions(onLoad: 'login-required'),
+  // );
 }
 
 _extractValueFromPropertiesFile() async {
