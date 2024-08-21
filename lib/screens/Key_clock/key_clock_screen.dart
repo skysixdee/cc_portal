@@ -13,9 +13,18 @@ class KeyClockScreen extends StatelessWidget {
         SMButton(
           title: "Login",
           onTap: () async {
-            keycloakService.login(KeycloakLoginOptions(
-              redirectUri: 'http://10.0.10.207:9094/auth/',
-            ));
+            bool isLo = await keycloakService.isLoggedIn();
+            print("is authenticated in ${keycloakService.authenticated}");
+            print("is isLoggedIn in $isLo");
+
+            if (isLo) {
+              print("user is already authenticated");
+            } else {
+              print("user is not  loggedin so");
+              keycloakService.login(KeycloakLoginOptions(
+                redirectUri: 'http://10.0.10.207:9094/auth/',
+              ));
+            }
           },
         ),
         SMButton(
@@ -34,7 +43,7 @@ class KeyClockScreen extends StatelessWidget {
         SMButton(
           title: "Update token",
           onTap: () async {
-            bool isUpdated = await keycloakService.updateToken();
+            bool isUpdated = await keycloakService.updateToken(1000);
             print("is updated = $isUpdated");
           },
         ),
