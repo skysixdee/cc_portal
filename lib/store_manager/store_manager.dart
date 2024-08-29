@@ -35,6 +35,7 @@ class StoreManager {
   setAgentLoggedin(bool isLoggedIn) {
     isAgentLoggedIn = isLoggedIn;
     prefs.setBool('is_agent_logged_in', isLoggedIn);
+    print("1is loggedin ============$isLoggedIn");
   }
 
   setCustomerLoggedin(bool isLoggedIn) {
@@ -61,6 +62,7 @@ class StoreManager {
   }
 
   logout() async {
+    keycloakService.logout();
     cont.msisdn = '';
     StoreManager().customerNumber = '';
     StoreManager().isAgentLoggedIn = false;

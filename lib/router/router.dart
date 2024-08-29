@@ -384,7 +384,7 @@ StatefulShellBranch dashBoardShell() {
         name: dashBoardRoute,
         path: dashBoardRoute,
         builder: (context, state) {
-          return KeyClockScreen(); //DashboardNewScreen();
+          return DashboardNewScreen(); //KeyClockScreen(); //DashboardNewScreen();
         },
       ),
     ],

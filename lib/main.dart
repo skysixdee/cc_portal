@@ -27,18 +27,27 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   initialize();
 // below code added for key clock login remove if not requiredVVVVVVVVVVVVVVVVV
-  keycloakService = KeycloakService(KeycloakConfig(
-      url: 'http://10.0.10.207:9094/auth/', // Keycloak auth base url
-      realm: '6D_IN',
-      clientId: 'VIL_ISAFE'));
-  bool isAuth = await keycloakService.init(
-    initOptions: KeycloakInitOptions(onLoad: 'login-required'),
-  );
-  print("is aut =========== $isAuth");
-  if (isAuth) {
-    StoreManager().setAgentLoggedin(true);
+  try {
+    keycloakService = KeycloakService(KeycloakConfig(
+      url: 'http://10.0.13.19:9070/', // Keycloak auth base url
+      realm: 'CC-PORTAL',
+      clientId: 'CC-PORTAL-SERVICE',
+    ));
+    bool isAuth = await keycloakService.init(
+      initOptions: KeycloakInitOptions(onLoad: 'login-required'),
+    );
+    print("is aut =========== $isAuth");
+
+    print(
+        "iskeycloakService.authenticated =========== ${keycloakService.authenticated}");
+    if (keycloakService.authenticated as bool) {
+      StoreManager().setAgentLoggedin(true);
+    }
+
+    print("is aut =========== ${keycloakService}");
+  } catch (e) {
+    print("error is $e");
   }
-  print("is aut =========== ${keycloakService}");
 // Above code added for key clock login remove if not required^^^^^^^^^^^^^^^^^
 
   runApp(const MyApp());
@@ -58,14 +67,6 @@ initialize() async {
   prefs = await SharedPreferences.getInstance();
   StoreManager().initStoreManager();
   _extractValueFromPropertiesFile();
-
-  // keycloakService = KeycloakService(new KeycloakConfig(
-  //     url: 'http://10.0.10.207:9094/auth/', // Keycloak auth base url
-  //     realm: '6D_IN',
-  //     clientId: 'VIL_ISAFE'));
-  // keycloakService.init(
-  //   initOptions: KeycloakInitOptions(onLoad: 'login-required'),
-  // );
 }
 
 _extractValueFromPropertiesFile() async {

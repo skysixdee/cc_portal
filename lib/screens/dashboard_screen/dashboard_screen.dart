@@ -110,7 +110,8 @@ class DashBoardScreen extends StatelessWidget {
           title: "",
           leadingChild: Icon(Icons.logout),
           onTap: () {
-            StoreManager().setCustomerLoggedin(false);
+            print("logout tapped");
+            //StoreManager().setAgentLoggedin(false);
             //controller.isSubmitted.value = false;
           },
         )
@@ -421,7 +422,6 @@ Widget secondColumn(DashboardController controller, int index) {
               : "Resume", //suspendServiceStr,
           textColor: white,
           onTap: () {
-            
             String action = (controller.settingsList[index].status == "A")
                 ? "Resume" //"resumeServiceStr
                 : "Suspend"; //suspendServiceStr;

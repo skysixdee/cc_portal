@@ -48,7 +48,7 @@ class NavigationBarView extends StatelessWidget {
                         title: logoutStr,
                         leadingChild: Icon(Icons.logout),
                         onTap: () {
-                          StoreManager().setCustomerLoggedin(false);
+                          StoreManager().logout();
 
                           context.goNamed(dashBoardRoute);
                         },
