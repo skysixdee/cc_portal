@@ -1,11 +1,12 @@
 import 'dart:convert';
-import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:keycloak_flutter/keycloak_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sm_admin_portal/Models/keyclock_user_info_model.dart';
 
 import 'package:sm_admin_portal/controllers/Tone_list_controller.dart';
 
@@ -16,6 +17,7 @@ import 'package:sm_admin_portal/controllers/dashboard_controller.dart';
 import 'package:sm_admin_portal/controllers/new_dash_board_controller.dart';
 import 'package:sm_admin_portal/controllers/side_menu_controller.dart';
 import 'package:sm_admin_portal/controllers/subscriber_detail_controler.dart';
+import 'package:sm_admin_portal/reusable_view/get_user_role.dart';
 import 'package:sm_admin_portal/router/router.dart';
 import 'package:sm_admin_portal/store_manager/store_manager.dart';
 import 'package:sm_admin_portal/utilily/constants.dart';
@@ -37,7 +39,12 @@ void main() async {
       initOptions: KeycloakInitOptions(onLoad: 'login-required'),
     );
     print("is aut =========== $isAuth");
+    String token = await keycloakService.getToken();
 
+    Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+    StoreManager().userInfo =
+        await keyClockUserInfoModelFromJson(json.encode(decodedToken));
+    getUserRole();
     print(
         "iskeycloakService.authenticated =========== ${keycloakService.authenticated}");
     if (keycloakService.authenticated as bool) {
