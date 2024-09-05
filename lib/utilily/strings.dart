@@ -20,7 +20,7 @@ String loadingServiceMenuStr = "Loading service menu...";
 String noResultFoundStr = "No Result found";
 String suspendAndResumeStr = "Suspend And Resume";
 String actionStr = "Action";
-
+String homeStr = "Home";
 String dashBoardStr = "DashBoard";
 String searchResultHereStr = "Your search result";
 String ActivateNewToneStr = "Activate New Tone";
@@ -31,7 +31,7 @@ String transactionHistoryStr = "Transaction History";
 String submitStr = "Submit";
 String nextRenewalDateStr = "Next Renewal Date";
 String deactivatePopupMessageStr = "' Are you sure you want to Deactivate ? '";
-String suspendPopupMessageStr =" ' Are you sure you want to Suspend ? '";
+String suspendPopupMessageStr = " ' Are you sure you want to Suspend ? '";
 String resumePopupMessageStr = "' Are you sure you want to Resume ? '";
 String activatePopupMessageStr = "' Are you sure you want to Activate ? '";
 String noDataAvailableStr = "No data available";
@@ -95,6 +95,7 @@ String suspendedCStr = 'SUSPEND';
 String activateStr = 'Activate';
 String activeCStr = 'ACTIVE';
 String enterCustomerMsisdnStr = 'Please enter customer msisdn.';
+String enterAgentMsisdnStr = 'Please enter Agent msisdn.';
 String pendingCStr = 'PENDING';
 
 String graceCStr = 'GRACE';
@@ -121,4 +122,3 @@ String serviceTypeStr = "Service Type";
 String someThingWentWrongStr = "Some thing went wrong";
 String selectFrequencyErrorStr = "Please select frequency";
 String selectServiceTypeErrorStr = "Please select service type";
-

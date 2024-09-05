@@ -13,7 +13,7 @@ Widget userTextField(TextEditingController textEditingController,
       width: 400,
       child: SmTextField(
         textEditingController: textEditingController,
-        hint: enterCustomerMsisdnStr,
+        hint: enterAgentMsisdnStr,
         onChange: (p0) {
           controller.msisdn = p0;
         },

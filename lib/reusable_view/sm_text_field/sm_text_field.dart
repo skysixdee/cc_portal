@@ -41,6 +41,11 @@ class SmTextField extends StatelessWidget {
                 textAlign: TextAlign.left,
                 style: TextStyle(fontWeight: fontWeight, fontSize: fontSize),
                 controller: textEditingController,
+                onTap: () {
+                  if (textEditingController?.text.isNotEmpty ?? false) {
+                    _isHideClearButton.value = false;
+                  }
+                },
                 onChanged: (value) {
                   _isHideClearButton.value = value.isEmpty;
                   if (onChange != null) {

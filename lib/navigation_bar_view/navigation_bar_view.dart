@@ -38,8 +38,8 @@ class NavigationBarView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SMButton(
-                        title: dashBoardStr,
-                        leadingChild: Icon(Icons.dashboard_outlined),
+                        title: homeStr,
+                        leadingChild: Icon(Icons.home),
                         onTap: () {
                           context.goNamed(dashBoardRoute);
                         },
