@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sm_admin_portal/enums/font_name.dart';
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 
@@ -15,14 +16,16 @@ openGenericPopup(
   Function()? primaryAction,
   Function()? secondryAction,
 }) {
-  return Get.dialog(_GenericPopupView(
-    message: message,
-    primaryButtonTitle: primaryButtonTitle,
-    headerTitle: headerTitle,
-    secondryButtonTitle: secondryButtonTitle,
-    primaryAction: primaryAction,
-    secondryAction: secondryAction,
-  ));
+  return Get.dialog(
+      _GenericPopupView(
+        message: message,
+        primaryButtonTitle: primaryButtonTitle,
+        headerTitle: headerTitle,
+        secondryButtonTitle: secondryButtonTitle,
+        primaryAction: primaryAction,
+        secondryAction: secondryAction,
+      ),
+      barrierDismissible: false);
 }
 
 class _GenericPopupView extends StatelessWidget {
@@ -57,8 +60,11 @@ class _GenericPopupView extends StatelessWidget {
             children: [
               headerView(context),
               Padding(
-                padding: const EdgeInsets.only(top: 30, bottom: 10),
-                child: SMText(title: message),
+                padding: const EdgeInsets.only(top: 40, bottom: 30),
+                child: SMText(
+                  title: message,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
               okButton(context)
             ],
@@ -71,11 +77,11 @@ class _GenericPopupView extends StatelessWidget {
   Widget okButton(BuildContext context) {
     return secondryButtonTitle != null
         ? Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(10.0),
             child: Row(
               children: [
                 Flexible(child: primaryButton(context)),
-                SizedBox(width: 20),
+                SizedBox(width: 10),
                 Flexible(child: secondryButton(context))
               ],
             ),
@@ -92,6 +98,7 @@ class _GenericPopupView extends StatelessWidget {
       bgColor: sixdColor,
       title: primaryButtonTitle ?? okCStr,
       textColor: white,
+      fontSize: 13,
       onTap: () {
         if (primaryAction != null) {
           primaryAction!();
@@ -104,9 +111,10 @@ class _GenericPopupView extends StatelessWidget {
   SMButton secondryButton(BuildContext context) {
     return SMButton(
       width: 200,
-      bgColor: sixdColor,
+      bgColor: greyLight,
+      fontSize: 13,
       title: secondryButtonTitle ?? cancelStr,
-      textColor: white,
+      textColor: black,
       onTap: () {
         if (secondryAction != null) {
           secondryAction!();
@@ -119,12 +127,12 @@ class _GenericPopupView extends StatelessWidget {
   Widget headerView(BuildContext context) {
     return Container(
       color: greyLight,
-      height: 40,
+      height: 45,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(width: 40),
-          SMText(title: headerTitle ?? successCStr),
+          SMText(title: headerTitle ?? successCStr, fontSize: 16),
           closeButton(context),
         ],
       ),

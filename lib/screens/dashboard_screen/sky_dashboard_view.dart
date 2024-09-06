@@ -45,7 +45,7 @@ class _SkyDashboardViewState extends State<SkyDashboardView> {
   @override
   Widget build(BuildContext context) {
     return CustomTableView(
-        child: (row, colum) {
+        childWidget: (row, colum) {
           return colum == 0
               ? Row(
                   children: [

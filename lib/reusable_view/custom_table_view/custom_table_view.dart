@@ -19,7 +19,7 @@ class CustomTableView extends StatelessWidget {
   final double tableMinWidth;
   final double rowVerticalPadding;
   final ScrollPhysics? physics;
-  final Function(int row, int colum)? child;
+  final Function(int row, int colum)? childWidget;
   const CustomTableView({
     super.key,
     required this.headerColumList,
@@ -31,7 +31,7 @@ class CustomTableView extends StatelessWidget {
     this.headerBgColor = black12,
     this.borderWidth,
     this.cellHeight,
-    this.child,
+    this.childWidget,
     this.headerHeight,
     //this.SingleChildScrollView,
     this.rowVerticalPadding = 4,
@@ -171,29 +171,32 @@ class CustomTableView extends StatelessWidget {
                                               child: Center(
                                                   child: (rowList[index][column]
                                                           .isButton)
-                                                      ? ((child != null)
-                                                          ? (child!(
+                                                      ? ((childWidget != null)
+                                                          ? (childWidget!(
                                                               index, column))
                                                           : const SizedBox(
                                                               child: Text(
                                                                   "add button here"),
                                                             ))
                                                       : Padding(
-                                                        padding: const EdgeInsets.only(top: 15.0,bottom: 15),
-                                                        child: Row(
-                                                            mainAxisAlignment: column ==
-                                                                    0
-                                                                ? MainAxisAlignment
-                                                                    .start
-                                                                : MainAxisAlignment
-                                                                    .center,
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .only(
+                                                                  top: 15.0,
+                                                                  bottom: 15),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                column == 0
+                                                                    ? MainAxisAlignment
+                                                                        .start
+                                                                    : MainAxisAlignment
+                                                                        .center,
                                                             children: [
                                                               Flexible(
                                                                 child: Padding(
                                                                   padding: EdgeInsets.symmetric(
                                                                       horizontal:
-                                                                          column ==
-                                                                                  0
+                                                                          column == 0
                                                                               ? 4
                                                                               : 0),
                                                                   child: Column(
@@ -219,7 +222,7 @@ class CustomTableView extends StatelessWidget {
                                                               ),
                                                             ],
                                                           ),
-                                                      )),
+                                                        )),
                                             )),
                                       ),
                                 ])

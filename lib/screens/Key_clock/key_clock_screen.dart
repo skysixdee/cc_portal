@@ -50,6 +50,19 @@ class KeyClockScreen extends StatelessWidget {
             print("is updated = $isUpdated");
           },
         ),
+        SMButton(
+          title: "Get Profile",
+          onTap: () async {
+            KeycloakProfile? userProfile =
+                await keycloakService.loadUserProfile();
+            print("User email = ${userProfile?.email}");
+            print("User emailVerified = ${userProfile?.emailVerified}");
+            print("User firstName = ${userProfile?.firstName}");
+            print("User id = ${userProfile?.id}");
+            print("User lastName = ${userProfile?.lastName}");
+            print("User username = ${userProfile?.username}");
+          },
+        ),
       ],
     );
   }

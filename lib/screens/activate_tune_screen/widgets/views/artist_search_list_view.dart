@@ -173,7 +173,7 @@ class _ArtistSearchListViewState extends State<ArtistSearchListView> {
             return CustomTableView(
                 headerColumList: cont.artistsTuneTableList[0],
                 rowList: cont.artistsTuneTableList,
-                child: (row, colum) {
+                childWidget: (row, colum) {
                   return Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -206,7 +206,7 @@ class _ArtistSearchListViewState extends State<ArtistSearchListView> {
       return CustomTableView(
         headerColumList: cont.artistNameTableList[0],
         rowList: cont.artistNameTableList,
-        child: (row, colum) {
+        childWidget: (row, colum) {
           return Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,

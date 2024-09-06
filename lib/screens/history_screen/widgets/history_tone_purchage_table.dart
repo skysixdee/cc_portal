@@ -15,7 +15,7 @@ class HistoryTonePurchaseTableView extends StatelessWidget {
         cellHeight: 40,
         headerColumList: con.purchaseList[0],
         rowList: con.purchaseList,
-        child: (row, colum) {
+        childWidget: (row, colum) {
           return SMText(
             title: "csfsdf",
           );

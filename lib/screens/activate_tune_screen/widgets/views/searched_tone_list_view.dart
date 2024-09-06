@@ -80,7 +80,7 @@ class _SearchedToneListViewState extends State<SearchedToneListView> {
       return CustomTableView(
         headerColumList: cont.purchaseList[0],
         rowList: cont.purchaseList,
-        child: (row, colum) {
+        childWidget: (row, colum) {
           return Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,

@@ -15,7 +15,7 @@ class HistoryGiftingTableView extends StatelessWidget {
         cellHeight: 40,
         headerColumList: con.giftList[0],
         rowList: con.giftList,
-        child: (row, colum) {
+        childWidget: (row, colum) {
           return SMText(
             title: "csfsdf",
           );

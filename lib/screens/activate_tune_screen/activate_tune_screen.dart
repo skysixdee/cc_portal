@@ -82,7 +82,7 @@ class ActivateTuneScreen extends StatelessWidget {
         ),
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.only(right: 12),
+            padding: const EdgeInsets.only(left: 20, right: 20),
             child: Obx(() {
               return cont.searchType.value == SearchType.singer
                   ? ArtistSearchListView(artistName: cont.searchedText)

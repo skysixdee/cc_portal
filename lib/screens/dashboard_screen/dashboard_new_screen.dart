@@ -168,14 +168,14 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
               borderRadius: BorderRadius.circular(8)),
           child: Padding(
             padding:
-                const EdgeInsets.only(left: 20, top: 14, bottom: 14, right: 50),
+                const EdgeInsets.only(left: 10, top: 8, bottom: 8, right: 20),
             child: Row(
               children: [
                 Container(
-                  height: 80,
-                  width: 80,
+                  height: 50,
+                  width: 50,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40),
+                      borderRadius: BorderRadius.circular(25),
                       border: Border.all(color: greyLight)),
                   child: Icon(Icons.person),
                 ),
@@ -187,7 +187,7 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
           ),
         ),
         SMButton(
-          title: "Switch Account",
+          title: switchAccountStr,
           fontWeight: FontWeight.bold,
           fontSize: 12,
           leadingChild: Padding(
@@ -198,10 +198,18 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
             ),
           ),
           onTap: () {
-            controller.isVerified.value = false;
-            controller.msisdn = '';
-            textEditingController.text = '';
-            StoreManager().setCustomerLoggedin(false);
+            openGenericPopup(
+              headerTitle: switchAccountStr.toUpperCase(),
+              areYouSureYouWantToChangeUserStr,
+              secondryButtonTitle: cancelCStr,
+              primaryButtonTitle: confirmCStr,
+              primaryAction: () {
+                controller.isVerified.value = false;
+                controller.msisdn = '';
+                textEditingController.text = '';
+                StoreManager().setCustomerLoggedin(false);
+              },
+            );
           },
         )
       ],

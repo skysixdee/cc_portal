@@ -17,6 +17,7 @@ import 'package:sm_admin_portal/controllers/dashboard_controller.dart';
 import 'package:sm_admin_portal/controllers/new_dash_board_controller.dart';
 import 'package:sm_admin_portal/controllers/side_menu_controller.dart';
 import 'package:sm_admin_portal/controllers/subscriber_detail_controler.dart';
+import 'package:sm_admin_portal/reusable_view/get_user_detail.dart';
 import 'package:sm_admin_portal/reusable_view/get_user_role.dart';
 import 'package:sm_admin_portal/router/router.dart';
 import 'package:sm_admin_portal/store_manager/store_manager.dart';
@@ -42,13 +43,15 @@ void main() async {
     String token = await keycloakService.getToken();
 
     Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
-    StoreManager().userInfo =
+    StoreManager().keyClockInfo =
         await keyClockUserInfoModelFromJson(json.encode(decodedToken));
-    getUserRole();
+
     print(
         "iskeycloakService.authenticated =========== ${keycloakService.authenticated}");
     if (keycloakService.authenticated as bool) {
       StoreManager().setAgentLoggedin(true);
+      getUserRole();
+      getUserDetail();
     }
 
     print("is aut =========== ${keycloakService}");

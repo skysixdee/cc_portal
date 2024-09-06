@@ -19,7 +19,7 @@ class ToneDetailTable extends StatelessWidget {
         headerBgColor: Colors.grey[300],
         headerColumList: cont.toneDetailList[0],
         rowList: cont.toneDetailList,
-        child: (row, colum) {
+        childWidget: (row, colum) {
           return InkWell(
             onTap: () {
               showDialog(

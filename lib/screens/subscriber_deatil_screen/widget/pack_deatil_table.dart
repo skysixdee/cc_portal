@@ -25,7 +25,7 @@ class PackDetailTable extends StatelessWidget {
         headerBgColor: Colors.grey[300],
         headerColumList: cont.packDetailList[0],
         rowList: cont.packDetailList,
-        child: (row, colum) {
+        childWidget: (row, colum) {
           return InkWell(
             onTap: () {
               // cont.packDetailList.removeAt(row);

@@ -7,16 +7,17 @@ Widget sixDeeLogo(double sideMenuWidth) {
   return SizedBox(
       width: sideMenuWidth + 1,
       child: Padding(
-        padding: const EdgeInsets.only(left: 12, top: 0, bottom: 0, right: 30),
+        padding: const EdgeInsets.only(left: 12, top: 0, bottom: 0, right: 0),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Expanded(child: Center(child: Image.asset(sixDeeLogoPng))),
+            Expanded(
+                child: Center(child: Image.asset(sixDeeLogoPng, height: 30))),
             const SizedBox(width: 8),
             Container(
               height: double.infinity,
               width: 1,
-              color: dividerColor,
+              color: greyLight,
             )
           ],
         ),

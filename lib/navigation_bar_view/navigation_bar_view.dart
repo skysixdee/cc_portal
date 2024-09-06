@@ -1,21 +1,24 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sm_admin_portal/main.dart';
 import 'package:sm_admin_portal/navigation_bar_view/sixd_logo.dart';
+import 'package:sm_admin_portal/reusable_view/open_generic_popup_view.dart';
+
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
 import 'package:sm_admin_portal/router/router_name.dart';
 import 'package:sm_admin_portal/store_manager/store_manager.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
-import 'package:sm_admin_portal/utilily/images.dart';
+
 import 'package:sm_admin_portal/utilily/strings.dart';
 
 class NavigationBarView extends StatelessWidget {
   final double navBarheight;
   final double sideMenuWidth;
-  const NavigationBarView(
+  NavigationBarView(
       {super.key, required this.navBarheight, required this.sideMenuWidth});
-
+  String username = StoreManager().userProfile?.username ?? '';
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,32 +31,11 @@ class NavigationBarView extends StatelessWidget {
           Flexible(
             child: Row(
               children: [
-                Container(
-                  height: navBarheight,
-                  color: white,
-                  child: sixDeeLogo(sideMenuWidth),
-                ),
+                logoButton(),
                 Flexible(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SMButton(
-                        title: homeStr,
-                        leadingChild: Icon(Icons.home),
-                        onTap: () {
-                          context.goNamed(dashBoardRoute);
-                        },
-                      ),
-                      SMButton(
-                        title: logoutStr,
-                        leadingChild: Icon(Icons.logout),
-                        onTap: () {
-                          StoreManager().logout();
-
-                          context.goNamed(dashBoardRoute);
-                        },
-                      )
-                    ],
+                    children: [homeButton(context), userDeatilButton(context)],
                   ),
                 )
               ],
@@ -65,6 +47,64 @@ class NavigationBarView extends StatelessWidget {
           )
         ],
       ),
+    );
+  }
+
+  Container logoButton() {
+    return Container(
+      height: navBarheight,
+      color: white,
+      child: sixDeeLogo(sideMenuWidth),
+    );
+  }
+
+  Obx userDeatilButton(BuildContext context) {
+    return Obx(
+      () {
+        return SMButton(
+          title: appCont.agentName.value,
+          leadingChild: Padding(
+            padding: const EdgeInsets.only(right: 4.0),
+            child: Container(
+                height: 30,
+                width: 30,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15), color: greyLight),
+                child: Icon(
+                  Icons.person,
+                  size: 14,
+                )),
+          ),
+          onTap: () {
+            openGenericPopup(
+              headerTitle: "$logoutCStr !",
+              areYouSureYouWantToLogoutStr,
+              primaryButtonTitle: confirmCStr,
+              secondryButtonTitle: cancelCStr,
+              primaryAction: () {
+                StoreManager().logout();
+
+                context.goNamed(dashBoardRoute);
+              },
+            );
+          },
+        );
+      },
+    );
+  }
+
+  SMButton homeButton(BuildContext context) {
+    return SMButton(
+      bgColor: transparent,
+      titlePadding: EdgeInsets.only(left: 8, right: 16),
+      title: homeStr,
+      leadingChild: Icon(
+        Icons.home,
+        size: 20,
+      ),
+      onTap: () {
+        context.goNamed(dashBoardRoute);
+      },
     );
   }
 }

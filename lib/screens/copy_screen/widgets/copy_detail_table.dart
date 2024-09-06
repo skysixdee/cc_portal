@@ -31,7 +31,7 @@ class _CopyDetailTableState extends State<CopyDetailTable> {
       headerBgColor: Colors.grey[300],
       headerColumList: cont.copyDetailList[0],
       rowList: cont.copyDetailList,
-      child: (row, column) {
+      childWidget: (row, column) {
         return InkWell(
           onTap: () {
             setState(() {

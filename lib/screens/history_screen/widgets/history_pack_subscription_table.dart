@@ -15,7 +15,7 @@ class HistoryPackSubscriptionTableView extends StatelessWidget {
         cellHeight: 40,
         headerColumList: con.subscriptionList[0],
         rowList: con.subscriptionList,
-        child: (row, colum) {
+        childWidget: (row, colum) {
           return SMText(
             title: "csfsdf",
           );

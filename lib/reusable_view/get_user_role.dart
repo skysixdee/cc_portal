@@ -4,7 +4,7 @@ List<String> getUserRole() {
   List<String> listOfRoles = [];
 
   for (String role
-      in StoreManager().userInfo?.resourceAccess?.ccPortalService?.roles ??
+      in StoreManager().keyClockInfo?.resourceAccess?.ccPortalService?.roles ??
           []) {
     listOfRoles.add(role);
   }

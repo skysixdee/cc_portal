@@ -112,11 +112,17 @@ String weeklyStr = "Weekly";
 String successCStr = "SUCCESSS";
 String selectStr = "Select";
 String okCStr = "OK";
+String switchAccountStr = "Switch Account";
 String inActiveCStr = "INACTIVE";
 String logoutStr = "Logout";
+String logoutCStr = "LOGOUT";
 String yesStr = "Yes";
 String cancelStr = "Cancel";
 String monthlyStr = "Monthly";
+String areYouSureYouWantToLogoutStr = "Are you sure you want to logout?";
+String areYouSureYouWantToChangeUserStr =
+    "Are you sure you want to Change user?";
+String areYouSureYouWantToActivateStr = "Are you sure you want to Activate?";
 String frequencyStr = "Frequency";
 String serviceTypeStr = "Service Type";
 String someThingWentWrongStr = "Some thing went wrong";

@@ -6,11 +6,21 @@ import 'package:sm_admin_portal/utilily/colors.dart';
 
 smSnackBar(String message) {
   Get.snackbar(
+    padding: EdgeInsets.zero,
     borderRadius: 4,
-    titleText: Center(
-      child: SMText(
-        title: message,
-        textColor: white,
+    titleText: Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(4),
+        color: sixdColor,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Center(
+          child: SMText(
+            title: message,
+            textColor: white,
+          ),
+        ),
       ),
     ),
     maxWidth: 400,
@@ -20,7 +30,7 @@ smSnackBar(String message) {
     //   title: "message",
     //   textColor: white,
     // ),
-    backgroundColor: sixdColor,
+    backgroundColor: transparent,
     snackPosition: SnackPosition.BOTTOM,
   );
 }

@@ -15,7 +15,7 @@ class HistoryAllTableView extends StatelessWidget {
       child: CustomTableView(
         headerColumList: con.allList[0],
         rowList: con.allList,
-        child: (row, colum) {
+        childWidget: (row, colum) {
           return SMText(
             title: "csfsdf",
           );

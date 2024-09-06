@@ -28,7 +28,7 @@ class SettingsListTable extends StatelessWidget {
             // headerBgColor: Colors.grey[300],
             headerColumList: cont.toneList[0],
             rowList: cont.toneList,
-            child: (row, colum) {
+            childWidget: (row, colum) {
               return InkWell(
                   onTap: () {
                     // openGenericPopup("are you sure",primaryButtonTitle: confirmCStr,secondryButtonTitle: cancelStr,primaryAction: (){

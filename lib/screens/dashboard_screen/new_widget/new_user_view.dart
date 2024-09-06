@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sm_admin_portal/controllers/new_dash_board_controller.dart';
+import 'package:sm_admin_portal/reusable_view/open_generic_popup_view.dart';
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
 import 'package:sm_admin_portal/reusable_view/sm_shadow.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
@@ -52,7 +53,14 @@ Widget newUserView(NewDashBoardController cont) {
                     textColor: white,
                     fontWeight: FontWeight.normal,
                     onTap: () {
-                      cont.activateNewUser();
+                      openGenericPopup(
+                        areYouSureYouWantToActivateStr,
+                        secondryButtonTitle: cancelCStr,
+                        primaryButtonTitle: confirmCStr,
+                        primaryAction: () {
+                          cont.activateNewUser();
+                        },
+                      );
                     },
                   ),
                 ],
