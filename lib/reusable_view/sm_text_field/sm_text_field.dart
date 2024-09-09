@@ -12,6 +12,7 @@ class SmTextField extends StatelessWidget {
     this.hint,
     this.fontSize = 14,
     this.tailingWidget,
+    this.leadingWidget,
     this.onSubmit,
     this.onChange,
   });
@@ -21,6 +22,8 @@ class SmTextField extends StatelessWidget {
   final double? fontSize;
   final String? hint;
   final Widget? tailingWidget;
+  final Widget? leadingWidget;
+
   final Function(String)? onSubmit;
   final Function(String)? onChange;
   @override
@@ -35,6 +38,7 @@ class SmTextField extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            leadingWidget ?? SizedBox(),
             Expanded(
               child: TextField(
                 onSubmitted: onSubmit,

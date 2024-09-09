@@ -6,6 +6,7 @@ import 'package:sm_admin_portal/api_calls/resume_api.dart';
 
 import 'package:sm_admin_portal/api_calls/set_tone_api.dart';
 import 'package:sm_admin_portal/api_calls/suspend_api.dart';
+import 'package:sm_admin_portal/main.dart';
 import 'package:sm_admin_portal/reusable_view/sm_snack_bar.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/constants.dart';
@@ -59,8 +60,11 @@ class NewDashBoardController extends GetxController {
 
     if (subscriptionModel.respCode == 1) {
       userType.value = UserType.newUser;
+
+      appCont.isCustomerLoggedIn.value = true;
     } else if (subscriptionModel.respCode == 0) {
       userType.value = UserType.existingUser;
+      appCont.isCustomerLoggedIn.value = true;
     } else {
       userType.value = UserType.invalidUser;
       isLoading.value = false;

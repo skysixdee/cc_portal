@@ -16,6 +16,7 @@ const String transactionHistoryRoute = '/transactionHistory';
 const String subscriberDetailRoute = '/subscriberDetail';
 const String copyToneRoute = '/copyTone';
 const String tuneListRoute = '/tuneList';
+const String loginRoute = '/login';
 
 const String activateScreenRoute = '/activateScreen';
 

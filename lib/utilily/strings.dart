@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
+String packNameStr = 'Pack Name : ';
 String aPartyStr = 'A Party';
 String bPartyStr = 'B Party';
+String loginStr = 'Login';
 String englishToneNameStr = 'English Tone Name';
 String callChargeStr = 'Call Charge';
 String timeStampStr = 'Time Stamp';
@@ -30,10 +32,10 @@ String lastRenewedStr = "Last Renewed on";
 String transactionHistoryStr = "Transaction History";
 String submitStr = "Submit";
 String nextRenewalDateStr = "Next Renewal Date";
-String deactivatePopupMessageStr = "' Are you sure you want to Deactivate ? '";
-String suspendPopupMessageStr = " ' Are you sure you want to Suspend ? '";
-String resumePopupMessageStr = "' Are you sure you want to Resume ? '";
-String activatePopupMessageStr = "' Are you sure you want to Activate ? '";
+String deactivatePopupMessageStr = "Are you sure you want to Deactivate ?";
+String suspendPopupMessageStr = "Are you sure you want to Suspend ? ";
+String resumePopupMessageStr = "Are you sure you want to Resume ?";
+String activatePopupMessageStr = "Are you sure you want to Activate ?";
 String noDataAvailableStr = "No data available";
 
 String bulkUploadStr = "Bulk Upload";
@@ -95,7 +97,7 @@ String suspendedCStr = 'SUSPEND';
 String activateStr = 'Activate';
 String activeCStr = 'ACTIVE';
 String enterCustomerMsisdnStr = 'Please enter customer msisdn.';
-String enterAgentMsisdnStr = 'Please enter Agent msisdn.';
+
 String pendingCStr = 'PENDING';
 
 String graceCStr = 'GRACE';

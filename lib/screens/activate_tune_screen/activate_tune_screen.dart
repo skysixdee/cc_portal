@@ -29,7 +29,7 @@ class ActivateTuneScreen extends StatelessWidget {
       children: [
         Padding(
           padding:
-              const EdgeInsets.only(top: 8, left: 20, right: 10, bottom: 0),
+              const EdgeInsets.only(top: 20, left: 20, right: 30, bottom: 10),
           child: SMText(
             title: toneActivationStr,
             fontSize: 18,
@@ -38,11 +38,16 @@ class ActivateTuneScreen extends StatelessWidget {
         ),
         Padding(
           padding:
-              const EdgeInsets.only(top: 4, left: 20, right: 10, bottom: 20),
+              const EdgeInsets.only(top: 4, left: 20, right: 20, bottom: 20),
           child: Container(
-            decoration: BoxDecoration(boxShadow: boxShadow, color: white),
+            decoration: BoxDecoration(
+              boxShadow: boxShadow,
+              color: white,
+              borderRadius: BorderRadius.circular(4),
+              border: Border.all(color: greyLight),
+            ),
             child: Padding(
-              padding: const EdgeInsets.only(top: 20, bottom: 10),
+              padding: const EdgeInsets.only(top: 40, bottom: 10),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,

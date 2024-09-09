@@ -40,9 +40,8 @@ class _NumberPaginationState extends State<NumberPagination> {
       controller: controller,
       numberPages: _numPages,
       onPageChange: (int index) {
-        widget.tappedIndex(index);
+        widget.tappedIndex(index * pagePerCount);
         setState(() {
-          //_currentPage = index;
           print("Page tapped $index");
         });
       },

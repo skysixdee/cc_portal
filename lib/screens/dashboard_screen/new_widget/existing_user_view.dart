@@ -6,6 +6,7 @@ import 'package:sm_admin_portal/controllers/new_dash_board_controller.dart';
 import 'package:sm_admin_portal/reusable_view/open_generic_popup_view.dart';
 
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
+import 'package:sm_admin_portal/reusable_view/sm_drop_down_button.dart';
 import 'package:sm_admin_portal/reusable_view/sm_shadow.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
@@ -62,35 +63,40 @@ Widget _secondColumn(NewDashBoardController cont, int index) {
 
   Color secondColumnTitlecolor = status2 == "A" ? green : red;
   Color secondColumnBtnColor = (status2 == "A") ? red : green;
-  return _column(
-    secondColumnTitle,
-    titleColor: secondColumnTitlecolor,
-    btnColor: secondColumnBtnColor,
-    btnName: secondColumnButtonTitle,
-    keyTag: tempStatusStr,
-    onTap: () {
-      print("Status========$status2");
-      if (status2 == "A") {
-        // cont.suspendTapped();
-        openGenericPopup(suspendPopupMessageStr,
-            headerTitle: '',
-            primaryButtonTitle: confirmCStr,
-            secondryButtonTitle: cancelCStr, primaryAction: () {
-          cont.suspendTapped();
-        });
-      } else {
-        //  cont.resumeTapped();
-        openGenericPopup(resumePopupMessageStr,
-            headerTitle: '',
-            primaryButtonTitle: confirmCStr,
-            secondryButtonTitle: cancelCStr, primaryAction: () {
-          cont.resumeTapped();
-        }
+  return CustomOnHover(
+    builder: (isHovered) {
+      return _column(
+        secondColumnTitle,
+        titleColor: secondColumnTitlecolor,
+        btnColor: isHovered ? sixdColor : white, //secondColumnBtnColor,
+        btnName: secondColumnButtonTitle,
+        keyTag: tempStatusStr,
+        isHovered: isHovered,
+        onTap: () {
+          print("Status========$status2");
+          if (status2 == "A") {
+            // cont.suspendTapped();
+            openGenericPopup(suspendPopupMessageStr,
+                headerTitle: '',
+                primaryButtonTitle: confirmCStr,
+                secondryButtonTitle: cancelCStr, primaryAction: () {
+              cont.suspendTapped();
+            });
+          } else {
+            //  cont.resumeTapped();
+            openGenericPopup(resumePopupMessageStr,
+                headerTitle: '',
+                primaryButtonTitle: confirmCStr,
+                secondryButtonTitle: cancelCStr, primaryAction: () {
+              cont.resumeTapped();
+            }
 
-            // cont.getColumnButtonName(status1)
-            );
-      }
-      print("Tapped 2");
+                // cont.getColumnButtonName(status1)
+                );
+          }
+          print("Tapped 2");
+        },
+      );
     },
   );
 }
@@ -101,36 +107,41 @@ Widget _firstColumn(NewDashBoardController cont, int index) {
   Color firstColumnTitlecolor = status1 == "A" ? green : red;
   Color firstColumnBtnColor = (status1 == "D" || status1 == "NA") ? green : red;
   String firstColumnButtonTitle = cont.getColumnButtonName(status1);
-  return _column(
-    firstColumnTitle,
-    titleColor: firstColumnTitlecolor,
-    offerName: cont.offers[index].offerName,
-    btnColor: firstColumnBtnColor,
-    btnName: firstColumnButtonTitle,
-    onTap: () {
-      if (status1 == "A") {
-        //cont.deactivateTapped(cont.offers[index].offerName ?? '');
-        openGenericPopup(deactivatePopupMessageStr,
-            headerTitle: '',
-            primaryButtonTitle: confirmCStr,
-            secondryButtonTitle: cancelCStr, primaryAction: () {
-          cont.deactivateTapped(cont.offers[index].offerName ?? '');
-        }
+  return CustomOnHover(
+    builder: (isHovered) {
+      return _column(
+        firstColumnTitle,
+        titleColor: firstColumnTitlecolor,
+        offerName: "$packNameStr ${cont.offers[index].offerName}",
+        btnColor: isHovered ? sixdColor : white,
+        btnName: firstColumnButtonTitle,
+        isHovered: isHovered,
+        onTap: () {
+          if (status1 == "A") {
+            //cont.deactivateTapped(cont.offers[index].offerName ?? '');
+            openGenericPopup(deactivatePopupMessageStr,
+                headerTitle: '',
+                primaryButtonTitle: confirmCStr,
+                secondryButtonTitle: cancelCStr, primaryAction: () {
+              cont.deactivateTapped(cont.offers[index].offerName ?? '');
+            }
 
-            // cont.getColumnButtonName(status1)
-            );
-        //openGenericPopup(cont.offers[index].offerName ?? '');
-      } else {
-        //cont.activateTapped();
-        openGenericPopup(activatePopupMessageStr,
-            headerTitle: '',
-            primaryButtonTitle: confirmCStr,
-            secondryButtonTitle: cancelCStr, primaryAction: () {
-          cont.activateTapped();
-        }
-            // cont.getColumnButtonName(status1)
-            );
-      }
+                // cont.getColumnButtonName(status1)
+                );
+            //openGenericPopup(cont.offers[index].offerName ?? '');
+          } else {
+            //cont.activateTapped();
+            openGenericPopup(activatePopupMessageStr,
+                headerTitle: '',
+                primaryButtonTitle: confirmCStr,
+                secondryButtonTitle: cancelCStr, primaryAction: () {
+              cont.activateTapped();
+            }
+                // cont.getColumnButtonName(status1)
+                );
+          }
+        },
+      );
     },
   );
 }
@@ -145,6 +156,7 @@ Widget _column(String title,
     String? offerName,
     String btnName = '',
     String? keyTag,
+    bool isHovered = false,
     Function()? onTap}) {
   return Container(
     height: _cardHeight,
@@ -183,12 +195,15 @@ Widget _column(String title,
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
             children: [
               SMButton(
                 height: 30,
                 bgColor: btnColor,
+                addBorder: true,
+                borderColor: grey,
                 title: btnName,
-                textColor: white,
+                textColor: isHovered ? white : titleColor,
                 fontWeight: FontWeight.normal,
                 onTap: () {
                   print("object");

@@ -14,6 +14,7 @@ import 'package:sm_admin_portal/screens/Tunelist_screen.dart';
 import 'package:sm_admin_portal/screens/activate_tune_screen/activate_tune_screen.dart';
 import 'package:sm_admin_portal/screens/dashboard_screen/dashboard_new_screen.dart';
 import 'package:sm_admin_portal/screens/history_screen/history_screen.dart';
+import 'package:sm_admin_portal/screens/login_page.dart';
 
 import 'package:sm_admin_portal/screens/tone_activation_screen.dart';
 
@@ -22,6 +23,7 @@ import 'package:sm_admin_portal/screens/suspend_and_resume_screen/suspend_and_re
 import 'package:sm_admin_portal/screens/subscriber_deatil_screen/subscriber_detail_screen1.dart';
 
 import 'package:sm_admin_portal/side_menu_view/side_menu_view.dart';
+import 'package:sm_admin_portal/store_manager/store_manager.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/constants.dart';
 
@@ -46,6 +48,7 @@ final router = GoRouter(
         _copyScreenShell(),
         tuneListShell(),
         _activateScreenShell(),
+        _loginShell(),
         /*
         MessageTemplateScreenScreen(),
         RenewalScreenScreen(),
@@ -55,6 +58,21 @@ final router = GoRouter(
       ],
     ),
   ],
+  redirect: (context, state) {
+    String path = state.fullPath ?? '';
+    //if (path == dashBoardRoute) {
+    appCont.isEnableBackButton.value = path != dashBoardRoute;
+    //}
+    if (!StoreManager().isCustomerLoggedIn) {
+      if (path == tuneListRoute || path == activateScreenRoute) {
+        return dashBoardRoute;
+      } else {
+        return null;
+      }
+    } else {
+      return null;
+    }
+  },
   errorPageBuilder: (context, state) {
     return MaterialPage(child: errorWidget(context, state));
   },
@@ -94,6 +112,20 @@ StatefulShellBranch _toneActivationShell() {
         path: toneActivationRoute,
         builder: (context, state) {
           return ToneActivationScreen();
+        },
+      ),
+    ],
+  );
+}
+
+StatefulShellBranch _loginShell() {
+  return StatefulShellBranch(
+    routes: <RouteBase>[
+      GoRoute(
+        name: loginRoute,
+        path: loginRoute,
+        builder: (context, state) {
+          return LoginPage();
         },
       ),
     ],
@@ -273,7 +305,13 @@ Widget shellRouteIndex(
           children: [
             Column(
               children: [
-                const SizedBox(height: navBarheight),
+                Obx(
+                  () {
+                    return SizedBox(
+                        height: navBarheight +
+                            (appCont.isCustomerLoggedIn.value ? 40 : 0));
+                  },
+                ),
                 Expanded(child: navigationShell),
                 // Expanded(child: Obx(() {
                 //   return Stack(

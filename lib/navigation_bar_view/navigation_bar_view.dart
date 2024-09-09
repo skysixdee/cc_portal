@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sm_admin_portal/controllers/new_dash_board_controller.dart';
 import 'package:sm_admin_portal/main.dart';
 import 'package:sm_admin_portal/navigation_bar_view/sixd_logo.dart';
 import 'package:sm_admin_portal/reusable_view/open_generic_popup_view.dart';
 
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
+import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 import 'package:sm_admin_portal/router/router_name.dart';
 import 'package:sm_admin_portal/store_manager/store_manager.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
+import 'package:sm_admin_portal/utilily/constants.dart';
 
 import 'package:sm_admin_portal/utilily/strings.dart';
 
@@ -21,32 +24,125 @@ class NavigationBarView extends StatelessWidget {
   String username = StoreManager().userProfile?.username ?? '';
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: navBarheight,
-      color: white,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Flexible(
+    return Obx(
+      () {
+        return Container(
+          height: navBarheight + (appCont.isCustomerLoggedIn.value ? 40 : 0),
+          color: white,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Flexible(
+                child: Row(
+                  children: [
+                    logoButton(),
+                    Flexible(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          homeButton(context),
+                          userDeatilButton(context)
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                color: sixdColor,
+                height: 2,
+              ),
+              appCont.isCustomerLoggedIn.value
+                  ? Expanded(
+                      child: customerDetail(context),
+                    )
+                  : SizedBox()
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget customerDetail(BuildContext context) {
+    final NewDashBoardController controller = Get.find();
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 10, right: 28.0),
+          child: Container(
+            color: white,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                logoButton(),
-                Flexible(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [homeButton(context), userDeatilButton(context)],
-                  ),
-                )
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    backButton(context),
+                    SMText(
+                        title: "$countryCode ${StoreManager().customerNumber}"),
+                  ],
+                ),
+                switchUserButton(controller, context)
               ],
             ),
           ),
-          Container(
-            color: sixdColor,
-            height: 2,
-          )
-        ],
+        ),
+        Container(
+          height: 1,
+          color: sixdColor,
+        ),
+      ],
+    );
+  }
+
+  Widget backButton(BuildContext context) {
+    return Obx(
+      () {
+        return !appCont.isEnableBackButton.value
+            ? SizedBox(width: 40)
+            : SMButton(
+                leadingChild: Icon(Icons.arrow_back),
+                title: '',
+                onTap: () {
+                  context.goNamed(dashBoardRoute);
+                },
+              );
+      },
+    );
+  }
+
+  SMButton switchUserButton(
+      NewDashBoardController controller, BuildContext context) {
+    return SMButton(
+      titlePadding: EdgeInsets.zero,
+      title: switchAccountStr,
+      fontWeight: FontWeight.bold,
+      fontSize: 12,
+      leadingChild: Padding(
+        padding: const EdgeInsets.only(right: 4),
+        child: Icon(
+          Icons.switch_account_rounded,
+          //color: sixdColor,
+        ),
       ),
+      onTap: () {
+        openGenericPopup(
+          headerTitle: switchAccountStr.toUpperCase(),
+          areYouSureYouWantToChangeUserStr,
+          secondryButtonTitle: cancelCStr,
+          primaryButtonTitle: confirmCStr,
+          primaryAction: () {
+            controller.isVerified.value = false;
+            controller.msisdn = '';
+            appCont.isCustomerLoggedIn.value = false;
+            controller.msisdn = '';
+            StoreManager().setCustomerLoggedin(false);
+            context.goNamed(dashBoardRoute);
+          },
+        );
+      },
     );
   }
 
