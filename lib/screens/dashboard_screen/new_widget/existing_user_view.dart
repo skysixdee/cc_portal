@@ -189,8 +189,9 @@ Widget _column(String title,
                   child:
                       SMText(title: offerName, fontWeight: FontWeight.normal),
                 )
-              : SMText(
-                  title: "",
+              : Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: SMText(title: "", fontWeight: FontWeight.normal),
                 ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -203,7 +204,7 @@ Widget _column(String title,
                 addBorder: true,
                 borderColor: grey,
                 title: btnName,
-                textColor: isHovered ? white : titleColor,
+                textColor: isHovered ? white : sixdColor,
                 fontWeight: FontWeight.normal,
                 onTap: () {
                   print("object");

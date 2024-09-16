@@ -297,7 +297,7 @@ Widget shellRouteIndex(
   print("Selected index must be===== ${navigationShell.currentIndex}");
 
   return GetMaterialApp(
-    title: 'SM ADMIN PORTAL',
+    title: 'CC PORTAL',
     debugShowCheckedModeBanner: false,
     home: Material(
         color: white,

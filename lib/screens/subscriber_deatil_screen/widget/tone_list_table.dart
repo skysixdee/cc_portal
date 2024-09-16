@@ -12,16 +12,20 @@ import 'package:sm_admin_portal/utilily/strings.dart';
 import '../../../reusable_view/custom_table_view/custom_table_view.dart';
 
 class SettingsListTable extends StatelessWidget {
-  SettingsListTable({super.key});
+  SettingsListTable({super.key, required this.isAddPadding});
+  final bool isAddPadding;
   TuneListController cont = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return Obx(() {
       return Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding:
+            isAddPadding ? const EdgeInsets.all(8.0) : const EdgeInsets.all(0),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: isAddPadding
+              ? const EdgeInsets.all(8.0)
+              : const EdgeInsets.all(0),
           child: CustomTableView(
             // cellHeight: 60,
             //  headerHeight: 60,
@@ -52,66 +56,73 @@ class SettingsListTable extends StatelessWidget {
                     //   },
                     // );
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SMButton(
-                      // title: DeactivateStr,
-                      // fontSize: 10,
-                      // textColor: white,
-                      // bgColor: sixdColor,
-                      height: 40,
-                      titlePadding: EdgeInsets.symmetric(horizontal: 20),
-                      title: DeactivateStr,
-                      fontWeight: FontWeight.normal,
-                      fontSize: 14,
-                      bgColor: sixdColor,
-                      textColor: white,
-                      onTap: () {
-                        openGenericPopup(deactivatePopupMessageStr,
-                            primaryButtonTitle: confirmCStr,
-                            secondryButtonTitle: cancelCStr, primaryAction: () {
-                          cont.toneList.removeAt(row);
-                        });
-                        // showDialog(R
-                        //   context: context,
-                        //   builder: (BuildContext context) {
-                        //     return ReusableAlertDialog(
-                        //       // isLoading: false,
-                        //       textLine1:
-                        //           '  Are you sure you want to Deactivate?',
-                        //       textLine2: "  You can't undo this action.",
-                        //       onYesPressed: () async {
-                        //         print("odd");
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SMButton(
+                          // title: DeactivateStr,
+                          // fontSize: 10,
+                          // textColor: white,
+                          // bgColor: sixdColor,
+                          height: 35,
+                          titlePadding: EdgeInsets.symmetric(horizontal: 20),
+                          title: DeactivateStr,
+                          fontWeight: FontWeight.normal,
+                          fontSize: 14,
+                          bgColor: sixdColor,
+                          textColor: white,
+                          onTap: () {
+                            openGenericPopup(deactivatePopupMessageStr,
+                                primaryButtonTitle: confirmCStr,
+                                secondryButtonTitle: cancelCStr,
+                                primaryAction: () {
+                              cont.toneList.removeAt(row);
+                            });
+                            // showDialog(R
+                            //   context: context,
+                            //   builder: (BuildContext context) {
+                            //     return ReusableAlertDialog(
+                            //       // isLoading: false,
+                            //       textLine1:
+                            //           '  Are you sure you want to Deactivate?',
+                            //       textLine2: "  You can't undo this action.",
+                            //       onYesPressed: () async {
+                            //         print("odd");
 
-                        //         //  GenericModal modal = await deleteToneApi(offerStatus);
-                        //         loadingIndicatorView();
-                        //         cont.toneList.removeAt(row);
+                            //         //  GenericModal modal = await deleteToneApi(offerStatus);
+                            //         loadingIndicatorView();
+                            //         cont.toneList.removeAt(row);
 
-                        //         Navigator.of(context).pop();
-                        //       },
-                        //     );
-                        //   },
-                        // );
-                        print("object");
-                      },
-                    ),
-                    // child: Container(
-                    //                 height: 50,
-                    //                 width: 120,
-                    //                 padding: EdgeInsets.symmetric(horizontal: 8),
-                    //                 decoration: BoxDecoration(
-                    //                   borderRadius: BorderRadius.circular(10),
-                    //                   color: sixdColor,
-                    //                 ),
-                    //                 child: Center(
-                    //                   child: SMText(
-                    //                     title: submitStr,
-                    //                     textColor: white,
-                    //                   ),
-                    //                 ),
-                    //               ),
-                    // ),
-                    //    child: SMText(title: activateStr),
+                            //         Navigator.of(context).pop();
+                            //       },
+                            //     );
+                            //   },
+                            // );
+                            print("object");
+                          },
+                        ),
+                        // child: Container(
+                        //                 height: 50,
+                        //                 width: 120,
+                        //                 padding: EdgeInsets.symmetric(horizontal: 8),
+                        //                 decoration: BoxDecoration(
+                        //                   borderRadius: BorderRadius.circular(10),
+                        //                   color: sixdColor,
+                        //                 ),
+                        //                 child: Center(
+                        //                   child: SMText(
+                        //                     title: submitStr,
+                        //                     textColor: white,
+                        //                   ),
+                        //                 ),
+                        //               ),
+                        // ),
+                        //    child: SMText(title: activateStr),
+                      ),
+                    ],
                   ));
             },
           ),

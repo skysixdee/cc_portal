@@ -15,6 +15,7 @@ import 'package:sm_admin_portal/reusable_view/sm_button.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 
 import 'package:sm_admin_portal/router/router_name.dart';
+import 'package:sm_admin_portal/screens/Tunelist_screen.dart';
 import 'package:sm_admin_portal/screens/dashboard_screen/new_widget/customer_text_field.dart';
 import 'package:sm_admin_portal/screens/dashboard_screen/new_widget/existing_user_view.dart';
 import 'package:sm_admin_portal/screens/dashboard_screen/new_widget/new_user_view.dart';
@@ -66,15 +67,46 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           //userDetail(),
-          Expanded(
-              child: controller.userType == UserType.newUser
-                  ? newUserView(controller)
-                  : Center(child: existingUserView(controller))),
+          controller.userType == UserType.newUser
+              ? newUserView(controller)
+              : Center(child: existingUserView(controller)),
+
+          Expanded(child: tuneListTableView()),
           bottomButton(context),
           SizedBox(height: 10),
         ],
       ),
     );
+  }
+
+  Widget tuneListTableView() {
+    String status = '';
+    try {
+      status = controller.offers.first.offerStatus ?? "";
+    } catch (e) {}
+    bool enable = (status == "A" || status == "G" || status == "S");
+    return enable
+        ? Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 20),
+              Row(
+                children: [
+                  SMText(
+                      title: myTunesStr,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
+                ],
+              ),
+              SizedBox(height: 20),
+              Expanded(
+                  child: TuneListScreen(
+                isAddPadding: false,
+              )),
+            ],
+          )
+        : SizedBox();
   }
 
   Widget bottomButton(BuildContext context) {
@@ -105,7 +137,7 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
     return SMButton(
       addBorder: true,
       addHoverEffect: true,
-      onHoverColor: hoverColor,
+      onHoverColor: sixdColor,
       height: 55,
       title: transactionHistoryStr,
       boxShadow: smShadow(),
@@ -119,7 +151,7 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
     return SMButton(
       boxShadow: smShadow(),
       addHoverEffect: true,
-      onHoverColor: hoverColor,
+      onHoverColor: sixdColor,
       addBorder: true,
       height: 55,
       title: ActivateNewToneStr,
@@ -139,7 +171,7 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
     return SMButton(
       boxShadow: enable ? smShadow() : null,
       addHoverEffect: enable,
-      onHoverColor: hoverColor,
+      onHoverColor: sixdColor,
       height: 55,
       title: tuneListStr,
       textColor: enable ? black : black.withOpacity(0.2),

@@ -196,7 +196,7 @@ class TuneListController extends GetxController {
     toneList.clear();
     isLoading.value = true;
     createTableToneListsHeaderColumnList();
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(milliseconds: 200));
     ToneListModel model = await toneListApi();
     isLoading.value = false;
     createToneDetailRowList(model.tonelist ?? [], phoneNumber);
@@ -291,7 +291,7 @@ class TuneListController extends GetxController {
             // isRemoveable: false,
             // isButton: false,
             // object: item),
-            value: item.expiryDate?? '', // Next billing date-----value
+            value: item.expiryDate ?? '', // Next billing date-----value
             isVisible: true.obs,
             isRemoveable: false,
             object: item),

@@ -15,8 +15,8 @@ import 'package:sm_admin_portal/utilily/strings.dart';
 // Make sure you have go_router imported
 
 class TuneListScreen extends StatefulWidget {
-  const TuneListScreen({super.key});
-
+  const TuneListScreen({super.key, this.isAddPadding});
+  final bool? isAddPadding;
   @override
   State<TuneListScreen> createState() => _TuneListScreenState();
 }
@@ -47,28 +47,27 @@ class _TuneListScreenState extends State<TuneListScreen> {
           SizedBox(
             width: MediaQuery.of(context).size.width,
             child: Container(
-                color: dividerColor,
-                child: cont.isLoading.value
-                    ? Center(child: CircularProgressIndicator())
-                    :  SettingsListTable(), 
-                     
-                         
-                          // tableAndBottomSection(),
-                      
-                      ),
-                    // ListView.builder(itemBuilder: (context, index) {
-                    //     return Column(
-                    //       crossAxisAlignment: CrossAxisAlignment.start,
-                    //       children: [
-                    //         SettingsListTable(),
-                    //         SizedBox(height: 10),
-                    //         tableAndBottomSection(),
-                    //       ],
-                    //     );
-                    //   })
-               
-                ),
-          
+              color:
+                  (widget.isAddPadding == false) ? transparent : dividerColor,
+              child: cont.isLoading.value
+                  ? Center(child: CircularProgressIndicator())
+                  : SettingsListTable(
+                      isAddPadding: widget.isAddPadding ?? true,
+                    ),
+
+              // tableAndBottomSection(),
+            ),
+            // ListView.builder(itemBuilder: (context, index) {
+            //     return Column(
+            //       crossAxisAlignment: CrossAxisAlignment.start,
+            //       children: [
+            //         SettingsListTable(),
+            //         SizedBox(height: 10),
+            //         tableAndBottomSection(),
+            //       ],
+            //     );
+            //   })
+          ),
 
           // Positioned(
           //   top: 10,
@@ -90,7 +89,9 @@ class _TuneListScreenState extends State<TuneListScreen> {
     return Center(
       child: Column(
         children: [
-          SettingsListTable(),
+          SettingsListTable(
+            isAddPadding: widget.isAddPadding ?? true,
+          ),
           SizedBox(height: 8),
           BottomButtons(),
         ],
