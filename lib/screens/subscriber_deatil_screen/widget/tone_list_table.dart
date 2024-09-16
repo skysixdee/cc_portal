@@ -5,6 +5,7 @@ import 'package:sm_admin_portal/controllers/Tone_list_controller.dart';
 import 'package:sm_admin_portal/reusable_view/open_generic_popup_view.dart';
 import 'package:sm_admin_portal/reusable_view/reusable_alert_dialog/reusable_alert_dialog_box.dart';
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
+import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/constants.dart';
@@ -63,17 +64,17 @@ class SettingsListTable extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: SMButton(
-                          // title: DeactivateStr,
-                          // fontSize: 10,
-                          // textColor: white,
-                          // bgColor: sixdColor,
                           height: 35,
                           titlePadding: EdgeInsets.symmetric(horizontal: 20),
                           title: DeactivateStr,
                           fontWeight: FontWeight.normal,
+                          addBorder: true,
+                          onHoverColor: sixdColor,
+                          onHoverTitleColor: white,
                           fontSize: 14,
-                          bgColor: sixdColor,
-                          textColor: white,
+                          bgColor: white,
+                          addHoverEffect: true,
+                          textColor: sixdColor,
                           onTap: () {
                             openGenericPopup(deactivatePopupMessageStr,
                                 primaryButtonTitle: confirmCStr,

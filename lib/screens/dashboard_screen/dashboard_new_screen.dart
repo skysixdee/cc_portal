@@ -122,8 +122,8 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Expanded(child: tuneListButton(context)),
-            SizedBox(width: 20),
+            // Expanded(child: tuneListButton(context)),
+            // SizedBox(width: 20),
             Expanded(child: newTuneActivateButton()),
             SizedBox(width: 20),
             Expanded(child: transactionButton()),
@@ -141,7 +141,11 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
       height: 55,
       title: transactionHistoryStr,
       boxShadow: smShadow(),
+      onHoverTitleColor: white,
       bgColor: white,
+      onTap: () {
+        context.goNamed(transactionHistoryRoute);
+      },
       //bgColor: sixdColor,
       //fontWeight: FontWeight.normal,
     );
@@ -154,6 +158,7 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
       onHoverColor: sixdColor,
       addBorder: true,
       height: 55,
+      onHoverTitleColor: white,
       title: ActivateNewToneStr,
       bgColor: white,
       onTap: () {

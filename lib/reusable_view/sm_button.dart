@@ -25,6 +25,7 @@ class SMButton extends StatelessWidget {
     this.boxShadow,
     this.addHoverEffect = false,
     this.onHoverColor = greyLight,
+    this.onHoverTitleColor,
   });
   final double? height;
   final double? width;
@@ -40,6 +41,7 @@ class SMButton extends StatelessWidget {
   final List<BoxShadow>? boxShadow;
   final bool addHoverEffect;
   final Color onHoverColor;
+  final Color? onHoverTitleColor;
   final Function()? onTap;
   @override
   Widget build(BuildContext context) {
@@ -68,7 +70,9 @@ class SMButton extends StatelessWidget {
                         leadingChild!,
                         SMText(
                           title: title,
-                          textColor: textColor,
+                          textColor: addHoverEffect
+                              ? (isHovered ? onHoverTitleColor : textColor)
+                              : textColor,
                           fontSize: fontSize,
                           fontWeight: fontWeight,
                         )
@@ -76,7 +80,9 @@ class SMButton extends StatelessWidget {
                     )
                   : SMText(
                       title: title,
-                      textColor: textColor,
+                      textColor: addHoverEffect
+                          ? (isHovered ? onHoverTitleColor : textColor)
+                          : textColor,
                       fontSize: fontSize,
                       fontWeight: fontWeight,
                     ),

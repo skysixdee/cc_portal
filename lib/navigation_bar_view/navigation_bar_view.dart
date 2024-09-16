@@ -101,8 +101,9 @@ class NavigationBarView extends StatelessWidget {
     return Obx(
       () {
         return !appCont.isEnableBackButton.value
-            ? SizedBox(width: 40)
+            ? SizedBox(width: 10)
             : SMButton(
+                titlePadding: EdgeInsets.only(right: 12),
                 leadingChild: Icon(Icons.arrow_back),
                 title: '',
                 onTap: () {

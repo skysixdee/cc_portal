@@ -99,7 +99,7 @@ String activeCStr = 'ACTIVE';
 String enterCustomerMsisdnStr = 'Please enter customer msisdn.';
 
 String pendingCStr = 'PENDING';
-String myTunesStr = 'My Tunes';
+String myTunesStr = 'Tune Library';
 String graceCStr = 'GRACE';
 String ChannelStr = 'Channel';
 String SelectStr = 'Select';

@@ -193,10 +193,13 @@ class TuneListController extends GetxController {
   }
 
   Future<void> getToneList(String phoneNumber) async {
+    if (isLoading.value) {
+      return;
+    }
     toneList.clear();
     isLoading.value = true;
     createTableToneListsHeaderColumnList();
-    await Future.delayed(Duration(milliseconds: 200));
+    await Future.delayed(Duration(seconds: 2));
     ToneListModel model = await toneListApi();
     isLoading.value = false;
     createToneDetailRowList(model.tonelist ?? [], phoneNumber);

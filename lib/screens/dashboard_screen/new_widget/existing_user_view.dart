@@ -71,7 +71,7 @@ Widget _secondColumn(NewDashBoardController cont, int index) {
         btnColor: isHovered ? sixdColor : white, //secondColumnBtnColor,
         btnName: secondColumnButtonTitle,
         keyTag: tempStatusStr,
-        isHovered: isHovered,
+
         onTap: () {
           print("Status========$status2");
           if (status2 == "A") {
@@ -107,43 +107,43 @@ Widget _firstColumn(NewDashBoardController cont, int index) {
   Color firstColumnTitlecolor = status1 == "A" ? green : red;
   Color firstColumnBtnColor = (status1 == "D" || status1 == "NA") ? green : red;
   String firstColumnButtonTitle = cont.getColumnButtonName(status1);
-  return CustomOnHover(
-    builder: (isHovered) {
-      return _column(
-        firstColumnTitle,
-        titleColor: firstColumnTitlecolor,
-        offerName: "$packNameStr ${cont.offers[index].offerName}",
-        btnColor: isHovered ? sixdColor : white,
-        btnName: firstColumnButtonTitle,
-        isHovered: isHovered,
-        onTap: () {
-          if (status1 == "A") {
-            //cont.deactivateTapped(cont.offers[index].offerName ?? '');
-            openGenericPopup(deactivatePopupMessageStr,
-                headerTitle: '',
-                primaryButtonTitle: confirmCStr,
-                secondryButtonTitle: cancelCStr, primaryAction: () {
-              cont.deactivateTapped(cont.offers[index].offerName ?? '');
-            }
+  return _column(
+    firstColumnTitle,
+    titleColor: firstColumnTitlecolor,
+    offerName: "$packNameStr ${cont.offers[index].offerName}",
+    //btnColor: isHovered ? sixdColor : white,
+    btnName: firstColumnButtonTitle,
+    onTap: () {
+      if (status1 == "A") {
+        //cont.deactivateTapped(cont.offers[index].offerName ?? '');
+        openGenericPopup(deactivatePopupMessageStr,
+            headerTitle: '',
+            primaryButtonTitle: confirmCStr,
+            secondryButtonTitle: cancelCStr, primaryAction: () {
+          cont.deactivateTapped(cont.offers[index].offerName ?? '');
+        }
 
-                // cont.getColumnButtonName(status1)
-                );
-            //openGenericPopup(cont.offers[index].offerName ?? '');
-          } else {
-            //cont.activateTapped();
-            openGenericPopup(activatePopupMessageStr,
-                headerTitle: '',
-                primaryButtonTitle: confirmCStr,
-                secondryButtonTitle: cancelCStr, primaryAction: () {
-              cont.activateTapped();
-            }
-                // cont.getColumnButtonName(status1)
-                );
-          }
-        },
-      );
+            // cont.getColumnButtonName(status1)
+            );
+        //openGenericPopup(cont.offers[index].offerName ?? '');
+      } else {
+        //cont.activateTapped();
+        openGenericPopup(activatePopupMessageStr,
+            headerTitle: '',
+            primaryButtonTitle: confirmCStr,
+            secondryButtonTitle: cancelCStr, primaryAction: () {
+          cont.activateTapped();
+        }
+            // cont.getColumnButtonName(status1)
+            );
+      }
     },
   );
+  // CustomOnHover(
+  //   builder: (isHovered) {
+  //     return
+  //   },
+  // );
 }
 
 Widget verticalDivider() {
@@ -156,7 +156,6 @@ Widget _column(String title,
     String? offerName,
     String btnName = '',
     String? keyTag,
-    bool isHovered = false,
     Function()? onTap}) {
   return Container(
     height: _cardHeight,
@@ -199,12 +198,15 @@ Widget _column(String title,
             mainAxisSize: MainAxisSize.min,
             children: [
               SMButton(
-                height: 30,
-                bgColor: btnColor,
+                height: 35,
+                bgColor: white,
                 addBorder: true,
                 borderColor: grey,
+                onHoverColor: sixdColor,
+                addHoverEffect: true,
+                onHoverTitleColor: white,
                 title: btnName,
-                textColor: isHovered ? white : sixdColor,
+                textColor: sixdColor,
                 fontWeight: FontWeight.normal,
                 onTap: () {
                   print("object");
