@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:sm_admin_portal/Models/generic_table_view_model.dart';
 import 'package:sm_admin_portal/main.dart';
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
@@ -84,13 +85,11 @@ class TestScreen extends StatelessWidget {
             isVisible: true.obs,
             columnTitle: "Column1",
             columnValue: "sky",
-            isSelected: false,
             childType: ChildType.play),
         GenericTableViewModel(
-          isVisible: false.obs,
+          isVisible: true.obs,
           columnTitle: "Column2",
           columnValue: "sky",
-          isSelectable: true,
         ),
         GenericTableViewModel(
           isVisible: true.obs,
@@ -98,16 +97,16 @@ class TestScreen extends StatelessWidget {
           columnValue: "sky",
         ),
         GenericTableViewModel(
-          isVisible: true.obs,
+          isVisible: false.obs,
           columnTitle: "Column4",
           columnValue: "sky",
-          isSelectable: true,
+          isRemovable: true,
         ),
         GenericTableViewModel(
-          isVisible: true.obs,
+          isVisible: false.obs,
           columnTitle: "Column5",
           columnValue: "sky",
-          isSelectable: true,
+          isRemovable: true,
         ),
       ],
     );

@@ -21,7 +21,7 @@ class TableHeaderView extends StatelessWidget {
 //                   if (headerColumList[column].isVisible.value)
   Widget tableHeaderView() {
     return Container(
-        color: bgColor ?? grey,
+        color: bgColor ?? greyLight,
         child: Obx(
           () {
             print("is ${list[2].isVisible.value}");
@@ -34,7 +34,7 @@ class TableHeaderView extends StatelessWidget {
                       child: Container(
                           child: Center(
                               child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 6.0),
+                        padding: const EdgeInsets.symmetric(vertical: 12.0),
                         child: SMText(
                           title: "${list[column].columnTitle}",
                           textAlign: TextAlign.center,

@@ -22,14 +22,29 @@ class GenericTableView extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               menu ?? menuButton(list[0]),
-              TableHeaderView(list: list[0]),
               Flexible(
-                child: ListView(shrinkWrap: true, children: [
-                  TableRowListView(
-                    list: list,
-                    rowChild: rowChild,
+                child: Container(
+                  clipBehavior: Clip.hardEdge,
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(4)),
+                  child: Column(
+                    children: [
+                      TableHeaderView(list: list[0]),
+                      Flexible(
+                        child: Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(color: greyLight, width: 1)),
+                          child: ListView(shrinkWrap: true, children: [
+                            TableRowListView(
+                              list: list,
+                              rowChild: rowChild,
+                            ),
+                          ]),
+                        ),
+                      ),
+                    ],
                   ),
-                ]),
+                ),
               ),
             ],
           );

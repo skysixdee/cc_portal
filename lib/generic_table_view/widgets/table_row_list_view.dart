@@ -26,13 +26,13 @@ class TableRowListView extends StatelessWidget {
       children: [
         for (int row = 0; row < list.length; row++)
           Container(
-              color: white,
+              color: greyLight,
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 1.0),
                 child: Container(
-                  color: tableBgColor ?? greyLight,
+                  color: tableBgColor ?? white,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 4.0),
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: tableColumnBuilder(row),
                   ),
                 ),
@@ -50,8 +50,7 @@ class TableRowListView extends StatelessWidget {
             for (int column = 0; column < list[row].length; column++)
               if (list[0][column].isVisible.value)
                 Expanded(
-                  child:
-                      Container(color: transparent, child: row1(row, column)),
+                  child: Container(color: white, child: row1(row, column)),
                 )
           ],
         );
@@ -64,6 +63,7 @@ class TableRowListView extends StatelessWidget {
         ? SMText(
             title: "${list[row][column].columnValue} $column",
             textAlign: TextAlign.center,
+            fontWeight: FontWeight.normal,
           )
         : (rowChild != null
             ? rowChild!(

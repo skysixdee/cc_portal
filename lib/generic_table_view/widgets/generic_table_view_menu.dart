@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:popover/popover.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:sm_admin_portal/Models/generic_table_view_model.dart';
@@ -58,12 +59,11 @@ Future<Object?> onTapMenu(
           itemCount: list.length, //con.visibleRowList[0].length,
           itemBuilder: (context, index) {
             //if (list[index].isSelectable)
-            return list[index].isSelectable
+            return list[index].isRemovable
                 ? InkWell(
                     onTap: () {
                       list[index].isVisible.value =
                           !list[index].isVisible.value;
-                      list[index].isSelected = !list[index].isSelected;
                     },
                     child: _menuCell(list[index]))
                 : SizedBox();
@@ -84,25 +84,27 @@ Widget _menuCell(GenericTableViewModel model) {
   return CustomOnHover(
     builder: (isHovered) {
       return Container(
-        decoration: BoxDecoration(color: isHovered ? sixdColor : white),
-        height: 40,
-        child: Row(
-          children: [
-            Icon(
-                !model.isSelected
-                    ? Icons.check_box
-                    : Icons.check_box_outline_blank,
-                color: isHovered
-                    ? white
-                    : sixdColor), //check_box_outline_blank//check_box
-            SizedBox(width: 2),
-            SMText(
-              title: model.columnTitle,
-              textColor: isHovered ? white : black,
-            )
-          ],
-        ),
-      );
+          //decoration: BoxDecoration(color: isHovered ? sixdColor : white),
+          height: 40,
+          child: Obx(
+            () {
+              return Row(
+                children: [
+                  Icon(
+                      model.isVisible.value
+                          ? Icons.check_box
+                          : Icons.check_box_outline_blank,
+                      color: sixdColor), //check_box_outline_blank//check_box
+                  SizedBox(width: 2),
+                  SMText(
+                    title: model.columnTitle,
+                    textColor: black,
+                    fontWeight: FontWeight.normal,
+                  )
+                ],
+              );
+            },
+          ));
     },
   );
 }
