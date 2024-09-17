@@ -12,7 +12,6 @@ class HistoryGiftingTableView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: CustomTableView(
-        cellHeight: 40,
         headerColumList: con.giftList[0],
         rowList: con.giftList,
         childWidget: (row, colum) {

@@ -70,19 +70,16 @@ class _HistoryScreenState extends State<HistoryScreen> {
   @override
   Widget build(BuildContext context) {
     print("Width is ===== ${MediaQuery.of(context).size.width}");
-    return Expanded(
-      child: Container(
-        color: bgColor,
-        child:
-            Padding(padding: const EdgeInsets.all(18.0), child: mainContainer()
-                //(width == null)
-                // ? mainContainer(width)
-                // : SingleChildScrollView(
-                //     scrollDirection: Axis.horizontal,
-                //     child: mainContainer(width),
-                //   ),
-                ),
-      ),
+    return Container(
+      color: bgColor,
+      child: Padding(padding: const EdgeInsets.all(18.0), child: mainContainer()
+          //(width == null)
+          // ? mainContainer(width)
+          // : SingleChildScrollView(
+          //     scrollDirection: Axis.horizontal,
+          //     child: mainContainer(width),
+          //   ),
+          ),
     );
   }
 

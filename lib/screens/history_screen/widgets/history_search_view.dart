@@ -34,8 +34,8 @@ class HistorySearchView extends StatelessWidget {
                     left: 30, right: 30, top: 30, bottom: 30),
                 child: Row(
                   children: [
-                    Flexible(child: msisdnInputBuilder()),
-                    const SizedBox(width: 30),
+                    // Flexible(child: msisdnInputBuilder()),
+                    // const SizedBox(width: 30),
                     Flexible(child: fromDateBuilder()),
                     const SizedBox(width: 30),
                     Flexible(child: toDateBuilder()),

@@ -12,7 +12,7 @@ class HistoryToneRenewalTableView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: CustomTableView(
-        cellHeight: 40,
+        //cellHeight: 40,
         headerColumList: con.renewalList[0],
         rowList: con.renewalList,
         childWidget: (row, colum) {

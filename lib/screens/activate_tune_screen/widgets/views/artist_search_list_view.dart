@@ -40,14 +40,12 @@ class _ArtistSearchListViewState extends State<ArtistSearchListView> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-          child: Obx(
-            () {
-              return cont.isLoading.value
-                  ? loadingIndicatorView()
-                  : loadTableBuilder();
-            },
-          ),
+        Obx(
+          () {
+            return cont.isLoading.value
+                ? loadingIndicatorView()
+                : loadTableBuilder();
+          },
         ),
         Obx(
           () {
@@ -112,13 +110,11 @@ class _ArtistSearchListViewState extends State<ArtistSearchListView> {
                       },
                     ),
                   ),
-                  Flexible(
-                    child: Center(
-                        child: SMText(
-                      title: cont.message.value,
-                      fontSize: 16,
-                    )),
-                  ),
+                  Center(
+                      child: SMText(
+                    title: cont.message.value,
+                    fontSize: 16,
+                  )),
                 ],
               )
             : artistTunesTableBuilder());

@@ -12,7 +12,7 @@ class HistoryTonePurchaseTableView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: CustomTableView(
-        cellHeight: 40,
+        //cellHeight: 40,
         headerColumList: con.purchaseList[0],
         rowList: con.purchaseList,
         childWidget: (row, colum) {

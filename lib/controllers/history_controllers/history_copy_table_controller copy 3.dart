@@ -48,7 +48,7 @@ class HistoryCopyTableController extends GetxController {
       CustomTableViewModel(
           title: toneNameStr, isVisible: true.obs, isRemoveable: false),
       CustomTableViewModel(
-          title: callChargeStr, isVisible: true.obs, isRemoveable: false),
+          title: chargeStr, isVisible: true.obs, isRemoveable: false),
       CustomTableViewModel(
           title: basicCauseStr, isVisible: true.obs, isRemoveable: false),
     ]);

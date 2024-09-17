@@ -75,10 +75,6 @@ class NewDashBoardController extends GetxController {
 
     ListSettingModel settingModel = await listSettingApi(msisdn);
     settingsList.value = settingModel.settingsList ?? [];
-    // settingsList.value += settingModel.settingsList ?? [];
-    // settingsList.value += settingModel.settingsList ?? [];
-    // settingsList.value += settingModel.settingsList ?? [];
-    // settingsList.value += settingModel.settingsList ?? [];
 
     isLoading.value = false;
     isVerified.value = true;

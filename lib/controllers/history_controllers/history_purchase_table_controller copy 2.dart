@@ -44,18 +44,18 @@ class HistoryPurchaseTableController extends GetxController {
     purchaseList.add([
       CustomTableViewModel(title: aPartyStr, isVisible: true.obs),
       CustomTableViewModel(title: bPartyStr, isVisible: true.obs),
-      CustomTableViewModel(title: englishToneNameStr, isVisible: true.obs),
+      CustomTableViewModel(title: toneNameStr, isVisible: true.obs),
       CustomTableViewModel(title: NextBillingDateStr, isVisible: true.obs),
       CustomTableViewModel(
-          title: callChargeStr, isVisible: true.obs, isRemoveable: false),
+          title: chargeStr, isVisible: true.obs, isRemoveable: false),
       CustomTableViewModel(
           title: channelStr, isVisible: true.obs, isRemoveable: false),
       CustomTableViewModel(
           title: subscriptionDateStr, isVisible: true.obs, isRemoveable: false),
       CustomTableViewModel(
           title: basicCauseStr, isVisible: true.obs, isRemoveable: false),
-      CustomTableViewModel(
-          title: toneTypeStr, isVisible: true.obs, isRemoveable: false),
+      // CustomTableViewModel(
+      //     title: toneTypeStr, isVisible: true.obs, isRemoveable: false),
       CustomTableViewModel(
           title: transactionTypeStr, isVisible: true.obs, isRemoveable: false),
     ]);
@@ -77,7 +77,7 @@ class HistoryPurchaseTableController extends GetxController {
           CustomTableViewModel(value: info.channel ?? '', isVisible: true.obs),
           CustomTableViewModel(
               value: info.subscriptionDate ?? '', isVisible: true.obs),
-          CustomTableViewModel(value: info.toneType ?? '', isVisible: true.obs),
+          //CustomTableViewModel(value: info.toneType ?? '', isVisible: true.obs),
           CustomTableViewModel(
               value: info.basicCause ?? '',
               isVisible: true.obs,

@@ -67,11 +67,9 @@ class CustomTableView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           tableHeaderView(),
-          Flexible(
-            child: Container(
-              color: borderColor ?? Colors.grey.withOpacity(0.4),
-              child: tableRowContainer(),
-            ),
+          Container(
+            color: borderColor ?? Colors.grey.withOpacity(0.4),
+            child: tableRowContainer(),
           ),
         ],
       ),

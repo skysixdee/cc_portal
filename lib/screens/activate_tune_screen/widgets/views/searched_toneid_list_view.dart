@@ -38,20 +38,18 @@ class _SearchedToneidListViewState extends State<SearchedToneidListView> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Expanded(
-          child: Obx(
-            () {
-              return cont.isLoading.value
-                  ? loadingIndicatorView()
-                  : (cont.purchaseList.isEmpty)
-                      ? Center(
-                          child: SMText(
-                          title: cont.message.value,
-                          fontSize: 16,
-                        ))
-                      : tableBuilder();
-            },
-          ),
+        Obx(
+          () {
+            return cont.isLoading.value
+                ? loadingIndicatorView()
+                : (cont.purchaseList.isEmpty)
+                    ? Center(
+                        child: SMText(
+                        title: cont.message.value,
+                        fontSize: 16,
+                      ))
+                    : tableBuilder();
+          },
         ),
         numberPageBuilder(),
       ],

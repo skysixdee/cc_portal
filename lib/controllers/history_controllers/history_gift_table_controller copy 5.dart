@@ -46,7 +46,7 @@ class HistoryGiftTableController extends GetxController {
       CustomTableViewModel(title: toneIdStr, isVisible: true.obs),
       CustomTableViewModel(title: toneNameStr, isVisible: true.obs),
       CustomTableViewModel(
-          title: callChargeStr, isVisible: true.obs, isRemoveable: false),
+          title: chargeStr, isVisible: true.obs, isRemoveable: false),
       CustomTableViewModel(
           title: basicCauseStr, isVisible: true.obs, isRemoveable: false),
     ]);

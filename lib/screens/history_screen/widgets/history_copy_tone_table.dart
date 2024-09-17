@@ -12,7 +12,6 @@ class HistoryCopyToneTableView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: CustomTableView(
-        cellHeight: 40,
         headerColumList: con.copyList[0],
         rowList: con.copyList,
         childWidget: (row, colum) {
