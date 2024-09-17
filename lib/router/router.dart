@@ -15,6 +15,7 @@ import 'package:sm_admin_portal/screens/activate_tune_screen/activate_tune_scree
 import 'package:sm_admin_portal/screens/dashboard_screen/dashboard_new_screen.dart';
 import 'package:sm_admin_portal/screens/history_screen/history_screen.dart';
 import 'package:sm_admin_portal/screens/login_page.dart';
+import 'package:sm_admin_portal/screens/test_screen/test_screen.dart';
 
 import 'package:sm_admin_portal/screens/tone_activation_screen.dart';
 
@@ -139,7 +140,7 @@ StatefulShellBranch dashBoardShell() {
         name: dashBoardRoute,
         path: dashBoardRoute,
         builder: (context, state) {
-          return DashboardNewScreen(); //DashboardNewScreen(); //KeyClockScreen(); //
+          return TestScreen(); //DashboardNewScreen(); //DashboardNewScreen(); //KeyClockScreen(); //
         },
       ),
     ],

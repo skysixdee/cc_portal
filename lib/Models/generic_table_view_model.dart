@@ -1,9 +1,15 @@
+import 'package:flutter/material.dart';
+
 class GenericTableViewModel {
   String columnTitle;
   String columnValue;
-
-  GenericTableViewModel({
-    this.columnTitle = 'No title',
-    this.columnValue = 'No value ',
-  });
+  ChildType childType;
+  Object? object;
+  GenericTableViewModel(
+      {this.columnTitle = 'No title',
+      this.columnValue = 'No value ',
+      this.childType = ChildType.none,
+      this.object});
 }
+
+enum ChildType { play, button, none }
