@@ -14,12 +14,17 @@ class GenericTableView extends StatelessWidget {
     print("list sky === ${list.length}");
     return list.isEmpty
         ? Center(child: SMText(title: "Empty List"))
-        : ListView(
+        : Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               TableHeaderView(list: list[0]),
-              TableRowListView(
-                list: list,
-                rowChild: rowChild,
+              Flexible(
+                child: ListView(shrinkWrap: true, children: [
+                  TableRowListView(
+                    list: list,
+                    rowChild: rowChild,
+                  ),
+                ]),
               ),
             ],
           );

@@ -70,6 +70,12 @@ class TableRowListView extends StatelessWidget {
                 column: column,
                 row: row,
                 childType: list[row][column].childType)
-            : SMText(title: "pass Child"));
+            : Center(
+                child: Container(
+                    color: sixdColor,
+                    child: SMText(
+                      title: "pass Child",
+                      textColor: white,
+                    ))));
   }
 }
