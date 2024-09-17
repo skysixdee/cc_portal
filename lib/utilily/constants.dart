@@ -13,5 +13,6 @@ const int connectionTimeOut = 10;
 String defaultToneId = '';
 
 String defaultOfferCode = '';
-
-String countryCode = '+91 - ';
+String productName = '';
+String countryCode = '';
+int msisdnLength = 0;

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
+import 'package:sm_admin_portal/utilily/constants.dart';
 import 'package:sm_admin_portal/utilily/images.dart';
 
 Widget sixDeeLogo(double sideMenuWidth) {
@@ -11,9 +13,15 @@ Widget sixDeeLogo(double sideMenuWidth) {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Expanded(
-                child: Center(child: Image.asset(sixDeeLogoPng, height: 30))),
-            const SizedBox(width: 8),
+            Column(
+              children: [
+                Expanded(
+                    child:
+                        Center(child: Image.asset(sixDeeLogoPng, height: 30))),
+                const SizedBox(width: 8),
+                _productName(),
+              ],
+            ),
             Container(
               height: double.infinity,
               width: 1,
@@ -22,4 +30,12 @@ Widget sixDeeLogo(double sideMenuWidth) {
           ],
         ),
       ));
+}
+
+Widget _productName() {
+  return SMText(
+    title: productName,
+    fontWeight: FontWeight.bold,
+    fontSize: 18,
+  );
 }

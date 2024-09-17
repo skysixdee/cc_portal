@@ -86,6 +86,9 @@ _extractValueFromPropertiesFile() async {
     final data = await json.decode(value);
     defaultToneId = data['DEFAULT_TONE_ID'];
     defaultOfferCode = data['DEFAULT_OFFER_CODE'];
+    countryCode = data['COUNTRY_CODE'];
+    msisdnLength = data['MSISDN_LENGTH'];
+    productName = data['PRODUCT_NAME'];
 
     print("default tone is ======= $defaultToneId");
   } catch (e) {

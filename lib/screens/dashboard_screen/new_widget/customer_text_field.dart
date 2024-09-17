@@ -15,6 +15,8 @@ Widget userTextField(TextEditingController textEditingController,
     child: SizedBox(
       width: 400,
       child: SmTextField(
+        maxLength: msisdnLength,
+        onlyNumberInput: true,
         textEditingController: textEditingController,
         hint: enterCustomerMsisdnStr,
         onChange: (p0) {

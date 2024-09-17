@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:sm_admin_portal/reusable_view/sm_visibility_view.dart';
@@ -15,12 +16,16 @@ class SmTextField extends StatelessWidget {
     this.leadingWidget,
     this.onSubmit,
     this.onChange,
+    this.onlyNumberInput = false,
+    this.maxLength,
   });
   final TextEditingController? textEditingController;
   final RxBool _isHideClearButton = true.obs;
   final FontWeight fontWeight = FontWeight.w500;
   final double? fontSize;
+  final bool onlyNumberInput;
   final String? hint;
+  final int? maxLength;
   final Widget? tailingWidget;
   final Widget? leadingWidget;
 
@@ -41,9 +46,13 @@ class SmTextField extends StatelessWidget {
             leadingWidget ?? SizedBox(),
             Expanded(
               child: TextField(
+                maxLength: maxLength,
                 onSubmitted: onSubmit,
                 textAlign: TextAlign.left,
                 style: TextStyle(fontWeight: fontWeight, fontSize: fontSize),
+                inputFormatters: onlyNumberInput
+                    ? [FilteringTextInputFormatter.digitsOnly]
+                    : null,
                 controller: textEditingController,
                 onTap: () {
                   if (textEditingController?.text.isNotEmpty ?? false) {
@@ -68,6 +77,7 @@ class SmTextField extends StatelessWidget {
 
   InputDecoration inutDecortion() {
     return InputDecoration(
+      counterText: '',
       isDense: true,
       hintText: hint,
       border: InputBorder.none,

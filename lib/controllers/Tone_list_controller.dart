@@ -235,8 +235,8 @@ class TuneListController extends GetxController {
       // title: ToneNameStr, isVisible: true.obs, isRemoveable: false, isButton: false),
       // CustomTableViewModel(
       //     title: NextBillingDateStr, isVisible: true.obs, isRemoveable: false),
-      CustomTableViewModel(
-          title: channelIdStr, isVisible: true.obs, isRemoveable: false),
+      // CustomTableViewModel(
+      //     title: channelIdStr, isVisible: true.obs, isRemoveable: false),
       CustomTableViewModel(
           title: actionStr, isVisible: true.obs, isRemoveable: false),
     ]);
@@ -303,13 +303,13 @@ class TuneListController extends GetxController {
         //     isVisible: true.obs,
         //     isRemoveable: false,
         //     object: item),
-        CustomTableViewModel(
-            value: item.isContentPackage ?? "",
-            //   item.firstActivationDate ?? "",
-            // value: item.contentType ?? '', // Channel ID-----value
-            isVisible: true.obs,
-            isRemoveable: false,
-            object: item),
+        // CustomTableViewModel(
+        //     value: item.isContentPackage ?? "",
+        //     //   item.firstActivationDate ?? "",
+        //     // value: item.contentType ?? '', // Channel ID-----value
+        //     isVisible: true.obs,
+        //     isRemoveable: false,
+        //     object: item),
         CustomTableViewModel(
             title: actionStr,
             isVisible: true.obs,

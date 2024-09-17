@@ -262,7 +262,7 @@ String _dateFormate(String date, cont, index) {
     return "";
   }
   DateTime dateTime = DateTime.parse(date);
-  final DateFormat formatter = DateFormat('dd-MM-yyyy');
+  final DateFormat formatter = DateFormat('dd-MM-yyyy, HH:mm');
 
   // HH:mm');
   final String formatted = formatter.format(dateTime);
