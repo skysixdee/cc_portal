@@ -54,12 +54,20 @@ class TestScreen extends StatelessWidget {
   }
 
   Widget button(int column, int row, ChildType childType) {
-    return SMButton(
-      title: "$column $row",
-      onTap: () {
-        String newq = list[row][column].object as String;
-        print("C$column, R$row ,$childType and object $newq");
-      },
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SMButton(
+          height: 30,
+          bgColor: red,
+          title: "$column $row",
+          onTap: () {
+            String newq = list[row][column].object as String;
+            print("C$column, R$row ,$childType and object $newq");
+          },
+        ),
+      ],
     );
   }
 
@@ -68,7 +76,7 @@ class TestScreen extends StatelessWidget {
     list1.add(
       [
         GenericTableViewModel(
-            columnTitle: "1 title",
+            columnTitle: "1 title shiv kuma",
             columnValue: "sky",
             childType: ChildType.none),
         GenericTableViewModel(
@@ -76,7 +84,7 @@ class TestScreen extends StatelessWidget {
           columnValue: "sky",
         ),
         GenericTableViewModel(
-          columnTitle: "3 title",
+          columnTitle: "3 title aryan yadva fas asd asdas ",
           columnValue: "sky",
         ),
         GenericTableViewModel(
