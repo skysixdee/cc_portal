@@ -14,7 +14,9 @@ class TableRowListView extends StatelessWidget {
 
   Widget tableHeaderView() {
     return Table(children: [
-      TableRow(children: [rowBuilder()]),
+      TableRow(children: [
+        rowBuilder(),
+      ]),
     ]);
   }
 
@@ -27,30 +29,28 @@ class TableRowListView extends StatelessWidget {
     );
   }
 
-  Row tableColumnBuilder(int row) {
+  Widget tableColumnBuilder(int row) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisSize: MainAxisSize.max,
       children: [
         for (int column = 0; column < list[row].length; column++)
-          list[row][column].childType == ChildType.none
-              ? SMText(
-                  title: "${list[row][column].columnValue} $column",
-                  textAlign: TextAlign.center,
-                )
-              : (rowChild != null
-                  ? rowChild!(
-                      column: column,
-                      row: row,
-                      childType: list[row][column].childType)
-                  : SMText(title: "pass Child"))
-        // ? (rowChild != null
-        //     ? rowChild!(column, row)
-        //     : SMText(title: "pass Child"))
-        // : SMText(
-        //     title: "${list[row][column].columnValue} $column",
-        //     textAlign: TextAlign.center,
-        //   )
+          row1(row, column)
       ],
     );
+  }
+
+  Widget row1(int row, int column) {
+    return list[row][column].childType == ChildType.none
+        ? SMText(
+            title: "${list[row][column].columnValue} $column",
+            textAlign: TextAlign.center,
+          )
+        : (rowChild != null
+            ? rowChild!(
+                column: column,
+                row: row,
+                childType: list[row][column].childType)
+            : SMText(title: "pass Child"));
   }
 }
