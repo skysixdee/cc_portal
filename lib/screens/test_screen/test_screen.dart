@@ -23,7 +23,7 @@ class TestScreen extends StatelessWidget {
                 list: list,
                 rowChild: ({childType, column, row}) {
                   return childType == ChildType.play
-                      ? playButton()
+                      ? button(column!, row!, childType!) // playButton()
                       : button(column!, row!, childType!);
                 },
                 // rowChild: (column, row, childType) {
@@ -54,20 +54,27 @@ class TestScreen extends StatelessWidget {
   }
 
   Widget button(int column, int row, ChildType childType) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SMButton(
-          height: 30,
-          bgColor: red,
-          title: "$column $row",
-          onTap: () {
-            String newq = list[row][column].object as String;
-            print("C$column, R$row ,$childType and object $newq");
-          },
-        ),
-      ],
+    return Obx(
+      () {
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SMButton(
+              height: 30,
+              bgColor: red,
+              title: "${list[0][1].isVisible.value} $column $row",
+              onTap: () {
+                String newq = list[row][column].object as String;
+                list[0][2].isVisible.value = !list[0][2].isVisible.value;
+
+                print("Hello ${list[row][column].isVisible.value}");
+                print("C$column, R$row ,$childType and object $newq");
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -76,47 +83,28 @@ class TestScreen extends StatelessWidget {
     list1.add(
       [
         GenericTableViewModel(
-            columnTitle: "1 title shiv kuma",
+            isVisible: true.obs,
+            columnTitle: "Column1",
             columnValue: "sky",
             childType: ChildType.none),
         GenericTableViewModel(
-          columnTitle: "2 title",
+          isVisible: true.obs,
+          columnTitle: "Column2",
           columnValue: "sky",
         ),
         GenericTableViewModel(
-          columnTitle: "3 title aryan yadva fas asd asdas ",
+          isVisible: true.obs,
+          columnTitle: "Column3",
           columnValue: "sky",
         ),
         GenericTableViewModel(
-          columnTitle: "4 title",
+          isVisible: true.obs,
+          columnTitle: "Column4",
           columnValue: "sky",
         ),
         GenericTableViewModel(
-          columnTitle: "5 title",
-          columnValue: "sky",
-        ),
-      ],
-    );
-    list1.add(
-      [
-        GenericTableViewModel(
-          columnTitle: "1 title",
-          columnValue: "sky",
-        ),
-        GenericTableViewModel(
-          columnTitle: "2 title",
-          columnValue: "sky",
-        ),
-        GenericTableViewModel(
-          columnTitle: "3 title",
-          columnValue: "sky",
-        ),
-        GenericTableViewModel(
-          columnTitle: "4 title",
-          columnValue: "sky",
-        ),
-        GenericTableViewModel(
-          columnTitle: "5 title",
+          isVisible: true.obs,
+          columnTitle: "Column5",
           columnValue: "sky",
         ),
       ],
@@ -124,26 +112,61 @@ class TestScreen extends StatelessWidget {
     list1.add(
       [
         GenericTableViewModel(
+          isVisible: true.obs,
           columnTitle: "1 title",
           columnValue: "sky",
         ),
         GenericTableViewModel(
-          columnTitle: "2 title",
-          columnValue: "sky",
-        ),
-        GenericTableViewModel(
-          columnTitle: "3 title",
-          columnValue: "sky",
-        ),
-        GenericTableViewModel(
-            columnTitle: "4 title",
+            isVisible: true.obs,
+            columnTitle: "2 title",
             columnValue: "sky",
             object: "hello",
             childType: ChildType.button),
         GenericTableViewModel(
+          isVisible: true.obs,
+          columnTitle: "3 title",
+          columnValue: "sky",
+        ),
+        GenericTableViewModel(
+          isVisible: true.obs,
+          columnTitle: "4 title",
+          columnValue: "sky",
+        ),
+        GenericTableViewModel(
+          isVisible: true.obs,
           columnTitle: "5 title",
           columnValue: "sky",
         ),
+      ],
+    );
+    list1.add(
+      [
+        GenericTableViewModel(
+          isVisible: true.obs,
+          columnTitle: "1 title",
+          columnValue: "sky",
+        ),
+        GenericTableViewModel(
+          isVisible: true.obs,
+          columnTitle: "2 title",
+          columnValue: "sky",
+        ),
+        GenericTableViewModel(
+          isVisible: true.obs,
+          columnTitle: "3 title",
+          columnValue: "sky",
+        ),
+        GenericTableViewModel(
+          isVisible: true.obs,
+          columnTitle: "4 title",
+          columnValue: "sky",
+        ),
+        GenericTableViewModel(
+            isVisible: true.obs,
+            columnTitle: "5 title",
+            columnValue: "sky",
+            object: "hello",
+            childType: ChildType.button),
       ],
     );
     list.value = list1;

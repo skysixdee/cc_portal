@@ -14,7 +14,7 @@ class CustomTableViewModel {
     this.title = 'No title',
     this.value = 'No value ',
     this.isButton = false,
-    this.isSMButton=false,
+    this.isSMButton = false,
     this.isactivationButton = false,
     this.isRemoveable = true,
     this.object,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sm_admin_portal/Models/generic_table_view_model.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
@@ -41,14 +42,20 @@ class TableRowListView extends StatelessWidget {
   }
 
   Widget tableColumnBuilder(int row) {
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      children: [
-        for (int column = 0; column < list[row].length; column++)
-          Expanded(
-            child: Container(color: transparent, child: row1(row, column)),
-          )
-      ],
+    return Obx(
+      () {
+        return Row(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            for (int column = 0; column < list[row].length; column++)
+              if (list[0][column].isVisible.value)
+                Expanded(
+                  child:
+                      Container(color: transparent, child: row1(row, column)),
+                )
+          ],
+        );
+      },
     );
   }
 
