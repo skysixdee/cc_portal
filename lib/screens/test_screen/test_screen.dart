@@ -15,19 +15,22 @@ class TestScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     createList();
-    return Obx(
-      () {
-        return list.isEmpty
-            ? SMText(title: "List ==${list.length}")
-            : GenericTableView(
-                list: list,
-                // rowChild: ({childType, column, row}) {
-                //   return childType == ChildType.play
-                //       ? playButton()
-                //       : button(column!, row!, childType!);
-                // },
-              );
-      },
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 38.0, vertical: 30),
+      child: Obx(
+        () {
+          return list.isEmpty
+              ? SMText(title: "List ==${list.length}")
+              : GenericTableView(
+                  list: list,
+                  // rowChild: ({childType, column, row}) {
+                  //   return childType == ChildType.play
+                  //       ? playButton()
+                  //       : button(column!, row!, childType!);
+                  // },
+                );
+        },
+      ),
     );
   }
 
@@ -81,11 +84,13 @@ class TestScreen extends StatelessWidget {
             isVisible: true.obs,
             columnTitle: "Column1",
             columnValue: "sky",
+            isSelected: false,
             childType: ChildType.play),
         GenericTableViewModel(
-          isVisible: true.obs,
+          isVisible: false.obs,
           columnTitle: "Column2",
           columnValue: "sky",
+          isSelectable: true,
         ),
         GenericTableViewModel(
           isVisible: true.obs,
@@ -96,11 +101,13 @@ class TestScreen extends StatelessWidget {
           isVisible: true.obs,
           columnTitle: "Column4",
           columnValue: "sky",
+          isSelectable: true,
         ),
         GenericTableViewModel(
           isVisible: true.obs,
           columnTitle: "Column5",
           columnValue: "sky",
+          isSelectable: true,
         ),
       ],
     );
