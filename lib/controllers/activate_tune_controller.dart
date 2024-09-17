@@ -19,7 +19,7 @@ class ActivateTuneController extends GetxController {
   Rx<SearchType> searchType = SearchType.song.obs;
   RxList searchTypeList =
       [SearchType.song, SearchType.singer, SearchType.songCode].obs;
-  RxList searchTypeTitlList = [songStr, singerStr, songCodeStr].obs;
+  RxList searchTypeTitlList = [ToneNameStr, ArtistStr, toneIdStr].obs;
 
   RxList<String> serviceTypeMenuList = <String>[].obs;
   RxList<String> serviceTypeValueList = <String>[].obs;
