@@ -30,17 +30,15 @@ class GenericTableView extends StatelessWidget {
                   child: Column(
                     children: [
                       TableHeaderView(list: list[0]),
-                      Flexible(
-                        child: Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(color: greyLight, width: 1)),
-                          child: ListView(shrinkWrap: true, children: [
-                            TableRowListView(
-                              list: list,
-                              rowChild: rowChild,
-                            ),
-                          ]),
-                        ),
+                      Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(color: greyLight, width: 1)),
+                        child: ListView(shrinkWrap: true, children: [
+                          TableRowListView(
+                            list: list,
+                            rowChild: rowChild,
+                          ),
+                        ]),
                       ),
                     ],
                   ),

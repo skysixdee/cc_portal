@@ -60,11 +60,8 @@ class TableRowListView extends StatelessWidget {
 
   Widget row1(int row, int column) {
     return list[row][column].childType == ChildType.none
-        ? SMText(
-            title: "${list[row][column].columnValue} $column",
-            textAlign: TextAlign.center,
-            fontWeight: FontWeight.normal,
-          )
+        ? SelectableText(list[row][column].columnValue,
+            textAlign: column == 0 ? TextAlign.start : TextAlign.center)
         : (rowChild != null
             ? rowChild!(
                 column: column,

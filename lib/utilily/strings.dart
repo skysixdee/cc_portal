@@ -51,7 +51,7 @@ String copyToneStr = 'Copy Tone';
 String packSubscriptionStr = 'Subscription Pack';
 String subscriberManagementStr = "Subscriber Management";
 String MsisdnStr = 'Msisdn';
-
+String playStr = 'Play';
 String priceStr = 'Price';
 String msisdnCStr = 'MSISDN';
 String fromDateCStr = 'FROM DATE';

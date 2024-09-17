@@ -13,12 +13,6 @@ class TableHeaderView extends StatelessWidget {
     return tableHeaderView();
   }
 
-// Obx(() {
-//           return Table(
-//             children: [
-//               TableRow(children: [
-//                 for (int column = 0; column < headerColumList.length; column++)
-//                   if (headerColumList[column].isVisible.value)
   Widget tableHeaderView() {
     return Container(
         color: bgColor ?? greyLight,

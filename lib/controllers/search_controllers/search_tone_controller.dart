@@ -1,16 +1,18 @@
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
+import 'package:sm_admin_portal/Models/generic_table_view_model.dart';
 import 'package:sm_admin_portal/Models/search_tone_model.dart';
 import 'package:sm_admin_portal/Models/tone_info.dart';
 import 'package:sm_admin_portal/api_calls/search_text_api.dart';
 import 'package:sm_admin_portal/controllers/activate_tune_controller.dart';
+import 'package:sm_admin_portal/generic_table_view/generic_table_view.dart';
 import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_view_model.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
 
 class SearchToneController extends GetxController {
   ActivateTuneController activateTuneController = Get.find();
-  RxList<List<CustomTableViewModel>> purchaseList =
-      <List<CustomTableViewModel>>[].obs;
+  RxList<List<GenericTableViewModel>> purchaseList =
+      <List<GenericTableViewModel>>[].obs;
 
   RxBool isLoading = false.obs;
   RxList<ToneInfo> _toneList = <ToneInfo>[].obs;
@@ -44,7 +46,6 @@ class SearchToneController extends GetxController {
     message.value = _toneList.isEmpty ? noResultFoundStr : '';
     isLoading.value = false;
     if (_toneList.isNotEmpty) {
-      createHeaderColumnList();
       createRowList(_toneList);
     } else {
       message.value = noResultFoundStr;
@@ -62,34 +63,47 @@ class SearchToneController extends GetxController {
     message.value = _toneList.isEmpty ? noResultFoundStr : '';
     isLoading.value = false;
     if (_toneList.isNotEmpty) {
-      createHeaderColumnList();
+      //    createHeaderColumnList();
       createRowList(_toneList);
     }
   }
 
-  createHeaderColumnList() {
-    purchaseList.clear();
-    purchaseList.add([
-      CustomTableViewModel(title: toneNameStr, isVisible: true.obs),
-      CustomTableViewModel(title: toneIdStr, isVisible: true.obs),
-      CustomTableViewModel(title: ArtistStr, isVisible: true.obs),
-      CustomTableViewModel(title: priceStr, isVisible: true.obs),
-      CustomTableViewModel(title: ActionStr, isVisible: true.obs),
-    ]);
-  }
-
   createRowList(List<ToneInfo> list) {
+    purchaseList.clear();
     if (list.isEmpty) return;
     for (var info in list) {
       purchaseList.add(
         [
-          CustomTableViewModel(value: '${info.toneName}', isVisible: true.obs),
-          CustomTableViewModel(value: '${info.toneId}', isVisible: true.obs),
-          CustomTableViewModel(
-              value: '${info.artistName}', isVisible: true.obs),
-          CustomTableViewModel(value: '${info.price}', isVisible: true.obs),
-          CustomTableViewModel(
-              value: 'channel ', isVisible: true.obs, isButton: true),
+          GenericTableViewModel(
+              columnTitle: toneNameStr,
+              columnValue: '${info.toneName}',
+              isVisible: true.obs,
+              isRemovable: false),
+          GenericTableViewModel(
+              columnTitle: toneIdStr,
+              columnValue: '${info.toneId}',
+              isVisible: true.obs,
+              isRemovable: true),
+          GenericTableViewModel(
+              columnTitle: ArtistStr,
+              columnValue: '${info.artistName}',
+              isRemovable: true,
+              isVisible: true.obs),
+          GenericTableViewModel(
+              columnTitle: priceStr,
+              columnValue: '${info.price}',
+              isRemovable: true,
+              isVisible: true.obs),
+          GenericTableViewModel(
+              columnTitle: playStr,
+              columnValue: 'channel ',
+              isVisible: true.obs,
+              childType: ChildType.play),
+          GenericTableViewModel(
+              columnTitle: actionStr,
+              columnValue: 'channel ',
+              isVisible: true.obs,
+              childType: ChildType.button),
         ],
       );
     }
