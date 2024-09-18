@@ -28,7 +28,7 @@ class NewDashBoardController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isLoadingTunes = false.obs;
   RxBool isVerified = false.obs;
-
+  RxBool isMaxLimitMessageVisible = false.obs;
   RxList<Offer> offers = <Offer>[].obs;
   Rx<UserType> userType = UserType.existingUser.obs;
   RxList<SettingsList> settingsList = <SettingsList>[].obs;
@@ -52,14 +52,20 @@ class NewDashBoardController extends GetxController {
     ToneListModel toneListModel = await toneListApi();
     List<Tonelist> tonelist = toneListModel.tonelist ?? [];
     await createTableData(tonelist);
-
+    isMaxLimitMessageVisible.value = tonelist.length >= 5;
     isLoadingTunes.value = false;
   }
 
   onSubmitButtonAction(String msisdn) async {
     print("msis========= $msisdn");
     if (msisdn.isEmpty) {
-      openGenericPopup("Enter some message here");
+      smSnackBar(enterValidMsisdnStr);
+      //openGenericPopup(enterValidMsisdnStr, headerTitle: '');
+      return;
+    }
+    if (msisdn.length < msisdnLength) {
+      smSnackBar(enterValidMsisdnStr);
+      //openGenericPopup(enterValidMsisdnStr, headerTitle: '');
       return;
     }
     isLoading.value = true;

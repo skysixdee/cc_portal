@@ -41,7 +41,8 @@ class NavigationBarView extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          homeButton(context),
+                          // homeButton(context),
+                          productName1(),
                           userDeatilButton(context)
                         ],
                       ),
@@ -62,6 +63,14 @@ class NavigationBarView extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  Widget productName1() {
+    return SMText(
+      title: productName.toUpperCase(),
+      fontWeight: FontWeight.bold,
+      fontSize: 14,
     );
   }
 
@@ -155,38 +164,45 @@ class NavigationBarView extends StatelessWidget {
     );
   }
 
-  Obx userDeatilButton(BuildContext context) {
-    return Obx(
-      () {
-        return SMButton(
-          title: appCont.agentName.value,
-          leadingChild: Padding(
-            padding: const EdgeInsets.only(right: 4.0),
-            child: Container(
-                height: 30,
-                width: 30,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15), color: greyLight),
-                child: Icon(
-                  Icons.person,
-                  size: 14,
-                )),
-          ),
-          onTap: () {
-            openGenericPopup(
-              headerTitle: "$logoutCStr !",
-              areYouSureYouWantToLogoutStr,
-              primaryButtonTitle: confirmCStr,
-              secondryButtonTitle: cancelCStr,
-              primaryAction: () {
-                StoreManager().logout();
+  Widget userDeatilButton(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        homeButton(context),
+        Obx(
+          () {
+            return SMButton(
+              title: appCont.agentName.value,
+              leadingChild: Padding(
+                padding: const EdgeInsets.only(right: 4.0),
+                child: Container(
+                    height: 30,
+                    width: 30,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: greyLight),
+                    child: Icon(
+                      Icons.person,
+                      size: 14,
+                    )),
+              ),
+              onTap: () {
+                openGenericPopup(
+                  headerTitle: "$logoutCStr !",
+                  areYouSureYouWantToLogoutStr,
+                  primaryButtonTitle: confirmCStr,
+                  secondryButtonTitle: cancelCStr,
+                  primaryAction: () {
+                    StoreManager().logout();
 
-                context.goNamed(dashBoardRoute);
+                    context.goNamed(dashBoardRoute);
+                  },
+                );
               },
             );
           },
-        );
-      },
+        ),
+      ],
     );
   }
 

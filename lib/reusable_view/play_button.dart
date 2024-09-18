@@ -12,14 +12,15 @@ Widget playButton(String toneId) {
         },
         child: Container(
           decoration: BoxDecoration(
+            border: Border.all(color: greyLight),
             borderRadius: BorderRadius.circular(15),
-            color: sixdColor,
+            color: white,
           ),
           height: 30,
           width: 30,
           child: Icon(
             Icons.play_arrow,
-            color: white,
+            color: sixdColor,
             size: 15,
           ),
         ),

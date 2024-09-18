@@ -42,7 +42,7 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: white,
+      backgroundColor: offWhite,
       body: Obx(
         () {
           return controller.isVerified.value
@@ -167,7 +167,7 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
           controller.userType == UserType.newUser
               ? newUserView(controller)
               : Center(child: existingUserView(controller)),
-          SizedBox(height: 80),
+          SizedBox(height: 30),
           tuneLibraryList(),
 
           SizedBox(height: 10),
@@ -200,21 +200,7 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
                           title: myTunesStr,
                           fontSize: 18,
                           fontWeight: FontWeight.bold),
-                      Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(3),
-                            color: orangeColor,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                left: 18, right: 18, bottom: 8, top: 8),
-                            child: SMText(
-                              title: reachedMaxDownloadMessageStr.replaceAll(
-                                  "MAX_TUNE_COUNT", "$maxToneCount"),
-                              textColor: white,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          )),
+                      maxLimitWidget(),
                     ],
                   ),
                   SizedBox(height: 20),
@@ -237,6 +223,32 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
             ),
           )
         : SizedBox();
+  }
+
+  Widget maxLimitWidget() {
+    return Obx(
+      () {
+        return Visibility(
+          visible: controller.isMaxLimitMessageVisible.value,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(3),
+              color: orangeColor,
+            ),
+            child: Padding(
+              padding:
+                  const EdgeInsets.only(left: 18, right: 18, bottom: 8, top: 8),
+              child: SMText(
+                title: reachedMaxDownloadMessageStr.replaceAll(
+                    "MAX_TUNE_COUNT", "$maxToneCount"),
+                textColor: white,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 
   Widget statusIndicator(Tonelist info) {

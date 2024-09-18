@@ -100,7 +100,10 @@ String suspendedCStr = 'SUSPEND';
 String activateStr = 'Activate';
 String activeCStr = 'ACTIVE';
 String activeStr = 'Active';
+String welcomeToCustomerCarePortalStr = "Welcome to Customer care";
 String enterCustomerMsisdnStr = 'Please enter customer msisdn.';
+String enterValidMsisdnStr = 'Enter valid mobile number';
+String enterMobileNumberStr = 'Enter 10 digit mobile number';
 
 String pendingCStr = 'PENDING';
 String myTunesStr = 'Tune Library';

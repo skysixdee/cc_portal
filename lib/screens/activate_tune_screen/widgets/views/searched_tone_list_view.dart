@@ -115,8 +115,12 @@ class _SearchedToneListViewState extends State<SearchedToneListView> {
         SMButton(
           height: 30,
           title: activateStr,
-          textColor: white,
-          bgColor: sixdColor,
+          textColor: sixdColor,
+          onHoverColor: sixdColor,
+          onHoverTitleColor: white,
+          bgColor: white,
+          addBorder: true,
+          addHoverEffect: true,
           fontWeight: FontWeight.normal,
           onTap: () {
             ToneInfo inf = info?.object as ToneInfo;

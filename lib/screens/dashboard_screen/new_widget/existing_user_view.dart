@@ -42,7 +42,7 @@ Row card(NewDashBoardController cont, int index) {
       //if (cont.offers[index].offerStatus != "D") verticalDivider(),
       Expanded(
         child: _dateColumn(firstActivationStr,
-            cont.offers[index].expiryDate ?? '', "", '', cont, index),
+            cont.offers[index].expiryDate ?? '', channelStr, '', cont, index),
       ),
       SizedBox(width: 20),
       Expanded(
