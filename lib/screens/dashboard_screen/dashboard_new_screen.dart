@@ -138,11 +138,10 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          //userDetail(),
-          // controller.userType == UserType.newUser
-          //     ? newUserView(controller)
-          //     : Center(child: existingUserView(controller)),
-
+          ////userDetail(),
+          controller.userType == UserType.newUser
+              ? newUserView(controller)
+              : Center(child: existingUserView(controller)),
           Expanded(child: tuneLibraryList()),
           bottomButton(context),
           SizedBox(height: 10),
