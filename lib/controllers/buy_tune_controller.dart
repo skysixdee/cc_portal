@@ -20,6 +20,12 @@ class BuyTuneController extends GetxController {
   RxList<String> serviceTypeMenuList = <String>[].obs;
   List<String> frequencyMenuList = [dailyStr, weeklyStr, monthlyStr];
   Function()? onBuySuccess;
+
+  @override
+  void onInit() {
+    super.onInit();
+  }
+
   getListOffer({int index = 0}) async {
     _selectedFrequencyIndex = index;
     offerList.clear();

@@ -1,6 +1,8 @@
 import 'package:sm_admin_portal/Models/tone_list_model.dart';
 
 import 'package:sm_admin_portal/network_manager/network_manager.dart';
+import 'package:sm_admin_portal/store_manager/store_manager.dart';
+import 'package:sm_admin_portal/utilily/get_transaction_id.dart';
 import 'package:sm_admin_portal/utilily/urls.dart';
 
 Future<ToneListModel> toneListApi() async {
@@ -8,10 +10,10 @@ Future<ToneListModel> toneListApi() async {
   print("making api call sky");
   //  jsonData: );;
   Map<String, dynamic> jsonData = {
-    "transactionId": "655652",
+    "transactionId": getTransactionId(),
     "featureId": 1,
-    "msisdn": "8182010000",
-    "languageCode": "en",
+    "msisdn": StoreManager().customerNumber,
+    "languageCode": StoreManager().languageCode,
     "channelId": 2
   };
   await Future.delayed(Duration(seconds: 3));

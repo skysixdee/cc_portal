@@ -85,17 +85,19 @@ class ActivateTuneScreen extends StatelessWidget {
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20),
-          child: Obx(() {
-            return cont.searchType.value == SearchType.singer
-                ? ArtistSearchListView(artistName: cont.searchedText)
-                : (cont.searchType.value == SearchType.songCode
-                    ? SearchedToneidListView()
-                    : SearchedToneListView(
-                        seachedText: cont.searchedText,
-                      ));
-          }),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20),
+            child: Obx(() {
+              return cont.searchType.value == SearchType.singer
+                  ? ArtistSearchListView(artistName: cont.searchedText)
+                  : (cont.searchType.value == SearchType.songCode
+                      ? SearchedToneidListView()
+                      : SearchedToneListView(
+                          seachedText: cont.searchedText,
+                        ));
+            }),
+          ),
         ),
         SizedBox(height: 20),
       ],

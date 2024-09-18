@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sm_admin_portal/Models/generic_table_view_model.dart';
+import 'package:sm_admin_portal/Models/tone_info.dart';
 import 'package:sm_admin_portal/controllers/search_controllers/search_tone_controller.dart';
 import 'package:sm_admin_portal/generic_table_view/generic_table_view.dart';
 import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_view.dart';
 import 'package:sm_admin_portal/reusable_view/number_pagination.dart';
+import 'package:sm_admin_portal/reusable_view/play_button.dart';
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 import 'package:sm_admin_portal/screens/activate_tune_screen/widgets/buy_tune_popup.dart';
@@ -42,19 +44,21 @@ class _SearchedToneListViewState extends State<SearchedToneListView> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.max,
       children: [
-        Obx(
-          () {
-            return cont.isLoading.value
-                ? Center(child: loadingIndicatorView())
-                : cont.purchaseList.isEmpty
-                    ? Center(
-                        child: SMText(
-                          title: cont.message.value,
-                          fontSize: 16,
-                        ),
-                      )
-                    : tableBuilder();
-          },
+        Flexible(
+          child: Obx(
+            () {
+              return cont.isLoading.value
+                  ? Center(child: loadingIndicatorView())
+                  : cont.purchaseList.isEmpty
+                      ? Center(
+                          child: SMText(
+                            title: cont.message.value,
+                            fontSize: 16,
+                          ),
+                        )
+                      : tableBuilder();
+            },
+          ),
         ),
         numberPageBuilder()
       ],
@@ -76,29 +80,34 @@ class _SearchedToneListViewState extends State<SearchedToneListView> {
     );
   }
 
-  Widget playButton() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            color: sixdColor,
-          ),
-          height: 30,
-          width: 30,
-          child: Icon(
-            Icons.play_arrow,
-            color: white,
-            size: 15,
-          ),
-        ),
-      ],
-    );
-  }
+  // Widget playButton() {
+  //   return Row(
+  //     mainAxisAlignment: MainAxisAlignment.center,
+  //     crossAxisAlignment: CrossAxisAlignment.center,
+  //     children: [
+  //       InkWell(
+  //         onTap: () {
+  //           print("Play button tapped");
+  //         },
+  //         child: Container(
+  //           decoration: BoxDecoration(
+  //             borderRadius: BorderRadius.circular(15),
+  //             color: sixdColor,
+  //           ),
+  //           height: 30,
+  //           width: 30,
+  //           child: Icon(
+  //             Icons.play_arrow,
+  //             color: white,
+  //             size: 15,
+  //           ),
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 
-  Widget activateButton() {
+  Widget activateButton(GenericTableViewModel? info) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -109,6 +118,12 @@ class _SearchedToneListViewState extends State<SearchedToneListView> {
           textColor: white,
           bgColor: sixdColor,
           fontWeight: FontWeight.normal,
+          onTap: () {
+            ToneInfo inf = info?.object as ToneInfo;
+            print("tapped ${inf.toneName}");
+            print("tapped ${inf.toneIdStreamingUrl}");
+            openBuyTunePopup(inf.toneName ?? '', inf.artistName ?? '');
+          },
         ),
       ],
     ); //Container(height: 30,width: 30,color: sixdColor,child: Icon(Icons.play_arrow),);
@@ -118,35 +133,11 @@ class _SearchedToneListViewState extends State<SearchedToneListView> {
     //return Obx(() {
     return GenericTableView(
       list: cont.purchaseList,
-      rowChild: ({childType, column, row}) {
-        return childType == ChildType.play ? playButton() : activateButton();
+      rowChild: ({GenericTableViewModel? info}) {
+        return info?.childType == ChildType.play
+            ? playButton(((info?.object) as ToneInfo).toneId ?? '')
+            : activateButton(info);
       },
     );
-    // CustomTableView(
-    //   headerColumList: cont.purchaseList[0],
-    //   rowList: cont.purchaseList,
-    //   childWidget: (row, colum) {
-    //     return Row(
-    //       crossAxisAlignment: CrossAxisAlignment.center,
-    //       mainAxisAlignment: MainAxisAlignment.center,
-    //       children: [
-    //         SMButton(
-    //           height: 30,
-    //           titlePadding: EdgeInsets.symmetric(horizontal: 20),
-    //           title: activateStr,
-    //           fontWeight: FontWeight.normal,
-    //           fontSize: 12,
-    //           bgColor: sixdColor,
-    //           textColor: white,
-    //           onTap: () {
-    //             openBuyTunePopup(cont.purchaseList[row][0].value,
-    //                 cont.purchaseList[row][1].value);
-    //           },
-    //         ),
-    //       ],
-    //     );
-    //   },
-    // );
-    // });
   }
 }

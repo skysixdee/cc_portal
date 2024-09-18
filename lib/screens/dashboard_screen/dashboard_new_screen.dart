@@ -38,30 +38,99 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
   TextEditingController textEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () {
-        return Stack(
+    return Column(
+      children: [
+        SizedBox(height: 20),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 38.0),
+          child: statusDiscription(),
+        ),
+        Expanded(
+          child: Obx(
+            () {
+              return Stack(
+                children: [
+                  controller.isVerified.value
+                      ? mainContainer()
+                      : userTextField(textEditingController, controller),
+                  controller.isLoading.value
+                      ? Container(
+                          color: black12,
+                          child: Center(
+                            child: loadingIndicatorView(),
+                          ),
+                        )
+                      : SizedBox()
+                ],
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget statusDiscription() {
+    return Row(
+      children: [
+        Row(
           children: [
-            controller.isVerified.value
-                ? mainContainer()
-                : userTextField(textEditingController, controller),
-            controller.isLoading.value
-                ? Container(
-                    color: black12,
-                    child: Center(
-                      child: loadingIndicatorView(),
-                    ),
-                  )
-                : SizedBox()
+            colorBuilder(green),
+            SMText(
+              title: activeCStr,
+              fontWeight: FontWeight.normal,
+            )
           ],
-        );
-      },
+        ),
+        SizedBox(width: 18),
+        Row(
+          children: [
+            colorBuilder(orangeColor),
+            SMText(
+              title: suspendedStr,
+              fontWeight: FontWeight.normal,
+            )
+          ],
+        ),
+        SizedBox(width: 18),
+        Row(
+          children: [
+            colorBuilder(yellow),
+            SMText(
+              title: graceCStr,
+              fontWeight: FontWeight.normal,
+            )
+          ],
+        ),
+        SizedBox(width: 18),
+        Row(
+          children: [
+            colorBuilder(red),
+            SMText(
+              title: DeactivateStr,
+              fontWeight: FontWeight.normal,
+            )
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget colorBuilder(Color color) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 2.0),
+      child: Container(
+        height: 10,
+        width: 10,
+        decoration:
+            BoxDecoration(borderRadius: BorderRadius.circular(5), color: color),
+      ),
     );
   }
 
   Padding mainContainer() {
     return Padding(
-      padding: const EdgeInsets.only(top: 40, left: 20, right: 20, bottom: 10),
+      padding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 10),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -92,11 +161,28 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
             children: [
               SizedBox(height: 20),
               Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SMText(
                       title: myTunesStr,
                       fontSize: 18,
                       fontWeight: FontWeight.bold),
+                  Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(3),
+                        color: orangeColor,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            left: 18, right: 18, bottom: 8, top: 8),
+                        child: SMText(
+                          title:
+                              "you have reached to max limit ($maxToneCount).\nTo donwload new tune delete tune from library.",
+                          textColor: white,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      )),
                 ],
               ),
               SizedBox(height: 20),

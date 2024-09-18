@@ -12,14 +12,16 @@ class GenericTableView extends StatelessWidget {
   GenericTableView({super.key, required this.list, this.rowChild, this.menu});
   final List<List<GenericTableViewModel>> list;
   final Widget? menu;
-  final Function({int? column, int? row, ChildType? childType})? rowChild;
+  final Function({GenericTableViewModel? info})? rowChild;
   @override
   Widget build(BuildContext context) {
     print("list sky === ${list.length}");
     return list.isEmpty
         ? Center(child: SMText(title: "Empty List"))
         : Column(
-            mainAxisSize: MainAxisSize.min,
+            //shrinkWrap: true,
+            //physics: NeverScrollableScrollPhysics(),
+            //mainAxisSize: MainAxisSize.min,
             children: [
               menu ?? menuButton(list[0]),
               Flexible(
@@ -28,17 +30,21 @@ class GenericTableView extends StatelessWidget {
                   decoration:
                       BoxDecoration(borderRadius: BorderRadius.circular(4)),
                   child: Column(
+                    // physics: NeverScrollableScrollPhysics(),
+                    // shrinkWrap: true,
                     children: [
                       TableHeaderView(list: list[0]),
-                      Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: greyLight, width: 1)),
-                        child: ListView(shrinkWrap: true, children: [
-                          TableRowListView(
-                            list: list,
-                            rowChild: rowChild,
-                          ),
-                        ]),
+                      Flexible(
+                        child: Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(color: greyLight, width: 1)),
+                          child: ListView(shrinkWrap: true, children: [
+                            TableRowListView(
+                              list: list,
+                              rowChild: rowChild,
+                            ),
+                          ]),
+                        ),
                       ),
                     ],
                   ),

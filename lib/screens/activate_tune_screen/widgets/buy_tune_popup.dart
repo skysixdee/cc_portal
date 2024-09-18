@@ -76,8 +76,8 @@ class _BuyTunePopupState extends State<_BuyTunePopup> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             SizedBox(height: 10),
-                            frequencyButton(constraints),
-                            SizedBox(height: 12),
+                            // frequencyButton(constraints),
+                            // SizedBox(height: 12),
                             serviceTypeButton(constraints),
                             SizedBox(height: 20),
                             errorMessage(),

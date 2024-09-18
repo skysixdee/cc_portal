@@ -31,6 +31,7 @@ String tempStatusStr = "Temp Status";
 String lastRenewedStr = "Last Renewed on";
 String transactionHistoryStr = "Transaction History";
 String submitStr = "Submit";
+String firstActivationStr = "First Activation";
 String nextRenewalDateStr = "Next Renewal Date";
 String deactivatePopupMessageStr = "Are you sure you want to Deactivate ?";
 String suspendPopupMessageStr = "Are you sure you want to Suspend ? ";

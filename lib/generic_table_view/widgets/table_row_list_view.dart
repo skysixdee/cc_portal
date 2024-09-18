@@ -8,7 +8,7 @@ class TableRowListView extends StatelessWidget {
   TableRowListView(
       {super.key, required this.list, this.rowChild, this.tableBgColor});
   List<List<GenericTableViewModel>> list;
-  final Function({int column, int row, ChildType childType})? rowChild;
+  final Function({GenericTableViewModel info})? rowChild;
   final Color? tableBgColor;
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,12 @@ class TableRowListView extends StatelessWidget {
             for (int column = 0; column < list[row].length; column++)
               if (list[0][column].isVisible.value)
                 Expanded(
-                  child: Container(color: white, child: row1(row, column)),
+                  child: Container(
+                      color: white,
+                      child: Padding(
+                        padding: EdgeInsets.only(left: column == 0 ? 12.0 : 0),
+                        child: row1(row, column),
+                      )),
                 )
           ],
         );
@@ -63,10 +68,7 @@ class TableRowListView extends StatelessWidget {
         ? SelectableText(list[row][column].columnValue,
             textAlign: column == 0 ? TextAlign.start : TextAlign.center)
         : (rowChild != null
-            ? rowChild!(
-                column: column,
-                row: row,
-                childType: list[row][column].childType)
+            ? rowChild!(info: list[row][column])
             : Center(
                 child: Container(
                     color: sixdColor,

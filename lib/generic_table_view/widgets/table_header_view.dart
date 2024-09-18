@@ -26,14 +26,15 @@ class TableHeaderView extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(right: 2.0),
                       child: Container(
-                          child: Center(
-                              child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 12.0),
+                          child: Padding(
+                        padding: EdgeInsets.only(
+                            top: 6.0, bottom: 6, left: column == 0 ? 12 : 0),
                         child: SMText(
                           title: "${list[column].columnTitle}",
-                          textAlign: TextAlign.center,
+                          textAlign:
+                              column == 0 ? TextAlign.start : TextAlign.center,
                         ),
-                      ))),
+                      )),
                     )
               ]),
             ]);

@@ -35,19 +35,26 @@ Row card(NewDashBoardController cont, int index) {
       Expanded(child: _firstColumn(cont, index)),
       SizedBox(width: 20),
       //if (cont.offers[index].offerStatus != "D") verticalDivider(),
-      Expanded(child: _secondColumn(cont, index)),
-      SizedBox(width: 20),
+      // Expanded(child: _secondColumn(cont, index)),
+      //SizedBox(width: 20),
       //if (cont.offers[index].offerStatus != "D") verticalDivider(),
+
+      //if (cont.offers[index].offerStatus != "D") verticalDivider(),
+      Expanded(
+        child: _dateColumn(firstActivationStr,
+            cont.offers[index].expiryDate ?? '', "", '', cont, index),
+      ),
+      SizedBox(width: 20),
       Expanded(
         child: _dateColumn(
-            lastRenewedStr, cont.offers[index].chargedDate ?? '', cont, index),
+            lastRenewedStr,
+            cont.offers[index].chargedDate ?? '',
+            nextRenewalDateStr,
+            cont.offers[index].expiryDate ?? '',
+            cont,
+            index),
       ),
       SizedBox(width: 20),
-      //if (cont.offers[index].offerStatus != "D") verticalDivider(),
-      Expanded(
-        child: _dateColumn(nextRenewalDateStr,
-            cont.offers[index].expiryDate ?? '', cont, index),
-      ),
     ],
   );
 }
@@ -104,7 +111,11 @@ Widget _secondColumn(NewDashBoardController cont, int index) {
 Widget _firstColumn(NewDashBoardController cont, int index) {
   String status1 = cont.offers[index].offerStatus ?? '';
   String firstColumnTitle = cont.getColumnStatusName(status1);
-  Color firstColumnTitlecolor = status1 == "A" ? green : red;
+  Color firstColumnTitlecolor = status1 == "A"
+      ? green
+      : ((status1 == "D" || status1 == "NA")
+          ? red
+          : (status1 == "S" ? orangeColor : yellow));
   Color firstColumnBtnColor = (status1 == "D" || status1 == "NA") ? green : red;
   String firstColumnButtonTitle = cont.getColumnButtonName(status1);
   return _column(
@@ -166,20 +177,30 @@ Widget _column(String title,
         borderRadius: BorderRadius.circular(8)),
     child: Center(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
               SMText(
-                title: keyTag ?? SubscriptionStatusStr,
+                title: keyTag ?? statusStr,
                 fontWeight: FontWeight.normal,
               ),
               SMText(title: " : ", fontWeight: FontWeight.normal),
-              SMText(
-                  title: title,
-                  textColor: titleColor,
-                  fontWeight: FontWeight.normal),
+              Container(
+                height: 10,
+                width: 10,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5), color: titleColor),
+              )
+              // SMText(
+              //     title: title,
+              //     textColor: titleColor,
+              //     fontWeight: FontWeight.normal),
             ],
           ),
           offerName != null
@@ -192,6 +213,22 @@ Widget _column(String title,
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   child: SMText(title: "", fontWeight: FontWeight.normal),
                 ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SMText(
+                title: priceStr,
+                fontWeight: FontWeight.normal,
+              ),
+              SMText(title: " : ", fontWeight: FontWeight.normal),
+              SMText(title: "300", fontWeight: FontWeight.normal),
+              SMText(title: "/", fontWeight: FontWeight.normal),
+              SMText(title: "30 days", fontWeight: FontWeight.normal),
+            ],
+          ),
+          SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -223,7 +260,8 @@ Widget _column(String title,
   );
 }
 
-Widget _dateColumn(String title, String value, cont, index) {
+Widget _dateColumn(
+    String title, String value, String title1, String value1, cont, index) {
   if (cont.offers[index].offerStatus == "D") {
     return SizedBox();
   }
@@ -241,14 +279,22 @@ Widget _dateColumn(String title, String value, cont, index) {
         children: [
           SMText(
             title: title,
-            fontWeight: FontWeight.normal,
+            fontWeight: FontWeight.bold,
           ),
+          SizedBox(height: 2),
           SMText(
             title: _dateFormate(value, cont, index),
             fontWeight: FontWeight.normal,
           ),
-          SizedBox(
-            height: 10,
+          SizedBox(height: 20),
+          SMText(
+            title: title1,
+            fontWeight: FontWeight.bold,
+          ),
+          SizedBox(height: 2),
+          SMText(
+            title: _dateFormate(value1, cont, index),
+            fontWeight: FontWeight.normal,
           ),
           //SMText(title: " ")
         ],
