@@ -41,12 +41,15 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
   TextEditingController textEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () {
-        return controller.isVerified.value
-            ? mainBuilder(context)
-            : userTextField(textEditingController, controller);
-      },
+    return Scaffold(
+      backgroundColor: white,
+      body: Obx(
+        () {
+          return controller.isVerified.value
+              ? mainBuilder(context)
+              : userTextField(textEditingController, controller);
+        },
+      ),
     );
   }
 
@@ -164,6 +167,7 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
           controller.userType == UserType.newUser
               ? newUserView(controller)
               : Center(child: existingUserView(controller)),
+          SizedBox(height: 80),
           tuneLibraryList(),
 
           SizedBox(height: 10),
@@ -179,52 +183,58 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
     } catch (e) {}
     bool enable = (status == "A" || status == "G" || status == "S");
     return enable
-        ? Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 20),
-              Row(
+        ? Container(
+            color: white,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SMText(
-                      title: myTunesStr,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
-                  Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(3),
-                        color: orangeColor,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 18, right: 18, bottom: 8, top: 8),
-                        child: SMText(
-                          title: reachedMaxDownloadMessageStr.replaceAll(
-                              "MAX_TUNE_COUNT", "$maxToneCount"),
-                          textColor: white,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      )),
+                  SizedBox(height: 20),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SMText(
+                          title: myTunesStr,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                      Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(3),
+                            color: orangeColor,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 18, right: 18, bottom: 8, top: 8),
+                            child: SMText(
+                              title: reachedMaxDownloadMessageStr.replaceAll(
+                                  "MAX_TUNE_COUNT", "$maxToneCount"),
+                              textColor: white,
+                              fontWeight: FontWeight.normal,
+                            ),
+                          )),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Obx(
+                    () {
+                      return controller.isLoadingTunes.value
+                          ? loadingIndicatorView()
+                          : GenericTableView(
+                              list: controller.tableList,
+                              rowChild: ({info}) {
+                                return info?.childType == ChildType.status
+                                    ? statusIndicator(info?.object as Tonelist)
+                                    : deactivateButton(info);
+                              },
+                            );
+                    },
+                  ),
                 ],
               ),
-              SizedBox(height: 20),
-              Obx(
-                () {
-                  return controller.isLoadingTunes.value
-                      ? loadingIndicatorView()
-                      : GenericTableView(
-                          list: controller.tableList,
-                          rowChild: ({info}) {
-                            return info?.childType == ChildType.status
-                                ? statusIndicator(info?.object as Tonelist)
-                                : deactivateButton(info);
-                          },
-                        );
-                },
-              ),
-            ],
+            ),
           )
         : SizedBox();
   }

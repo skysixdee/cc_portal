@@ -195,7 +195,7 @@ Widget _column(String title,
                 height: 10,
                 width: 10,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5), color: titleColor),
+                    borderRadius: BorderRadius.circular(6), color: titleColor),
               )
               // SMText(
               //     title: title,
