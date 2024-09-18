@@ -4,10 +4,13 @@ import 'package:get/get.dart';
 
 import 'package:go_router/go_router.dart';
 import 'package:keycloak_flutter/keycloak_flutter.dart';
+import 'package:sm_admin_portal/Models/generic_table_view_model.dart';
+import 'package:sm_admin_portal/Models/tone_detail_modal.dart';
 
 import 'package:sm_admin_portal/controllers/new_dash_board_controller.dart';
 
 import 'package:sm_admin_portal/enums/user_type.dart';
+import 'package:sm_admin_portal/generic_table_view/generic_table_view.dart';
 import 'package:sm_admin_portal/main.dart';
 import 'package:sm_admin_portal/reusable_view/open_generic_popup_view.dart';
 import 'package:sm_admin_portal/reusable_view/sm_shadow.dart';
@@ -136,11 +139,11 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           //userDetail(),
-          controller.userType == UserType.newUser
-              ? newUserView(controller)
-              : Center(child: existingUserView(controller)),
+          // controller.userType == UserType.newUser
+          //     ? newUserView(controller)
+          //     : Center(child: existingUserView(controller)),
 
-          Expanded(child: tuneListTableView()),
+          Expanded(child: tuneLibraryList()),
           bottomButton(context),
           SizedBox(height: 10),
         ],
@@ -148,7 +151,7 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
     );
   }
 
-  Widget tuneListTableView() {
+  Widget tuneLibraryList() {
     String status = '';
     try {
       status = controller.offers.first.offerStatus ?? "";
@@ -177,8 +180,8 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
                         padding: const EdgeInsets.only(
                             left: 18, right: 18, bottom: 8, top: 8),
                         child: SMText(
-                          title:
-                              "you have reached to max limit ($maxToneCount).\nTo donwload new tune delete tune from library.",
+                          title: reachedMaxDownloadMessageStr.replaceAll(
+                              "MAX_TUNE_COUNT", "$maxToneCount"),
                           textColor: white,
                           fontWeight: FontWeight.normal,
                         ),
@@ -186,13 +189,61 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
                 ],
               ),
               SizedBox(height: 20),
-              Expanded(
-                  child: TuneListScreen(
-                isAddPadding: false,
+              Expanded(child: Obx(
+                () {
+                  return controller.isLoadingTunes.value
+                      ? loadingIndicatorView()
+                      : GenericTableView(
+                          list: controller.tableList,
+                          rowChild: ({info}) {
+                            return info?.childType == ChildType.status
+                                ? statusIndicator(info?.object as Tonelist)
+                                : deactivateButton(info);
+                          },
+                        );
+                },
               )),
             ],
           )
         : SizedBox();
+  }
+
+  Widget statusIndicator(Tonelist info) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Container(
+          height: 10,
+          width: 10,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            color: info.status == "A" ? green : orangeColor,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget deactivateButton(GenericTableViewModel? info) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        SMButton(
+          height: 35,
+          onHoverColor: sixdColor,
+          onHoverTitleColor: white,
+          addBorder: true,
+          addHoverEffect: true,
+          title: DeactivateStr,
+          fontWeight: FontWeight.normal,
+          onTap: () {
+            print("tapped === ${info?.object}");
+          },
+        ),
+      ],
+    );
   }
 
   Widget bottomButton(BuildContext context) {

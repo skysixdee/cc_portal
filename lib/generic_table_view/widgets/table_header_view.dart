@@ -28,7 +28,7 @@ class TableHeaderView extends StatelessWidget {
                       child: Container(
                           child: Padding(
                         padding: EdgeInsets.only(
-                            top: 6.0, bottom: 6, left: column == 0 ? 12 : 0),
+                            top: 10.0, bottom: 10, left: column == 0 ? 12 : 0),
                         child: SMText(
                           title: "${list[column].columnTitle}",
                           textAlign:

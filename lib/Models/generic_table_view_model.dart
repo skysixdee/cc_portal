@@ -20,4 +20,4 @@ class GenericTableViewModel {
   });
 }
 
-enum ChildType { play, button, none }
+enum ChildType { play, button, none, status }

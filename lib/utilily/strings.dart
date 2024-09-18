@@ -38,7 +38,8 @@ String suspendPopupMessageStr = "Are you sure you want to Suspend ? ";
 String resumePopupMessageStr = "Are you sure you want to Resume ?";
 String activatePopupMessageStr = "Are you sure you want to Activate ?";
 String noDataAvailableStr = "No data available";
-
+String reachedMaxDownloadMessageStr =
+    "you have reached to max limit (MAX_TUNE_COUNT).\nTo download new tune, delete tune from library.";
 String bulkUploadStr = "Bulk Upload";
 //String transactionHistoryStr = "Transaction History";
 String subscriberDetailAndDeactivationStr =

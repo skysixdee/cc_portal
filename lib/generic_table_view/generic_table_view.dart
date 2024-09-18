@@ -9,9 +9,15 @@ import 'package:sm_admin_portal/reusable_view/table_view.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 
 class GenericTableView extends StatelessWidget {
-  GenericTableView({super.key, required this.list, this.rowChild, this.menu});
+  GenericTableView(
+      {super.key,
+      required this.list,
+      this.rowChild,
+      this.menu,
+      this.addMenuButton = false});
   final List<List<GenericTableViewModel>> list;
   final Widget? menu;
+  final bool addMenuButton;
   final Function({GenericTableViewModel? info})? rowChild;
   @override
   Widget build(BuildContext context) {
@@ -23,7 +29,7 @@ class GenericTableView extends StatelessWidget {
             //physics: NeverScrollableScrollPhysics(),
             //mainAxisSize: MainAxisSize.min,
             children: [
-              menu ?? menuButton(list[0]),
+              addMenuButton ? menu ?? menuButton(list[0]) : SizedBox(),
               Flexible(
                 child: Container(
                   clipBehavior: Clip.hardEdge,

@@ -1,11 +1,15 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:sm_admin_portal/Models/generic_modal.dart';
+import 'package:sm_admin_portal/Models/generic_table_view_model.dart';
+import 'package:sm_admin_portal/Models/tone_detail_modal.dart';
+import 'package:sm_admin_portal/Models/tone_list_model.dart';
 import 'package:sm_admin_portal/api_calls/delete_tone_api.dart';
 import 'package:sm_admin_portal/api_calls/resume_api.dart';
 
 import 'package:sm_admin_portal/api_calls/set_tone_api.dart';
 import 'package:sm_admin_portal/api_calls/suspend_api.dart';
+import 'package:sm_admin_portal/api_calls/tune_list_api.dart';
 import 'package:sm_admin_portal/main.dart';
 import 'package:sm_admin_portal/reusable_view/sm_snack_bar.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
@@ -22,12 +26,14 @@ import 'package:sm_admin_portal/api_calls/get_subscription_detail_api.dart';
 class NewDashBoardController extends GetxController {
   String msisdn = '';
   RxBool isLoading = false.obs;
+  RxBool isLoadingTunes = false.obs;
   RxBool isVerified = false.obs;
 
   RxList<Offer> offers = <Offer>[].obs;
   Rx<UserType> userType = UserType.existingUser.obs;
   RxList<SettingsList> settingsList = <SettingsList>[].obs;
 
+  List<List<GenericTableViewModel>> tableList = [];
   @override
   void onInit() async {
     super.onInit();
@@ -38,9 +44,17 @@ class NewDashBoardController extends GetxController {
       isVerified.value = false;
       onSubmitButtonAction(StoreManager().customerNumber);
     }
+    getMyTuneList();
   }
 
-  getMyTuneList() async {}
+  getMyTuneList() async {
+    isLoadingTunes.value = true;
+    ToneListModel toneListModel = await toneListApi();
+    List<Tonelist> tonelist = toneListModel.tonelist ?? [];
+    await createTableData(tonelist);
+
+    isLoadingTunes.value = false;
+  }
 
   onSubmitButtonAction(String msisdn) async {
     print("msis========= $msisdn");
@@ -209,5 +223,49 @@ class NewDashBoardController extends GetxController {
       smSnackBar(model.message ?? someThingWentWrongStr);
     }
     isLoading.value = false;
+  }
+
+  Future<void> createTableData(List<Tonelist> tonelist) async {
+    tableList.clear();
+    if (tonelist.isEmpty) {
+      return;
+    }
+    for (Tonelist item in tonelist) {
+      tableList.add([
+        GenericTableViewModel(
+            columnTitle: toneNameStr,
+            columnValue: item.toneNameEnglish ?? '',
+            isVisible: true.obs,
+            object: item),
+        GenericTableViewModel(
+            columnTitle: statusStr,
+            columnValue: item.toneId ?? '',
+            isVisible: true.obs,
+            childType: ChildType.status,
+            object: item),
+        GenericTableViewModel(
+            columnTitle: toneIdStr,
+            columnValue: item.toneId ?? '',
+            isVisible: true.obs,
+            object: item),
+        GenericTableViewModel(
+            columnTitle: ArtistStr,
+            columnValue: item.artistName ?? '',
+            isVisible: true.obs,
+            object: item),
+        GenericTableViewModel(
+            columnTitle: priceStr,
+            columnValue: item.price ?? '',
+            isVisible: true.obs,
+            object: item),
+        GenericTableViewModel(
+            columnTitle: actionStr,
+            columnValue: DeactivateStr,
+            childType: ChildType.button,
+            isVisible: true.obs,
+            object: item)
+      ]);
+    }
+    return;
   }
 }
