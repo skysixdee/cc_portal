@@ -24,36 +24,30 @@ class GenericTableView extends StatelessWidget {
     print("list sky === ${list.length}");
     return list.isEmpty
         ? Center(child: SMText(title: "Empty List"))
-        : Column(
-            //shrinkWrap: true,
-            //physics: NeverScrollableScrollPhysics(),
-            //mainAxisSize: MainAxisSize.min,
+        : ListView(
+            shrinkWrap: true,
             children: [
               addMenuButton ? menu ?? menuButton(list[0]) : SizedBox(),
-              Flexible(
-                child: Container(
-                  clipBehavior: Clip.hardEdge,
-                  decoration:
-                      BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                  child: Column(
-                    // physics: NeverScrollableScrollPhysics(),
-                    // shrinkWrap: true,
-                    children: [
-                      TableHeaderView(list: list[0]),
-                      Flexible(
-                        child: Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(color: greyLight, width: 1)),
-                          child: ListView(shrinkWrap: true, children: [
-                            TableRowListView(
-                              list: list,
-                              rowChild: rowChild,
-                            ),
-                          ]),
+              Container(
+                clipBehavior: Clip.hardEdge,
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(4)),
+                child: Column(
+                  // physics: NeverScrollableScrollPhysics(),
+                  // shrinkWrap: true,
+                  children: [
+                    TableHeaderView(list: list[0]),
+                    Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: greyLight, width: 1)),
+                      child: ListView(shrinkWrap: true, children: [
+                        TableRowListView(
+                          list: list,
+                          rowChild: rowChild,
                         ),
-                      ),
-                    ],
-                  ),
+                      ]),
+                    ),
+                  ],
                 ),
               ),
             ],

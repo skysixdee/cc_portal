@@ -85,6 +85,7 @@ String CpNameStr = 'Cp Name';
 String ActivationChannelStr = 'Activation Channel';
 String ActivationTypeStr = 'Activation Type';
 String DeactivateStr = 'Deactivate';
+String DeactiveStr = 'Deactive';
 String crbtStr = 'CRBT';
 String resumeServiceStr = 'Resume Service';
 String suspendServiceStr = 'Suspend Service';
@@ -98,6 +99,7 @@ String resumeStr = 'Resume';
 String suspendedCStr = 'SUSPEND';
 String activateStr = 'Activate';
 String activeCStr = 'ACTIVE';
+String activeStr = 'Active';
 String enterCustomerMsisdnStr = 'Please enter customer msisdn.';
 
 String pendingCStr = 'PENDING';

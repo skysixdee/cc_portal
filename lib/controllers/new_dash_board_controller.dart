@@ -41,7 +41,7 @@ class NewDashBoardController extends GetxController {
     await Future.delayed(Duration(milliseconds: 30));
     if (StoreManager().isCustomerLoggedIn) {
       isLoading.value = true;
-      isVerified.value = false;
+      isVerified.value = true;
       onSubmitButtonAction(StoreManager().customerNumber);
     }
     getMyTuneList();
@@ -65,6 +65,7 @@ class NewDashBoardController extends GetxController {
     isLoading.value = true;
     this.msisdn = msisdn;
     //isVerified.value = false;
+    //await Future.delayed(Duration(milliseconds: 3000));
     GetSubscriptionModel subscriptionModel =
         await getSubscriptionDetailApi(msisdn);
 

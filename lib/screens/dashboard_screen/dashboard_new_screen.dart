@@ -41,33 +41,55 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
   TextEditingController textEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Obx(
+      () {
+        return controller.isVerified.value
+            ? mainBuilder(context)
+            : userTextField(textEditingController, controller);
+      },
+    );
+  }
+
+  Widget mainBuilder(BuildContext context) {
+    return Stack(
       children: [
-        SizedBox(height: 20),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 38.0),
-          child: statusDiscription(),
-        ),
-        Expanded(
-          child: Obx(
-            () {
-              return Stack(
+        Column(
+          children: [
+            Expanded(
+              child: ListView(
+                shrinkWrap: true,
                 children: [
-                  controller.isVerified.value
-                      ? mainContainer()
-                      : userTextField(textEditingController, controller),
-                  controller.isLoading.value
-                      ? Container(
-                          color: black12,
-                          child: Center(
-                            child: loadingIndicatorView(),
-                          ),
-                        )
-                      : SizedBox()
+                  SizedBox(height: 20),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 38.0),
+                    child: statusDiscription(),
+                  ),
+                  mainContainer()
                 ],
-              );
-            },
-          ),
+              ),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 28.0, vertical: 20),
+              child: bottomButton(context),
+            )
+          ],
+        ),
+        Obx(
+          () {
+            return Stack(
+              children: [
+                controller.isLoading.value
+                    ? Container(
+                        color: black12,
+                        child: Center(
+                          child: loadingIndicatorView(),
+                        ),
+                      )
+                    : SizedBox()
+              ],
+            );
+          },
         ),
       ],
     );
@@ -80,7 +102,7 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
           children: [
             colorBuilder(green),
             SMText(
-              title: activeCStr,
+              title: activeStr,
               fontWeight: FontWeight.normal,
             )
           ],
@@ -110,7 +132,7 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
           children: [
             colorBuilder(red),
             SMText(
-              title: DeactivateStr,
+              title: DeactiveStr,
               fontWeight: FontWeight.normal,
             )
           ],
@@ -142,8 +164,8 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
           controller.userType == UserType.newUser
               ? newUserView(controller)
               : Center(child: existingUserView(controller)),
-          Expanded(child: tuneLibraryList()),
-          bottomButton(context),
+          tuneLibraryList(),
+
           SizedBox(height: 10),
         ],
       ),
@@ -188,7 +210,7 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
                 ],
               ),
               SizedBox(height: 20),
-              Expanded(child: Obx(
+              Obx(
                 () {
                   return controller.isLoadingTunes.value
                       ? loadingIndicatorView()
@@ -201,7 +223,7 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
                           },
                         );
                 },
-              )),
+              ),
             ],
           )
         : SizedBox();
