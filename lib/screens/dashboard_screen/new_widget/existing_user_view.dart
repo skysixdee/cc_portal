@@ -131,7 +131,7 @@ Widget _firstColumn(NewDashBoardController cont, int index) {
             headerTitle: '',
             primaryButtonTitle: confirmCStr,
             secondryButtonTitle: cancelCStr, primaryAction: () {
-          cont.deactivateTapped(cont.offers[index].offerName ?? '');
+          cont.deactivateTapped(null, cont.offers[index].offerName ?? '');
         }
 
             // cont.getColumnButtonName(status1)

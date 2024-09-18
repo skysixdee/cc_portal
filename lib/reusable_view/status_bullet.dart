@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 
-Widget statusIndicator(String status) {
+Widget statusBullet(String status) {
   if (status == 'A') {
     return _statusCircleBuilder(green);
   } else if (status == 'G') {

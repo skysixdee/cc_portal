@@ -22,6 +22,7 @@ String loadingServiceMenuStr = "Loading service menu...";
 String noResultFoundStr = "No Result found";
 String suspendAndResumeStr = "Suspend And Resume";
 String actionStr = "Action";
+String moreStr = "More";
 String homeStr = "Home";
 String dashBoardStr = "DashBoard";
 String searchResultHereStr = "Your search result";
@@ -106,7 +107,8 @@ String enterValidMsisdnStr = 'Enter valid mobile number';
 String enterMobileNumberStr = 'Enter 10 digit mobile number';
 
 String pendingCStr = 'PENDING';
-String myTunesStr = 'Tune Library';
+String tuneLibraryStr = 'Tune Library';
+String musicBoxStr = 'Music Box';
 String graceCStr = 'GRACE';
 String ChannelStr = 'Channel';
 String SelectStr = 'Select';

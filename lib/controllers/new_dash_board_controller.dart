@@ -28,17 +28,20 @@ class NewDashBoardController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isLoadingTunes = false.obs;
   RxBool isVerified = false.obs;
+  RxInt selectedTab = 0.obs;
   RxBool isMaxLimitMessageVisible = false.obs;
   RxList<Offer> offers = <Offer>[].obs;
   Rx<UserType> userType = UserType.existingUser.obs;
   RxList<SettingsList> settingsList = <SettingsList>[].obs;
 
   List<List<GenericTableViewModel>> tableList = [];
+  String packName = '';
   @override
   void onInit() async {
     super.onInit();
 
     await Future.delayed(Duration(milliseconds: 30));
+    selectedTab.value = 0;
     if (StoreManager().isCustomerLoggedIn) {
       isLoading.value = true;
       isVerified.value = true;
@@ -52,7 +55,7 @@ class NewDashBoardController extends GetxController {
     ToneListModel toneListModel = await toneListApi();
     List<Tonelist> tonelist = toneListModel.tonelist ?? [];
     await createTableData(tonelist);
-    isMaxLimitMessageVisible.value = tonelist.length >= 5;
+    isMaxLimitMessageVisible.value = tonelist.length >= maxToneCount;
     isLoadingTunes.value = false;
   }
 
@@ -76,6 +79,7 @@ class NewDashBoardController extends GetxController {
         await getSubscriptionDetailApi(msisdn);
 
     offers.value = subscriptionModel.offers ?? [];
+
     // offers.value += subscriptionModel.offers ?? [];
     // offers.value += subscriptionModel.offers ?? [];
     // offers.value += subscriptionModel.offers ?? [];
@@ -173,10 +177,10 @@ class NewDashBoardController extends GetxController {
     isLoading.value = false;
   }
 
-  deactivateTapped(String offerCode) async {
+  deactivateTapped(String? toneId, String offerCode) async {
     print("deactivate tapped");
     isLoading.value = true;
-    GenericModal model = await deleteToneApi('All', offerCode);
+    GenericModal model = await deleteToneApi(toneId ?? 'All', offerCode);
     if (model.respCode == 0) {
     } else {
       smSnackBar(model.message ?? someThingWentWrongStr);
@@ -241,36 +245,54 @@ class NewDashBoardController extends GetxController {
       tableList.add([
         GenericTableViewModel(
             columnTitle: toneNameStr,
-            columnValue: item.toneNameEnglish ?? '',
+            columnValue: item.contentName ?? '',
             isVisible: true.obs,
             object: item),
         GenericTableViewModel(
             columnTitle: statusStr,
-            columnValue: item.toneId ?? '',
+            columnValue: item.status ?? '',
             isVisible: true.obs,
             childType: ChildType.status,
             object: item),
         GenericTableViewModel(
             columnTitle: toneIdStr,
-            columnValue: item.toneId ?? '',
+            columnValue: item.contentId ?? '',
             isVisible: true.obs,
+            isRemovable: true,
             object: item),
         GenericTableViewModel(
             columnTitle: ArtistStr,
             columnValue: item.artistName ?? '',
+            isVisible: false.obs,
+            isRemovable: true,
+            object: item),
+        GenericTableViewModel(
+            columnTitle: lastRenewedStr,
+            columnValue: 'last renewal date',
             isVisible: true.obs,
+            isRemovable: true,
             object: item),
         GenericTableViewModel(
             columnTitle: priceStr,
             columnValue: item.price ?? '',
             isVisible: true.obs,
+            isRemovable: true,
             object: item),
         GenericTableViewModel(
-            columnTitle: actionStr,
-            columnValue: DeactivateStr,
-            childType: ChildType.button,
+            columnTitle: playStr,
+            columnValue: '',
+            isRemovable: true,
             isVisible: true.obs,
-            object: item)
+            object: item,
+            childType: ChildType.play),
+        GenericTableViewModel(
+          columnTitle: actionStr,
+          columnValue: DeactivateStr,
+          childType: ChildType.button,
+          isVisible: true.obs,
+          //isRemovable: true,
+          object: item,
+        ),
       ]);
     }
     return;

@@ -41,6 +41,7 @@ dependencies:
   jwt_decoder: ^2.0.1
   keycloak_flutter: ^0.0.21
   navigator: any
+  just_audio: ^0.9.37
   number_paginator: ^0.4.1
   popover: ^0.3.0
   responsive_builder: ^0.7.0

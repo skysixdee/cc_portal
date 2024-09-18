@@ -77,8 +77,9 @@ class _BuyTunePopupState extends State<_BuyTunePopup> {
                           children: [
                             SizedBox(height: 10),
                             // frequencyButton(constraints),
-                            // SizedBox(height: 12),
-                            serviceTypeButton(constraints),
+                            opetionListView(),
+                            //SizedBox(height: 12),
+                            //serviceTypeButton(constraints),
                             SizedBox(height: 20),
                             errorMessage(),
                             confirmButton(context),
@@ -91,6 +92,45 @@ class _BuyTunePopupState extends State<_BuyTunePopup> {
             )),
       ),
     );
+  }
+
+  Widget opetionListView() {
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: 5,
+      itemBuilder: (context, index) {
+        return radioButton(index);
+      },
+    );
+  }
+
+  Widget radioButton(int index) {
+    return InkWell(onTap: () {
+      cont.radioButtonIndex.value = index;
+      print("taped");
+    }, child: Obx(
+      () {
+        return Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 8),
+              child: Icon(
+                cont.radioButtonIndex.value == index
+                    ? Icons.radio_button_checked
+                    : Icons
+                        .radio_button_off, //radio_button_checked, // radio_button_off
+                size: 18,
+                color: sixdColor,
+              ),
+            ),
+            SMText(
+              title: 'title',
+              fontWeight: FontWeight.normal,
+            )
+          ],
+        );
+      },
+    ));
   }
 
   Widget errorMessage() {

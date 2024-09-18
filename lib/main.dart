@@ -15,6 +15,7 @@ import 'package:sm_admin_portal/controllers/activate_tune_controller.dart';
 import 'package:sm_admin_portal/controllers/app_controller.dart';
 import 'package:sm_admin_portal/controllers/dashboard_controller.dart';
 import 'package:sm_admin_portal/controllers/new_dash_board_controller.dart';
+import 'package:sm_admin_portal/controllers/player_controller.dart';
 import 'package:sm_admin_portal/controllers/side_menu_controller.dart';
 import 'package:sm_admin_portal/controllers/subscriber_detail_controler.dart';
 
@@ -70,6 +71,7 @@ initialize() async {
   Get.lazyPut(() => SideMenuController());
 
   Get.lazyPut(() => TuneListController());
+  Get.lazyPut(() => PlayerController());
 
   Get.lazyPut(() => ActivateTuneController());
   Get.lazyPut(() => DashboardController());

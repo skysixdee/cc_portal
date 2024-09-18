@@ -11,6 +11,7 @@ import 'package:sm_admin_portal/utilily/strings.dart';
 class BuyTuneController extends GetxController {
   RxString errorMessage = ''.obs;
   RxBool isConfirming = false.obs;
+  RxInt radioButtonIndex = 0.obs;
   RxBool loadingOffer = false.obs;
   int _selectedFrequencyIndex = 0;
   RxString selectedServiceTitle = ''.obs;

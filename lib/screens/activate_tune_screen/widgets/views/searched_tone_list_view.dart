@@ -136,10 +136,12 @@ class _SearchedToneListViewState extends State<SearchedToneListView> {
   Widget tableBuilder() {
     //return Obx(() {
     return GenericTableView(
+      addMenuButton: true,
       list: cont.purchaseList,
       rowChild: ({GenericTableViewModel? info}) {
+        ToneInfo inf = ((info?.object) as ToneInfo);
         return info?.childType == ChildType.play
-            ? playButton(((info?.object) as ToneInfo).toneId ?? '')
+            ? playButton(inf.toneId ?? '', inf.toneIdStreamingUrl ?? '')
             : activateButton(info);
       },
     );

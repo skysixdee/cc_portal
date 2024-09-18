@@ -34,6 +34,7 @@ import 'package:sm_admin_portal/Models/generic_modal.dart';
 
 import 'package:sm_admin_portal/network_manager/network_manager.dart';
 import 'package:sm_admin_portal/store_manager/store_manager.dart';
+import 'package:sm_admin_portal/utilily/constants.dart';
 import 'package:sm_admin_portal/utilily/get_transaction_id.dart';
 import 'package:sm_admin_portal/utilily/urls.dart';
 
@@ -50,12 +51,12 @@ Future<GenericModal> deleteToneApi(String toneId, String offerStatus) async {
       //   "offerCode": offerStatus
       // };
       {
-    "transactionId": "9234567822",
+    "transactionId": getTransactionId(),
     "featureId": 1,
-    "msisdn": "92000002",
-    "contentId": "1157833",
-    "channelId": 2,
-    "offerCode": "CRBT_MONTHLY_REC"
+    "msisdn": StoreManager().customerNumber,
+    "contentId": toneId,
+    "channelId": channelId,
+    "offerCode": offerStatus
   };
 
   Map<String, dynamic> jsonMap =

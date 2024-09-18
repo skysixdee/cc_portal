@@ -13,9 +13,12 @@ import 'package:sm_admin_portal/enums/user_type.dart';
 import 'package:sm_admin_portal/generic_table_view/generic_table_view.dart';
 import 'package:sm_admin_portal/main.dart';
 import 'package:sm_admin_portal/reusable_view/open_generic_popup_view.dart';
+import 'package:sm_admin_portal/reusable_view/play_button.dart';
+import 'package:sm_admin_portal/reusable_view/reusable_drop_down_button.dart';
 import 'package:sm_admin_portal/reusable_view/sm_shadow.dart';
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
+import 'package:sm_admin_portal/reusable_view/table_tab_rail.dart';
 
 import 'package:sm_admin_portal/router/router_name.dart';
 import 'package:sm_admin_portal/screens/Tunelist_screen.dart';
@@ -39,6 +42,7 @@ class DashboardNewScreen extends StatefulWidget {
 class _DashboardNewScreenState extends State<DashboardNewScreen> {
   final NewDashBoardController controller = Get.find();
   TextEditingController textEditingController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -183,46 +187,95 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
     } catch (e) {}
     bool enable = (status == "A" || status == "G" || status == "S");
     return enable
-        ? Container(
-            color: white,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 20),
-                  Row(
+        ? controller.isLoadingTunes.value
+            ? loadingIndicatorView()
+            : Container(
+                color: white,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SMText(
-                          title: myTunesStr,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
-                      maxLimitWidget(),
+                      // Obx(
+                      //   () {
+                      //     return
+                      //   },
+                      // ),
+                      SizedBox(height: 20),
+                      TableTabRail(
+                        selectedTab: controller.selectedTab.value,
+                        tabTitleList: [tuneLibraryStr, musicBoxStr],
+                        onTap: (p0) {
+                          controller.selectedTab.value = p0;
+                        },
+                      ),
+
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          maxLimitWidget(),
+                        ],
+                      ),
+                      //SizedBox(height: 20),
+
+                      GenericTableView(
+                        addMenuButton: true,
+                        list: controller.tableList,
+                        rowChild: ({info}) {
+                          Tonelist detail = info?.object as Tonelist;
+                          return info?.childType == ChildType.status
+                              ? statusIndicator(info?.object as Tonelist)
+                              : info?.childType == ChildType.button
+                                  ? deactivateButton(info)
+                                  : playButton(detail.contentId ?? '',
+                                      detail.contentStreamingUrl ?? '');
+                        },
+                      )
                     ],
                   ),
-                  SizedBox(height: 20),
-                  Obx(
-                    () {
-                      return controller.isLoadingTunes.value
-                          ? loadingIndicatorView()
-                          : GenericTableView(
-                              list: controller.tableList,
-                              rowChild: ({info}) {
-                                return info?.childType == ChildType.status
-                                    ? statusIndicator(info?.object as Tonelist)
-                                    : deactivateButton(info);
-                              },
-                            );
-                    },
-                  ),
-                ],
-              ),
-            ),
-          )
+                ),
+              )
         : SizedBox();
+  }
+
+  Widget morebutton() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        CustomOnHover(
+          builder: (isHovered) {
+            return InkWell(
+              onTap: () {
+                Get.dialog(Center(
+                    child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    color: white,
+                  ),
+                  height: 200,
+                  width: 200,
+                )));
+              },
+              child: Container(
+                height: 35,
+                decoration: BoxDecoration(
+                    color: isHovered ? sixdColor : white,
+                    borderRadius: BorderRadius.circular(17),
+                    border: Border.all(color: greyLight)),
+                width: 35,
+                child: Icon(
+                  Icons.more_horiz,
+                  color: isHovered ? white : sixdColor,
+                ),
+              ),
+            );
+          },
+        )
+      ],
+    );
   }
 
   Widget maxLimitWidget() {
@@ -230,19 +283,22 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
       () {
         return Visibility(
           visible: controller.isMaxLimitMessageVisible.value,
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(3),
-              color: orangeColor,
-            ),
-            child: Padding(
-              padding:
-                  const EdgeInsets.only(left: 18, right: 18, bottom: 8, top: 8),
-              child: SMText(
-                title: reachedMaxDownloadMessageStr.replaceAll(
-                    "MAX_TUNE_COUNT", "$maxToneCount"),
-                textColor: white,
-                fontWeight: FontWeight.normal,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 16.0),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(3),
+                color: orangeColor,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 18, right: 18, bottom: 8, top: 8),
+                child: SMText(
+                  title: reachedMaxDownloadMessageStr.replaceAll(
+                      "MAX_TUNE_COUNT", "$maxToneCount"),
+                  textColor: white,
+                  fontWeight: FontWeight.normal,
+                ),
               ),
             ),
           ),
@@ -279,9 +335,12 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
           onHoverTitleColor: white,
           addBorder: true,
           addHoverEffect: true,
+          textColor: sixdColor,
           title: DeactivateStr,
           fontWeight: FontWeight.normal,
           onTap: () {
+            Tonelist detail = info?.object as Tonelist;
+            controller.deactivateTapped(detail.toneId, controller.packName);
             print("tapped === ${info?.object}");
           },
         ),
