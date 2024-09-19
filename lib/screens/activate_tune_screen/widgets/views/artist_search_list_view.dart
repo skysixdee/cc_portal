@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:sm_admin_portal/Models/artist_searched_model.dart';
 import 'package:sm_admin_portal/controllers/search_controllers/search_artist_controller.dart';
+import 'package:sm_admin_portal/generic_table_view/generic_table_view.dart';
 import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_view.dart';
 import 'package:sm_admin_portal/reusable_view/number_pagination.dart';
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
@@ -40,12 +42,14 @@ class _ArtistSearchListViewState extends State<ArtistSearchListView> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Obx(
-          () {
-            return cont.isLoading.value
-                ? loadingIndicatorView()
-                : loadTableBuilder();
-          },
+        Expanded(
+          child: Obx(
+            () {
+              return cont.isLoading.value
+                  ? loadingIndicatorView()
+                  : loadTableBuilder();
+            },
+          ),
         ),
         Obx(
           () {
@@ -164,8 +168,8 @@ class _ArtistSearchListViewState extends State<ArtistSearchListView> {
             },
           ),
         ),
-        Flexible(
-          child: Obx(() {
+        Flexible(child: SMText(title: "tablessfdsf")
+            /* Obx(() {
             return CustomTableView(
                 headerColumList: cont.artistsTuneTableList[0],
                 rowList: cont.artistsTuneTableList,
@@ -192,14 +196,44 @@ class _ArtistSearchListViewState extends State<ArtistSearchListView> {
                   );
                 });
           }),
-        )
+          */
+            )
       ],
     );
   }
 
   Widget artistNameTableBuilder() {
-    return Obx(() {
-      return CustomTableView(
+    return GenericTableView(
+      headerScrollable: true,
+      list: cont.artistNameTableList,
+      rowChild: ({info}) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SMButton(
+              height: 30,
+              titlePadding: EdgeInsets.symmetric(horizontal: 20),
+              title: viewStr,
+              fontWeight: FontWeight.normal,
+              fontSize: 12,
+              bgColor: sixdColor,
+              textColor: white,
+              onTap: () {
+                print('info ====== ${info?.object}');
+                ArtistList list = info?.object as ArtistList;
+                cont.isArtistNameTable.value = false;
+                cont.getArtistTuneList(
+                    list.val ?? ''); //cont.artistNameTableList[row][0].value);
+                print("dsfgdfgdfgd");
+              },
+            ),
+          ],
+        );
+      },
+    );
+    /*
+      CustomTableView(
         headerColumList: cont.artistNameTableList[0],
         rowList: cont.artistNameTableList,
         childWidget: (row, colum) {
@@ -226,6 +260,7 @@ class _ArtistSearchListViewState extends State<ArtistSearchListView> {
           );
         },
       );
-    });
+      */
+    // });
   }
 }

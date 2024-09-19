@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:sm_admin_portal/Models/generic_table_view_model.dart';
+import 'package:sm_admin_portal/Models/tone_info.dart';
 import 'package:sm_admin_portal/controllers/search_controllers/search_tone_id_controller.dart';
+import 'package:sm_admin_portal/generic_table_view/generic_table_view.dart';
+import 'package:sm_admin_portal/reusable_view/buttons/activate_tune_button.dart';
+import 'package:sm_admin_portal/reusable_view/buttons/play_button.dart';
 import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_view.dart';
 import 'package:sm_admin_portal/reusable_view/number_pagination.dart';
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
@@ -38,18 +43,20 @@ class _SearchedToneidListViewState extends State<SearchedToneidListView> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Obx(
-          () {
-            return cont.isLoading.value
-                ? loadingIndicatorView()
-                : (cont.purchaseList.isEmpty)
-                    ? Center(
-                        child: SMText(
-                        title: cont.message.value,
-                        fontSize: 16,
-                      ))
-                    : tableBuilder();
-          },
+        Flexible(
+          child: Obx(
+            () {
+              return cont.isLoading.value
+                  ? loadingIndicatorView()
+                  : (cont.tuneList.isEmpty)
+                      ? Center(
+                          child: SMText(
+                          title: cont.message.value,
+                          fontSize: 16,
+                        ))
+                      : tableBuilder();
+            },
+          ),
         ),
         numberPageBuilder(),
       ],
@@ -72,9 +79,20 @@ class _SearchedToneidListViewState extends State<SearchedToneidListView> {
   }
 
   Widget tableBuilder() {
-    return CustomTableView(
-      headerColumList: cont.purchaseList[0],
-      rowList: cont.purchaseList,
+    return GenericTableView(
+      addMenuButton: true,
+      list: cont.tuneList,
+      rowChild: ({info}) {
+        ToneInfo inf = info?.object as ToneInfo;
+        return (info?.childType == ChildType.play)
+            ? playButton(inf.toneId ?? '', inf.toneIdStreamingUrl ?? '')
+            : activateButton(info);
+      },
+    );
+    /*
+    CustomTableView(
+      headerColumList: cont.tuneList[0],
+      rowList: cont.tuneList,
       childWidget: (row, colum) {
         return Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -89,13 +107,14 @@ class _SearchedToneidListViewState extends State<SearchedToneidListView> {
               bgColor: sixdColor,
               textColor: white,
               onTap: () {
-                openBuyTunePopup(cont.purchaseList[row][0].value,
-                    cont.purchaseList[row][1].value);
+                openBuyTunePopup(
+                    cont.tuneList[row][0].value, cont.tuneList[row][1].value);
               },
             ),
           ],
         );
       },
     );
+    */
   }
 }

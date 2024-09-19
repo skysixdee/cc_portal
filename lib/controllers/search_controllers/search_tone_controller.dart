@@ -74,16 +74,15 @@ class SearchToneController extends GetxController {
       purchaseList.add(
         [
           GenericTableViewModel(
-              columnTitle: toneNameStr,
-              columnValue: '${info.toneName}',
-              isVisible: true.obs,
-              object: info,
-              isRemovable: false),
+            columnTitle: toneNameStr,
+            columnValue: '${info.toneName}',
+            isVisible: true.obs,
+            object: info,
+          ),
           GenericTableViewModel(
             columnTitle: toneIdStr,
             columnValue: '${info.toneId}',
             isVisible: true.obs,
-            isRemovable: true,
             object: info,
           ),
           GenericTableViewModel(

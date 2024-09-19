@@ -18,7 +18,6 @@ class TableHeaderView extends StatelessWidget {
         color: bgColor ?? greyLight,
         child: Obx(
           () {
-            print("is ${list[2].isVisible.value}");
             return Table(children: [
               TableRow(children: [
                 for (int column = 0; column < list.length; column++)

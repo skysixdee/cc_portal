@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sm_admin_portal/enums/search_type.dart';
 import 'package:sm_admin_portal/reusable_view/box_shadow.dart';
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
+import 'package:sm_admin_portal/reusable_view/sm_shadow.dart';
 
 import 'package:sm_admin_portal/screens/activate_tune_screen/widgets/views/artist_search_list_view.dart';
 import 'package:sm_admin_portal/screens/activate_tune_screen/widgets/views/searched_tone_list_view.dart';
@@ -31,7 +32,7 @@ class ActivateTuneScreen extends StatelessWidget {
               const EdgeInsets.only(top: 4, left: 20, right: 20, bottom: 20),
           child: Container(
             decoration: BoxDecoration(
-              boxShadow: boxShadow,
+              boxShadow: smShadow(spreadRadius: 0), //boxShadow,
               color: white,
               borderRadius: BorderRadius.circular(4),
               border: Border.all(color: greyLight),

@@ -13,7 +13,7 @@ import 'package:sm_admin_portal/enums/user_type.dart';
 import 'package:sm_admin_portal/generic_table_view/generic_table_view.dart';
 import 'package:sm_admin_portal/main.dart';
 import 'package:sm_admin_portal/reusable_view/open_generic_popup_view.dart';
-import 'package:sm_admin_portal/reusable_view/play_button.dart';
+import 'package:sm_admin_portal/reusable_view/buttons/play_button.dart';
 import 'package:sm_admin_portal/reusable_view/reusable_drop_down_button.dart';
 import 'package:sm_admin_portal/reusable_view/sm_shadow.dart';
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';

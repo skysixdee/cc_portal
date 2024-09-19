@@ -66,7 +66,7 @@ Future<Object?> onTapMenu(
                       list[index].isVisible.value =
                           !list[index].isVisible.value;
                     },
-                    child: _menuCell(list[index]))
+                    child: _menuCell(list[index], index))
                 : SizedBox();
           },
         ),
@@ -81,7 +81,7 @@ Future<Object?> onTapMenu(
   );
 }
 
-Widget _menuCell(GenericTableViewModel model) {
+Widget _menuCell(GenericTableViewModel model, int index) {
   return CustomOnHover(
     builder: (isHovered) {
       return Container(
@@ -89,20 +89,31 @@ Widget _menuCell(GenericTableViewModel model) {
           height: 40,
           child: Obx(
             () {
-              return Row(
-                children: [
-                  Icon(
-                      model.isVisible.value
-                          ? Icons.check_box
-                          : Icons.check_box_outline_blank,
-                      color: sixdColor), //check_box_outline_blank//check_box
-                  SizedBox(width: 2),
-                  SMText(
-                    title: model.columnTitle,
-                    textColor: black,
-                    fontWeight: FontWeight.normal,
-                  )
-                ],
+              return Container(
+                color: greyLight,
+                child: Padding(
+                  padding: EdgeInsets.only(top: index == 0 ? 0.0 : 1.0),
+                  child: Container(
+                    color: white,
+                    child: Row(
+                      children: [
+                        SizedBox(width: 4),
+                        Icon(
+                            model.isVisible.value
+                                ? Icons.check_box
+                                : Icons.check_box_outline_blank,
+                            color:
+                                sixdColor), //check_box_outline_blank//check_box
+                        SizedBox(width: 2),
+                        SMText(
+                          title: model.columnTitle,
+                          textColor: black,
+                          fontWeight: FontWeight.normal,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
               );
             },
           ));

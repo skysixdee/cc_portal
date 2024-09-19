@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:sm_admin_portal/Models/artist_searched_model.dart';
 import 'package:sm_admin_portal/Models/artists_tune_model.dart';
+import 'package:sm_admin_portal/Models/generic_table_view_model.dart';
 import 'package:sm_admin_portal/Models/tone_info.dart';
 import 'package:sm_admin_portal/api_calls/artist_tune_search_api.dart';
 import 'package:sm_admin_portal/api_calls/get_artist_search_list_api.dart';
@@ -23,10 +24,10 @@ class SearchArtistController extends GetxController {
 
   ActivateTuneController activateTuneController = Get.find();
 
-  RxList<List<CustomTableViewModel>> artistNameTableList =
-      <List<CustomTableViewModel>>[].obs;
-  RxList<List<CustomTableViewModel>> artistsTuneTableList =
-      <List<CustomTableViewModel>>[].obs;
+  RxList<List<GenericTableViewModel>> artistNameTableList =
+      <List<GenericTableViewModel>>[].obs;
+  RxList<List<GenericTableViewModel>> artistsTuneTableList =
+      <List<GenericTableViewModel>>[].obs;
 
   @override
   void onInit() {
@@ -59,7 +60,6 @@ class SearchArtistController extends GetxController {
     if (_artistList.isEmpty) {
       message.value = noResultFoundStr;
     } else {
-      createArtistNameHeaderColumnList();
       createArtistNameRowList(_artistList);
     }
     isLoading.value = false;
@@ -74,7 +74,6 @@ class SearchArtistController extends GetxController {
     if (_artistList.isEmpty) {
       message.value = noResultFoundStr;
     } else {
-      createArtistNameHeaderColumnList();
       createArtistNameRowList(_artistList);
     }
     isLoading.value = false;
@@ -92,7 +91,6 @@ class SearchArtistController extends GetxController {
     if (artistTuneList.isEmpty) {
       message.value = noResultFoundStr;
     } else {
-      createArtistTuneHeaderColumnList();
       createArtistTuneRowList(artistTuneList);
     }
 
@@ -108,42 +106,31 @@ class SearchArtistController extends GetxController {
     if (artistTuneList.isEmpty) {
       message.value = noResultFoundStr;
     } else {}
-    createArtistTuneHeaderColumnList();
+
     createArtistTuneRowList(artistTuneList);
     isLoading.value = false;
     print("SKY======= ${artistName}");
   }
 
-  createArtistNameHeaderColumnList() {
-    artistNameTableList.clear();
-    artistNameTableList.add([
-      CustomTableViewModel(title: ArtistStr, isVisible: true.obs),
-      CustomTableViewModel(title: ActionStr, isVisible: true.obs),
-    ]);
-  }
-
   createArtistNameRowList(List<ArtistList> list) {
+    artistNameTableList.clear();
     if (list.isEmpty) return;
     for (var info in list) {
       artistNameTableList.add(
         [
-          CustomTableViewModel(value: '${info.val}', isVisible: true.obs),
-          CustomTableViewModel(
-              value: 'channel ', isVisible: true.obs, isButton: true),
+          GenericTableViewModel(
+              columnTitle: ArtistStr,
+              columnValue: '${info.val}',
+              object: info,
+              isVisible: true.obs),
+          GenericTableViewModel(
+              columnTitle: ActionStr,
+              object: info,
+              childType: ChildType.button,
+              isVisible: true.obs),
         ],
       );
     }
-  }
-
-  createArtistTuneHeaderColumnList() {
-    artistsTuneTableList.clear();
-    artistsTuneTableList.add([
-      CustomTableViewModel(title: toneNameStr, isVisible: true.obs),
-      CustomTableViewModel(title: toneIdStr, isVisible: true.obs),
-      CustomTableViewModel(title: ArtistStr, isVisible: true.obs),
-      CustomTableViewModel(title: priceStr, isVisible: true.obs),
-      CustomTableViewModel(title: ActionStr, isVisible: true.obs),
-    ]);
   }
 
   createArtistTuneRowList(List<ToneInfo> list) {
@@ -151,13 +138,18 @@ class SearchArtistController extends GetxController {
     for (var info in list) {
       artistsTuneTableList.add(
         [
-          CustomTableViewModel(value: info.toneName ?? '', isVisible: true.obs),
-          CustomTableViewModel(value: info.toneId ?? '', isVisible: true.obs),
-          CustomTableViewModel(
-              value: info.artistName ?? '', isVisible: true.obs),
-          CustomTableViewModel(value: info.price ?? '', isVisible: true.obs),
-          CustomTableViewModel(
-              value: 'channel ', isVisible: true.obs, isButton: true),
+          GenericTableViewModel(
+              columnValue: info.toneName ?? '', isVisible: true.obs),
+          GenericTableViewModel(
+              columnValue: info.toneId ?? '', isVisible: true.obs),
+          GenericTableViewModel(
+              columnValue: info.artistName ?? '', isVisible: true.obs),
+          GenericTableViewModel(
+              columnValue: info.price ?? '', isVisible: true.obs),
+          GenericTableViewModel(
+            columnValue: 'channel ',
+            isVisible: true.obs,
+          ),
         ],
       );
     }
