@@ -11,7 +11,7 @@ class SmTextField extends StatelessWidget {
     super.key,
     this.textEditingController,
     this.hint,
-    this.fontSize = 14,
+    this.fontSize = 16,
     this.tailingWidget,
     this.leadingWidget,
     this.onSubmit,
@@ -21,7 +21,7 @@ class SmTextField extends StatelessWidget {
   });
   final TextEditingController? textEditingController;
   final RxBool _isHideClearButton = true.obs;
-  final FontWeight fontWeight = FontWeight.w500;
+  final FontWeight fontWeight = FontWeight.normal;
   final double? fontSize;
   final bool onlyNumberInput;
   final String? hint;
@@ -34,10 +34,10 @@ class SmTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40,
+      height: 45,
       decoration: textFieldDecoration(),
       child: Padding(
-        padding: const EdgeInsets.only(left: 8),
+        padding: const EdgeInsets.only(left: 12),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,

@@ -13,7 +13,7 @@ Future<ToneListModel> toneListApi() async {
     "transactionId": getTransactionId(),
     "featureId": 1,
     "msisdn": StoreManager().customerNumber,
-    "languageCode": StoreManager().languageCode,
+    "languageCode": StoreManager().languageSort,
     "channelId": 2
   };
   await Future.delayed(Duration(seconds: 3));

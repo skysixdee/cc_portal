@@ -4,7 +4,7 @@ import 'package:sm_admin_portal/Models/generic_table_view_model.dart';
 import 'package:sm_admin_portal/Models/tone_info.dart';
 import 'package:sm_admin_portal/controllers/search_controllers/search_tone_controller.dart';
 import 'package:sm_admin_portal/generic_table_view/generic_table_view.dart';
-import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_view.dart';
+
 import 'package:sm_admin_portal/reusable_view/number_pagination.dart';
 import 'package:sm_admin_portal/reusable_view/play_button.dart';
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
@@ -80,33 +80,6 @@ class _SearchedToneListViewState extends State<SearchedToneListView> {
     );
   }
 
-  // Widget playButton() {
-  //   return Row(
-  //     mainAxisAlignment: MainAxisAlignment.center,
-  //     crossAxisAlignment: CrossAxisAlignment.center,
-  //     children: [
-  //       InkWell(
-  //         onTap: () {
-  //           print("Play button tapped");
-  //         },
-  //         child: Container(
-  //           decoration: BoxDecoration(
-  //             borderRadius: BorderRadius.circular(15),
-  //             color: sixdColor,
-  //           ),
-  //           height: 30,
-  //           width: 30,
-  //           child: Icon(
-  //             Icons.play_arrow,
-  //             color: white,
-  //             size: 15,
-  //           ),
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
-
   Widget activateButton(GenericTableViewModel? info) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -134,9 +107,9 @@ class _SearchedToneListViewState extends State<SearchedToneListView> {
   }
 
   Widget tableBuilder() {
-    //return Obx(() {
     return GenericTableView(
       addMenuButton: true,
+      headerScrollable: true,
       list: cont.purchaseList,
       rowChild: ({GenericTableViewModel? info}) {
         ToneInfo inf = ((info?.object) as ToneInfo);

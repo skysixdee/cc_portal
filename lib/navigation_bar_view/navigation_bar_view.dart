@@ -89,6 +89,8 @@ class NavigationBarView extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     backButton(context),
+                    Icon(Icons.call, size: 18),
+                    SizedBox(width: 8),
                     SMText(
                         title: "$countryCode ${StoreManager().customerNumber}"),
                   ],

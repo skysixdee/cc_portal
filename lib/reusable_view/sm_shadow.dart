@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 
-List<BoxShadow> smShadow() {
+List<BoxShadow> smShadow({double blurRadius = 8, double spreadRadius = 4}) {
   return [
     BoxShadow(
-      color: grey.withOpacity(0.3),
-      blurRadius: 5,
-      spreadRadius: 1,
-      offset: Offset(3, 3),
+      color: grey.withOpacity(0.5),
+      blurRadius: blurRadius,
+      spreadRadius: spreadRadius,
+      //offset: Offset(3, 3),
     )
   ];
 }

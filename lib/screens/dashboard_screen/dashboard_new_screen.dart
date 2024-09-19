@@ -47,7 +47,7 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: offWhite,
+      backgroundColor: white,
       body: Obx(
         () {
           return controller.isVerified.value
@@ -67,10 +67,28 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
               child: ListView(
                 shrinkWrap: true,
                 children: [
-                  SizedBox(height: 20),
+                  SizedBox(height: 25),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 38.0),
-                    child: statusDiscription(),
+                    child: Center(
+                        child: SizedBox(
+                      width: 1000,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4),
+                                  color: white,
+                                  boxShadow: smShadow()),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 20.0, horizontal: 20),
+                                child: statusDiscription(),
+                              )),
+                        ],
+                      ),
+                    )),
                   ),
                   mainContainer()
                 ],
@@ -78,7 +96,7 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
             ),
             Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 28.0, vertical: 20),
+                  const EdgeInsets.only(left: 28.0, right: 28.0, bottom: 20),
               child: bottomButton(context),
             )
           ],
@@ -106,59 +124,75 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
   Widget statusDiscription() {
     return Row(
       children: [
-        Row(
-          children: [
-            statusBullet("A"),
-            SizedBox(width: 4),
-            SMText(
-              title: activeStr,
-              fontWeight: FontWeight.normal,
-            )
-          ],
-        ),
-        SizedBox(width: 18),
-        Row(
-          children: [
-            //colorBuilder(orangeColor),
-            statusBullet("S"),
-            SizedBox(width: 4),
-            SMText(
-              title: suspendedStr,
-              fontWeight: FontWeight.normal,
-            )
-          ],
-        ),
-        SizedBox(width: 18),
-        Row(
-          children: [
-            //colorBuilder(yellow),
-            statusBullet("G"),
-            SizedBox(width: 4),
-            SMText(
-              title: graceCStr,
-              fontWeight: FontWeight.normal,
-            )
-          ],
-        ),
-        SizedBox(width: 18),
-        Row(
-          children: [
-            //colorBuilder(red),
-            statusBullet("D"),
-            SizedBox(width: 4),
-            SMText(
-              title: DeactiveStr,
-              fontWeight: FontWeight.normal,
-            )
-          ],
-        ),
+        activeBuilder(),
+        SizedBox(width: 25),
+        suspendBuilder(),
+        SizedBox(width: 25),
+        graceBuilder(),
+        SizedBox(width: 25),
+        deactivateBuilder(),
+      ],
+    );
+  }
+
+  Row deactivateBuilder() {
+    return Row(
+      children: [
+        //colorBuilder(red),
+        statusBullet("D"),
+        SizedBox(width: 4),
+        SMText(
+          title: DeactiveStr,
+          fontWeight: FontWeight.normal,
+        )
+      ],
+    );
+  }
+
+  Row graceBuilder() {
+    return Row(
+      children: [
+        //colorBuilder(yellow),
+        statusBullet("G"),
+        SizedBox(width: 4),
+        SMText(
+          title: graceCStr,
+          fontWeight: FontWeight.normal,
+        )
+      ],
+    );
+  }
+
+  Row suspendBuilder() {
+    return Row(
+      children: [
+        //colorBuilder(orangeColor),
+        statusBullet("S"),
+        SizedBox(width: 4),
+        SMText(
+          title: suspendedStr,
+          fontWeight: FontWeight.normal,
+        )
+      ],
+    );
+  }
+
+  Row activeBuilder() {
+    return Row(
+      children: [
+        statusBullet("A"),
+        SizedBox(width: 4),
+        SMText(
+          title: activeStr,
+          fontWeight: FontWeight.normal,
+        )
       ],
     );
   }
 
   Padding mainContainer() {
     return Padding(
-      padding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 10),
+      padding: const EdgeInsets.only(top: 20, left: 30, right: 30, bottom: 10),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -169,10 +203,10 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
               : Center(
                   child: SizedBox(
                       width: 1000, child: existingUserView(controller))),
-          SizedBox(height: 30),
+          SizedBox(height: 20),
           tuneLibraryList(),
 
-          SizedBox(height: 10),
+          SizedBox(height: 20),
         ],
       ),
     );
@@ -188,14 +222,18 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
         ? controller.isLoadingTunes.value
             ? loadingIndicatorView()
             : Container(
-                color: white,
+                decoration: BoxDecoration(
+                    color: white,
+                    boxShadow: smShadow(),
+                    borderRadius: BorderRadius.circular(4)),
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0, vertical: 20),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 20),
+                      SizedBox(height: 5),
                       TableTabRail(
                         selectedTab: controller.selectedTab.value,
                         tabTitleList: [tuneLibraryStr, musicBoxStr],
@@ -285,12 +323,12 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
           child: Visibility(
             visible: controller.isMaxLimitMessageVisible.value,
             child: Padding(
-              padding: const EdgeInsets.only(top: 16.0),
+              padding: const EdgeInsets.only(top: 16.0, bottom: 8),
               child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(3),
-                  color: orangeColor,
-                ),
+                    borderRadius: BorderRadius.circular(3),
+                    color: orangeColor,
+                    boxShadow: smShadow()),
                 child: Padding(
                   padding: const EdgeInsets.only(
                       left: 18, right: 18, bottom: 8, top: 8),
@@ -379,9 +417,9 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
       addBorder: true,
       addHoverEffect: true,
       onHoverColor: sixdColor,
-      height: 55,
+      height: 50,
       title: transactionHistoryStr,
-      boxShadow: smShadow(),
+      boxShadow: smShadow(blurRadius: 4, spreadRadius: 2),
       onHoverTitleColor: white,
       bgColor: white,
       onTap: () {
@@ -394,11 +432,11 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
 
   SMButton newTuneActivateButton() {
     return SMButton(
-      boxShadow: smShadow(),
+      boxShadow: smShadow(blurRadius: 4, spreadRadius: 2),
       addHoverEffect: true,
       onHoverColor: sixdColor,
       addBorder: true,
-      height: 55,
+      height: 50,
       onHoverTitleColor: white,
       title: ActivateNewToneStr,
       bgColor: white,

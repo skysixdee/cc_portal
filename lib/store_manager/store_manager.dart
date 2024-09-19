@@ -11,7 +11,12 @@ class StoreManager {
 
   String agentNumber = '92000003';
   String customerNumber = '92000003';
-  String languageCode = 'en';
+
+  String enLanguageSort = 'en';
+  String otherLanguageSort = 'ar';
+
+  String languageSort = 'en';
+
   bool isEnglish = true;
   bool isAgentLoggedIn = false;
   bool isCustomerLoggedIn = false;
@@ -50,7 +55,7 @@ class StoreManager {
   }
 
   setLanguageEnglish(bool isEnglish) {
-    languageCode = isEnglish ? 'en' : 'ar';
+    languageSort = isEnglish ? 'en' : 'ar';
     prefs.setBool('is_english', isEnglish);
     ;
   }

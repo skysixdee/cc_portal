@@ -47,6 +47,7 @@ Widget userTextField(TextEditingController textEditingController,
                   leadingWidget: SMText(
                     title: countryCode,
                     fontWeight: FontWeight.normal,
+                    fontSize: 16,
                   ),
                   tailingWidget: Padding(
                     padding: const EdgeInsets.all(1.0),

@@ -9,6 +9,7 @@ class ActivateTuneController extends GetxController {
   RxBool isConfirming = false.obs;
   RxBool isLoading = false.obs;
   String searchedText = '';
+  RxBool isEnglish = true.obs;
   RxString errorMessage = ''.obs;
   String selectedFrequency = '';
   String selectedServiceTypeValue = '';

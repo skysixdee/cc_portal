@@ -16,7 +16,7 @@ Widget existingUserView(NewDashBoardController cont) {
     itemCount: cont.offers.length,
     itemBuilder: (context, index) {
       return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8),
+        padding: const EdgeInsets.symmetric(vertical: 14),
         child: card(cont, index),
       );
     },
@@ -28,12 +28,12 @@ Row card(NewDashBoardController cont, int index) {
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
-      Expanded(child: _cardContainer(_firstColumn1(cont.offers[index]))),
-      SizedBox(width: 20),
-      Expanded(child: _cardContainer(_secondColumn1(cont.offers[index]))),
-      SizedBox(width: 20),
-      Expanded(child: _cardContainer(_thirdColumn1(cont.offers[index]))),
-      SizedBox(width: 20),
+      Flexible(child: _cardContainer(_firstColumn1(cont.offers[index]))),
+      SizedBox(width: 30),
+      Flexible(child: _cardContainer(_secondColumn1(cont.offers[index]))),
+      SizedBox(width: 30),
+      Flexible(child: _cardContainer(_thirdColumn1(cont.offers[index]))),
+      SizedBox(width: 30),
     ],
   );
 }

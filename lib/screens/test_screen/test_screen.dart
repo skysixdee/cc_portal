@@ -25,6 +25,7 @@ class TestScreen extends StatelessWidget {
           return list.isEmpty
               ? SMText(title: "List ==${list.length}")
               : GenericTableView(
+                  headerScrollable: true,
                   list: list,
                   // rowChild: ({childType, column, row}) {
                   //   return childType == ChildType.play

@@ -1,12 +1,11 @@
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
+
 import 'package:sm_admin_portal/Models/generic_table_view_model.dart';
 import 'package:sm_admin_portal/Models/search_tone_model.dart';
 import 'package:sm_admin_portal/Models/tone_info.dart';
 import 'package:sm_admin_portal/api_calls/search_text_api.dart';
 import 'package:sm_admin_portal/controllers/activate_tune_controller.dart';
-import 'package:sm_admin_portal/generic_table_view/generic_table_view.dart';
-import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_view_model.dart';
+
 import 'package:sm_admin_portal/utilily/strings.dart';
 
 class SearchToneController extends GetxController {

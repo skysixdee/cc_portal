@@ -53,7 +53,9 @@ class TableRowListView extends StatelessWidget {
                   child: Container(
                       color: white,
                       child: Padding(
-                        padding: EdgeInsets.only(left: column == 0 ? 12.0 : 0),
+                        padding: EdgeInsets.only(
+                            left: column == 0 ? 12.0 : 0,
+                            right: column == 0 ? 12 : 0),
                         child: row1(row, column),
                       )),
                 )

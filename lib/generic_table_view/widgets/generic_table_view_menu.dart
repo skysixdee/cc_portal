@@ -26,13 +26,14 @@ Widget menuButton(List<GenericTableViewModel> list) {
                     return Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(4),
-                        //border: Border.all(color: greyLight),
-                        color: isHovered ? sixdColor : greyLight,
+                        border: Border.all(color: greyLight),
+                        color: isHovered ? sixdColor : white,
                       ),
                       height: 35,
                       width: 35,
                       child: Icon(
-                        Icons.menu,
+                        Icons.visibility,
+                        size: 14,
                         color: isHovered ? white : black,
                       ),
                     );

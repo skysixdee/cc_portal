@@ -41,13 +41,13 @@ Widget _radioButton(
               searchType == cont.searchType.value
                   ? Icons.radio_button_checked
                   : Icons.radio_button_unchecked,
-              size: 16,
+              color: sixdColor,
+              size: 20,
             ),
             SizedBox(width: 2),
             SMText(
               title: title,
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.normal,
             )
           ],
         ),

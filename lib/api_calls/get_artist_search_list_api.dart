@@ -14,7 +14,7 @@ Future<ArtistSearchModel> getArtistSearchListApi(String text,
     "perPageCount": pagePerCount,
     "filter": "Artist",
     "filterPref": "begin",
-    "locale": StoreManager().languageCode,
+    "locale": StoreManager().languageSort,
     "searchKey": [text]
   };
   Map<String, dynamic> jsonResp =

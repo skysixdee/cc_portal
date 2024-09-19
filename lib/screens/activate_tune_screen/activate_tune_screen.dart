@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:sm_admin_portal/enums/search_type.dart';
@@ -23,19 +24,8 @@ class ActivateTuneScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding:
-              const EdgeInsets.only(top: 20, left: 20, right: 30, bottom: 10),
-          child: SMText(
-            title: toneActivationStr,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        SizedBox(height: 20),
         Padding(
           padding:
               const EdgeInsets.only(top: 4, left: 20, right: 20, bottom: 20),
@@ -47,24 +37,49 @@ class ActivateTuneScreen extends StatelessWidget {
               border: Border.all(color: greyLight),
             ),
             child: Padding(
-              padding: const EdgeInsets.only(top: 40, bottom: 10),
+              padding: const EdgeInsets.only(
+                  top: 20, right: 20, left: 20, bottom: 20),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
-                        child: activateTuneTextField(
-                            TextEditingController()), //textField(),
-                        width: 400,
+                      SMText(
+                        title: toneActivationStr,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      languageSwitch(),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                child: activateTuneTextField(
+                                    TextEditingController()), //textField(),
+                                width: 400,
+                              ),
+                            ],
+                          ),
+                          activateTuneSearchTypeBuilder(cont),
+                        ],
                       ),
                       SizedBox(width: 20),
                       Flexible(
                         child: SMButton(
-                          height: 38,
+                          height: 43,
                           width: 140,
                           bgColor: sixdColor,
                           textColor: white,
@@ -79,7 +94,6 @@ class ActivateTuneScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  activateTuneSearchTypeBuilder(cont),
                 ],
               ),
             ),
@@ -89,17 +103,49 @@ class ActivateTuneScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(left: 20, right: 20),
             child: Obx(() {
-              return cont.searchType.value == SearchType.singer
-                  ? ArtistSearchListView(artistName: cont.searchedText)
-                  : (cont.searchType.value == SearchType.songCode
-                      ? SearchedToneidListView()
-                      : SearchedToneListView(
-                          seachedText: cont.searchedText,
-                        ));
+              return Directionality(
+                textDirection: cont.isEnglish.value
+                    ? TextDirection.ltr
+                    : TextDirection.rtl,
+                child: cont.searchType.value == SearchType.singer
+                    ? ArtistSearchListView(artistName: cont.searchedText)
+                    : (cont.searchType.value == SearchType.songCode
+                        ? SearchedToneidListView()
+                        : SearchedToneListView(
+                            seachedText: cont.searchedText,
+                          )),
+              );
             }),
           ),
         ),
         SizedBox(height: 20),
+      ],
+    );
+  }
+
+  Widget languageSwitch() {
+    return Row(
+      children: [
+        SMText(
+          title: 'Search in arabic',
+          fontWeight: FontWeight.normal,
+        ),
+        Obx(
+          () {
+            return CupertinoSwitch(
+              activeColor: sixdColor,
+              value: !cont.isEnglish.value,
+              onChanged: (value) {
+                print("is changed");
+                cont.isEnglish.value = !cont.isEnglish.value;
+                cont.searchText();
+                if (cont.onSearchTap != null) {
+                  cont.onSearchTap!(cont.searchedText);
+                }
+              },
+            );
+          },
+        ),
       ],
     );
   }

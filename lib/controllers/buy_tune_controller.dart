@@ -25,6 +25,7 @@ class BuyTuneController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    // getListOffer();
   }
 
   getListOffer({int index = 0}) async {
