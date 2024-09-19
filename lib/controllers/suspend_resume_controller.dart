@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:sm_admin_portal/Models/generic_modal.dart';
+import 'package:sm_admin_portal/Models/get_subscription_modal.dart';
 
 import 'package:sm_admin_portal/Models/subscribers_modal.dart';
 import 'package:sm_admin_portal/Models/suspend_and_resume_model.dart';

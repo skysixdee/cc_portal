@@ -18,6 +18,7 @@ import 'package:sm_admin_portal/reusable_view/reusable_drop_down_button.dart';
 import 'package:sm_admin_portal/reusable_view/sm_shadow.dart';
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
+import 'package:sm_admin_portal/reusable_view/status_bullet.dart';
 import 'package:sm_admin_portal/reusable_view/table_tab_rail.dart';
 
 import 'package:sm_admin_portal/router/router_name.dart';
@@ -107,7 +108,8 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
       children: [
         Row(
           children: [
-            colorBuilder(green),
+            statusBullet("A"),
+            SizedBox(width: 4),
             SMText(
               title: activeStr,
               fontWeight: FontWeight.normal,
@@ -117,7 +119,9 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
         SizedBox(width: 18),
         Row(
           children: [
-            colorBuilder(orangeColor),
+            //colorBuilder(orangeColor),
+            statusBullet("S"),
+            SizedBox(width: 4),
             SMText(
               title: suspendedStr,
               fontWeight: FontWeight.normal,
@@ -127,7 +131,9 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
         SizedBox(width: 18),
         Row(
           children: [
-            colorBuilder(yellow),
+            //colorBuilder(yellow),
+            statusBullet("G"),
+            SizedBox(width: 4),
             SMText(
               title: graceCStr,
               fontWeight: FontWeight.normal,
@@ -137,7 +143,9 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
         SizedBox(width: 18),
         Row(
           children: [
-            colorBuilder(red),
+            //colorBuilder(red),
+            statusBullet("D"),
+            SizedBox(width: 4),
             SMText(
               title: DeactiveStr,
               fontWeight: FontWeight.normal,
@@ -145,18 +153,6 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
           ],
         ),
       ],
-    );
-  }
-
-  Widget colorBuilder(Color color) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 2.0),
-      child: Container(
-        height: 10,
-        width: 10,
-        decoration:
-            BoxDecoration(borderRadius: BorderRadius.circular(5), color: color),
-      ),
     );
   }
 
@@ -170,7 +166,9 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
           ////userDetail(),
           controller.userType == UserType.newUser
               ? newUserView(controller)
-              : Center(child: existingUserView(controller)),
+              : Center(
+                  child: SizedBox(
+                      width: 1000, child: existingUserView(controller))),
           SizedBox(height: 30),
           tuneLibraryList(),
 
@@ -197,11 +195,6 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Obx(
-                      //   () {
-                      //     return
-                      //   },
-                      // ),
                       SizedBox(height: 20),
                       TableTabRail(
                         selectedTab: controller.selectedTab.value,
@@ -222,7 +215,9 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
 
                       GenericTableView(
                         addMenuButton: true,
-                        list: controller.tableList,
+                        list: controller.selectedTab.value == 0
+                            ? controller.tuneTableList
+                            : controller.musicTableList,
                         rowChild: ({info}) {
                           Tonelist detail = info?.object as Tonelist;
                           return info?.childType == ChildType.status
@@ -282,22 +277,25 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
     return Obx(
       () {
         return Visibility(
-          visible: controller.isMaxLimitMessageVisible.value,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 16.0),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(3),
-                color: orangeColor,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    left: 18, right: 18, bottom: 8, top: 8),
-                child: SMText(
-                  title: reachedMaxDownloadMessageStr.replaceAll(
-                      "MAX_TUNE_COUNT", "$maxToneCount"),
-                  textColor: white,
-                  fontWeight: FontWeight.normal,
+          visible: controller.selectedTab.value == 0,
+          child: Visibility(
+            visible: controller.isMaxLimitMessageVisible.value,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 16.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(3),
+                  color: orangeColor,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: 18, right: 18, bottom: 8, top: 8),
+                  child: SMText(
+                    title: reachedMaxDownloadMessageStr.replaceAll(
+                        "MAX_TUNE_COUNT", "$maxToneCount"),
+                    textColor: white,
+                    fontWeight: FontWeight.normal,
+                  ),
                 ),
               ),
             ),

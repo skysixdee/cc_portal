@@ -34,7 +34,8 @@ class NewDashBoardController extends GetxController {
   Rx<UserType> userType = UserType.existingUser.obs;
   RxList<SettingsList> settingsList = <SettingsList>[].obs;
 
-  List<List<GenericTableViewModel>> tableList = [];
+  List<List<GenericTableViewModel>> tuneTableList = [];
+  List<List<GenericTableViewModel>> musicTableList = [];
   String packName = '';
   @override
   void onInit() async {
@@ -237,16 +238,22 @@ class NewDashBoardController extends GetxController {
   }
 
   Future<void> createTableData(List<Tonelist> tonelist) async {
-    tableList.clear();
+    tuneTableList.clear();
     if (tonelist.isEmpty) {
       return;
     }
     for (Tonelist item in tonelist) {
-      tableList.add([
+      tuneTableList.add([
         GenericTableViewModel(
             columnTitle: toneNameStr,
             columnValue: item.contentName ?? '',
             isVisible: true.obs,
+            object: item),
+        GenericTableViewModel(
+            columnTitle: otherNameStr,
+            columnValue: item.contentName ?? '',
+            isVisible: false.obs,
+            isRemovable: true,
             object: item),
         GenericTableViewModel(
             columnTitle: statusStr,
@@ -258,7 +265,7 @@ class NewDashBoardController extends GetxController {
             columnTitle: toneIdStr,
             columnValue: item.contentId ?? '',
             isVisible: true.obs,
-            isRemovable: true,
+            //isRemovable: true,
             object: item),
         GenericTableViewModel(
             columnTitle: ArtistStr,
@@ -269,20 +276,20 @@ class NewDashBoardController extends GetxController {
         GenericTableViewModel(
             columnTitle: lastRenewedStr,
             columnValue: 'last renewal date',
-            isVisible: true.obs,
+            isVisible: false.obs,
             isRemovable: true,
             object: item),
         GenericTableViewModel(
             columnTitle: priceStr,
             columnValue: item.price ?? '',
-            isVisible: true.obs,
+            isVisible: false.obs,
             isRemovable: true,
             object: item),
         GenericTableViewModel(
             columnTitle: playStr,
             columnValue: '',
             isRemovable: true,
-            isVisible: true.obs,
+            isVisible: false.obs,
             object: item,
             childType: ChildType.play),
         GenericTableViewModel(
@@ -293,6 +300,14 @@ class NewDashBoardController extends GetxController {
           //isRemovable: true,
           object: item,
         ),
+        // GenericTableViewModel(
+        //   columnTitle: moreStr,
+        //   columnValue: moreStr,
+        //   childType: ChildType.button,
+        //   isVisible: false.obs,
+        //   isRemovable: true,
+        //   object: item,
+        // ),
       ]);
     }
     return;

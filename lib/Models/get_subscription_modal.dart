@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:get/get.dart';
+
 GetSubscriptionModel getSubscriptionModelFromJson(String str) =>
     GetSubscriptionModel.fromJson(json.decode(str));
 
@@ -54,6 +56,8 @@ class Offer {
   String? activationChannel;
   String? deactivationDate;
   String? deactivationChannel;
+
+  RxBool isSuspended = false.obs;
 
   Offer({
     this.offerName,

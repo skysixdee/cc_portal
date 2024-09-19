@@ -62,6 +62,7 @@ String toDateCStr = 'TO DATE';
 String toneStatusStr = 'Tone Status';
 String toneIdStr = 'Tone Id';
 String toneNameStr = 'Tone Name';
+String otherNameStr = 'Other Tone Name';
 String amountDeductedStr = 'Amount Deducted';
 String loadingMessageStr = 'Loading, Please wait..';
 String noDataMessageStr = 'Hey, looks like there is no data to show!';

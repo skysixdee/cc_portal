@@ -23,7 +23,9 @@ class GenericTableView extends StatelessWidget {
   Widget build(BuildContext context) {
     print("list sky === ${list.length}");
     return list.isEmpty
-        ? Center(child: SMText(title: "Empty List"))
+        ? Center(
+            child: SizedBox(
+                height: 200, child: Center(child: SMText(title: "Empty List"))))
         : ListView(
             shrinkWrap: true,
             children: [

@@ -9,8 +9,7 @@
 //     final subscribersModal = subscribersModalFromJson(jsonString);
 
 import 'dart:convert';
-
-import 'package:get/get.dart';
+import 'package:sm_admin_portal/Models/get_subscription_modal.dart';
 
 SubscribersModal subscribersModalFromJson(String str) =>
     SubscribersModal.fromJson(json.decode(str));
@@ -50,46 +49,3 @@ class SubscribersModal {
             : List<dynamic>.from(offers!.map((x) => x.toJson())),
       };
 }
-
-class Offer {
-  String? offerName;
-  String? offerStatus;
-  String? expiryDate;
-  String? chargedAmount;
-  String? chargedDate;
-  String? chargedValidity;
-  String? activationChannel;
-  RxBool? isSuspended = true.obs;
-  
-  Offer({
-    this.offerName,
-    this.offerStatus,
-    this.expiryDate,
-    this.chargedAmount,
-    this.chargedDate,
-    this.chargedValidity,
-    this.activationChannel,
-  });
-
-  factory Offer.fromJson(Map<String, dynamic> json) => Offer(
-        offerName: json["offerName"],
-        offerStatus: json["offerStatus"],
-        expiryDate: json["expiryDate"],
-        chargedAmount: json["chargedAmount"],
-        chargedDate: json["chargedDate"],
-        chargedValidity: json["chargedValidity"],
-        activationChannel: json["activationChannel"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "offerName": offerName,
-        "offerStatus": offerStatus,
-        "expiryDate": expiryDate,
-        "chargedAmount": chargedAmount,
-        "chargedDate": chargedDate,
-        "chargedValidity": chargedValidity,
-        "activationChannel": activationChannel,
-      };
-}
-
-

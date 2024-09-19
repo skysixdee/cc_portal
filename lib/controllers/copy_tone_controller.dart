@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:sm_admin_portal/Models/copy_tone_modal.dart';
+import 'package:sm_admin_portal/Models/get_subscription_modal.dart';
 import 'package:sm_admin_portal/Models/subscribers_modal.dart';
 import 'package:sm_admin_portal/Models/tone_detail_modal.dart';
 import 'package:sm_admin_portal/api_calls/copy_tone_api.dart';
@@ -75,7 +76,6 @@ class CopyTonecontroller extends GetxController {
     ]);
   }
 
-  
   getCopyToneDetail(String msisdn) async {
     copyDetailList.clear();
     isLoadingCopyTonedetail.value = true;
@@ -84,10 +84,7 @@ class CopyTonecontroller extends GetxController {
     CopyToneDetailModal model = await getCopyToneDetailApi();
     isLoadingCopyTonedetail.value = false;
     createToneDetailRowList(model.copytonelist ?? [], msisdn);
-   
   }
-
-
 
   createToneDetailRowList(List<CTonelist> list, String msisdn) {
     if (list.isEmpty) return;
@@ -147,6 +144,5 @@ class CopyTonecontroller extends GetxController {
             object: item),
       ]);
     }
-
   }
 }
