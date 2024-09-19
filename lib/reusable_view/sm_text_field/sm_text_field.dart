@@ -11,7 +11,7 @@ class SmTextField extends StatelessWidget {
     super.key,
     this.textEditingController,
     this.hint,
-    this.fontSize = 16,
+    this.fontSize = 15,
     this.tailingWidget,
     this.leadingWidget,
     this.onSubmit,

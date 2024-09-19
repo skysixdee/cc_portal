@@ -66,11 +66,14 @@ class TableRowListView extends StatelessWidget {
   }
 
   Widget row1(int row, int column) {
+    GenericTableViewModel model = list[row][column];
+    model.row = row;
+    model.column = column;
     return list[row][column].childType == ChildType.none
         ? SelectableText(list[row][column].columnValue,
             textAlign: column == 0 ? TextAlign.start : TextAlign.center)
         : (rowChild != null
-            ? rowChild!(info: list[row][column])
+            ? rowChild!(info: model)
             : Center(
                 child: Container(
                     color: sixdColor,

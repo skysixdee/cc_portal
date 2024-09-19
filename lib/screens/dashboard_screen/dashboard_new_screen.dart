@@ -380,8 +380,11 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
           fontWeight: FontWeight.normal,
           onTap: () {
             Tonelist detail = info?.object as Tonelist;
-            controller.deactivateTapped(detail.toneId, controller.packName);
-            print("tapped === ${info?.object}");
+
+            controller.deactivateTuneTapped(
+                info, detail.contentId, controller.packName);
+            print("tapped ===row ${info?.row}");
+            print("tapped === colum ${info?.column}");
           },
         ),
       ],

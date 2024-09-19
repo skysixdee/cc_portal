@@ -52,7 +52,7 @@ class NavigationBarView extends StatelessWidget {
               ),
               Container(
                 color: sixdColor,
-                height: 2,
+                height: 1,
               ),
               appCont.isCustomerLoggedIn.value
                   ? Expanded(
@@ -101,7 +101,7 @@ class NavigationBarView extends StatelessWidget {
           ),
         ),
         Container(
-          height: 1,
+          height: 2,
           color: sixdColor,
         ),
       ],

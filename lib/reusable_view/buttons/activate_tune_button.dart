@@ -25,7 +25,7 @@ Widget activateButton(GenericTableViewModel? info) {
           ToneInfo inf = info?.object as ToneInfo;
           print("tapped ${inf.toneName}");
           print("tapped ${inf.toneIdStreamingUrl}");
-          openBuyTunePopup(inf.toneName ?? '', inf.artistName ?? '');
+          openBuyTunePopup(inf.toneName ?? '', inf.toneId ?? '');
         },
       ),
     ],

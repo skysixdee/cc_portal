@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class GenericTableViewModel {
@@ -6,7 +7,8 @@ class GenericTableViewModel {
   ChildType childType;
   Object? object;
   RxBool isVisible;
-
+  int row;
+  int column;
   bool isRemovable;
   //bool isRemoveable;
   GenericTableViewModel({
@@ -15,6 +17,8 @@ class GenericTableViewModel {
     this.columnValue = 'No value ',
     this.childType = ChildType.none,
     this.object,
+    this.row = 0,
+    this.column = 0,
     this.isRemovable = false,
     //this.isRemoveable = false,
   });

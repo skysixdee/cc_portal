@@ -128,13 +128,15 @@ class ActivateTuneScreen extends StatelessWidget {
     return Row(
       children: [
         SMText(
-          title: 'Search in arabic',
+          title: searchInArabicStr,
           fontWeight: FontWeight.normal,
+          fontSize: 16,
         ),
         Obx(
           () {
             return CupertinoSwitch(
               activeColor: sixdColor,
+              trackColor: orangeColor,
               value: !cont.isEnglish.value,
               onChanged: (value) {
                 print("is changed");

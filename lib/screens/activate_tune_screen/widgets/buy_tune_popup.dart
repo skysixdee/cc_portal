@@ -92,27 +92,20 @@ class _BuyTunePopupState extends State<_BuyTunePopup> {
   }
 
   Widget opetionListView(BoxConstraints constraints) {
-    return SMDropDownButton(
-      popupHeigth: 215,
-      buttonHeaderTitle: packNameStr,
-      width: constraints.maxWidth,
-      items: cont.offerNameList,
-      direction: PopoverDirection.bottom,
-      onChanged: (index) {
-        print("index sky = $index");
-        cont.updatedSelectedPackName(index);
-        // controller.getListOffer(index: index);
-      },
-      buttonTitle: cont.selectedOfferId,
-    );
-    Obx(
+    return Obx(
       () {
-        return ListView.builder(
-          shrinkWrap: true,
-          itemCount: cont.offerList.length,
-          itemBuilder: (context, index) {
-            return radioButton(index);
+        return SMDropDownButton(
+          popupHeigth: cont.offerNameList.length > 7 ? 215 : null,
+          buttonHeaderTitle: packNameStr,
+          width: constraints.maxWidth,
+          items: cont.offerNameList,
+          direction: PopoverDirection.bottom,
+          onChanged: (index) {
+            print("index sky = $index");
+            cont.updatedSelectedPackName(index);
+            // controller.getListOffer(index: index);
           },
+          buttonTitle: cont.selectedOfferId,
         );
       },
     );
@@ -133,7 +126,7 @@ class _BuyTunePopupState extends State<_BuyTunePopup> {
                     ? Icons.radio_button_checked
                     : Icons
                         .radio_button_off, //radio_button_checked, // radio_button_off
-                size: 20,
+                size: 18,
                 color: sixdColor,
               ),
             ),

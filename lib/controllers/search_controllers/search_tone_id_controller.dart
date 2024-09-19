@@ -13,6 +13,7 @@ class SearchToneIdController extends GetxController {
   RxList<ToneInfo> toneList = <ToneInfo>[].obs;
   RxInt totolCount = 0.obs;
   RxString message = ''.obs;
+  String _toneId = '';
   RxList<List<GenericTableViewModel>> tuneList =
       <List<GenericTableViewModel>>[].obs;
   RxBool isLoading = false.obs;
@@ -26,6 +27,7 @@ class SearchToneIdController extends GetxController {
   }
 
   _searchToneId(String toneId) async {
+    _toneId = toneId;
     totolCount.value = 0;
     toneList.clear();
     tuneList.clear();
@@ -48,8 +50,21 @@ class SearchToneIdController extends GetxController {
     isLoading.value = false;
   }
 
-  loadMoreData(int index) {
+  loadMoreData(int index) async {
     print("index tapped $index");
+    isLoading.value = true;
+
+    ArtistsToneModel artistsToneModel =
+        await searchToneIdApi(_toneId, pageNo: index);
+    toneList.value = artistsToneModel.responseMap?.toneList ?? [];
+    totolCount.value = artistsToneModel.responseMap?.resultCount ?? 0;
+    if (toneList.isNotEmpty) {
+      createRowList(toneList);
+    } else {
+      message.value = noResultFoundStr;
+    }
+
+    isLoading.value = false;
   }
 
   createRowList(List<ToneInfo> list) {

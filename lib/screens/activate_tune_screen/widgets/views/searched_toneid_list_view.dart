@@ -80,6 +80,7 @@ class _SearchedToneidListViewState extends State<SearchedToneidListView> {
 
   Widget tableBuilder() {
     return GenericTableView(
+      headerScrollable: true,
       addMenuButton: true,
       list: cont.tuneList,
       rowChild: ({info}) {

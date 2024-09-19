@@ -81,18 +81,22 @@ class NewDashBoardController extends GetxController {
 
     offers.value = subscriptionModel.offers ?? [];
 
-    // offers.value += subscriptionModel.offers ?? [];
-    // offers.value += subscriptionModel.offers ?? [];
-    // offers.value += subscriptionModel.offers ?? [];
-    // offers.value += subscriptionModel.offers ?? [];
+//    offers.value += subscriptionModel.offers ?? [];
 
     if (subscriptionModel.respCode == 1) {
       userType.value = UserType.newUser;
-
+      packName = '';
       appCont.isCustomerLoggedIn.value = true;
     } else if (subscriptionModel.respCode == 0) {
       userType.value = UserType.existingUser;
+
+      packName = '';
       appCont.isCustomerLoggedIn.value = true;
+      try {
+        packName = offers[0].offerName ?? '';
+      } catch (e) {
+        print("got error while fetchinf pack name ");
+      }
     } else {
       userType.value = UserType.invalidUser;
       isLoading.value = false;
@@ -178,17 +182,54 @@ class NewDashBoardController extends GetxController {
     isLoading.value = false;
   }
 
-  deactivateTapped(String? toneId, String offerCode) async {
+  deactivateTuneTapped(
+      GenericTableViewModel? info, String? toneId, String offerCode) async {
     print("deactivate tapped");
-    isLoading.value = true;
-    GenericModal model = await deleteToneApi(toneId ?? 'All', offerCode);
-    if (model.respCode == 0) {
-    } else {
-      smSnackBar(model.message ?? someThingWentWrongStr);
-    }
+    openGenericPopup(
+      areYouSureYouWantToDeActivateStr,
+      primaryButtonTitle: confirmCStr,
+      secondryButtonTitle: cancelCStr,
+      primaryAction: () async {
+        isLoading.value = true;
+        GenericModal model = await deleteToneApi(toneId ?? 'All', offerCode);
+        if (model.respCode == 0) {
+          isLoadingTunes.value = true;
+          tuneTableList.removeAt(info?.row ?? 0);
+          isLoadingTunes.value = false;
+        } else {
+          smSnackBar(model.message ?? someThingWentWrongStr);
+        }
+        isLoading.value = false;
+      },
+    );
 
     //await Future.delayed(Duration(seconds: 2));
-    isLoading.value = false;
+  }
+
+  deactivateServiceTapped(String offerCode) async {
+    print("deactivate tapped");
+    openGenericPopup(
+      areYouSureYouWantToDeActivateStr,
+      primaryButtonTitle: confirmCStr,
+      secondryButtonTitle: cancelCStr,
+      primaryAction: () async {
+        isLoading.value = true;
+        GenericModal model = await deleteToneApi('All', offerCode);
+        if (model.respCode == 0) {
+          isLoadingTunes.value = true;
+          tuneTableList.clear();
+          isLoadingTunes.value = false;
+        } else {
+          smSnackBar(model.message ?? someThingWentWrongStr);
+          isLoadingTunes.value = true;
+          tuneTableList.clear();
+          isLoadingTunes.value = false;
+        }
+        isLoading.value = false;
+      },
+    );
+
+    //await Future.delayed(Duration(seconds: 2));
   }
 
   activateTapped() async {

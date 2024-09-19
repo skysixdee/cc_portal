@@ -131,10 +131,13 @@ String logoutCStr = "LOGOUT";
 String yesStr = "Yes";
 String cancelStr = "Cancel";
 String monthlyStr = "Monthly";
+String searchInArabicStr = 'Search in arabic';
 String areYouSureYouWantToLogoutStr = "Are you sure you want to logout?";
 String areYouSureYouWantToChangeUserStr =
     "Are you sure you want to Change user?";
 String areYouSureYouWantToActivateStr = "Are you sure you want to Activate?";
+String areYouSureYouWantToDeActivateStr =
+    "Are you sure you want to DeActivate?";
 String frequencyStr = "Frequency";
 String serviceTypeStr = "Service Type";
 String someThingWentWrongStr = "Some thing went wrong";

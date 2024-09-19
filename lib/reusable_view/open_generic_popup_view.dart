@@ -77,11 +77,11 @@ class _GenericPopupView extends StatelessWidget {
   Widget okButton(BuildContext context) {
     return secondryButtonTitle != null
         ? Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(20.0),
             child: Row(
               children: [
                 Flexible(child: primaryButton(context)),
-                SizedBox(width: 10),
+                SizedBox(width: 20),
                 Flexible(child: secondryButton(context))
               ],
             ),

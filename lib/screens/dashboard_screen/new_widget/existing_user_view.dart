@@ -28,7 +28,7 @@ Row card(NewDashBoardController cont, int index) {
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
-      Flexible(child: _cardContainer(_firstColumn1(cont.offers[index]))),
+      Flexible(child: _cardContainer(_firstColumn1(cont.offers[index], cont))),
       SizedBox(width: 30),
       Flexible(child: _cardContainer(_secondColumn1(cont.offers[index]))),
       SizedBox(width: 30),
@@ -55,7 +55,7 @@ String _dateFormate(String date) {
   return formatted;
 }
 
-Widget _firstColumn1(Offer offer) {
+Widget _firstColumn1(Offer offer, NewDashBoardController cont) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     crossAxisAlignment: CrossAxisAlignment.center,
@@ -122,6 +122,9 @@ Widget _firstColumn1(Offer offer) {
                 onHoverColor: sixdColor,
                 onHoverTitleColor: white,
                 fontWeight: FontWeight.normal,
+                onTap: () {
+                  cont.deactivateServiceTapped(cont.packName);
+                },
               ),
             ],
           )
