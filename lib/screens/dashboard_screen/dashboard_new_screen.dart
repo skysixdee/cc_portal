@@ -213,6 +213,9 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
                       ),
                       //SizedBox(height: 20),
 
+                      // Directionality(
+                      //   textDirection: TextDirection.rtl,
+                      //child:
                       GenericTableView(
                         addMenuButton: true,
                         list: controller.selectedTab.value == 0
@@ -227,7 +230,8 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
                                   : playButton(detail.contentId ?? '',
                                       detail.contentStreamingUrl ?? '');
                         },
-                      )
+                      ),
+                      //  )
                     ],
                   ),
                 ),
