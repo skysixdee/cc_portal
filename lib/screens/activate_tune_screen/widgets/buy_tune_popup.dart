@@ -13,7 +13,7 @@ import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 import 'package:sm_admin_portal/reusable_view/sm_visibility_view.dart';
 
 import 'package:sm_admin_portal/utilily/colors.dart';
-import 'package:sm_admin_portal/utilily/constants.dart';
+
 import 'package:sm_admin_portal/utilily/strings.dart';
 
 openBuyTunePopup(String toneName, String toneId, {Function()? onSuccess}) {
@@ -76,10 +76,7 @@ class _BuyTunePopupState extends State<_BuyTunePopup> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             SizedBox(height: 10),
-                            // frequencyButton(constraints),
-                            opetionListView(),
-                            //SizedBox(height: 12),
-                            //serviceTypeButton(constraints),
+                            opetionListView(constraints),
                             SizedBox(height: 20),
                             errorMessage(),
                             confirmButton(context),
@@ -94,19 +91,36 @@ class _BuyTunePopupState extends State<_BuyTunePopup> {
     );
   }
 
-  Widget opetionListView() {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: 5,
-      itemBuilder: (context, index) {
-        return radioButton(index);
+  Widget opetionListView(BoxConstraints constraints) {
+    return SMDropDownButton(
+      popupHeigth: 215,
+      buttonHeaderTitle: packNameStr,
+      width: constraints.maxWidth,
+      items: cont.offerNameList,
+      direction: PopoverDirection.bottom,
+      onChanged: (index) {
+        print("index sky = $index");
+        cont.updatedSelectedPackName(index);
+        // controller.getListOffer(index: index);
+      },
+      buttonTitle: cont.selectedOfferId,
+    );
+    Obx(
+      () {
+        return ListView.builder(
+          shrinkWrap: true,
+          itemCount: cont.offerList.length,
+          itemBuilder: (context, index) {
+            return radioButton(index);
+          },
+        );
       },
     );
   }
 
   Widget radioButton(int index) {
     return InkWell(onTap: () {
-      cont.radioButtonIndex.value = index;
+      cont.selectedIndex.value = index;
       print("taped");
     }, child: Obx(
       () {
@@ -115,16 +129,16 @@ class _BuyTunePopupState extends State<_BuyTunePopup> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 8),
               child: Icon(
-                cont.radioButtonIndex.value == index
+                cont.selectedIndex.value == index
                     ? Icons.radio_button_checked
                     : Icons
                         .radio_button_off, //radio_button_checked, // radio_button_off
-                size: 18,
+                size: 20,
                 color: sixdColor,
               ),
             ),
             SMText(
-              title: 'title',
+              title: cont.offerList[index].offerMarketingName ?? '',
               fontWeight: FontWeight.normal,
             )
           ],
@@ -214,7 +228,7 @@ class _BuyTunePopupState extends State<_BuyTunePopup> {
           color: white,
         ));
   }
-
+/*
   Widget serviceTypeButton(BoxConstraints constraints) {
     return Obx(() {
       return AbsorbPointer(
@@ -272,7 +286,8 @@ class _BuyTunePopupState extends State<_BuyTunePopup> {
         absorbing: cont.isConfirming.value,
         child: Obx(
           () {
-            return SMDropDownButton(
+            return 
+            SMDropDownButton(
               buttonHeaderTitle: frequencyStr,
               width: constraints.maxWidth,
               items: cont.frequencyMenuList,
@@ -289,4 +304,5 @@ class _BuyTunePopupState extends State<_BuyTunePopup> {
       );
     });
   }
+  */
 }

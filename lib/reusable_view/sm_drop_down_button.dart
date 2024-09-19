@@ -27,6 +27,7 @@ class SMDropDownButton extends StatelessWidget {
     this.buttonHeaderTitle = '',
     this.buttonTitle = '',
     this.buttonHintTitle,
+    this.popupHeigth,
   });
 
   Function(int)? onChanged;
@@ -35,6 +36,7 @@ class SMDropDownButton extends StatelessWidget {
   final String buttonTitle;
   final double cornerRadius;
   final double heigth;
+  final double? popupHeigth;
   final double? width;
   final String? buttonHintTitle;
   final Widget? dropDownIcon;
@@ -157,6 +159,7 @@ class SMDropDownButton extends StatelessWidget {
 
       bodyBuilder: (context) {
         return Container(
+          height: popupHeigth,
           //decoration: BoxDecoration(border: Border.all(color: greyLight)),
           //color: redColor,
           child: ListView.builder(

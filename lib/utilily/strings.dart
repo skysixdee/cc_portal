@@ -140,3 +140,4 @@ String serviceTypeStr = "Service Type";
 String someThingWentWrongStr = "Some thing went wrong";
 String selectFrequencyErrorStr = "Please select frequency";
 String selectServiceTypeErrorStr = "Please select service type";
+String selectPacknameStr = "Please select Pack name";

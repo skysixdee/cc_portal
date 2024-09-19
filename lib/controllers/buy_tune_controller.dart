@@ -11,77 +11,38 @@ import 'package:sm_admin_portal/utilily/strings.dart';
 class BuyTuneController extends GetxController {
   RxString errorMessage = ''.obs;
   RxBool isConfirming = false.obs;
-  RxInt radioButtonIndex = 0.obs;
-  RxBool loadingOffer = false.obs;
-  int _selectedFrequencyIndex = 0;
-  RxString selectedServiceTitle = ''.obs;
-  RxString selectedFrequencyTitle = ''.obs;
+  RxInt selectedIndex = 0.obs;
   RxList<OfferList> offerList = <OfferList>[].obs;
+  RxList<String> offerNameList = <String>[].obs;
   String selectedOfferId = '';
-  RxList<String> serviceTypeMenuList = <String>[].obs;
-  List<String> frequencyMenuList = [dailyStr, weeklyStr, monthlyStr];
   Function()? onBuySuccess;
 
   @override
   void onInit() {
     super.onInit();
-    // getListOffer();
+    getListOffer();
   }
 
-  getListOffer({int index = 0}) async {
-    _selectedFrequencyIndex = index;
+  getListOffer() async {
     offerList.clear();
-    serviceTypeMenuList.clear();
-    selectedFrequencyTitle.value = '';
-    selectedServiceTitle.value = '';
-
-    loadingOffer.value = true;
-
-    OfferListModel offerListModel = await listOfferApi(index);
+    OfferListModel offerListModel = await listOfferApi();
     errorMessage.value = '';
-    print("Offer list ========= ${offerListModel.offerList?.length}");
 
     for (OfferList itm in offerListModel.offerList ?? []) {
       offerList.add(itm);
-      serviceTypeMenuList.add(itm.offerMarketingName ?? '');
+      offerNameList.add(itm.offerMarketingName ?? '');
     }
     errorMessage.value = offerList.isEmpty ? someThingWentWrongStr : "";
-    selectedServiceTitle.value = offerList.isEmpty ? someThingWentWrongStr : "";
-    ;
-    loadingOffer.value = false;
-  }
-
-  updateFrequency(int index) {
-    errorMessage.value = '';
-    getListOffer(index: index);
-    selectedFrequencyTitle.value = frequencyMenuList[index];
-  }
-
-  updateServiceType(int index) {
-    // if (offerList.isEmpty) {
-    //   getListOffer(index: _selectedFrequencyIndex);
-    //   return;
-    // }
-    selectedServiceTitle.value = offerList[index].offerMarketingName ?? '';
-    selectedOfferId = offerList[index].offerName ?? '';
-    errorMessage.value = '';
   }
 
   confirmButtonAction(String toneId) async {
-    if (selectedFrequencyTitle.isEmpty) {
-      errorMessage.value = selectFrequencyErrorStr;
-      return;
-    }
-    if (selectedServiceTitle.isEmpty) {
-      print("Selecte some thing");
-      errorMessage.value = selectServiceTypeErrorStr;
-      return;
-    }
     errorMessage.value = '';
-    print(
-        "===============\n ${selectedFrequencyTitle} \n service type == ${selectedServiceTitle} \n========================");
-    isConfirming.value = true;
 
+    if (selectedOfferId.isEmpty) {
+      errorMessage.value = selectPacknameStr;
+      return;
+    }
+    isConfirming.value = true;
     GenericModal genericModal = await setToneApi(selectedOfferId, toneId);
 
     if (genericModal.respCode == 0) {
@@ -90,14 +51,16 @@ class BuyTuneController extends GetxController {
         onBuySuccess!();
         await Future.delayed(Duration(milliseconds: 200));
         openGenericPopup(genericModal.message ?? 'No Message');
-        // Get.dialog(Center(
-        //   child:
-        //       GenericPopupView(message: genericModal.message ?? 'No Message'),
-        // ));
       }
     } else {
       errorMessage.value = genericModal.message ?? someThingWentWrongStr;
     }
     isConfirming.value = false;
+  }
+
+  updatedSelectedPackName(int index) {
+    errorMessage.value = '';
+    selectedIndex.value = index;
+    selectedOfferId = offerList[index].offerName ?? '';
   }
 }

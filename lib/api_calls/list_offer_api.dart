@@ -7,14 +7,13 @@ import 'package:sm_admin_portal/utilily/constants.dart';
 import 'package:sm_admin_portal/utilily/get_transaction_id.dart';
 import 'package:sm_admin_portal/utilily/urls.dart';
 
-Future<OfferListModel> listOfferApi(int offerId) async {
+Future<OfferListModel> listOfferApi() async {
   Map<String, dynamic> myPost = {
     "transactionId": getTransactionId(),
     "featureId": 1,
     "channelId": channelId,
-    "languageCode": "en",
-    "offerValidity": 1,
-    "offerType": offerId + 1,
+    "languageCode": StoreManager().languageSort,
+    "offerType": '1',
   };
   try {
     Map<String, dynamic> map =
