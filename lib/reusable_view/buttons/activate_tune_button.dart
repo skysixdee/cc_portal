@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sm_admin_portal/Models/generic_table_view_model.dart';
 import 'package:sm_admin_portal/Models/tone_info.dart';
-import 'package:sm_admin_portal/controllers/activate_tune_controller.dart';
-import 'package:sm_admin_portal/controllers/dashboard_controller.dart';
+
 import 'package:sm_admin_portal/controllers/new_dash_board_controller.dart';
 import 'package:sm_admin_portal/reusable_view/open_generic_popup_view.dart';
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
