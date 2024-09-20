@@ -92,7 +92,7 @@ Widget _menuCell(GenericTableViewModel model, int index) {
               return Container(
                 color: greyLight,
                 child: Padding(
-                  padding: EdgeInsets.only(top: index == 0 ? 0.0 : 1.0),
+                  padding: EdgeInsets.only(top: 1.0),
                   child: Container(
                     color: white,
                     child: Row(

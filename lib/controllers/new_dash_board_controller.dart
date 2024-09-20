@@ -33,7 +33,7 @@ class NewDashBoardController extends GetxController {
   RxBool isMaxLimitMessageVisible = false.obs;
   RxList<Offer> offers = <Offer>[].obs;
   Rx<UserType> userType = UserType.existingUser.obs;
-  RxList<SettingsList> settingsList = <SettingsList>[].obs;
+  //RxList<SettingsList> settingsList = <SettingsList>[].obs;
 
   List<List<GenericTableViewModel>> tuneTableList = [];
   List<List<GenericTableViewModel>> musicTableList = [];
@@ -47,7 +47,7 @@ class NewDashBoardController extends GetxController {
     if (StoreManager().isCustomerLoggedIn) {
       isLoading.value = true;
       isVerified.value = true;
-      onSubmitButtonAction(StoreManager().customerNumber);
+      getSubscriptionDetail(StoreManager().customerNumber);
     }
     getMyTuneList();
   }
@@ -72,6 +72,10 @@ class NewDashBoardController extends GetxController {
 
       return;
     }
+    getSubscriptionDetail(msisdn);
+  }
+
+  getSubscriptionDetail(String msisdn) async {
     isLoading.value = true;
     this.msisdn = msisdn;
 
@@ -79,8 +83,6 @@ class NewDashBoardController extends GetxController {
         await getSubscriptionDetailApi(msisdn);
 
     offers.value = subscriptionModel.offers ?? [];
-
-//    offers.value += subscriptionModel.offers ?? [];
 
     if (subscriptionModel.respCode == 1) {
       userType.value = UserType.newUser;
@@ -104,13 +106,12 @@ class NewDashBoardController extends GetxController {
       return;
     }
 
-    ListSettingModel settingModel = await listSettingApi(msisdn);
-    settingsList.value = settingModel.settingsList ?? [];
-
     isLoading.value = false;
     isVerified.value = true;
+
     StoreManager().setCustomerLoggedin(true);
     StoreManager().setCustomerNumber(msisdn);
+    getMyTuneList();
   }
 
   String getColumnStatusName(String status) {
@@ -181,7 +182,7 @@ class NewDashBoardController extends GetxController {
     isLoading.value = true;
     GenericModal model = await setToneApi(defaultOfferCode, defaultToneId);
     if (model.respCode == 0) {
-      onSubmitButtonAction(StoreManager().customerNumber);
+      getSubscriptionDetail(StoreManager().customerNumber);
       smSnackBar(model.message ?? someThingWentWrongStr);
     } else {
       smSnackBar(model.message ?? someThingWentWrongStr);

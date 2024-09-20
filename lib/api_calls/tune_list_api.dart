@@ -16,7 +16,7 @@ Future<ToneListModel> toneListApi() async {
     "languageCode": StoreManager().languageSort,
     "channelId": 2
   };
-  await Future.delayed(Duration(seconds: 3));
+
   Map<String, dynamic> jsonMap =
       await NetworkManager().postResquest(url, jsonData);
   ToneListModel modal = ToneListModel.fromJson(jsonMap);

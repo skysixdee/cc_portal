@@ -204,8 +204,6 @@ class _ToneActivationScreenState extends State<ToneActivationScreen> {
     Map<String, dynamic> jsonrequ =
         await NetworkManager().postResquest(url, jsondata);
 
-    await Future.delayed(Duration(seconds: 2));
-
     GenericModal modal = GenericModal.fromJson(jsonrequ);
 
     setState(() {

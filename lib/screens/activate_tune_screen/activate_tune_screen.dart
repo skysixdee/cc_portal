@@ -136,7 +136,7 @@ class ActivateTuneScreen extends StatelessWidget {
           () {
             return CupertinoSwitch(
               activeColor: sixdColor,
-              trackColor: orangeColor,
+              //trackColor: orangeColor,
               value: !cont.isEnglish.value,
               onChanged: (value) {
                 print("is changed");

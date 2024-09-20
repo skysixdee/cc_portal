@@ -51,7 +51,7 @@ String _dateFormate(String date) {
 
   // HH:mm');
   final String formatted = formatter.format(dateTime);
-  print("SKY ==== $formatted");
+
   return formatted;
 }
 
@@ -59,80 +59,86 @@ Widget _firstColumn1(Offer offer, NewDashBoardController cont) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     crossAxisAlignment: CrossAxisAlignment.center,
+    mainAxisSize: MainAxisSize.min,
     children: [
-      Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SMText(
-                title: statusStr + " : ",
-                fontWeight: FontWeight.normal,
-              ),
-              statusBullet(offer.offerStatus ?? ''),
-            ],
-          ),
-          SizedBox(height: 4),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SMText(
-                title: packNameStr,
-                fontWeight: FontWeight.normal,
-              ),
-              SMText(
-                title: offer.offerName ?? '',
-                fontWeight: FontWeight.normal,
-              ),
-            ],
-          ),
-          SizedBox(height: 4),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SMText(
-                title: priceStr + " : ",
-                fontWeight: FontWeight.normal,
-              ),
-              SMText(
-                title: (offer.chargedAmount ?? '') +
-                    "/" +
-                    (offer.chargedValidity ?? ''),
-                fontWeight: FontWeight.normal,
-              ),
-            ],
-          ),
-          SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SMButton(
-                title: (offer.offerStatus == "D" || offer.offerStatus == "NA")
-                    ? activateStr
-                    : DeactivateStr,
-                addBorder: true,
-                textColor: sixdColor,
-                addHoverEffect: true,
-                onHoverColor: sixdColor,
-                onHoverTitleColor: white,
-                fontWeight: FontWeight.normal,
-                onTap: () {
-                  if ((offer.offerStatus == "D" || offer.offerStatus == "NA")) {
-                    cont.activateTune();
-                  } else {
-                    cont.deactivateServiceTapped(cont.packName);
-                  }
-                },
-              ),
-            ],
-          )
-        ],
+      Flexible(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SMText(
+                  title: statusStr + " : ",
+                  fontWeight: FontWeight.normal,
+                ),
+                statusBullet(offer.offerStatus ?? ''),
+              ],
+            ),
+            SizedBox(height: 4),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SMText(
+                  title: packNameStr,
+                  fontWeight: FontWeight.normal,
+                ),
+                Flexible(
+                  child: SMText(
+                    title: offer.offerName ?? '',
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 4),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SMText(
+                  title: priceStr + " : ",
+                  fontWeight: FontWeight.normal,
+                ),
+                SMText(
+                  title: (offer.chargedAmount ?? '') +
+                      "/" +
+                      (offer.chargedValidity ?? ''),
+                  fontWeight: FontWeight.normal,
+                ),
+              ],
+            ),
+            SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SMButton(
+                  title: (offer.offerStatus == "D" || offer.offerStatus == "NA")
+                      ? activateStr
+                      : DeactivateStr,
+                  addBorder: true,
+                  textColor: sixdColor,
+                  addHoverEffect: true,
+                  onHoverColor: sixdColor,
+                  onHoverTitleColor: white,
+                  fontWeight: FontWeight.normal,
+                  onTap: () {
+                    if ((offer.offerStatus == "D" ||
+                        offer.offerStatus == "NA")) {
+                      cont.activateTune();
+                    } else {
+                      cont.deactivateServiceTapped(cont.packName);
+                    }
+                  },
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     ],
   );
@@ -222,6 +228,10 @@ Widget _cardContainer(Widget child) {
       color: white,
       boxShadow: smShadow(),
     ),
-    child: Center(child: child),
+    child: Center(
+        child: Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 28.0),
+      child: child,
+    )),
   );
 }

@@ -69,26 +69,13 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
                 children: [
                   SizedBox(height: 25),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 38.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
                     child: Center(
-                        child: SizedBox(
-                      width: 1000,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(4),
-                                  color: white,
-                                  boxShadow: smShadow()),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 20.0, horizontal: 20),
-                                child: statusDiscription(),
-                              )),
-                        ],
+                      child: SizedBox(
+                        width: 1000,
+                        child: statusDisctiptionBuilder(),
                       ),
-                    )),
+                    ),
                   ),
                   mainContainer()
                 ],
@@ -117,6 +104,24 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
             );
           },
         ),
+      ],
+    );
+  }
+
+  Widget statusDisctiptionBuilder() {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4),
+                color: white,
+                boxShadow: smShadow()),
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20),
+              child: statusDiscription(),
+            )),
       ],
     );
   }
