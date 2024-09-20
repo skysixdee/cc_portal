@@ -160,8 +160,6 @@ class SMDropDownButton extends StatelessWidget {
       bodyBuilder: (context) {
         return Container(
           height: popupHeigth,
-          //decoration: BoxDecoration(border: Border.all(color: greyLight)),
-          //color: redColor,
           child: ListView.builder(
             padding: const EdgeInsets.all(1),
             itemCount: items.length,

@@ -21,8 +21,6 @@ import 'package:sm_admin_portal/screens/tone_activation_screen.dart';
 
 import 'package:sm_admin_portal/screens/suspend_and_resume_screen/suspend_and_resume_screen.dart';
 
-import 'package:sm_admin_portal/screens/subscriber_deatil_screen/subscriber_detail_screen1.dart';
-
 import 'package:sm_admin_portal/side_menu_view/side_menu_view.dart';
 import 'package:sm_admin_portal/store_manager/store_manager.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
@@ -43,7 +41,6 @@ final router = GoRouter(
         dashBoardShell(),
         _suspendAndResumeShell(),
         _toneActivationShell(),
-        _subscriberDetailShell(),
         _bulkScreenShell(),
         _transactionHistoryShell(),
         _copyScreenShell(),
@@ -197,20 +194,6 @@ StatefulShellBranch _transactionHistoryShell() {
         path: transactionHistoryRoute,
         builder: (context, state) {
           return HistoryScreen();
-        },
-      ),
-    ],
-  );
-}
-
-StatefulShellBranch _subscriberDetailShell() {
-  return StatefulShellBranch(
-    routes: <RouteBase>[
-      GoRoute(
-        name: subscriberDetailRoute,
-        path: subscriberDetailRoute,
-        builder: (context, state) {
-          return SubscriberDetailScreen1(); //OffersScreen();
         },
       ),
     ],
