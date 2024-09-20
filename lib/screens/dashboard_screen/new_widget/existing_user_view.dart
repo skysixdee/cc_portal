@@ -28,7 +28,9 @@ Row card(NewDashBoardController cont, int index) {
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
-      Flexible(child: _cardContainer(_firstColumn1(cont.offers[index], cont))),
+      Flexible(
+          child: _cardContainer(_firstColumn1(cont.offers[index], cont),
+              customChild: _moreButton(cont.offers[index]))),
       SizedBox(width: 30),
       Flexible(child: _cardContainer(_secondColumn1(cont.offers[index]))),
       SizedBox(width: 30),
@@ -64,79 +66,79 @@ Widget _firstColumn1(Offer offer, NewDashBoardController cont) {
       Flexible(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SMText(
                   title: statusStr + " : ",
-                  fontWeight: FontWeight.normal,
+                  fontWeight: FontWeight.bold,
                 ),
                 statusBullet(offer.offerStatus ?? ''),
               ],
             ),
-            SizedBox(height: 4),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SMText(
-                  title: packNameStr,
-                  fontWeight: FontWeight.normal,
-                ),
-                Flexible(
-                  child: SMText(
-                    title: offer.offerName ?? '',
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 4),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+            SizedBox(height: 12),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SMText(
-                  title: priceStr + " : ",
+                  title: packNameStr,
+                  fontWeight: FontWeight.bold,
+                ),
+                SMText(
+                  title: offer.offerName ?? '',
                   fontWeight: FontWeight.normal,
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+            SizedBox(height: 12),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SMText(
+                  title: priceStr,
+                  fontWeight: FontWeight.bold,
                 ),
                 SMText(
                   title: (offer.chargedAmount ?? '') +
                       "/" +
                       (offer.chargedValidity ?? ''),
                   fontWeight: FontWeight.normal,
+                  textAlign: TextAlign.center,
                 ),
               ],
             ),
-            SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SMButton(
-                  title: (offer.offerStatus == "D" || offer.offerStatus == "NA")
-                      ? activateStr
-                      : DeactivateStr,
-                  addBorder: true,
-                  textColor: sixdColor,
-                  addHoverEffect: true,
-                  onHoverColor: sixdColor,
-                  onHoverTitleColor: white,
-                  fontWeight: FontWeight.normal,
-                  onTap: () {
-                    if ((offer.offerStatus == "D" ||
-                        offer.offerStatus == "NA")) {
-                      cont.activateTune();
-                    } else {
-                      cont.deactivateServiceTapped(cont.packName);
-                    }
-                  },
-                ),
-              ],
-            )
+            //SizedBox(height: 8),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   crossAxisAlignment: CrossAxisAlignment.center,
+            //   children: [
+            //     SMButton(
+            //       title: (offer.offerStatus == "D" || offer.offerStatus == "NA")
+            //           ? activateStr
+            //           : DeactivateStr,
+            //       addBorder: true,
+            //       textColor: sixdColor,
+            //       addHoverEffect: true,
+            //       onHoverColor: sixdColor,
+            //       onHoverTitleColor: white,
+            //       fontWeight: FontWeight.normal,
+            //       onTap: () {
+            //         if ((offer.offerStatus == "D" ||
+            //             offer.offerStatus == "NA")) {
+            //           cont.activateTune();
+            //         } else {
+            //           cont.deactivateServiceTapped(cont.packName);
+            //         }
+            //       },
+            //     ),
+            //   ],
+            // )
           ],
         ),
       ),
@@ -220,18 +222,44 @@ Widget _thirdColumn1(Offer offer) {
   );
 }
 
-Widget _cardContainer(Widget child) {
-  return Container(
-    height: 160,
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(4),
-      color: white,
-      boxShadow: smShadow(),
+Widget _cardContainer(Widget child, {Widget? customChild}) {
+  return Stack(
+    alignment: Alignment.topRight,
+    children: [
+      Container(
+        height: 200,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(4),
+          color: white,
+          boxShadow: smShadow(),
+        ),
+        child: Center(
+            child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 28.0),
+          child: child,
+        )),
+      ),
+      customChild ?? SizedBox()
+    ],
+  );
+}
+
+Widget _moreButton(Offer offer) {
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          border: Border.all(color: grey)
+          //color: greyLight,
+          ),
+      height: 30,
+      width: 30,
+      child: Icon(
+        Icons.more_horiz,
+        color: grey,
+        size: 20,
+      ),
     ),
-    child: Center(
-        child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 28.0),
-      child: child,
-    )),
   );
 }

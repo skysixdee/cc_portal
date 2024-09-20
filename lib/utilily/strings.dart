@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-String packNameStr = 'Pack Name : ';
+String packNameStr = 'Pack Name';
 String aPartyStr = 'A Party';
 String bPartyStr = 'B Party';
 String loginStr = 'Login';
