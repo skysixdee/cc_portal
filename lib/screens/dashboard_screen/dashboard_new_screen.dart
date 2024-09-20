@@ -266,12 +266,7 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
                             : controller.musicTableList,
                         rowChild: ({info}) {
                           Tonelist detail = info?.object as Tonelist;
-                          return info?.childType == ChildType.status
-                              ? statusIndicator(info?.object as Tonelist)
-                              : info?.childType == ChildType.button
-                                  ? deactivateButton(info)
-                                  : playButton(detail.contentId ?? '',
-                                      detail.contentStreamingUrl ?? '');
+                          return returnWidget(info, detail, info?.childType);
                         },
                       ),
                       //  )
@@ -280,6 +275,20 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
                 ),
               )
         : SizedBox();
+  }
+
+  Widget returnWidget(
+      GenericTableViewModel? info, Tonelist detail, ChildType? childType) {
+    if (childType == ChildType.status) {
+      return statusIndicator(info?.object as Tonelist);
+    } else if (childType == ChildType.button) {
+      return deactivateButton(info);
+    } else if (childType == ChildType.play) {
+      return playButton(
+          detail.contentId ?? '', detail.contentStreamingUrl ?? '');
+    } else {
+      return SMText(title: "check child type");
+    }
   }
 
   Widget morebutton() {
@@ -375,7 +384,6 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         SMButton(
-          height: 35,
           onHoverColor: sixdColor,
           onHoverTitleColor: white,
           addBorder: true,

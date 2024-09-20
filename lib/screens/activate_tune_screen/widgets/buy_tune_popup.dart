@@ -77,7 +77,7 @@ class _BuyTunePopupState extends State<_BuyTunePopup> {
                           children: [
                             SizedBox(height: 10),
                             opetionListView(constraints),
-                            SizedBox(height: 20),
+                            SizedBox(height: 15),
                             errorMessage(),
                             confirmButton(context),
                             SizedBox(height: 10),
@@ -94,26 +94,38 @@ class _BuyTunePopupState extends State<_BuyTunePopup> {
   Widget opetionListView(BoxConstraints constraints) {
     return Obx(
       () {
-        return SMDropDownButton(
-          popupHeigth: cont.offerNameList.length > 7 ? 215 : null,
-          buttonHeaderTitle: packNameStr,
-          width: constraints.maxWidth,
-          items: cont.offerNameList,
-          direction: PopoverDirection.bottom,
-          onChanged: (index) {
-            print("index sky = $index");
-            cont.updatedSelectedPackName(index);
-            // controller.getListOffer(index: index);
+        return ListView.builder(
+          shrinkWrap: true,
+          itemCount: cont.offerList.length,
+          itemBuilder: (context, index) {
+            return radioButton(index);
           },
-          buttonTitle: cont.selectedOfferId,
         );
       },
     );
+    // Obx(
+    //   () {
+    //     return SMDropDownButton(
+    //       popupHeigth: cont.offerNameList.length > 7 ? 215 : null,
+    //       buttonHeaderTitle: packNameStr,
+    //       width: constraints.maxWidth,
+    //       items: cont.offerNameList,
+    //       direction: PopoverDirection.bottom,
+    //       onChanged: (index) {
+    //         print("index sky = $index");
+    //         cont.updatedSelectedPackName(index);
+    //         // controller.getListOffer(index: index);
+    //       },
+    //       buttonTitle: cont.selectedOfferId,
+    //     );
+    //   },
+    // );
   }
 
   Widget radioButton(int index) {
     return InkWell(onTap: () {
-      cont.selectedIndex.value = index;
+      cont.updatedSelectedPackName(index);
+
       print("taped");
     }, child: Obx(
       () {
@@ -126,7 +138,7 @@ class _BuyTunePopupState extends State<_BuyTunePopup> {
                     ? Icons.radio_button_checked
                     : Icons
                         .radio_button_off, //radio_button_checked, // radio_button_off
-                size: 18,
+                size: 20,
                 color: sixdColor,
               ),
             ),
@@ -195,7 +207,7 @@ class _BuyTunePopupState extends State<_BuyTunePopup> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(width: 30),
+            SizedBox(width: 35),
             Expanded(
                 child: SMText(
               title: widget.toneName,

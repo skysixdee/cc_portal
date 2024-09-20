@@ -8,7 +8,7 @@ class SMText extends StatelessWidget {
     this.fontWeight = FontWeight.w600,
     this.textColor = black,
     this.textAlign,
-    this.fontSize,
+    this.fontSize = 15,
   });
   final FontWeight fontWeight;
   final String title;

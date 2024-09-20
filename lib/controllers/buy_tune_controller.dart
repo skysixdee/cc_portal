@@ -13,7 +13,7 @@ class BuyTuneController extends GetxController {
   RxBool isConfirming = false.obs;
   RxInt selectedIndex = 0.obs;
   RxList<OfferList> offerList = <OfferList>[].obs;
-  RxList<String> offerNameList = <String>[].obs;
+  //RxList<String> offerNameList = <String>[].obs;
   String selectedOfferId = '';
   Function()? onBuySuccess;
 
@@ -27,10 +27,14 @@ class BuyTuneController extends GetxController {
     offerList.clear();
     OfferListModel offerListModel = await listOfferApi();
     errorMessage.value = '';
+    offerList.value = offerListModel.offerList ?? [];
+    // for (OfferList itm in offerListModel.offerList ?? []) {
+    //   offerList.add(itm);
+    //   //offerNameList.add(itm.offerMarketingName ?? '');
 
-    for (OfferList itm in offerListModel.offerList ?? []) {
-      offerList.add(itm);
-      offerNameList.add(itm.offerMarketingName ?? '');
+    // }
+    if (offerList.isNotEmpty) {
+      selectedOfferId = offerList[0].offerName ?? '';
     }
     errorMessage.value = offerList.isEmpty ? someThingWentWrongStr : "";
   }

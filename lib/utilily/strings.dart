@@ -7,6 +7,7 @@ String loginStr = 'Login';
 String englishToneNameStr = 'English Tone Name';
 String chargeStr = 'Charge';
 String timeStampStr = 'Time Stamp';
+String upgradeStr = 'Upgrade';
 String toneTypeStr = 'Tone Type';
 String transactionTypeStr = 'Transaction Type';
 String poweredByStr = 'powered by - 6D Technologies';

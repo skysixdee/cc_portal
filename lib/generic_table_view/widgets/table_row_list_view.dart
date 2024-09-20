@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sm_admin_portal/Models/generic_table_view_model.dart';
+import 'package:sm_admin_portal/enums/font_name.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 
@@ -70,7 +71,9 @@ class TableRowListView extends StatelessWidget {
     model.row = row;
     model.column = column;
     return list[row][column].childType == ChildType.none
-        ? SelectableText(list[row][column].columnValue,
+        ? SMText(
+            title: list[row][column].columnValue,
+            fontWeight: FontWeight.normal,
             textAlign: column == 0 ? TextAlign.start : TextAlign.center)
         : (rowChild != null
             ? rowChild!(info: model)

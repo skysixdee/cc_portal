@@ -17,6 +17,7 @@ class NetworkManager {
     try {
       HttpClientResponse response =
           await request.close().timeout(Duration(seconds: connectionTimeOut));
+
       if (response.statusCode == 200) {
         try {
           String stringData = await response.transform(utf8.decoder).join();
@@ -30,7 +31,9 @@ class NetworkManager {
           return valueMap;
         }
       } else {
-        print("SKY ====== 1");
+        print("SKY ====== 1sky");
+        print("SKY ====== 1sky ${response.connectionInfo}");
+
         String code = "${response.statusCode}";
         String message = someThingWentWrongStr + " Status = $code";
         Map<String, dynamic> valueMap =
