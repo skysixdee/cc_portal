@@ -300,40 +300,48 @@ Widget shellRouteIndex(
   return GetMaterialApp(
     title: 'CC PORTAL',
     debugShowCheckedModeBanner: false,
-    home: Material(
-        color: white,
-        child: Stack(
-          children: [
-            Column(
-              children: [
-                Obx(
-                  () {
-                    return SizedBox(
-                        height: navBarheight +
-                            (appCont.isCustomerLoggedIn.value ? 40 : 0));
-                  },
-                ),
-                Expanded(child: navigationShell),
-                // Expanded(child: Obx(() {
-                //   return Stack(
-                //     children: [
-                //       animatingSideMenu(sideMenuOpendWidth, animationTime),
-                //       Row(
-                //         children: [
-                //           enimationBufferWidthSideMenu(
-                //               sideMenuOpendWidth, animationTime),
-                //           Expanded(child: navigationShell),
-                //         ],
-                //       ),
-                //     ],
-                //   );
-                // })),
-              ],
-            ),
-            NavigationBarView(
-                navBarheight: navBarheight, sideMenuWidth: sideMenuOpendWidth),
-          ],
-        )),
+    theme: ThemeData(
+      textSelectionTheme: TextSelectionThemeData(
+        selectionColor: sixdLightColor,
+      ),
+    ),
+    home: SelectionArea(
+      child: Material(
+          color: white,
+          child: Stack(
+            children: [
+              Column(
+                children: [
+                  Obx(
+                    () {
+                      return SizedBox(
+                          height: navBarheight +
+                              (appCont.isCustomerLoggedIn.value ? 40 : 0));
+                    },
+                  ),
+                  Expanded(child: navigationShell),
+                  // Expanded(child: Obx(() {
+                  //   return Stack(
+                  //     children: [
+                  //       animatingSideMenu(sideMenuOpendWidth, animationTime),
+                  //       Row(
+                  //         children: [
+                  //           enimationBufferWidthSideMenu(
+                  //               sideMenuOpendWidth, animationTime),
+                  //           Expanded(child: navigationShell),
+                  //         ],
+                  //       ),
+                  //     ],
+                  //   );
+                  // })),
+                ],
+              ),
+              NavigationBarView(
+                  navBarheight: navBarheight,
+                  sideMenuWidth: sideMenuOpendWidth),
+            ],
+          )),
+    ),
   );
 }
 

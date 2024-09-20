@@ -25,16 +25,10 @@ import 'package:sm_admin_portal/utilily/urls.dart';
 Future<GetSubscriptionModel> getSubscriptionDetailApi(
     String phoneNumber) async {
   String url = getSubscriptionUrl;
- // 'http://10.0.10.33:6005/selfcare/subscription-service/get-subscription';
-  //  jsonData: );;
   Map<String, dynamic> jsonData = {"msisdn": phoneNumber};
-  // await Future.delayed(Duration(seconds: 1));
   Map<String, dynamic> jsonMap =
       await NetworkManager().postResquest(url, jsonData);
   GetSubscriptionModel modal = GetSubscriptionModel.fromJson(jsonMap);
-  print("modal =${modal.message}");
-  print("modal Offers=${modal.offers?.length}");
-  print("modal  respCode =${modal.respCode}");
+
   return modal;
-  //createRowList(modal.offers, phoneNumber);
 }

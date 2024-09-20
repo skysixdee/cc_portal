@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sm_admin_portal/Models/generic_table_view_model.dart';
 import 'package:sm_admin_portal/Models/tone_info.dart';
+import 'package:sm_admin_portal/controllers/activate_tune_controller.dart';
+import 'package:sm_admin_portal/controllers/dashboard_controller.dart';
+import 'package:sm_admin_portal/controllers/new_dash_board_controller.dart';
+import 'package:sm_admin_portal/reusable_view/open_generic_popup_view.dart';
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
 import 'package:sm_admin_portal/screens/activate_tune_screen/widgets/buy_tune_popup.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
@@ -25,7 +30,19 @@ Widget activateButton(GenericTableViewModel? info) {
           ToneInfo inf = info?.object as ToneInfo;
           print("tapped ${inf.toneName}");
           print("tapped ${inf.toneIdStreamingUrl}");
-          openBuyTunePopup(inf.toneName ?? '', inf.toneId ?? '');
+          NewDashBoardController cont = Get.find();
+          if (cont.packName.isEmpty) {
+            openBuyTunePopup(inf.toneName ?? '', inf.toneId ?? '');
+          } else {
+            openGenericPopup(
+              areYouSureYouWantToActivateStr,
+              primaryButtonTitle: confirmCStr,
+              secondryButtonTitle: cancelCStr,
+              primaryAction: () {
+                cont.activateTapped(inf);
+              },
+            );
+          }
         },
       ),
     ],

@@ -123,7 +123,11 @@ Widget _firstColumn1(Offer offer, NewDashBoardController cont) {
                 onHoverTitleColor: white,
                 fontWeight: FontWeight.normal,
                 onTap: () {
-                  cont.deactivateServiceTapped(cont.packName);
+                  if ((offer.offerStatus == "D" || offer.offerStatus == "NA")) {
+                    cont.activateTune();
+                  } else {
+                    cont.deactivateServiceTapped(cont.packName);
+                  }
                 },
               ),
             ],

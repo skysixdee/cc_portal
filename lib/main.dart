@@ -74,7 +74,7 @@ initialize() async {
   Get.lazyPut(() => PlayerController());
 
   Get.lazyPut(() => ActivateTuneController());
-  Get.lazyPut(() => DashboardController());
+
   Get.lazyPut(() => NewDashBoardController());
 
   prefs = await SharedPreferences.getInstance();

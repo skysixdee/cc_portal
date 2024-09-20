@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:sm_admin_portal/Models/generic_modal.dart';
 import 'package:sm_admin_portal/Models/generic_table_view_model.dart';
 import 'package:sm_admin_portal/Models/tone_detail_modal.dart';
+import 'package:sm_admin_portal/Models/tone_info.dart';
 import 'package:sm_admin_portal/Models/tone_list_model.dart';
 import 'package:sm_admin_portal/api_calls/delete_tone_api.dart';
 import 'package:sm_admin_portal/api_calls/resume_api.dart';
@@ -61,21 +62,19 @@ class NewDashBoardController extends GetxController {
   }
 
   onSubmitButtonAction(String msisdn) async {
-    print("msis========= $msisdn");
     if (msisdn.isEmpty) {
       smSnackBar(enterValidMsisdnStr);
-      //openGenericPopup(enterValidMsisdnStr, headerTitle: '');
+
       return;
     }
     if (msisdn.length < msisdnLength) {
       smSnackBar(enterValidMsisdnStr);
-      //openGenericPopup(enterValidMsisdnStr, headerTitle: '');
+
       return;
     }
     isLoading.value = true;
     this.msisdn = msisdn;
-    //isVerified.value = false;
-    //await Future.delayed(Duration(milliseconds: 3000));
+
     GetSubscriptionModel subscriptionModel =
         await getSubscriptionDetailApi(msisdn);
 
@@ -170,7 +169,15 @@ class NewDashBoardController extends GetxController {
     }
   }
 
-  activateNewUser() async {
+  activateNewUser() {
+    _activateDefaultTone();
+  }
+
+  activateTune() {
+    _activateDefaultTone();
+  }
+
+  _activateDefaultTone() async {
     isLoading.value = true;
     GenericModal model = await setToneApi(defaultOfferCode, defaultToneId);
     if (model.respCode == 0) {
@@ -232,12 +239,12 @@ class NewDashBoardController extends GetxController {
     //await Future.delayed(Duration(seconds: 2));
   }
 
-  activateTapped() async {
+  activateTapped(ToneInfo inf) async {
     print("activate tapped");
     isLoading.value = true;
-    GenericModal model = await setToneApi(defaultOfferCode, defaultToneId);
+    GenericModal model =
+        await setToneApi(packName, inf.toneId ?? defaultToneId);
     if (model.respCode == 0) {
-      onSubmitButtonAction(StoreManager().customerNumber);
       smSnackBar(model.message ?? someThingWentWrongStr);
     } else {
       smSnackBar(model.message ?? someThingWentWrongStr);
