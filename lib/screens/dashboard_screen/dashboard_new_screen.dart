@@ -365,16 +365,7 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Container(
-          height: 10,
-          width: 10,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: info.status == "A" ? green : orangeColor,
-          ),
-        ),
-      ],
+      children: [statusBullet(info.status ?? "NA")],
     );
   }
 

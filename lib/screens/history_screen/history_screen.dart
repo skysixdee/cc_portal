@@ -70,43 +70,38 @@ class _HistoryScreenState extends State<HistoryScreen> {
   @override
   Widget build(BuildContext context) {
     print("Width is ===== ${MediaQuery.of(context).size.width}");
-    return Container(
-      color: bgColor,
-      child: Padding(padding: const EdgeInsets.all(18.0), child: mainContainer()
-          //(width == null)
-          // ? mainContainer(width)
-          // : SingleChildScrollView(
-          //     scrollDirection: Axis.horizontal,
-          //     child: mainContainer(width),
-          //   ),
-          ),
-    );
+    return mainContainer();
   }
 
   Widget mainContainer() {
-    // double containerWidth = MediaQuery.of(context).size.width;
-
     return Container(
-      //width: containerWidth,
-      // width: width ?? MediaQuery.of(context).size.width,
-      child: ListView(
-        shrinkWrap: true,
-        children: [
-          Row(
-            children: [
-              Expanded(child: searchView()),
-            ],
-          ),
-          const SizedBox(height: 14),
-          customTableTabView(),
-          Flexible(
-            child: Obx(() {
-              return CustomVisibiltyView(
-                  type: con.visibilityType.value,
-                  child: loadRespectiveTableType(con.tableType.value));
-            }),
-          )
-        ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 20),
+        child: ListView(
+          shrinkWrap: true,
+          children: [
+            Flexible(
+                child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: searchView(),
+            )),
+            const SizedBox(height: 14),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: customTableTabView(),
+            ),
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Obx(() {
+                  return CustomVisibiltyView(
+                      type: con.visibilityType.value,
+                      child: loadRespectiveTableType(con.tableType.value));
+                }),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

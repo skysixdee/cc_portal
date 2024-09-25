@@ -9,6 +9,7 @@ import 'package:sm_admin_portal/reusable_view/reusable_drop_down_button.dart';
 import 'package:sm_admin_portal/reusable_view/reusable_textfield.dart';
 import 'package:sm_admin_portal/reusable_view/reusable_view_delete.dart';
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
+import 'package:sm_admin_portal/reusable_view/sm_shadow.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
@@ -26,6 +27,7 @@ class HistorySearchView extends StatelessWidget {
         SMText(title: searchCStr),
         const SizedBox(height: 6),
         Container(
+          clipBehavior: Clip.hardEdge,
           decoration: decoration(),
           child: Column(
             children: [
@@ -42,6 +44,10 @@ class HistorySearchView extends StatelessWidget {
                   ],
                 ),
               ),
+              Container(
+                height: 1,
+                color: greyLight,
+              ),
               bottomButtonBuilder(),
             ],
           ),
@@ -52,7 +58,7 @@ class HistorySearchView extends StatelessWidget {
 
   Container bottomButtonBuilder() {
     return Container(
-      color: greyLight,
+      color: white,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 6),
         child: Row(
@@ -136,9 +142,9 @@ class HistorySearchView extends StatelessWidget {
 
   BoxDecoration decoration() {
     return BoxDecoration(
-      boxShadow: boxShadow,
+      boxShadow: smShadow(),
       color: white,
-      borderRadius: BorderRadius.circular(2),
+      borderRadius: BorderRadius.circular(4),
     );
   }
 }

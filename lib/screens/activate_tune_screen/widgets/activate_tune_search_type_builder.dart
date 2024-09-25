@@ -5,7 +5,7 @@ import 'package:sm_admin_portal/enums/search_type.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 
-SizedBox activateTuneSearchTypeBuilder(ActivateTuneController cont) {
+Widget activateTuneSearchTypeBuilder(ActivateTuneController cont) {
   return SizedBox(
     height: 40,
     child: ListView.builder(
