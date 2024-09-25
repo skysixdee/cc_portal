@@ -45,21 +45,19 @@ class _SearchedToneListViewState extends State<SearchedToneListView> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.max,
       children: [
-        Flexible(
-          child: Obx(
-            () {
-              return cont.isLoading.value
-                  ? Center(child: loadingIndicatorView())
-                  : cont.purchaseList.isEmpty
-                      ? Center(
-                          child: SMText(
-                            title: cont.message.value,
-                            fontSize: 16,
-                          ),
-                        )
-                      : tableBuilder();
-            },
-          ),
+        Obx(
+          () {
+            return cont.isLoading.value
+                ? Center(child: loadingIndicatorView())
+                : cont.purchaseList.isEmpty
+                    ? Center(
+                        child: SMText(
+                          title: cont.message.value,
+                          fontSize: 16,
+                        ),
+                      )
+                    : tableBuilder();
+          },
         ),
         numberPageBuilder()
       ],

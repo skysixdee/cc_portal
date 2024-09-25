@@ -12,6 +12,7 @@ import 'package:sm_admin_portal/controllers/new_dash_board_controller.dart';
 import 'package:sm_admin_portal/enums/user_type.dart';
 import 'package:sm_admin_portal/generic_table_view/generic_table_view.dart';
 import 'package:sm_admin_portal/main.dart';
+import 'package:sm_admin_portal/reusable_view/custom_url_launcher.dart';
 import 'package:sm_admin_portal/reusable_view/open_generic_popup_view.dart';
 import 'package:sm_admin_portal/reusable_view/buttons/play_button.dart';
 import 'package:sm_admin_portal/reusable_view/reusable_drop_down_button.dart';
@@ -408,11 +409,11 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            // Expanded(child: tuneListButton(context)),
-            // SizedBox(width: 20),
             Expanded(child: newTuneActivateButton()),
             SizedBox(width: 20),
             Expanded(child: transactionButton()),
+            SizedBox(width: 20),
+            Expanded(child: tuneListButton(context)),
           ],
         ),
       ],
@@ -454,26 +455,27 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
   }
 
   Widget tuneListButton(BuildContext context) {
-    String status = '';
-    try {
-      status = controller.offers.first.offerStatus ?? "";
-    } catch (e) {}
-    bool enable = (status == "A" || status == "G" || status == "S");
+    // String status = '';
+    // try {
+    //   status = controller.offers.first.offerStatus ?? "";
+    // } catch (e) {}
+    // bool enable = (status == "A" || status == "G" || status == "S");
     return SMButton(
-      boxShadow: enable ? smShadow() : null,
-      addHoverEffect: enable,
+      boxShadow: smShadow(blurRadius: 4, spreadRadius: 2),
+      addHoverEffect: true,
       onHoverColor: sixdColor,
-      height: 55,
-      title: tuneListStr,
-      textColor: enable ? black : black.withOpacity(0.2),
+      height: 50,
+      title: crbtPortalStr,
+      textColor: black,
       //borderColor: enable ? sixdColor : greyLight,
-      bgColor: enable ? white : hoverColor,
+      bgColor: white,
+      onHoverTitleColor: white,
       //fontWeight: FontWeight.normal,
-      addBorder: enable,
+      addBorder: true,
       onTap: () {
-        if (enable) {
-          context.goNamed(tuneListRoute);
-        }
+        //context.goNamed(tuneListRoute);
+        CustomUrlLauncher(webPortal +
+            "/?data=khIFLDmLv7lYBWYQrs8ZBLegBFHrq+vJT6nw40xYbLv73VjbAfcEBv5fp2L8nWJ9jnpmpVFgp0TolPeed5NhrjiU1PBDD0o/0cOVhwWhwAc=");
       },
     );
   }

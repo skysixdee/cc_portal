@@ -24,7 +24,8 @@ class ActivateTuneScreen extends StatelessWidget {
   final ActivateTuneController cont = Get.find();
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ListView(
+      shrinkWrap: true,
       children: [
         SizedBox(height: 20),
         Padding(

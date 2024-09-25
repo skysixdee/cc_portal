@@ -4,5 +4,6 @@
     "COUNTRY_CODE":"+233 - ",
     "MSISDN_LENGTH":10,
     "MAX_TONE_COUNT":5,
-    "PRODUCT_NAME":"Callertune"
+    "PRODUCT_NAME":"Callertune",
+    "WEB_PORTAL":"https://mytune.atom.com.mm/CRBT_PORTAL/mytune"
 }

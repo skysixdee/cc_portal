@@ -15,5 +15,6 @@ String defaultToneId = '';
 String defaultOfferCode = '';
 String productName = '';
 int maxToneCount = 0;
+String webPortal = '';
 String countryCode = '';
 int msisdnLength = 0;

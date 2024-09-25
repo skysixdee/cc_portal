@@ -92,6 +92,7 @@ _extractValueFromPropertiesFile() async {
     msisdnLength = data['MSISDN_LENGTH'];
     productName = data['PRODUCT_NAME'];
     maxToneCount = data['MAX_TONE_COUNT'];
+    webPortal = data['WEB_PORTAL'];
 
     print("default tone is ======= $defaultToneId");
   } catch (e) {

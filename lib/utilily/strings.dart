@@ -19,6 +19,7 @@ String searchMenuItemStr = "Search Menu Items";
 String packDetailsStr = "Pack Details";
 String toneDetailsStr = "Tone Details";
 String tuneListStr = "Tune List";
+String crbtPortalStr = "CRBT Portal";
 String loadingServiceMenuStr = "Loading service menu...";
 String noResultFoundStr = "No Result found";
 String suspendAndResumeStr = "Suspend And Resume";

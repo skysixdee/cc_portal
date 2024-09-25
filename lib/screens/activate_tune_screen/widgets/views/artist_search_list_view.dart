@@ -42,14 +42,12 @@ class _ArtistSearchListViewState extends State<ArtistSearchListView> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-          child: Obx(
-            () {
-              return cont.isLoading.value
-                  ? loadingIndicatorView()
-                  : loadTableBuilder();
-            },
-          ),
+        Obx(
+          () {
+            return cont.isLoading.value
+                ? loadingIndicatorView()
+                : loadTableBuilder();
+          },
         ),
         Obx(
           () {

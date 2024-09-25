@@ -27,11 +27,6 @@ class TestScreen extends StatelessWidget {
               : GenericTableView(
                   headerScrollable: true,
                   list: list,
-                  // rowChild: ({childType, column, row}) {
-                  //   return childType == ChildType.play
-                  //       ? playButton()
-                  //       : button(column!, row!, childType!);
-                  // },
                 );
         },
       ),
