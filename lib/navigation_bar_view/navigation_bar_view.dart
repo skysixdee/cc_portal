@@ -50,9 +50,15 @@ class NavigationBarView extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
-                color: sixdColor,
-                height: 1,
+              Obx(
+                () {
+                  return Container(
+                    color: appCont.isCustomerLoggedIn.value
+                        ? greyLight
+                        : sixdColor,
+                    height: 1,
+                  );
+                },
               ),
               appCont.isCustomerLoggedIn.value
                   ? Expanded(
@@ -89,10 +95,16 @@ class NavigationBarView extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     backButton(context),
-                    Icon(Icons.call, size: 18),
+                    Icon(
+                      Icons.call,
+                      size: 18,
+                      color: sixdColor,
+                    ),
                     SizedBox(width: 8),
                     SMText(
-                        title: "$countryCode ${StoreManager().customerNumber}"),
+                      title: "$countryCode ${StoreManager().customerNumber}",
+                      fontSize: 13,
+                    ),
                   ],
                 ),
                 switchUserButton(controller, context)
@@ -101,7 +113,7 @@ class NavigationBarView extends StatelessWidget {
           ),
         ),
         Container(
-          height: 2,
+          height: 1,
           color: sixdColor,
         ),
       ],
@@ -136,6 +148,7 @@ class NavigationBarView extends StatelessWidget {
         padding: const EdgeInsets.only(right: 4),
         child: Icon(
           Icons.switch_account_rounded,
+          size: 16,
           //color: sixdColor,
         ),
       ),

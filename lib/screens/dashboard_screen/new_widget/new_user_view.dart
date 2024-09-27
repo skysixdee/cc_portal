@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sm_admin_portal/controllers/new_dash_board_controller.dart';
+import 'package:sm_admin_portal/enums/user_type.dart';
 import 'package:sm_admin_portal/reusable_view/open_generic_popup_view.dart';
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
 import 'package:sm_admin_portal/reusable_view/sm_shadow.dart';
@@ -39,7 +40,8 @@ Widget newUserView(NewDashBoardController cont) {
                         fontWeight: FontWeight.normal,
                       ),
                       SMText(title: " : ", fontWeight: FontWeight.normal),
-                      statusBullet("D")
+                      statusBullet(
+                          cont.userType == UserType.newUser ? "NA" : "D")
                       // SMText(
                       //     title: inActiveCStr,
                       //     textColor: red,

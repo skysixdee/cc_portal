@@ -1,38 +1,31 @@
-import 'package:flutter/material.dart';
-import 'dart:html';
 import 'package:get/get.dart';
-
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:keycloak_flutter/keycloak_flutter.dart';
-import 'package:sm_admin_portal/Models/generic_table_view_model.dart';
-import 'package:sm_admin_portal/Models/tone_detail_modal.dart';
-
-import 'package:sm_admin_portal/controllers/new_dash_board_controller.dart';
-
+import 'package:sm_admin_portal/reusable_view/custom_tooltip.dart';
+import 'package:sm_admin_portal/utilily/colors.dart';
+import 'package:sm_admin_portal/utilily/strings.dart';
 import 'package:sm_admin_portal/enums/user_type.dart';
-import 'package:sm_admin_portal/generic_table_view/generic_table_view.dart';
-import 'package:sm_admin_portal/main.dart';
-import 'package:sm_admin_portal/reusable_view/custom_url_launcher.dart';
-import 'package:sm_admin_portal/reusable_view/open_generic_popup_view.dart';
-import 'package:sm_admin_portal/reusable_view/buttons/play_button.dart';
-import 'package:sm_admin_portal/reusable_view/reusable_drop_down_button.dart';
+import 'package:sm_admin_portal/utilily/constants.dart';
+import 'package:sm_admin_portal/router/router_name.dart';
+import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 import 'package:sm_admin_portal/reusable_view/sm_shadow.dart';
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
-import 'package:sm_admin_portal/reusable_view/sm_text.dart';
+import 'package:sm_admin_portal/Models/tone_detail_modal.dart';
 import 'package:sm_admin_portal/reusable_view/status_bullet.dart';
+import 'package:sm_admin_portal/store_manager/store_manager.dart';
 import 'package:sm_admin_portal/reusable_view/table_tab_rail.dart';
-
-import 'package:sm_admin_portal/router/router_name.dart';
-import 'package:sm_admin_portal/screens/Tunelist_screen.dart';
+import 'package:sm_admin_portal/Models/generic_table_view_model.dart';
+import 'package:sm_admin_portal/reusable_view/custom_url_launcher.dart';
+import 'package:sm_admin_portal/reusable_view/buttons/play_button.dart';
+import 'package:sm_admin_portal/controllers/new_dash_board_controller.dart';
+import 'package:sm_admin_portal/generic_table_view/generic_table_view.dart';
+import 'package:sm_admin_portal/reusable_view/open_generic_popup_view.dart';
+import 'package:sm_admin_portal/reusable_view/reusable_drop_down_button.dart';
+import 'package:sm_admin_portal/screens/dashboard_screen/new_widget/new_user_view.dart';
+import 'package:sm_admin_portal/screens/dashboard_screen/new_widget/tune_consent_table.dart';
+import 'package:sm_admin_portal/screens/subscriber_deatil_screen/widget/tone_list_table.dart';
 import 'package:sm_admin_portal/screens/dashboard_screen/new_widget/customer_text_field.dart';
 import 'package:sm_admin_portal/screens/dashboard_screen/new_widget/existing_user_view.dart';
-import 'package:sm_admin_portal/screens/dashboard_screen/new_widget/new_user_view.dart';
-import 'package:sm_admin_portal/screens/subscriber_deatil_screen/widget/tone_list_table.dart';
-
-import 'package:sm_admin_portal/store_manager/store_manager.dart';
-import 'package:sm_admin_portal/utilily/colors.dart';
-import 'package:sm_admin_portal/utilily/constants.dart';
-import 'package:sm_admin_portal/utilily/strings.dart';
 
 class DashboardNewScreen extends StatefulWidget {
   const DashboardNewScreen({super.key});
@@ -110,20 +103,23 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
   }
 
   Widget statusDisctiptionBuilder() {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4),
-                color: white,
-                boxShadow: smShadow()),
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20),
-              child: statusDiscription(),
-            )),
-      ],
+    return Visibility(
+      visible: controller.userType != UserType.newUser,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  color: white,
+                  boxShadow: smShadow()),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20),
+                child: statusDiscription(),
+              )),
+        ],
+      ),
     );
   }
 
@@ -210,7 +206,10 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
                   child: SizedBox(
                       width: 1000, child: existingUserView(controller))),
           SizedBox(height: 20),
-          tuneLibraryList(),
+          //tuneLibraryList(),
+          Visibility(
+              visible: controller.userType != UserType.newUser,
+              child: tuneLibraryList()),
 
           SizedBox(height: 20),
         ],
@@ -260,16 +259,21 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
                       // Directionality(
                       //   textDirection: TextDirection.rtl,
                       //child:
-                      GenericTableView(
-                        addMenuButton: true,
-                        list: controller.selectedTab.value == 0
-                            ? controller.tuneTableList
-                            : controller.musicTableList,
-                        rowChild: ({info}) {
-                          Tonelist detail = info?.object as Tonelist;
-                          return returnWidget(info, detail, info?.childType);
+                      Obx(
+                        () {
+                          return GenericTableView(
+                            addMenuButton: true,
+                            list: controller.selectedTab.value == 0
+                                ? controller.tuneTableList
+                                : controller.musicTableList,
+                            rowChild: ({info}) {
+                              Tonelist detail = info?.object as Tonelist;
+                              return returnWidget(
+                                  info, detail, info?.childType);
+                            },
+                          );
                         },
-                      ),
+                      )
                       //  )
                     ],
                   ),
@@ -287,9 +291,32 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
     } else if (childType == ChildType.play) {
       return playButton(
           detail.contentId ?? '', detail.contentStreamingUrl ?? '');
+    } else if (childType == ChildType.consent) {
+      return viewTuneConsentButton();
     } else {
       return SMText(title: "check child type");
     }
+  }
+
+  Widget viewTuneConsentButton() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        SMButton(
+          addBorder: true,
+          title: viewStr,
+          fontWeight: FontWeight.normal,
+          textColor: sixdColor,
+          onTap: () {
+            Get.dialog(Center(
+                child:
+                    Material(color: transparent, child: TuneConsentTable())));
+            print("Tapped");
+          },
+        ),
+      ],
+    );
   }
 
   Widget morebutton() {
@@ -411,9 +438,17 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
           children: [
             Expanded(child: newTuneActivateButton()),
             SizedBox(width: 20),
-            Expanded(child: transactionButton()),
+            Expanded(
+                child: controller.userType == UserType.newUser
+                    ? customTooltip(
+                        transactionButton(), thisFeatureNotForNewUserStr)
+                    : transactionButton()),
             SizedBox(width: 20),
-            Expanded(child: tuneListButton(context)),
+            Expanded(
+                child: controller.userType == UserType.newUser
+                    ? customTooltip(
+                        CrbtPortalButton(context), thisFeatureNotForNewUserStr)
+                    : CrbtPortalButton(context)),
           ],
         ),
       ],
@@ -423,14 +458,21 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
   SMButton transactionButton() {
     return SMButton(
       addBorder: true,
-      addHoverEffect: true,
+
+      addHoverEffect: controller.userType == UserType.newUser ? false : true,
       onHoverColor: sixdColor,
       height: 50,
       title: transactionHistoryStr,
-      boxShadow: smShadow(blurRadius: 4, spreadRadius: 2),
+      boxShadow: controller.userType == UserType.newUser
+          ? null
+          : smShadow(blurRadius: 4, spreadRadius: 2),
       onHoverTitleColor: white,
       bgColor: white,
+      textColor: controller.userType == UserType.newUser ? grey : null,
       onTap: () {
+        if (controller.userType == UserType.newUser) {
+          return;
+        }
         context.goNamed(transactionHistoryRoute);
       },
       //bgColor: sixdColor,
@@ -454,28 +496,33 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
     );
   }
 
-  Widget tuneListButton(BuildContext context) {
+  Widget CrbtPortalButton(BuildContext context) {
     // String status = '';
     // try {
     //   status = controller.offers.first.offerStatus ?? "";
     // } catch (e) {}
     // bool enable = (status == "A" || status == "G" || status == "S");
     return SMButton(
-      boxShadow: smShadow(blurRadius: 4, spreadRadius: 2),
-      addHoverEffect: true,
+      boxShadow: controller.userType == UserType.newUser
+          ? null
+          : smShadow(blurRadius: 4, spreadRadius: 2),
+      addHoverEffect: controller.userType == UserType.newUser ? false : true,
       onHoverColor: sixdColor,
       height: 50,
       title: crbtPortalStr,
-      textColor: black,
+      textColor: controller.userType == UserType.newUser ? grey : null,
       //borderColor: enable ? sixdColor : greyLight,
       bgColor: white,
       onHoverTitleColor: white,
+
       //fontWeight: FontWeight.normal,
       addBorder: true,
       onTap: () {
         //context.goNamed(tuneListRoute);
-        CustomUrlLauncher(webPortal +
-            "/?data=khIFLDmLv7lYBWYQrs8ZBLegBFHrq+vJT6nw40xYbLv73VjbAfcEBv5fp2L8nWJ9jnpmpVFgp0TolPeed5NhrjiU1PBDD0o/0cOVhwWhwAc=");
+        if (controller.userType == UserType.newUser) {
+          return;
+        }
+        CustomUrlLauncher(webPortal + "/profile?token=sdfsdfsfdd");
       },
     );
   }

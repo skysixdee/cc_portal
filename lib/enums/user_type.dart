@@ -1,5 +1,5 @@
 enum UserType {
   newUser,
   existingUser,
-  invalidUser,
+  inActiveUser,
 }

@@ -13,6 +13,7 @@ import 'package:sm_admin_portal/api_calls/suspend_api.dart';
 import 'package:sm_admin_portal/api_calls/tune_list_api.dart';
 import 'package:sm_admin_portal/main.dart';
 import 'package:sm_admin_portal/reusable_view/sm_snack_bar.dart';
+import 'package:sm_admin_portal/screens/dashboard_screen/new_widget/tune_consent_table.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/constants.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
@@ -36,6 +37,7 @@ class NewDashBoardController extends GetxController {
   //RxList<SettingsList> settingsList = <SettingsList>[].obs;
 
   List<List<GenericTableViewModel>> tuneTableList = [];
+  List<List<GenericTableViewModel>> tuneConsentTableList = [];
   List<List<GenericTableViewModel>> musicTableList = [];
   String packName = '';
   @override
@@ -56,7 +58,8 @@ class NewDashBoardController extends GetxController {
     isLoadingTunes.value = true;
     ToneListModel toneListModel = await toneListApi();
     List<Tonelist> tonelist = toneListModel.tonelist ?? [];
-    await createTableData(tonelist);
+    await _createTableData(tuneTableList, tonelist);
+    await _createTuneConsentData(tuneConsentTableList);
     isMaxLimitMessageVisible.value = tonelist.length >= maxToneCount;
     isLoadingTunes.value = false;
   }
@@ -86,6 +89,12 @@ class NewDashBoardController extends GetxController {
 
     if (subscriptionModel.respCode == 1) {
       userType.value = UserType.newUser;
+      try {
+        userType.value = subscriptionModel.offers?.first.offerStatus == "D"
+            ? UserType.inActiveUser
+            : UserType.newUser;
+      } catch (e) {}
+
       packName = '';
       appCont.isCustomerLoggedIn.value = true;
     } else if (subscriptionModel.respCode == 0) {
@@ -99,7 +108,7 @@ class NewDashBoardController extends GetxController {
         print("got error while fetchinf pack name ");
       }
     } else {
-      userType.value = UserType.invalidUser;
+      userType.value = UserType.inActiveUser;
       isLoading.value = false;
       smSnackBar(subscriptionModel.message ?? someThingWentWrongStr);
       print("helo ======= ${subscriptionModel.respCode}");
@@ -285,80 +294,126 @@ class NewDashBoardController extends GetxController {
     }
     isLoading.value = false;
   }
+}
 
-  Future<void> createTableData(List<Tonelist> tonelist) async {
-    tuneTableList.clear();
-    if (tonelist.isEmpty) {
-      return;
-    }
-    for (Tonelist item in tonelist) {
-      tuneTableList.add([
-        GenericTableViewModel(
-            columnTitle: toneNameStr,
-            columnValue: item.contentName ?? '',
-            isVisible: true.obs,
-            object: item),
-        GenericTableViewModel(
-            columnTitle: otherNameStr,
-            columnValue: item.contentName ?? '',
-            isVisible: false.obs,
-            isRemovable: true,
-            object: item),
-        GenericTableViewModel(
-            columnTitle: statusStr,
-            columnValue: item.status ?? '',
-            isVisible: true.obs,
-            childType: ChildType.status,
-            object: item),
-        GenericTableViewModel(
-            columnTitle: toneIdStr,
-            columnValue: item.contentId ?? '',
-            isVisible: true.obs,
-            //isRemovable: true,
-            object: item),
-        GenericTableViewModel(
-            columnTitle: ArtistStr,
-            columnValue: item.artistName ?? '',
-            isVisible: false.obs,
-            isRemovable: true,
-            object: item),
-        GenericTableViewModel(
-            columnTitle: lastRenewedStr,
-            columnValue: 'last renewal date',
-            isVisible: false.obs,
-            isRemovable: true,
-            object: item),
-        GenericTableViewModel(
-            columnTitle: priceStr,
-            columnValue: item.price ?? '',
-            isVisible: false.obs,
-            isRemovable: true,
-            object: item),
-        GenericTableViewModel(
-            columnTitle: playStr,
-            columnValue: '',
-            isRemovable: true,
-            isVisible: false.obs,
-            object: item,
-            childType: ChildType.play),
-        GenericTableViewModel(
-          columnTitle: actionStr,
-          columnValue: DeactivateStr,
-          childType: ChildType.button,
-          isVisible: true.obs,
-          //isRemovable: true,
-          object: item,
-        ),
-        // GenericTableViewModel(
-        //   columnTitle: moreStr,
-        //   columnValue: moreStr,
-        //   childType: ChildType.button,
-        //   isVisible: false.obs,
-        //   isRemovable: true,
-        //   object: item,
-        // ),
-      ]);
-    }
+Future<void> _createTableData(List<List<GenericTableViewModel>> tuneTableList,
+    List<Tonelist> tonelist) async {
+  tuneTableList.clear();
+  if (tonelist.isEmpty) {
     return;
   }
+  for (Tonelist item in tonelist) {
+    tuneTableList.add([
+      GenericTableViewModel(
+          columnTitle: toneNameStr,
+          columnValue: item.contentName ?? '',
+          isVisible: true.obs,
+          object: item),
+      GenericTableViewModel(
+          columnTitle: otherNameStr,
+          columnValue: item.contentName ?? '',
+          isVisible: false.obs,
+          isRemovable: true,
+          object: item),
+      GenericTableViewModel(
+          columnTitle: statusStr,
+          columnValue: item.status ?? '',
+          isVisible: true.obs,
+          childType: ChildType.status,
+          object: item),
+      GenericTableViewModel(
+          columnTitle: toneIdStr,
+          columnValue: item.contentId ?? '',
+          isVisible: true.obs,
+          //isRemovable: true,
+          object: item),
+      GenericTableViewModel(
+          columnTitle: ArtistStr,
+          columnValue: item.artistName ?? '',
+          isVisible: false.obs,
+          isRemovable: true,
+          object: item),
+      GenericTableViewModel(
+          columnTitle: lastRenewedStr,
+          columnValue: 'last renewal date',
+          isVisible: false.obs,
+          isRemovable: true,
+          object: item),
+      GenericTableViewModel(
+          columnTitle: priceStr,
+          columnValue: item.price ?? '',
+          isVisible: false.obs,
+          isRemovable: true,
+          object: item),
+      GenericTableViewModel(
+          columnTitle: playStr,
+          columnValue: '',
+          isRemovable: true,
+          isVisible: false.obs,
+          object: item,
+          childType: ChildType.play),
+      GenericTableViewModel(
+        columnTitle: actionStr,
+        columnValue: DeactivateStr,
+        childType: ChildType.button,
+        isVisible: true.obs,
+        //isRemovable: true,
+        object: item,
+      ),
+      GenericTableViewModel(
+        columnTitle: consentRecordStr,
+        columnValue: consentRecordStr,
+        childType: ChildType.consent,
+        isVisible: true.obs,
+        isRemovable: true,
+        object: item,
+      ),
+    ]);
+  }
+  return;
+}
+
+Future<void> _createTuneConsentData(
+    List<List<GenericTableViewModel>> tuneConsentTableList) async {
+  tuneConsentTableList.clear();
+  // if (tonelist.isEmpty) {
+  //   return;
+  // }
+  //for (Tonelist item in tonelist) {
+
+  tuneConsentTableList.add([
+    GenericTableViewModel(
+      columnTitle: templateIdStr,
+      columnValue: '3454646',
+      isVisible: true.obs,
+      object: null,
+    ),
+    GenericTableViewModel(
+      columnTitle: statusStr,
+      columnValue: '',
+      isVisible: true.obs,
+      childType: ChildType.status,
+      object: null,
+    ),
+    GenericTableViewModel(
+      columnTitle: sendTimeStr,
+      columnValue: '13:30',
+      isVisible: true.obs,
+      object: null,
+    ),
+    GenericTableViewModel(
+      columnTitle: receivedTimeStr,
+      columnValue: '12:00',
+      isVisible: true.obs,
+      object: null,
+    ),
+    GenericTableViewModel(
+      columnTitle: receivedDataStr,
+      columnValue: 'recieve data',
+      isVisible: true.obs,
+      object: null,
+    ),
+  ]);
+  //}
+  return;
 }

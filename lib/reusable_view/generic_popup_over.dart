@@ -4,7 +4,8 @@ import 'package:sm_admin_portal/reusable_view/sm_drop_down_button.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 
-openPopover(BuildContext context, List<String> items, {double? width}) {
+openPopover(BuildContext context, List<String> items,
+    {double? width, Function(int)? onTap}) {
   showPopover(
     context: context,
     bodyBuilder: (context) {
@@ -14,7 +15,7 @@ openPopover(BuildContext context, List<String> items, {double? width}) {
           itemCount: items.length,
           shrinkWrap: true,
           itemBuilder: (context, index) {
-            return card(context, index, items);
+            return card(context, index, items, onTap);
           },
         ),
       );
@@ -28,13 +29,17 @@ openPopover(BuildContext context, List<String> items, {double? width}) {
   );
 }
 
-CustomOnHover card(BuildContext context, int index, List<String> items) {
+CustomOnHover card(
+    BuildContext context, int index, List<String> items, Function(int)? onTap) {
   return CustomOnHover(
     builder: (isHovered) {
       return InkWell(
-        onTap: () {
+        onTap: () async {
           Navigator.of(context).pop();
-
+          await Future.delayed(Duration(milliseconds: 400));
+          if (onTap != null) {
+            onTap(index);
+          }
           print("index = $index and title = ${items[index]}");
         },
         child: Container(

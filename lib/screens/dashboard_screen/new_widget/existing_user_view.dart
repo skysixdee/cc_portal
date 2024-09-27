@@ -1,8 +1,10 @@
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:sm_admin_portal/reusable_view/generic_popup_over.dart';
+import 'package:sm_admin_portal/screens/dashboard_screen/new_widget/tune_consent_table.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
@@ -254,26 +256,37 @@ Widget _moreButton(Offer offer) {
         child: InkWell(
           onTap: () {
             openPopover(
-                context,
-                [
-                  upgradeStr,
-                  ((offer.offerStatus == "D" || offer.offerStatus == "NA")
-                      ? activateStr
-                      : DeactivateStr)
-                ],
-                width: 160);
+              context,
+              [
+                upgradePackStr,
+                consentRecordStr,
+                DeactivateStr,
+              ],
+              width: 160,
+              onTap: (p0) {
+                if (p0 == 1) {
+                  Get.dialog(Center(
+                    child: Material(
+                      color: transparent,
+                      child: TuneConsentTable(),
+                    ),
+                  ));
+                }
+                print("tapped");
+              },
+            );
           },
           child: Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                border: Border.all(color: grey)
-                //color: greyLight,
-                ),
+            // decoration: BoxDecoration(
+            //     borderRadius: BorderRadius.circular(15),
+            //     border: Border.all(color: grey)
+            //     //color: greyLight,
+            //     ),
             height: 30,
             width: 30,
             child: Icon(
-              Icons.more_horiz,
-              color: grey,
+              Icons.more_vert,
+              //color: grey,
               size: 20,
             ),
           ),
