@@ -34,6 +34,7 @@ class NewDashBoardController extends GetxController {
   RxBool isMaxLimitMessageVisible = false.obs;
   RxList<Offer> offers = <Offer>[].obs;
   Rx<UserType> userType = UserType.existingUser.obs;
+  RxBool isSalatiUser = false.obs;
   //RxList<SettingsList> settingsList = <SettingsList>[].obs;
 
   List<List<GenericTableViewModel>> tuneTableList = [];
@@ -86,7 +87,7 @@ class NewDashBoardController extends GetxController {
         await getSubscriptionDetailApi(msisdn);
 
     offers.value = subscriptionModel.offers ?? [];
-
+    isSalatiUser.value = false;
     if (subscriptionModel.respCode == 1) {
       userType.value = UserType.newUser;
       try {
@@ -104,6 +105,11 @@ class NewDashBoardController extends GetxController {
       appCont.isCustomerLoggedIn.value = true;
       try {
         packName = offers[0].offerName ?? '';
+        for (var i = 0; i < (subscriptionModel.offers?.length ?? 0); i++) {
+          // if (subscriptionModel.offers?[i].groupId == 2) {
+          //   isSalatiUser.value = true;
+          // }
+        }
       } catch (e) {
         print("got error while fetchinf pack name ");
       }
@@ -364,8 +370,8 @@ Future<void> _createTableData(List<List<GenericTableViewModel>> tuneTableList,
         columnTitle: consentRecordStr,
         columnValue: consentRecordStr,
         childType: ChildType.consent,
-        isVisible: true.obs,
-        isRemovable: true,
+        isVisible: enableToneConsent.obs,
+        isRemovable: enableToneConsent,
         object: item,
       ),
     ]);
@@ -386,6 +392,7 @@ Future<void> _createTuneConsentData(
       columnTitle: templateIdStr,
       columnValue: '3454646',
       isVisible: true.obs,
+      childType: ChildType.clickableText,
       object: null,
     ),
     GenericTableViewModel(

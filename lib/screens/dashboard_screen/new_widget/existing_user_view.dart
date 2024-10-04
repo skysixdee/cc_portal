@@ -6,6 +6,7 @@ import 'package:responsive_builder/responsive_builder.dart';
 import 'package:sm_admin_portal/reusable_view/generic_popup_over.dart';
 import 'package:sm_admin_portal/screens/dashboard_screen/new_widget/tune_consent_table.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
+import 'package:sm_admin_portal/utilily/constants.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 import 'package:sm_admin_portal/reusable_view/sm_button.dart';
@@ -257,14 +258,19 @@ Widget _moreButton(Offer offer) {
           onTap: () {
             openPopover(
               context,
-              [
-                upgradePackStr,
-                consentRecordStr,
-                DeactivateStr,
-              ],
+              enablePackConsent
+                  ? [
+                      upgradePackStr,
+                      consentRecordStr,
+                      DeactivateStr,
+                    ]
+                  : [
+                      upgradePackStr,
+                      DeactivateStr,
+                    ],
               width: 160,
-              onTap: (p0) {
-                if (p0 == 1) {
+              onTap: (p0, title) {
+                if (title == consentRecordStr) {
                   Get.dialog(Center(
                     child: Material(
                       color: transparent,

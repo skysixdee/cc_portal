@@ -103,7 +103,7 @@ class NavigationBarView extends StatelessWidget {
                     SizedBox(width: 8),
                     SMText(
                       title: "$countryCode ${StoreManager().customerNumber}",
-                      fontSize: 13,
+                      fontSize: 12,
                     ),
                   ],
                 ),
@@ -149,6 +149,7 @@ class NavigationBarView extends StatelessWidget {
         child: Icon(
           Icons.switch_account_rounded,
           size: 16,
+          color: sixdColor,
           //color: sixdColor,
         ),
       ),

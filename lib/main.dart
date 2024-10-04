@@ -94,6 +94,14 @@ _extractValueFromPropertiesFile() async {
     maxToneCount = data['MAX_TONE_COUNT'];
     webPortal = data['WEB_PORTAL'];
 
+    enablePackConsent = data['ENBALE_PACK_CONSENT'] as bool;
+    enableToneConsent = data['ENBALE_TONE_CONSENT'] as bool;
+
+    print("enablePackConsent ======= $enablePackConsent");
+    print("enableToneConsent ======= $enableToneConsent");
+
+    // "ENBALE_PACK_CONSENT":true,
+    // "ENBALE_TONE_CONSENT":true
     print("default tone is ======= $defaultToneId");
   } catch (e) {
     return '';

@@ -208,7 +208,8 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
           SizedBox(height: 20),
           //tuneLibraryList(),
           Visibility(
-              visible: controller.userType != UserType.newUser,
+              visible: !(controller.userType == UserType.newUser ||
+                  (controller.isSalatiUser.value)),
               child: tuneLibraryList()),
 
           SizedBox(height: 20),

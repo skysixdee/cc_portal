@@ -5,7 +5,7 @@ import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 
 openPopover(BuildContext context, List<String> items,
-    {double? width, Function(int)? onTap}) {
+    {double? width, Function(int, String)? onTap}) {
   showPopover(
     context: context,
     bodyBuilder: (context) {
@@ -29,8 +29,8 @@ openPopover(BuildContext context, List<String> items,
   );
 }
 
-CustomOnHover card(
-    BuildContext context, int index, List<String> items, Function(int)? onTap) {
+CustomOnHover card(BuildContext context, int index, List<String> items,
+    Function(int, String)? onTap) {
   return CustomOnHover(
     builder: (isHovered) {
       return InkWell(
@@ -38,7 +38,7 @@ CustomOnHover card(
           Navigator.of(context).pop();
           await Future.delayed(Duration(milliseconds: 400));
           if (onTap != null) {
-            onTap(index);
+            onTap(index, items[index]);
           }
           print("index = $index and title = ${items[index]}");
         },
@@ -58,7 +58,7 @@ CustomOnHover card(
                 child: SMText(
                     fontWeight: FontWeight.normal,
                     title: items[index],
-                    fontSize: 16,
+                    fontSize: 14,
                     textColor: Colors.black),
               ),
             ],

@@ -47,6 +47,7 @@ Widget _radioButton(
             SizedBox(width: 2),
             SMText(
               title: title,
+              fontSize: 14,
               fontWeight: FontWeight.normal,
             )
           ],

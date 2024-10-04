@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:sm_admin_portal/reusable_view/test_style.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 
 class SMText extends StatelessWidget {
@@ -20,7 +21,7 @@ class SMText extends StatelessWidget {
     return Text(
       title,
       textAlign: textAlign,
-      style: TextStyle(
+      style: customTextStyle(
           fontWeight: fontWeight, color: textColor, fontSize: fontSize),
     );
   }
