@@ -13,7 +13,7 @@ class StoreManager {
   String customerNumber = '92000003';
 
   String enLanguageSort = 'en';
-  String otherLanguageSort = 'ar';
+  String otherLanguageSort = 'my';
 
   String languageSort = 'en';
 
