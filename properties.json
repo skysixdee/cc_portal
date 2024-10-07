@@ -7,5 +7,6 @@
     "PRODUCT_NAME":"Callertune",
     "WEB_PORTAL":"https://gtmpulse.web.app",
     "ENBALE_PACK_CONSENT":true,
-    "ENBALE_TONE_CONSENT":true
+    "ENBALE_TONE_CONSENT":true,
+    "ENBALE_PACK_UPGRADE":true
 }

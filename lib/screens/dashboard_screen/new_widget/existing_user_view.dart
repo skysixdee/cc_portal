@@ -252,22 +252,34 @@ Widget _cardContainer(Widget child, {Widget? customChild}) {
 Widget _moreButton(Offer offer) {
   return ResponsiveBuilder(
     builder: (context, sizingInformation) {
+      List<String> menuList = [
+        upgradePackStr,
+        consentRecordStr,
+        DeactivateStr,
+      ];
+      if (!enablePackUpgrade) {
+        menuList.remove(upgradePackStr);
+      }
+      if (!enablePackConsent) {
+        menuList.remove(consentRecordStr);
+      }
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: InkWell(
           onTap: () {
             openPopover(
               context,
-              enablePackConsent
-                  ? [
-                      upgradePackStr,
-                      consentRecordStr,
-                      DeactivateStr,
-                    ]
-                  : [
-                      upgradePackStr,
-                      DeactivateStr,
-                    ],
+              menuList,
+              // enablePackConsent
+              //     ? [
+              //         upgradePackStr,
+              //         consentRecordStr,
+              //         DeactivateStr,
+              //       ]
+              //     : [
+              //         upgradePackStr,
+              //         DeactivateStr,
+              //       ],
               width: 160,
               onTap: (p0, title) {
                 if (title == consentRecordStr) {

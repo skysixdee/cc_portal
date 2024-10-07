@@ -24,4 +24,13 @@ class GenericTableViewModel {
   });
 }
 
-enum ChildType { play, button, none, status, more, consent, clickableText }
+enum ChildType {
+  play,
+  button,
+  none,
+  status,
+  more,
+  consent,
+  clickableText,
+  text
+}

@@ -103,7 +103,8 @@ class NavigationBarView extends StatelessWidget {
                     SizedBox(width: 8),
                     SMText(
                       title: "$countryCode ${StoreManager().customerNumber}",
-                      fontSize: 12,
+                      fontSize: 14,
+                      fontWeight: FontWeight.normal,
                     ),
                   ],
                 ),
@@ -142,8 +143,8 @@ class NavigationBarView extends StatelessWidget {
     return SMButton(
       titlePadding: EdgeInsets.zero,
       title: switchAccountStr,
-      fontWeight: FontWeight.bold,
-      fontSize: 12,
+      fontWeight: FontWeight.normal,
+      fontSize: 14,
       leadingChild: Padding(
         padding: const EdgeInsets.only(right: 4),
         child: Icon(

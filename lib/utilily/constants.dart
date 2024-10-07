@@ -18,6 +18,7 @@ int maxToneCount = 0;
 String webPortal = '';
 String countryCode = '';
 bool enablePackConsent = true;
+bool enablePackUpgrade = true;
 bool enableToneConsent = true;
 
 int msisdnLength = 0;

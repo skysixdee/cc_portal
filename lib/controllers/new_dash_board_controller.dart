@@ -12,6 +12,7 @@ import 'package:sm_admin_portal/api_calls/set_tone_api.dart';
 import 'package:sm_admin_portal/api_calls/suspend_api.dart';
 import 'package:sm_admin_portal/api_calls/tune_list_api.dart';
 import 'package:sm_admin_portal/main.dart';
+import 'package:sm_admin_portal/reusable_view/convert_ncr_readbable_text.dart';
 import 'package:sm_admin_portal/reusable_view/sm_snack_bar.dart';
 import 'package:sm_admin_portal/screens/dashboard_screen/new_widget/tune_consent_table.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
@@ -114,7 +115,7 @@ class NewDashBoardController extends GetxController {
         print("got error while fetchinf pack name ");
       }
     } else {
-      userType.value = UserType.inActiveUser;
+      userType.value = UserType.userOnHold;
       isLoading.value = false;
       smSnackBar(subscriptionModel.message ?? someThingWentWrongStr);
       print("helo ======= ${subscriptionModel.respCode}");
@@ -308,16 +309,19 @@ Future<void> _createTableData(List<List<GenericTableViewModel>> tuneTableList,
   if (tonelist.isEmpty) {
     return;
   }
+
   for (Tonelist item in tonelist) {
     tuneTableList.add([
       GenericTableViewModel(
           columnTitle: toneNameStr,
-          columnValue: item.contentName ?? '',
+          columnValue: convertNCRsToReadableText(
+              item.contentName ?? ''), //(item.contentName ?? '').de,
           isVisible: true.obs,
           object: item),
       GenericTableViewModel(
           columnTitle: otherNameStr,
-          columnValue: item.contentName ?? '',
+          columnValue: convertNCRsToReadableText(
+              item.contentNameL2 ?? ''), //item.contentNameL2 ?? '',
           isVisible: false.obs,
           isRemovable: true,
           object: item),
@@ -335,15 +339,16 @@ Future<void> _createTableData(List<List<GenericTableViewModel>> tuneTableList,
           object: item),
       GenericTableViewModel(
           columnTitle: ArtistStr,
-          columnValue: item.artistName ?? '',
+          columnValue: convertNCRsToReadableText(item.artistName ?? ''),
           isVisible: false.obs,
           isRemovable: true,
           object: item),
       GenericTableViewModel(
           columnTitle: lastRenewedStr,
-          columnValue: 'last renewal date',
+          columnValue: item.chargedDate ?? '',
           isVisible: false.obs,
           isRemovable: true,
+          childType: ChildType.text,
           object: item),
       GenericTableViewModel(
           columnTitle: priceStr,

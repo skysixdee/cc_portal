@@ -94,6 +94,7 @@ _extractValueFromPropertiesFile() async {
     maxToneCount = data['MAX_TONE_COUNT'];
     webPortal = data['WEB_PORTAL'];
 
+    enablePackUpgrade = data['ENBALE_PACK_UPGRADE'] as bool;
     enablePackConsent = data['ENBALE_PACK_CONSENT'] as bool;
     enableToneConsent = data['ENBALE_TONE_CONSENT'] as bool;
 

@@ -1,7 +1,10 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
+import 'package:sm_admin_portal/enums/font_name.dart';
 import 'package:sm_admin_portal/reusable_view/custom_tooltip.dart';
+import 'package:sm_admin_portal/screens/dashboard_screen/new_widget/hold_view.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
 import 'package:sm_admin_portal/enums/user_type.dart';
@@ -202,14 +205,17 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
           ////userDetail(),
           controller.userType == UserType.newUser
               ? newUserView(controller)
-              : Center(
-                  child: SizedBox(
-                      width: 1000, child: existingUserView(controller))),
+              : (controller.userType == UserType.userOnHold)
+                  ? HoldView()
+                  : Center(
+                      child: SizedBox(
+                          width: 1000, child: existingUserView(controller))),
           SizedBox(height: 20),
           //tuneLibraryList(),
           Visibility(
               visible: !(controller.userType == UserType.newUser ||
-                  (controller.isSalatiUser.value)),
+                  (controller.isSalatiUser.value ||
+                      controller.userType == UserType.userOnHold)),
               child: tuneLibraryList()),
 
           SizedBox(height: 20),
@@ -294,9 +300,33 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
           detail.contentId ?? '', detail.contentStreamingUrl ?? '');
     } else if (childType == ChildType.consent) {
       return viewTuneConsentButton();
+    } else if (childType == ChildType.text) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SMText(
+            title: _dateFormate(info?.columnValue ?? ''),
+            fontWeight: FontWeight.normal,
+          ),
+        ],
+      );
     } else {
-      return SMText(title: "check child type");
+      return SMText(title: "add you widget here");
     }
+  }
+
+  String _dateFormate(String date) {
+    if (date.isEmpty) {
+      return "";
+    }
+    DateTime dateTime = DateTime.parse(date);
+    final DateFormat formatter = DateFormat('dd-MM-yyyy, HH:mm');
+
+    // HH:mm');
+    final String formatted = formatter.format(dateTime);
+
+    return formatted;
   }
 
   Widget viewTuneConsentButton() {
