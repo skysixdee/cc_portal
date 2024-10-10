@@ -16,6 +16,7 @@ String defaultOfferCode = '';
 String productName = '';
 int maxToneCount = 0;
 String webPortal = '';
+String currency = '';
 String countryCode = '';
 bool enablePackConsent = true;
 bool enablePackUpgrade = true;

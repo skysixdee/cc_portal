@@ -1,15 +1,18 @@
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:sm_admin_portal/common/channal_mapping.dart';
+import 'package:sm_admin_portal/common/day_mapping.dart';
 import 'package:sm_admin_portal/reusable_view/generic_popup_over.dart';
+import 'package:sm_admin_portal/reusable_view/popups/pack_upgrade_popup.dart';
 import 'package:sm_admin_portal/screens/dashboard_screen/new_widget/tune_consent_table.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 import 'package:sm_admin_portal/utilily/constants.dart';
 import 'package:sm_admin_portal/utilily/strings.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
-import 'package:sm_admin_portal/reusable_view/sm_button.dart';
+
 import 'package:sm_admin_portal/reusable_view/sm_shadow.dart';
 import 'package:sm_admin_portal/reusable_view/status_bullet.dart';
 import 'package:sm_admin_portal/Models/get_subscription_modal.dart';
@@ -53,11 +56,16 @@ String _dateFormate(String date) {
   if (date.isEmpty) {
     return "";
   }
-  DateTime dateTime = DateTime.parse(date);
-  final DateFormat formatter = DateFormat('dd-MM-yyyy, HH:mm');
+  String formatted = '';
+  try {
+    DateTime dateTime = DateTime.parse(date);
+    final DateFormat formatter = DateFormat('dd-MM-yyyy, HH:mm');
 
-  // HH:mm');
-  final String formatted = formatter.format(dateTime);
+    // HH:mm');
+    formatted = formatter.format(dateTime);
+  } catch (e) {
+    formatted = e.toString();
+  }
 
   return formatted;
 }
@@ -110,9 +118,10 @@ Widget _firstColumn1(Offer offer, NewDashBoardController cont) {
                   fontWeight: FontWeight.bold,
                 ),
                 SMText(
-                  title: (offer.chargedAmount ?? '') +
+                  title: (currency + " ${offer.chargedAmount ?? ''}") +
                       "/" +
-                      (offer.chargedValidity ?? ''),
+                      (offer.chargedValidity ?? '') +
+                      daysMapping(offer.chargedValidity ?? '0'),
                   fontWeight: FontWeight.normal,
                   textAlign: TextAlign.center,
                 ),
@@ -165,7 +174,7 @@ Widget _secondColumn1(Offer offer) {
             fontWeight: FontWeight.bold,
           ),
           SMText(
-            title: _dateFormate(offer.chargedDate ?? ''),
+            title: _dateFormate(offer.firstActivationDate ?? ''),
             fontWeight: FontWeight.normal,
           ),
         ],
@@ -176,11 +185,11 @@ Widget _secondColumn1(Offer offer) {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SMText(
-            title: channelStr,
+            title: activationChannelStr,
             fontWeight: FontWeight.bold,
           ),
           SMText(
-            title: (offer.offerName ?? ''),
+            title: channelMapping(offer.activationChannel ?? ''),
             fontWeight: FontWeight.normal,
           ),
         ],
@@ -282,6 +291,9 @@ Widget _moreButton(Offer offer) {
               //       ],
               width: 160,
               onTap: (p0, title) {
+                if (title == upgradePackStr) {
+                  openPackUpgrade();
+                }
                 if (title == consentRecordStr) {
                   Get.dialog(Center(
                     child: Material(

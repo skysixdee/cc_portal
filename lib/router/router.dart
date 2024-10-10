@@ -72,10 +72,10 @@ final router = GoRouter(
     }
   },
   errorPageBuilder: (context, state) {
-    return MaterialPage(child: errorWidget(context, state));
+    return MaterialPage(child: _errorWidget(context, state));
   },
 );
-Widget errorWidget(BuildContext context, GoRouterState state) {
+Widget _errorWidget(BuildContext context, GoRouterState state) {
   return const Scaffold(
     body: Center(
         child: Text(

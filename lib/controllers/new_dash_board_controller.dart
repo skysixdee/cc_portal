@@ -11,6 +11,7 @@ import 'package:sm_admin_portal/api_calls/resume_api.dart';
 import 'package:sm_admin_portal/api_calls/set_tone_api.dart';
 import 'package:sm_admin_portal/api_calls/suspend_api.dart';
 import 'package:sm_admin_portal/api_calls/tune_list_api.dart';
+import 'package:sm_admin_portal/common/channal_mapping.dart';
 import 'package:sm_admin_portal/main.dart';
 import 'package:sm_admin_portal/reusable_view/convert_ncr_readbable_text.dart';
 import 'package:sm_admin_portal/reusable_view/sm_snack_bar.dart';
@@ -35,7 +36,7 @@ class NewDashBoardController extends GetxController {
   RxBool isMaxLimitMessageVisible = false.obs;
   RxList<Offer> offers = <Offer>[].obs;
   Rx<UserType> userType = UserType.existingUser.obs;
-  RxBool isSalatiUser = false.obs;
+  RxBool isSalatiUser = true.obs;
   //RxList<SettingsList> settingsList = <SettingsList>[].obs;
 
   List<List<GenericTableViewModel>> tuneTableList = [];
@@ -88,7 +89,7 @@ class NewDashBoardController extends GetxController {
         await getSubscriptionDetailApi(msisdn);
 
     offers.value = subscriptionModel.offers ?? [];
-    isSalatiUser.value = false;
+    isSalatiUser.value = true;
     if (subscriptionModel.respCode == 1) {
       userType.value = UserType.newUser;
       try {
@@ -106,10 +107,13 @@ class NewDashBoardController extends GetxController {
       appCont.isCustomerLoggedIn.value = true;
       try {
         packName = offers[0].offerName ?? '';
+
         for (var i = 0; i < (subscriptionModel.offers?.length ?? 0); i++) {
-          // if (subscriptionModel.offers?[i].groupId == 2) {
-          //   isSalatiUser.value = true;
-          // }
+          print("grpup id =====${subscriptionModel.offers?[i].groupId}");
+          if (subscriptionModel.offers?[i].groupId != "2") {
+            isSalatiUser.value = false;
+            print("yes ir is salati");
+          }
         }
       } catch (e) {
         print("got error while fetchinf pack name ");
@@ -364,11 +368,16 @@ Future<void> _createTableData(List<List<GenericTableViewModel>> tuneTableList,
           object: item,
           childType: ChildType.play),
       GenericTableViewModel(
+          columnTitle: activationChannelStr,
+          columnValue: channelMapping(item.activationChannel ?? ''),
+          isVisible: false.obs,
+          object: item,
+          isRemovable: true),
+      GenericTableViewModel(
         columnTitle: actionStr,
         columnValue: DeactivateStr,
         childType: ChildType.button,
         isVisible: true.obs,
-        //isRemovable: true,
         object: item,
       ),
       GenericTableViewModel(

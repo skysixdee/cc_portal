@@ -56,7 +56,7 @@ class Offer {
   String? activationChannel;
   String? deactivationDate;
   String? deactivationChannel;
-
+  String? groupId;
   RxBool isSuspended = false.obs;
 
   Offer({
@@ -70,6 +70,7 @@ class Offer {
     this.activationChannel,
     this.deactivationDate,
     this.deactivationChannel,
+    this.groupId,
   });
 
   factory Offer.fromJson(Map<String, dynamic> json) => Offer(
@@ -83,6 +84,7 @@ class Offer {
         activationChannel: json["activationChannel"],
         deactivationDate: json["deactivationDate"],
         deactivationChannel: json["deactivationChannel"],
+        groupId: json["groupId"],
       );
 
   get respCode => null;
@@ -98,5 +100,6 @@ class Offer {
         "activationChannel": activationChannel,
         "deactivationDate": deactivationDate,
         "deactivationChannel": deactivationChannel,
+        "groupId": groupId,
       };
 }

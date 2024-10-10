@@ -4,7 +4,11 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:sm_admin_portal/reusable_view/sm_text.dart';
 import 'package:sm_admin_portal/utilily/colors.dart';
 
-smSnackBar(String message) {
+smSnackBar(
+  String message, {
+  SnackPosition? snackPosition = SnackPosition.BOTTOM,
+}) async {
+  await Future.delayed(Duration(milliseconds: 300));
   Get.snackbar(
     padding: EdgeInsets.zero,
     borderRadius: 4,
@@ -31,6 +35,6 @@ smSnackBar(String message) {
     //   textColor: white,
     // ),
     backgroundColor: transparent,
-    snackPosition: SnackPosition.BOTTOM,
+    snackPosition: snackPosition,
   );
 }

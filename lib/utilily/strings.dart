@@ -107,16 +107,21 @@ String suspendedCStr = 'SUSPEND';
 String activateStr = 'Activate';
 String activeCStr = 'ACTIVE';
 String activeStr = 'Active';
-String welcomeToCustomerCarePortalStr = "Welcome to Customer care";
+String welcomeToCustomerCarePortalStr = "Welcome to Customer Care Portal";
 String enterCustomerMsisdnStr = 'Please enter customer msisdn.';
 String enterValidMsisdnStr = 'Enter valid mobile number';
 String enterMobileNumberStr = 'Enter 10 digit mobile number';
+
+String dayStr = 'Day';
+String daysStr = 'Days';
 
 String pendingCStr = 'PENDING';
 String tuneLibraryStr = 'Tune Library';
 String musicBoxStr = 'Music Box';
 String graceCStr = 'GRACE';
+
 String ChannelStr = 'Channel';
+String activationChannelStr = 'Activation Channel';
 String SelectStr = 'Select';
 String enterKeyWordToSearchStr = 'Enter key word to search';
 String songStr = "Song";

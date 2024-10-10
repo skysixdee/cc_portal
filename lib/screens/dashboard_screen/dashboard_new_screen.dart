@@ -212,11 +212,13 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
                           width: 1000, child: existingUserView(controller))),
           SizedBox(height: 20),
           //tuneLibraryList(),
-          Visibility(
-              visible: !(controller.userType == UserType.newUser ||
-                  (controller.isSalatiUser.value ||
-                      controller.userType == UserType.userOnHold)),
-              child: tuneLibraryList()),
+          Obx(() {
+            return Visibility(
+                visible: !(controller.userType == UserType.newUser ||
+                    (controller.isSalatiUser.value ||
+                        controller.userType == UserType.userOnHold)),
+                child: tuneLibraryList());
+          }),
 
           SizedBox(height: 20),
         ],
@@ -320,11 +322,16 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
     if (date.isEmpty) {
       return "";
     }
-    DateTime dateTime = DateTime.parse(date);
-    final DateFormat formatter = DateFormat('dd-MM-yyyy, HH:mm');
+    String formatted = '';
+    try {
+      DateTime dateTime = DateTime.parse(date);
+      final DateFormat formatter = DateFormat('dd-MM-yyyy, HH:mm');
 
-    // HH:mm');
-    final String formatted = formatter.format(dateTime);
+      // HH:mm');
+      formatted = formatter.format(dateTime);
+    } catch (e) {
+      formatted = e.toString();
+    }
 
     return formatted;
   }

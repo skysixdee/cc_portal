@@ -93,6 +93,7 @@ _extractValueFromPropertiesFile() async {
     productName = data['PRODUCT_NAME'];
     maxToneCount = data['MAX_TONE_COUNT'];
     webPortal = data['WEB_PORTAL'];
+    currency = data['COUNTRY_CURRENCY'];
 
     enablePackUpgrade = data['ENBALE_PACK_UPGRADE'] as bool;
     enablePackConsent = data['ENBALE_PACK_CONSENT'] as bool;
