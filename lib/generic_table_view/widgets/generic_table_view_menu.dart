@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:popover/popover.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:sm_admin_portal/Models/generic_table_view_model.dart';
-import 'package:sm_admin_portal/reusable_view/reusable_drop_down_button.dart';
-import 'package:sm_admin_portal/reusable_view/sm_text.dart';
-import 'package:sm_admin_portal/utilily/colors.dart';
+import 'package:cc_portal/Models/generic_table_view_model.dart';
+import 'package:cc_portal/reusable_view/reusable_drop_down_button.dart';
+import 'package:cc_portal/reusable_view/sm_text.dart';
+import 'package:cc_portal/utilily/colors.dart';
 
 Widget menuButton(List<GenericTableViewModel> list) {
   return Row(

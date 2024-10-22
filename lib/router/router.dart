@@ -4,27 +4,27 @@ import 'package:get/get.dart';
 
 import 'package:go_router/go_router.dart';
 
-import 'package:sm_admin_portal/main.dart';
-import 'package:sm_admin_portal/navigation_bar_view/navigation_bar_view.dart';
+import 'package:cc_portal/main.dart';
+import 'package:cc_portal/navigation_bar_view/navigation_bar_view.dart';
 
-import 'package:sm_admin_portal/router/router_name.dart';
-import 'package:sm_admin_portal/screens/Bulk_Screen.dart';
-import 'package:sm_admin_portal/screens/Key_clock/key_clock_screen.dart';
-import 'package:sm_admin_portal/screens/Tunelist_screen.dart';
-import 'package:sm_admin_portal/screens/activate_tune_screen/activate_tune_screen.dart';
-import 'package:sm_admin_portal/screens/dashboard_screen/dashboard_new_screen.dart';
-import 'package:sm_admin_portal/screens/history_screen/history_screen.dart';
-import 'package:sm_admin_portal/screens/login_page.dart';
-import 'package:sm_admin_portal/screens/test_screen/test_screen.dart';
+import 'package:cc_portal/router/router_name.dart';
+import 'package:cc_portal/screens/Bulk_Screen.dart';
+import 'package:cc_portal/screens/Key_clock/key_clock_screen.dart';
+import 'package:cc_portal/screens/Tunelist_screen.dart';
+import 'package:cc_portal/screens/activate_tune_screen/activate_tune_screen.dart';
+import 'package:cc_portal/screens/dashboard_screen/dashboard_new_screen.dart';
+import 'package:cc_portal/screens/history_screen/history_screen.dart';
+import 'package:cc_portal/screens/login_page.dart';
+import 'package:cc_portal/screens/test_screen/test_screen.dart';
 
-import 'package:sm_admin_portal/screens/tone_activation_screen.dart';
+import 'package:cc_portal/screens/tone_activation_screen.dart';
 
-import 'package:sm_admin_portal/screens/suspend_and_resume_screen/suspend_and_resume_screen.dart';
+import 'package:cc_portal/screens/suspend_and_resume_screen/suspend_and_resume_screen.dart';
 
-import 'package:sm_admin_portal/side_menu_view/side_menu_view.dart';
-import 'package:sm_admin_portal/store_manager/store_manager.dart';
-import 'package:sm_admin_portal/utilily/colors.dart';
-import 'package:sm_admin_portal/utilily/constants.dart';
+import 'package:cc_portal/side_menu_view/side_menu_view.dart';
+import 'package:cc_portal/store_manager/store_manager.dart';
+import 'package:cc_portal/utilily/colors.dart';
+import 'package:cc_portal/utilily/constants.dart';
 
 import '../screens/copy_screen/copy_screen.dart';
 

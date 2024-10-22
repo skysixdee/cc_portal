@@ -3,20 +3,20 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:sm_admin_portal/common/channal_mapping.dart';
-import 'package:sm_admin_portal/common/day_mapping.dart';
-import 'package:sm_admin_portal/reusable_view/generic_popup_over.dart';
-import 'package:sm_admin_portal/reusable_view/popups/pack_upgrade_popup.dart';
-import 'package:sm_admin_portal/screens/dashboard_screen/new_widget/tune_consent_table.dart';
-import 'package:sm_admin_portal/utilily/colors.dart';
-import 'package:sm_admin_portal/utilily/constants.dart';
-import 'package:sm_admin_portal/utilily/strings.dart';
-import 'package:sm_admin_portal/reusable_view/sm_text.dart';
+import 'package:cc_portal/common/channal_mapping.dart';
+import 'package:cc_portal/common/day_mapping.dart';
+import 'package:cc_portal/reusable_view/generic_popup_over.dart';
+import 'package:cc_portal/reusable_view/popups/pack_upgrade_popup.dart';
+import 'package:cc_portal/screens/dashboard_screen/new_widget/tune_consent_table.dart';
+import 'package:cc_portal/utilily/colors.dart';
+import 'package:cc_portal/utilily/constants.dart';
+import 'package:cc_portal/utilily/strings.dart';
+import 'package:cc_portal/reusable_view/sm_text.dart';
 
-import 'package:sm_admin_portal/reusable_view/sm_shadow.dart';
-import 'package:sm_admin_portal/reusable_view/status_bullet.dart';
-import 'package:sm_admin_portal/Models/get_subscription_modal.dart';
-import 'package:sm_admin_portal/controllers/new_dash_board_controller.dart';
+import 'package:cc_portal/reusable_view/sm_shadow.dart';
+import 'package:cc_portal/reusable_view/status_bullet.dart';
+import 'package:cc_portal/Models/get_subscription_modal.dart';
+import 'package:cc_portal/controllers/new_dash_board_controller.dart';
 
 Widget existingUserView(NewDashBoardController cont) {
   return ListView.builder(

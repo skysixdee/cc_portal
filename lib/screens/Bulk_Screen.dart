@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:popover/popover.dart';
-import 'package:sm_admin_portal/reusable_view/box_shadow.dart';
-import 'package:sm_admin_portal/reusable_view/custom_text_field.dart';
-import 'package:sm_admin_portal/reusable_view/reusable_drop_down_button.dart';
-import 'package:sm_admin_portal/screens/dashboard_screen/sky_dashboard_view.dart';
+import 'package:cc_portal/reusable_view/box_shadow.dart';
+import 'package:cc_portal/reusable_view/custom_text_field.dart';
+import 'package:cc_portal/reusable_view/reusable_drop_down_button.dart';
+import 'package:cc_portal/screens/dashboard_screen/sky_dashboard_view.dart';
 
 class BulkScreen extends StatelessWidget {
   const BulkScreen({Key? key}) : super(key: key);

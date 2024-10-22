@@ -1,9 +1,9 @@
-import 'package:sm_admin_portal/Models/tone_list_model.dart';
+import 'package:cc_portal/Models/tone_list_model.dart';
 
-import 'package:sm_admin_portal/network_manager/network_manager.dart';
-import 'package:sm_admin_portal/store_manager/store_manager.dart';
-import 'package:sm_admin_portal/utilily/get_transaction_id.dart';
-import 'package:sm_admin_portal/utilily/urls.dart';
+import 'package:cc_portal/network_manager/network_manager.dart';
+import 'package:cc_portal/store_manager/store_manager.dart';
+import 'package:cc_portal/utilily/get_transaction_id.dart';
+import 'package:cc_portal/utilily/urls.dart';
 
 Future<ToneListModel> toneListApi() async {
   String url = toneListUrl;

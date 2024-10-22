@@ -1,5 +1,5 @@
-// import 'package:sm_admin_portal/Models/subscribers_modal.dart';
-// import 'package:sm_admin_portal/network_manager/network_manager.dart';
+// import 'package:cc_portal/Models/subscribers_modal.dart';
+// import 'package:cc_portal/network_manager/network_manager.dart';
 
 // Future<SubscribersModal> getSubscriptionDetailApi(String phoneNumber) async {
 //   String url =
@@ -17,10 +17,10 @@
 //   //createRowList(modal.offers, phoneNumber);
 // }
 
-import 'package:sm_admin_portal/Models/get_subscription_modal.dart';
+import 'package:cc_portal/Models/get_subscription_modal.dart';
 
-import 'package:sm_admin_portal/network_manager/network_manager.dart';
-import 'package:sm_admin_portal/utilily/urls.dart';
+import 'package:cc_portal/network_manager/network_manager.dart';
+import 'package:cc_portal/utilily/urls.dart';
 
 Future<GetSubscriptionModel> getSubscriptionDetailApi(
     String phoneNumber) async {

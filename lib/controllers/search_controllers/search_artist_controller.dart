@@ -1,14 +1,14 @@
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
-import 'package:sm_admin_portal/Models/artist_searched_model.dart';
-import 'package:sm_admin_portal/Models/artists_tune_model.dart';
-import 'package:sm_admin_portal/Models/generic_table_view_model.dart';
-import 'package:sm_admin_portal/Models/tone_info.dart';
-import 'package:sm_admin_portal/api_calls/artist_tune_search_api.dart';
-import 'package:sm_admin_portal/api_calls/get_artist_search_list_api.dart';
-import 'package:sm_admin_portal/controllers/activate_tune_controller.dart';
-import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_view_model.dart';
-import 'package:sm_admin_portal/utilily/strings.dart';
+import 'package:cc_portal/Models/artist_searched_model.dart';
+import 'package:cc_portal/Models/artists_tune_model.dart';
+import 'package:cc_portal/Models/generic_table_view_model.dart';
+import 'package:cc_portal/Models/tone_info.dart';
+import 'package:cc_portal/api_calls/artist_tune_search_api.dart';
+import 'package:cc_portal/api_calls/get_artist_search_list_api.dart';
+import 'package:cc_portal/controllers/activate_tune_controller.dart';
+import 'package:cc_portal/reusable_view/custom_table_view/custom_table_view_model.dart';
+import 'package:cc_portal/utilily/strings.dart';
 
 class SearchArtistController extends GetxController {
   RxBool isLoading = false.obs;

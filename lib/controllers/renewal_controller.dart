@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:sm_admin_portal/Models/tone_detail_modal.dart';
-import 'package:sm_admin_portal/api_calls/tone_detail_api.dart';
-import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_view_model.dart';
-import 'package:sm_admin_portal/utilily/strings.dart';
+import 'package:cc_portal/Models/tone_detail_modal.dart';
+import 'package:cc_portal/api_calls/tone_detail_api.dart';
+import 'package:cc_portal/reusable_view/custom_table_view/custom_table_view_model.dart';
+import 'package:cc_portal/utilily/strings.dart';
 
 class RenewalController extends GetxController {
   RxList<List<CustomTableViewModel>> suspendDetailList =

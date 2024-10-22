@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sm_admin_portal/Models/generic_table_view_model.dart';
-import 'package:sm_admin_portal/Models/tone_info.dart';
-import 'package:sm_admin_portal/controllers/search_controllers/search_tone_controller.dart';
-import 'package:sm_admin_portal/generic_table_view/generic_table_view.dart';
-import 'package:sm_admin_portal/reusable_view/buttons/activate_tune_button.dart';
+import 'package:cc_portal/Models/generic_table_view_model.dart';
+import 'package:cc_portal/Models/tone_info.dart';
+import 'package:cc_portal/controllers/search_controllers/search_tone_controller.dart';
+import 'package:cc_portal/generic_table_view/generic_table_view.dart';
+import 'package:cc_portal/reusable_view/buttons/activate_tune_button.dart';
 
-import 'package:sm_admin_portal/reusable_view/number_pagination.dart';
-import 'package:sm_admin_portal/reusable_view/buttons/play_button.dart';
-import 'package:sm_admin_portal/reusable_view/sm_button.dart';
-import 'package:sm_admin_portal/reusable_view/sm_text.dart';
-import 'package:sm_admin_portal/screens/activate_tune_screen/widgets/buy_tune_popup.dart';
-import 'package:sm_admin_portal/screens/subscriber_deatil_screen/widget/tone_list_table.dart';
-import 'package:sm_admin_portal/utilily/colors.dart';
-import 'package:sm_admin_portal/utilily/constants.dart';
-import 'package:sm_admin_portal/utilily/strings.dart';
+import 'package:cc_portal/reusable_view/number_pagination.dart';
+import 'package:cc_portal/reusable_view/buttons/play_button.dart';
+import 'package:cc_portal/reusable_view/sm_button.dart';
+import 'package:cc_portal/reusable_view/sm_text.dart';
+import 'package:cc_portal/screens/activate_tune_screen/widgets/buy_tune_popup.dart';
+import 'package:cc_portal/screens/subscriber_deatil_screen/widget/tone_list_table.dart';
+import 'package:cc_portal/utilily/colors.dart';
+import 'package:cc_portal/utilily/constants.dart';
+import 'package:cc_portal/utilily/strings.dart';
 
 class SearchedToneListView extends StatefulWidget {
   const SearchedToneListView({super.key, required this.seachedText});

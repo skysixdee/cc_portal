@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:sm_admin_portal/reusable_view/test_style.dart';
-import 'package:sm_admin_portal/utilily/colors.dart';
+import 'package:cc_portal/reusable_view/test_style.dart';
+import 'package:cc_portal/utilily/colors.dart';
 
 class SMText extends StatelessWidget {
   const SMText({

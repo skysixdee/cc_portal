@@ -1,4 +1,4 @@
-import 'package:sm_admin_portal/store_manager/store_manager.dart';
+import 'package:cc_portal/store_manager/store_manager.dart';
 
 List<String> getUserRole() {
   List<String> listOfRoles = [];

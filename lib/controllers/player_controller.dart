@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:sm_admin_portal/reusable_view/custom_audio_player.dart';
+import 'package:cc_portal/reusable_view/custom_audio_player.dart';
 
 class PlayerController extends GetxController {
   RxString playingToneId = '-1'.obs;

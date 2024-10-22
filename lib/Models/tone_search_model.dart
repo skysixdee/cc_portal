@@ -131,7 +131,7 @@
 
 import 'dart:convert';
 
-import 'package:sm_admin_portal/Models/tone_info.dart';
+import 'package:cc_portal/Models/tone_info.dart';
 
 ToneActivationModall toneActivationModallFromJson(String str) =>
     ToneActivationModall.fromJson(json.decode(str));

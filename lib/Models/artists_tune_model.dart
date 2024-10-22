@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:sm_admin_portal/Models/tone_info.dart';
+import 'package:cc_portal/Models/tone_info.dart';
 
 ArtistsToneModel artistsToneModelFromJson(String str) =>
     ArtistsToneModel.fromJson(json.decode(str));

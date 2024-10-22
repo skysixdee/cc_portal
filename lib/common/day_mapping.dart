@@ -1,4 +1,4 @@
-import 'package:sm_admin_portal/utilily/strings.dart';
+import 'package:cc_portal/utilily/strings.dart';
 
 String daysMapping(String value) {
   if (value == '0' || value == '1') {

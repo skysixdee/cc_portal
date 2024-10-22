@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:sm_admin_portal/Models/search_tone_model.dart';
-import 'package:sm_admin_portal/controllers/activate_tune_controller.dart';
-import 'package:sm_admin_portal/store_manager/store_manager.dart';
-import 'package:sm_admin_portal/utilily/urls.dart';
-import 'package:sm_admin_portal/utilily/constants.dart';
-import 'package:sm_admin_portal/network_manager/network_manager.dart';
+import 'package:cc_portal/Models/search_tone_model.dart';
+import 'package:cc_portal/controllers/activate_tune_controller.dart';
+import 'package:cc_portal/store_manager/store_manager.dart';
+import 'package:cc_portal/utilily/urls.dart';
+import 'package:cc_portal/utilily/constants.dart';
+import 'package:cc_portal/network_manager/network_manager.dart';
 
 Future<SearchToneModel> searchToneApi(String text, String category,
     {int pageNo = 0}) async {

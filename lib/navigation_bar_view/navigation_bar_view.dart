@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sm_admin_portal/controllers/new_dash_board_controller.dart';
-import 'package:sm_admin_portal/main.dart';
-import 'package:sm_admin_portal/navigation_bar_view/sixd_logo.dart';
-import 'package:sm_admin_portal/reusable_view/open_generic_popup_view.dart';
+import 'package:cc_portal/controllers/new_dash_board_controller.dart';
+import 'package:cc_portal/main.dart';
+import 'package:cc_portal/navigation_bar_view/sixd_logo.dart';
+import 'package:cc_portal/reusable_view/open_generic_popup_view.dart';
 
-import 'package:sm_admin_portal/reusable_view/sm_button.dart';
-import 'package:sm_admin_portal/reusable_view/sm_text.dart';
-import 'package:sm_admin_portal/router/router_name.dart';
-import 'package:sm_admin_portal/store_manager/store_manager.dart';
-import 'package:sm_admin_portal/utilily/colors.dart';
-import 'package:sm_admin_portal/utilily/constants.dart';
+import 'package:cc_portal/reusable_view/sm_button.dart';
+import 'package:cc_portal/reusable_view/sm_text.dart';
+import 'package:cc_portal/router/router_name.dart';
+import 'package:cc_portal/store_manager/store_manager.dart';
+import 'package:cc_portal/utilily/colors.dart';
+import 'package:cc_portal/utilily/constants.dart';
 
-import 'package:sm_admin_portal/utilily/strings.dart';
+import 'package:cc_portal/utilily/strings.dart';
 
 class NavigationBarView extends StatelessWidget {
   final double navBarheight;

@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
-import 'package:sm_admin_portal/Models/side_menu_model.dart';
-import 'package:sm_admin_portal/utilily/images.dart';
-import 'package:sm_admin_portal/utilily/strings.dart';
-import 'package:sm_admin_portal/router/router_name.dart';
+import 'package:cc_portal/Models/side_menu_model.dart';
+import 'package:cc_portal/utilily/images.dart';
+import 'package:cc_portal/utilily/strings.dart';
+import 'package:cc_portal/router/router_name.dart';
 
-import 'package:sm_admin_portal/Models/side_sub_menu_model.dart';
+import 'package:cc_portal/Models/side_sub_menu_model.dart';
 
 class SideMenuController extends GetxController {
   String selectedSubMenuTitle = dashBoardStr;

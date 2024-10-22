@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:sm_admin_portal/enums/font_name.dart';
-import 'package:sm_admin_portal/reusable_view/sm_text.dart';
-import 'package:sm_admin_portal/utilily/colors.dart';
-import 'package:sm_admin_portal/utilily/constants.dart';
-import 'package:sm_admin_portal/utilily/strings.dart';
-import 'package:sm_admin_portal/reusable_view/sm_button.dart';
-import 'package:sm_admin_portal/controllers/new_dash_board_controller.dart';
-import 'package:sm_admin_portal/reusable_view/sm_text_field/sm_text_field.dart';
+import 'package:cc_portal/enums/font_name.dart';
+import 'package:cc_portal/reusable_view/sm_text.dart';
+import 'package:cc_portal/utilily/colors.dart';
+import 'package:cc_portal/utilily/constants.dart';
+import 'package:cc_portal/utilily/strings.dart';
+import 'package:cc_portal/reusable_view/sm_button.dart';
+import 'package:cc_portal/controllers/new_dash_board_controller.dart';
+import 'package:cc_portal/reusable_view/sm_text_field/sm_text_field.dart';
 
 Widget userTextField(TextEditingController textEditingController,
     NewDashBoardController controller) {

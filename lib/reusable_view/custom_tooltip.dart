@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sm_admin_portal/enums/font_name.dart';
-import 'package:sm_admin_portal/utilily/colors.dart';
+import 'package:cc_portal/enums/font_name.dart';
+import 'package:cc_portal/utilily/colors.dart';
 
 Widget customTooltip(Widget child, String message) {
   return Tooltip(

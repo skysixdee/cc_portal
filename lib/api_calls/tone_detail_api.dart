@@ -1,6 +1,6 @@
 /*import 'dart:convert';
 
-import 'package:sm_admin_portal/Models/tone_detail_modal.dart';
+import 'package:cc_portal/Models/tone_detail_modal.dart';
 
 Future<ToneDetailModal> getToneDetailApi() async {
   String url =
@@ -73,10 +73,10 @@ import 'dart:convert';
 
 import 'package:http/http.dart'
     as http; // Import http package for making HTTP requests
-import 'package:sm_admin_portal/Models/tone_detail_modal.dart';
-import 'package:sm_admin_portal/network_manager/network_manager.dart';
-import 'package:sm_admin_portal/utilily/get_transaction_id.dart';
-import 'package:sm_admin_portal/utilily/urls.dart';
+import 'package:cc_portal/Models/tone_detail_modal.dart';
+import 'package:cc_portal/network_manager/network_manager.dart';
+import 'package:cc_portal/utilily/get_transaction_id.dart';
+import 'package:cc_portal/utilily/urls.dart';
 
 Future<ToneDetailModal> getToneDetailApi() async {
   //String url = 'http://10.0.10.33:8085/selfcare/subscriber-management/list-tones';

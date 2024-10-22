@@ -5,14 +5,14 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
 import 'package:popover/popover.dart';
-import 'package:sm_admin_portal/Models/generic_modal.dart';
+import 'package:cc_portal/Models/generic_modal.dart';
 
-import 'package:sm_admin_portal/Models/tone_info.dart';
-import 'package:sm_admin_portal/Models/tone_search_model.dart';
-import 'package:sm_admin_portal/network_manager/network_manager.dart';
-import 'package:sm_admin_portal/reusable_view/reusable_drop_down_button.dart';
-import 'package:sm_admin_portal/reusable_view/reusable_textfield.dart';
-import 'package:sm_admin_portal/utilily/strings.dart';
+import 'package:cc_portal/Models/tone_info.dart';
+import 'package:cc_portal/Models/tone_search_model.dart';
+import 'package:cc_portal/network_manager/network_manager.dart';
+import 'package:cc_portal/reusable_view/reusable_drop_down_button.dart';
+import 'package:cc_portal/reusable_view/reusable_textfield.dart';
+import 'package:cc_portal/utilily/strings.dart';
 
 class ToneActiveController extends GetxController {
   bool isFrequencySelected = false;

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:sm_admin_portal/reusable_view/sm_text.dart';
-import 'package:sm_admin_portal/utilily/colors.dart';
+import 'package:cc_portal/reusable_view/sm_text.dart';
+import 'package:cc_portal/utilily/colors.dart';
 
 smSnackBar(
   String message, {

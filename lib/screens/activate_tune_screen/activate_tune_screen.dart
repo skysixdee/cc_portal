@@ -1,22 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:sm_admin_portal/enums/search_type.dart';
-import 'package:sm_admin_portal/reusable_view/box_shadow.dart';
-import 'package:sm_admin_portal/reusable_view/sm_button.dart';
-import 'package:sm_admin_portal/reusable_view/sm_shadow.dart';
+import 'package:cc_portal/enums/search_type.dart';
+import 'package:cc_portal/reusable_view/box_shadow.dart';
+import 'package:cc_portal/reusable_view/sm_button.dart';
+import 'package:cc_portal/reusable_view/sm_shadow.dart';
 
-import 'package:sm_admin_portal/screens/activate_tune_screen/widgets/views/artist_search_list_view.dart';
-import 'package:sm_admin_portal/screens/activate_tune_screen/widgets/views/searched_tone_list_view.dart';
-import 'package:sm_admin_portal/screens/activate_tune_screen/widgets/views/searched_toneid_list_view.dart';
-import 'package:sm_admin_portal/utilily/colors.dart';
+import 'package:cc_portal/screens/activate_tune_screen/widgets/views/artist_search_list_view.dart';
+import 'package:cc_portal/screens/activate_tune_screen/widgets/views/searched_tone_list_view.dart';
+import 'package:cc_portal/screens/activate_tune_screen/widgets/views/searched_toneid_list_view.dart';
+import 'package:cc_portal/utilily/colors.dart';
 
-import 'package:sm_admin_portal/utilily/strings.dart';
-import 'package:sm_admin_portal/reusable_view/sm_text.dart';
-import 'package:sm_admin_portal/controllers/activate_tune_controller.dart';
+import 'package:cc_portal/utilily/strings.dart';
+import 'package:cc_portal/reusable_view/sm_text.dart';
+import 'package:cc_portal/controllers/activate_tune_controller.dart';
 
-import 'package:sm_admin_portal/screens/activate_tune_screen/widgets/activate_tune_textfield.dart';
-import 'package:sm_admin_portal/screens/activate_tune_screen/widgets/activate_tune_search_type_builder.dart';
+import 'package:cc_portal/screens/activate_tune_screen/widgets/activate_tune_textfield.dart';
+import 'package:cc_portal/screens/activate_tune_screen/widgets/activate_tune_search_type_builder.dart';
 
 class ActivateTuneScreen extends StatelessWidget {
   ActivateTuneScreen({super.key});

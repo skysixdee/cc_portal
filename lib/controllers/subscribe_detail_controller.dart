@@ -2,8 +2,8 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_view_model.dart';
-import 'package:sm_admin_portal/utilily/strings.dart';
+import 'package:cc_portal/reusable_view/custom_table_view/custom_table_view_model.dart';
+import 'package:cc_portal/utilily/strings.dart';
 
 class SubscriberDetailController extends GetxController {
   RxList<List<CustomTableViewModel>> list = <List<CustomTableViewModel>>[].obs;

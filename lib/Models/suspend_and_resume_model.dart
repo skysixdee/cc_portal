@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:sm_admin_portal/Models/subscribers_modal.dart';
+import 'package:cc_portal/Models/subscribers_modal.dart';
 /*
 SubscribersModal subscribersModalFromJson(String str) =>
     SubscribersModal.fromJson(json.decode(str));

@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:sm_admin_portal/controllers/subscriber_detail_controler.dart';
-import 'package:sm_admin_portal/network_manager/network_manager.dart';
-import 'package:sm_admin_portal/reusable_view/box_shadow.dart';
-import 'package:sm_admin_portal/utilily/colors.dart';
-import 'package:sm_admin_portal/utilily/strings.dart';
+import 'package:cc_portal/controllers/subscriber_detail_controler.dart';
+import 'package:cc_portal/network_manager/network_manager.dart';
+import 'package:cc_portal/reusable_view/box_shadow.dart';
+import 'package:cc_portal/utilily/colors.dart';
+import 'package:cc_portal/utilily/strings.dart';
 
 class SearchNumberView extends StatefulWidget {
   final String title;
@@ -30,7 +30,7 @@ class _SearchNumberViewState extends State<SearchNumberView> {
   bool enableClearBtn = false;
   SubscriberDetailController cont = Get.find();
   final TextEditingController textFieldController = TextEditingController();
-   String friendsMsisdnText = '';
+  String friendsMsisdnText = '';
   String errorMessage = '';
 
   @override
@@ -177,7 +177,7 @@ class _SearchNumberViewState extends State<SearchNumberView> {
     return GestureDetector(
       onTap: () {
         print("Search tepped");
-        friendsMsisdnText=textFieldController.text;
+        friendsMsisdnText = textFieldController.text;
         print(friendsMsisdnText);
         onSearchPressed();
       },
@@ -256,8 +256,8 @@ class _SearchNumberViewState extends State<SearchNumberView> {
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:sm_admin_portal/utilily/colors.dart';
-import 'package:sm_admin_portal/utilily/strings.dart';
+import 'package:cc_portal/utilily/colors.dart';
+import 'package:cc_portal/utilily/strings.dart';
 
 class SearchNumberView extends StatefulWidget {
   final String title;

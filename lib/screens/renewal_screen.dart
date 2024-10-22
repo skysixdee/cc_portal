@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sm_admin_portal/controllers/renewal_controller.dart';
-import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_view.dart';
+import 'package:cc_portal/controllers/renewal_controller.dart';
+import 'package:cc_portal/reusable_view/custom_table_view/custom_table_view.dart';
 
 class RenewalScreen extends StatelessWidget {
   RenewalScreen({super.key});

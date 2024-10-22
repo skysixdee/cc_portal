@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:sm_admin_portal/utilily/constants.dart';
-import 'package:sm_admin_portal/utilily/strings.dart';
+import 'package:cc_portal/utilily/constants.dart';
+import 'package:cc_portal/utilily/strings.dart';
 import 'package:universal_io/io.dart';
 
 class NetworkManager {

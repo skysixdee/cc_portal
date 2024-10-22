@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sm_admin_portal/router/router_name.dart';
+import 'package:cc_portal/router/router_name.dart';
 
 import '../reusable_view/reusable_view_delete.dart';
 

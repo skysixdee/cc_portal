@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:sm_admin_portal/Models/generic_modal.dart';
-import 'package:sm_admin_portal/network_manager/network_manager.dart';
-import 'package:sm_admin_portal/screens/suspend_and_resume_screen/widgets/suspend_detail_table.dart';
-import 'package:sm_admin_portal/utilily/constants.dart';
-import 'package:sm_admin_portal/utilily/get_transaction_id.dart';
-import 'package:sm_admin_portal/utilily/urls.dart';
+import 'package:cc_portal/Models/generic_modal.dart';
+import 'package:cc_portal/network_manager/network_manager.dart';
+import 'package:cc_portal/screens/suspend_and_resume_screen/widgets/suspend_detail_table.dart';
+import 'package:cc_portal/utilily/constants.dart';
+import 'package:cc_portal/utilily/get_transaction_id.dart';
+import 'package:cc_portal/utilily/urls.dart';
 
 Future<GenericModal> suspendApi(String msisdn) async {
   String url = suspendUrl;

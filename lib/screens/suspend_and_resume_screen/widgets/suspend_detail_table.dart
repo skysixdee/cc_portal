@@ -4,9 +4,9 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:popover/popover.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:sm_admin_portal/controllers/suspend_resume_controller.dart';
-import 'package:sm_admin_portal/reusable_view/bottom_buttons.dart';
-import 'package:sm_admin_portal/utilily/colors.dart';
+import 'package:cc_portal/controllers/suspend_resume_controller.dart';
+import 'package:cc_portal/reusable_view/bottom_buttons.dart';
+import 'package:cc_portal/utilily/colors.dart';
 
 import '../../../reusable_view/custom_table_view/custom_table_view.dart';
 

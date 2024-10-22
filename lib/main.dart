@@ -6,24 +6,24 @@ import 'package:get/get.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:keycloak_flutter/keycloak_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sm_admin_portal/Models/keyclock_user_info_model.dart';
+import 'package:cc_portal/Models/keyclock_user_info_model.dart';
 
-import 'package:sm_admin_portal/controllers/Tone_list_controller.dart';
+import 'package:cc_portal/controllers/Tone_list_controller.dart';
 
-import 'package:sm_admin_portal/controllers/activate_tune_controller.dart';
+import 'package:cc_portal/controllers/activate_tune_controller.dart';
 
-import 'package:sm_admin_portal/controllers/app_controller.dart';
+import 'package:cc_portal/controllers/app_controller.dart';
 
-import 'package:sm_admin_portal/controllers/new_dash_board_controller.dart';
-import 'package:sm_admin_portal/controllers/player_controller.dart';
-import 'package:sm_admin_portal/controllers/side_menu_controller.dart';
-import 'package:sm_admin_portal/controllers/subscriber_detail_controler.dart';
+import 'package:cc_portal/controllers/new_dash_board_controller.dart';
+import 'package:cc_portal/controllers/player_controller.dart';
+import 'package:cc_portal/controllers/side_menu_controller.dart';
+import 'package:cc_portal/controllers/subscriber_detail_controler.dart';
 
-import 'package:sm_admin_portal/reusable_view/get_user_detail.dart';
-import 'package:sm_admin_portal/reusable_view/get_user_role.dart';
-import 'package:sm_admin_portal/router/router.dart';
-import 'package:sm_admin_portal/store_manager/store_manager.dart';
-import 'package:sm_admin_portal/utilily/constants.dart';
+import 'package:cc_portal/reusable_view/get_user_detail.dart';
+import 'package:cc_portal/reusable_view/get_user_role.dart';
+import 'package:cc_portal/router/router.dart';
+import 'package:cc_portal/store_manager/store_manager.dart';
+import 'package:cc_portal/utilily/constants.dart';
 
 late AppController appCont;
 late SharedPreferences prefs;

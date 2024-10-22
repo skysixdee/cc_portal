@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:sm_admin_portal/enums/visiblity_type.dart';
-import 'package:sm_admin_portal/reusable_view/box_shadow.dart';
-import 'package:sm_admin_portal/reusable_view/sm_activity_indicator.dart';
-import 'package:sm_admin_portal/reusable_view/sm_text.dart';
+import 'package:cc_portal/enums/visiblity_type.dart';
+import 'package:cc_portal/reusable_view/box_shadow.dart';
+import 'package:cc_portal/reusable_view/sm_activity_indicator.dart';
+import 'package:cc_portal/reusable_view/sm_text.dart';
 
-import 'package:sm_admin_portal/utilily/colors.dart';
-import 'package:sm_admin_portal/utilily/constants.dart';
-import 'package:sm_admin_portal/utilily/images.dart';
-import 'package:sm_admin_portal/utilily/strings.dart';
+import 'package:cc_portal/utilily/colors.dart';
+import 'package:cc_portal/utilily/constants.dart';
+import 'package:cc_portal/utilily/images.dart';
+import 'package:cc_portal/utilily/strings.dart';
 
 class CustomVisibiltyView extends StatelessWidget {
   const CustomVisibiltyView({super.key, this.child, required this.type});

@@ -1,13 +1,13 @@
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:sm_admin_portal/Models/copy_tone_modal.dart';
-import 'package:sm_admin_portal/Models/get_subscription_modal.dart';
-import 'package:sm_admin_portal/Models/subscribers_modal.dart';
-import 'package:sm_admin_portal/Models/tone_detail_modal.dart';
-import 'package:sm_admin_portal/api_calls/copy_tone_api.dart';
-import 'package:sm_admin_portal/api_calls/pack_detail_api.dart';
-import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_view_model.dart';
-import 'package:sm_admin_portal/utilily/strings.dart';
+import 'package:cc_portal/Models/copy_tone_modal.dart';
+import 'package:cc_portal/Models/get_subscription_modal.dart';
+import 'package:cc_portal/Models/subscribers_modal.dart';
+import 'package:cc_portal/Models/tone_detail_modal.dart';
+import 'package:cc_portal/api_calls/copy_tone_api.dart';
+import 'package:cc_portal/api_calls/pack_detail_api.dart';
+import 'package:cc_portal/reusable_view/custom_table_view/custom_table_view_model.dart';
+import 'package:cc_portal/utilily/strings.dart';
 
 class CopyTonecontroller extends GetxController {
   RxList<List<CustomTableViewModel>> copyDetailList =

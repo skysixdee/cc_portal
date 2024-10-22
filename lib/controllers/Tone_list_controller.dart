@@ -1,15 +1,15 @@
 // /*import 'dart:convert';
 
 // import 'package:get/get.dart';
-// import 'package:sm_admin_portal/Models/subscribers_modal.dart';
-// import 'package:sm_admin_portal/Models/tone_detail_modal.dart';
-// import 'package:sm_admin_portal/api_calls/delete_pack_api.dart';
-// import 'package:sm_admin_portal/api_calls/pack_detail_api.dart';
-// import 'package:sm_admin_portal/api_calls/tone_detail_api.dart';
-// import 'package:sm_admin_portal/network_manager/network_manager.dart';
-// import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_view_model.dart';
-// import 'package:sm_admin_portal/utilily/strings.dart';
-// import 'package:sm_admin_portal/utilily/urls.dart';
+// import 'package:cc_portal/Models/subscribers_modal.dart';
+// import 'package:cc_portal/Models/tone_detail_modal.dart';
+// import 'package:cc_portal/api_calls/delete_pack_api.dart';
+// import 'package:cc_portal/api_calls/pack_detail_api.dart';
+// import 'package:cc_portal/api_calls/tone_detail_api.dart';
+// import 'package:cc_portal/network_manager/network_manager.dart';
+// import 'package:cc_portal/reusable_view/custom_table_view/custom_table_view_model.dart';
+// import 'package:cc_portal/utilily/strings.dart';
+// import 'package:cc_portal/utilily/urls.dart';
 
 // class SubscriberDetailController extends GetxController {
 //   RxList<List<CustomTableViewModel>> packDetailList =
@@ -49,13 +49,13 @@
 
 // import 'package:get/get.dart';
 
-// import 'package:sm_admin_portal/Models/tone_detail_modal.dart';
-// import 'package:sm_admin_portal/Models/tone_list_model.dart';
+// import 'package:cc_portal/Models/tone_detail_modal.dart';
+// import 'package:cc_portal/Models/tone_list_model.dart';
 
-// import 'package:sm_admin_portal/api_calls/tune_list_api.dart';
+// import 'package:cc_portal/api_calls/tune_list_api.dart';
 
-// import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_view_model.dart';
-// import 'package:sm_admin_portal/utilily/strings.dart';
+// import 'package:cc_portal/reusable_view/custom_table_view/custom_table_view_model.dart';
+// import 'package:cc_portal/utilily/strings.dart';
 
 // class TuneListController extends GetxController {
 //   // RxList<List<CustomTableViewModel>> packDetailList =
@@ -171,13 +171,13 @@
 // }
 
 import 'package:get/get.dart';
-import 'package:sm_admin_portal/Models/tone_detail_modal.dart';
-import 'package:sm_admin_portal/Models/tone_list_model.dart';
+import 'package:cc_portal/Models/tone_detail_modal.dart';
+import 'package:cc_portal/Models/tone_list_model.dart';
 
-import 'package:sm_admin_portal/api_calls/tune_list_api.dart';
-import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_view_model.dart';
+import 'package:cc_portal/api_calls/tune_list_api.dart';
+import 'package:cc_portal/reusable_view/custom_table_view/custom_table_view_model.dart';
 
-import 'package:sm_admin_portal/utilily/strings.dart';
+import 'package:cc_portal/utilily/strings.dart';
 
 class TuneListController extends GetxController {
   RxList<List<CustomTableViewModel>> toneList =

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sm_admin_portal/reusable_view/sm_text.dart';
-import 'package:sm_admin_portal/utilily/colors.dart';
-import 'package:sm_admin_portal/utilily/strings.dart';
+import 'package:cc_portal/reusable_view/sm_text.dart';
+import 'package:cc_portal/utilily/colors.dart';
+import 'package:cc_portal/utilily/strings.dart';
 
 Widget statusBullet(String status) {
   print("status code = $status");

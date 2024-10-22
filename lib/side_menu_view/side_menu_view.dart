@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sm_admin_portal/main.dart';
-import 'package:sm_admin_portal/reusable_view/sm_visibility_view.dart';
+import 'package:cc_portal/main.dart';
+import 'package:cc_portal/reusable_view/sm_visibility_view.dart';
 
-import 'package:sm_admin_portal/side_menu_view/side_menu_footer_view.dart';
-import 'package:sm_admin_portal/side_menu_view/side_menu_hide_button.dart';
-import 'package:sm_admin_portal/side_menu_view/side_menu_list_view.dart';
-//import 'package:sm_admin_portal/side_menu_view/side_menu_search_view.dart';
-import 'package:sm_admin_portal/utilily/colors.dart';
+import 'package:cc_portal/side_menu_view/side_menu_footer_view.dart';
+import 'package:cc_portal/side_menu_view/side_menu_hide_button.dart';
+import 'package:cc_portal/side_menu_view/side_menu_list_view.dart';
+//import 'package:cc_portal/side_menu_view/side_menu_search_view.dart';
+import 'package:cc_portal/utilily/colors.dart';
 
 class SideMenuView extends StatelessWidget {
   final double sideMenuWidth;

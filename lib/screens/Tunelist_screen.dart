@@ -2,15 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sm_admin_portal/controllers/Tone_list_controller.dart';
-import 'package:sm_admin_portal/reusable_view/bottom_buttons.dart';
+import 'package:cc_portal/controllers/Tone_list_controller.dart';
+import 'package:cc_portal/reusable_view/bottom_buttons.dart';
 
-import 'package:sm_admin_portal/router/router_name.dart';
+import 'package:cc_portal/router/router_name.dart';
 
-import 'package:sm_admin_portal/screens/subscriber_deatil_screen/widget/tone_list_table.dart';
+import 'package:cc_portal/screens/subscriber_deatil_screen/widget/tone_list_table.dart';
 import 'package:flutter/material.dart';
-import 'package:sm_admin_portal/utilily/colors.dart';
-import 'package:sm_admin_portal/utilily/strings.dart';
+import 'package:cc_portal/utilily/colors.dart';
+import 'package:cc_portal/utilily/strings.dart';
 
 // Make sure you have go_router imported
 

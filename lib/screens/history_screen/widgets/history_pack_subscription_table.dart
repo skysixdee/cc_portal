@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:sm_admin_portal/controllers/history_controllers/history_subscription_table_controller%20copy.dart';
-import 'package:sm_admin_portal/reusable_view/custom_table_view/custom_table_view.dart';
-import 'package:sm_admin_portal/reusable_view/sm_text.dart';
+import 'package:cc_portal/controllers/history_controllers/history_subscription_table_controller%20copy.dart';
+import 'package:cc_portal/reusable_view/custom_table_view/custom_table_view.dart';
+import 'package:cc_portal/reusable_view/sm_text.dart';
 
 class HistoryPackSubscriptionTableView extends StatelessWidget {
   HistoryPackSubscriptionTableView({super.key});

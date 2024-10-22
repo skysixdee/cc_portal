@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:sm_admin_portal/Models/generic_table_view_model.dart';
-import 'package:sm_admin_portal/generic_table_view/widgets/generic_table_view_menu.dart';
-import 'package:sm_admin_portal/generic_table_view/widgets/table_header_view.dart';
-import 'package:sm_admin_portal/generic_table_view/widgets/table_row_list_view.dart';
-import 'package:sm_admin_portal/reusable_view/reusable_drop_down_button.dart';
-import 'package:sm_admin_portal/reusable_view/sm_text.dart';
-import 'package:sm_admin_portal/reusable_view/table_view.dart';
-import 'package:sm_admin_portal/utilily/colors.dart';
+import 'package:cc_portal/Models/generic_table_view_model.dart';
+import 'package:cc_portal/generic_table_view/widgets/generic_table_view_menu.dart';
+import 'package:cc_portal/generic_table_view/widgets/table_header_view.dart';
+import 'package:cc_portal/generic_table_view/widgets/table_row_list_view.dart';
+import 'package:cc_portal/reusable_view/reusable_drop_down_button.dart';
+import 'package:cc_portal/reusable_view/sm_text.dart';
+import 'package:cc_portal/reusable_view/table_view.dart';
+import 'package:cc_portal/utilily/colors.dart';
 
 class GenericTableView extends StatelessWidget {
   GenericTableView({

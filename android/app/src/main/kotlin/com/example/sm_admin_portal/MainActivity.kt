@@ -1,4 +1,4 @@
-package com.example.sm_admin_portal
+package com.example.cc_portal
 
 import io.flutter.embedding.android.FlutterActivity
 

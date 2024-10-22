@@ -1,5 +1,5 @@
 import 'package:just_audio/just_audio.dart';
-import 'package:sm_admin_portal/reusable_view/sm_snack_bar.dart';
+import 'package:cc_portal/reusable_view/sm_snack_bar.dart';
 
 class CustomAudioPlayer {
   static final CustomAudioPlayer instance = CustomAudioPlayer._internal();

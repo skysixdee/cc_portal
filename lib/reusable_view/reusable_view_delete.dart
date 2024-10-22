@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:popover/popover.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
-import 'package:sm_admin_portal/reusable_view/cross_button_controller.dart';
+import 'package:cc_portal/reusable_view/cross_button_controller.dart';
 //import 'popover_list.dart';
 
 class ReusableTextField extends StatefulWidget {
@@ -14,7 +14,6 @@ class ReusableTextField extends StatefulWidget {
   final bool isTextView;
   final bool crossButton;
   final bool isTextFieldEnabled;
-  
 
   ReusableTextField({
     super.key,
@@ -23,7 +22,7 @@ class ReusableTextField extends StatefulWidget {
     this.addDropDown = false,
     this.isTextView = false,
     this.crossButton = false,
-    this.isTextFieldEnabled=true,
+    this.isTextFieldEnabled = true,
   });
 
   @override
@@ -73,7 +72,8 @@ class _ReusableTextFieldState extends State<ReusableTextField> {
                           child: TextField(
                             maxLines: widget.isTextView ? null : 1,
                             controller: textFieldController,
-                            enabled:widget.isTextFieldEnabled? null: addText(),
+                            enabled:
+                                widget.isTextFieldEnabled ? null : addText(),
                             onChanged: (text) {
                               setState(() {
                                 print("On Change ${textFieldController.text}");
@@ -102,8 +102,7 @@ class _ReusableTextFieldState extends State<ReusableTextField> {
                     ],
                   ),
                 )
-              ])
-            ),
+              ])),
     );
   }
 
@@ -291,9 +290,8 @@ class _ReusableTextFieldState extends State<ReusableTextField> {
       textFieldController.text = _selectedOption;
     });
   }
-  
+
   addText() {
-    textFieldController.text='7000000033';
-    
+    textFieldController.text = '7000000033';
   }
 }

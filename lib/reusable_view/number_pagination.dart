@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:number_paginator/number_paginator.dart';
-import 'package:sm_admin_portal/enums/font_name.dart';
-import 'package:sm_admin_portal/utilily/colors.dart';
-import 'package:sm_admin_portal/utilily/constants.dart';
+import 'package:cc_portal/enums/font_name.dart';
+import 'package:cc_portal/utilily/colors.dart';
+import 'package:cc_portal/utilily/constants.dart';
 
 class NumberPagination extends StatefulWidget {
   const NumberPagination(

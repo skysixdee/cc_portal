@@ -1,29 +1,9 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:sm_admin_portal/reusable_view/search_number/search_number_view.dart';
-import 'package:sm_admin_portal/utilily/colors.dart';
+import 'package:cc_portal/reusable_view/search_number/search_number_view.dart';
+import 'package:cc_portal/utilily/colors.dart';
 
 class OffersScreen extends StatelessWidget {
   const OffersScreen({Key? key});

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-import 'package:sm_admin_portal/controllers/suspend_resume_controller.dart';
-import 'package:sm_admin_portal/reusable_view/bottom_buttons.dart';
+import 'package:cc_portal/controllers/suspend_resume_controller.dart';
+import 'package:cc_portal/reusable_view/bottom_buttons.dart';
 
 import '../../reusable_view/custom_table_view/custom_table_menu_popup_button.dart';
 import '../../reusable_view/search_number/search_number_view.dart';

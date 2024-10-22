@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sm_admin_portal/controllers/activate_tune_controller.dart';
-import 'package:sm_admin_portal/enums/search_type.dart';
-import 'package:sm_admin_portal/reusable_view/sm_text.dart';
-import 'package:sm_admin_portal/utilily/colors.dart';
+import 'package:cc_portal/controllers/activate_tune_controller.dart';
+import 'package:cc_portal/enums/search_type.dart';
+import 'package:cc_portal/reusable_view/sm_text.dart';
+import 'package:cc_portal/utilily/colors.dart';
 
 Widget activateTuneSearchTypeBuilder(ActivateTuneController cont) {
   return SizedBox(

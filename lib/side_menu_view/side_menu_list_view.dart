@@ -2,14 +2,14 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sm_admin_portal/main.dart';
-import 'package:sm_admin_portal/reusable_view/sm_visibility_view.dart';
-import 'package:sm_admin_portal/utilily/colors.dart';
-import 'package:sm_admin_portal/utilily/images.dart';
-import 'package:sm_admin_portal/utilily/strings.dart';
-import 'package:sm_admin_portal/reusable_view/sm_text.dart';
-import 'package:sm_admin_portal/side_menu_view/side_menu_card.dart';
-import 'package:sm_admin_portal/controllers/side_menu_controller.dart';
+import 'package:cc_portal/main.dart';
+import 'package:cc_portal/reusable_view/sm_visibility_view.dart';
+import 'package:cc_portal/utilily/colors.dart';
+import 'package:cc_portal/utilily/images.dart';
+import 'package:cc_portal/utilily/strings.dart';
+import 'package:cc_portal/reusable_view/sm_text.dart';
+import 'package:cc_portal/side_menu_view/side_menu_card.dart';
+import 'package:cc_portal/controllers/side_menu_controller.dart';
 
 class SideMenuListView extends StatefulWidget {
   @override

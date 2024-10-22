@@ -1,13 +1,12 @@
 import 'dart:convert';
 
 //import 'package:http/http.dart' as http; // Import http package for making HTTP requests
-import 'package:sm_admin_portal/Models/copy_tone_modal.dart';
-import 'package:sm_admin_portal/Models/tone_detail_modal.dart';
-import 'package:sm_admin_portal/network_manager/network_manager.dart';
-import 'package:sm_admin_portal/utilily/urls.dart';
+import 'package:cc_portal/Models/copy_tone_modal.dart';
+import 'package:cc_portal/Models/tone_detail_modal.dart';
+import 'package:cc_portal/network_manager/network_manager.dart';
+import 'package:cc_portal/utilily/urls.dart';
 
 Future<CopyToneDetailModal> getCopyToneDetailApi() async {
-  
   //String url = 'http://10.0.10.33:8085/selfcare/subscriber-management/list-tones';
 
   // Map<String, dynamic> jsonData = {

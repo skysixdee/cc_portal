@@ -1,4 +1,4 @@
-# sm_admin_portal
+# cc_portal
 
 A new Flutter project.
 

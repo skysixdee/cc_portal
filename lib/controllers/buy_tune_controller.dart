@@ -1,12 +1,12 @@
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
-import 'package:sm_admin_portal/Models/generic_modal.dart';
+import 'package:cc_portal/Models/generic_modal.dart';
 
-import 'package:sm_admin_portal/Models/offer_list_model.dart';
-import 'package:sm_admin_portal/api_calls/list_offer_api.dart';
-import 'package:sm_admin_portal/api_calls/set_tone_api.dart';
-import 'package:sm_admin_portal/reusable_view/open_generic_popup_view.dart';
-import 'package:sm_admin_portal/utilily/strings.dart';
+import 'package:cc_portal/Models/offer_list_model.dart';
+import 'package:cc_portal/api_calls/list_offer_api.dart';
+import 'package:cc_portal/api_calls/set_tone_api.dart';
+import 'package:cc_portal/reusable_view/open_generic_popup_view.dart';
+import 'package:cc_portal/utilily/strings.dart';
 
 class BuyTuneController extends GetxController {
   RxString errorMessage = ''.obs;

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
-import 'package:sm_admin_portal/Models/generic_table_view_model.dart';
-import 'package:sm_admin_portal/main.dart';
-import 'package:sm_admin_portal/reusable_view/sm_button.dart';
-import 'package:sm_admin_portal/reusable_view/sm_text.dart';
-import 'package:sm_admin_portal/screens/activate_tune_screen/activate_tune_screen.dart';
-import 'package:sm_admin_portal/utilily/colors.dart';
+import 'package:cc_portal/Models/generic_table_view_model.dart';
+import 'package:cc_portal/main.dart';
+import 'package:cc_portal/reusable_view/sm_button.dart';
+import 'package:cc_portal/reusable_view/sm_text.dart';
+import 'package:cc_portal/screens/activate_tune_screen/activate_tune_screen.dart';
+import 'package:cc_portal/utilily/colors.dart';
 import '../../generic_table_view/generic_table_view.dart';
 
 class TestScreen extends StatelessWidget {

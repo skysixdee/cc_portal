@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sm_admin_portal/controllers/activate_tune_controller.dart';
+import 'package:cc_portal/controllers/activate_tune_controller.dart';
 
 Widget activateTuneSearchButton() {
   ActivateTuneController cont = Get.find();

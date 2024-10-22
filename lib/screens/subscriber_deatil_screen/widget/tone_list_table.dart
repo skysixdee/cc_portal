@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:sm_admin_portal/controllers/Tone_list_controller.dart';
-import 'package:sm_admin_portal/reusable_view/open_generic_popup_view.dart';
-import 'package:sm_admin_portal/reusable_view/reusable_alert_dialog/reusable_alert_dialog_box.dart';
-import 'package:sm_admin_portal/reusable_view/sm_button.dart';
-import 'package:sm_admin_portal/reusable_view/sm_text.dart';
+import 'package:cc_portal/controllers/Tone_list_controller.dart';
+import 'package:cc_portal/reusable_view/open_generic_popup_view.dart';
+import 'package:cc_portal/reusable_view/reusable_alert_dialog/reusable_alert_dialog_box.dart';
+import 'package:cc_portal/reusable_view/sm_button.dart';
+import 'package:cc_portal/reusable_view/sm_text.dart';
 
-import 'package:sm_admin_portal/utilily/colors.dart';
-import 'package:sm_admin_portal/utilily/constants.dart';
-import 'package:sm_admin_portal/utilily/strings.dart';
+import 'package:cc_portal/utilily/colors.dart';
+import 'package:cc_portal/utilily/constants.dart';
+import 'package:cc_portal/utilily/strings.dart';
 import '../../../reusable_view/custom_table_view/custom_table_view.dart';
 
 class SettingsListTable extends StatelessWidget {

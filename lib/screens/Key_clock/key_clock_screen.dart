@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:keycloak_flutter/keycloak_flutter.dart';
-import 'package:sm_admin_portal/main.dart';
-import 'package:sm_admin_portal/reusable_view/get_user_role.dart';
-import 'package:sm_admin_portal/reusable_view/sm_button.dart';
-import 'package:sm_admin_portal/store_manager/store_manager.dart';
+import 'package:cc_portal/main.dart';
+import 'package:cc_portal/reusable_view/get_user_role.dart';
+import 'package:cc_portal/reusable_view/sm_button.dart';
+import 'package:cc_portal/store_manager/store_manager.dart';
 
 class KeyClockScreen extends StatelessWidget {
   const KeyClockScreen({super.key});

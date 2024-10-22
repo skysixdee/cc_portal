@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:popover/popover.dart';
 
-import 'package:sm_admin_portal/controllers/buy_tune_controller.dart';
+import 'package:cc_portal/controllers/buy_tune_controller.dart';
 
-import 'package:sm_admin_portal/reusable_view/sm_activity_indicator.dart';
-import 'package:sm_admin_portal/reusable_view/sm_button.dart';
-import 'package:sm_admin_portal/reusable_view/sm_drop_down_button.dart';
+import 'package:cc_portal/reusable_view/sm_activity_indicator.dart';
+import 'package:cc_portal/reusable_view/sm_button.dart';
+import 'package:cc_portal/reusable_view/sm_drop_down_button.dart';
 
-import 'package:sm_admin_portal/reusable_view/sm_text.dart';
-import 'package:sm_admin_portal/reusable_view/sm_visibility_view.dart';
+import 'package:cc_portal/reusable_view/sm_text.dart';
+import 'package:cc_portal/reusable_view/sm_visibility_view.dart';
 
-import 'package:sm_admin_portal/utilily/colors.dart';
+import 'package:cc_portal/utilily/colors.dart';
 
-import 'package:sm_admin_portal/utilily/strings.dart';
+import 'package:cc_portal/utilily/strings.dart';
 
 openBuyTunePopup(String toneName, String toneId, {Function()? onSuccess}) {
   Get.dialog(

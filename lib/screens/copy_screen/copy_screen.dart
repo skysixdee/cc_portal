@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sm_admin_portal/controllers/copy_tone_controller.dart';
-import 'package:sm_admin_portal/reusable_view/bottom_buttons.dart';
-import 'package:sm_admin_portal/screens/copy_screen/widgets/copy_detail_table.dart';
-import 'package:sm_admin_portal/screens/copy_screen/widgets/sf_calender.dart';
-import 'package:sm_admin_portal/utilily/colors.dart';
+import 'package:cc_portal/controllers/copy_tone_controller.dart';
+import 'package:cc_portal/reusable_view/bottom_buttons.dart';
+import 'package:cc_portal/screens/copy_screen/widgets/copy_detail_table.dart';
+import 'package:cc_portal/screens/copy_screen/widgets/sf_calender.dart';
+import 'package:cc_portal/utilily/colors.dart';
 
 import '../../reusable_view/custom_table_view/custom_table_menu_popup_button.dart';
 import '../../reusable_view/search_number/search_number_view.dart';
@@ -96,7 +96,7 @@ class _CopyScreenState extends State<CopyScreen> {
           ),
         ));
   }
-                        
+
   Widget tableAndBottomSections() {
     return Column(
       children: [

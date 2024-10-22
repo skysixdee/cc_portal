@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:sm_admin_portal/controllers/player_controller.dart';
-import 'package:sm_admin_portal/utilily/colors.dart';
+import 'package:cc_portal/controllers/player_controller.dart';
+import 'package:cc_portal/utilily/colors.dart';
 
 Widget playButton(String toneId, String toneUrl) {
   PlayerController pCont = Get.find();

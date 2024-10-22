@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
-import 'package:sm_admin_portal/utilily/strings.dart';
-import 'package:sm_admin_portal/Models/tone_info.dart';
-import 'package:sm_admin_portal/enums/search_type.dart';
+import 'package:cc_portal/utilily/strings.dart';
+import 'package:cc_portal/Models/tone_info.dart';
+import 'package:cc_portal/enums/search_type.dart';
 
 class ActivateTuneController extends GetxController {
   RxString value = ''.obs;

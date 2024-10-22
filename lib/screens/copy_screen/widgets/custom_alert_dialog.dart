@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:sm_admin_portal/Models/subscribers_modal.dart';
-import 'package:sm_admin_portal/api_calls/copy_tone_api.dart';
-import 'package:sm_admin_portal/api_calls/pack_detail_api.dart';
-import 'package:sm_admin_portal/api_calls/tone_detail_api.dart';
-import 'package:sm_admin_portal/reusable_view/cross_button_controller.dart';
-import 'package:sm_admin_portal/reusable_view/reusable_view_delete.dart';
+import 'package:cc_portal/Models/subscribers_modal.dart';
+import 'package:cc_portal/api_calls/copy_tone_api.dart';
+import 'package:cc_portal/api_calls/pack_detail_api.dart';
+import 'package:cc_portal/api_calls/tone_detail_api.dart';
+import 'package:cc_portal/reusable_view/cross_button_controller.dart';
+import 'package:cc_portal/reusable_view/reusable_view_delete.dart';
 
 // class CustomAlertDialog extends StatefulWidget {
 //   @override
