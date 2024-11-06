@@ -11,7 +11,7 @@ const Duration animationTime = Duration(milliseconds: 200);
 const int connectionTimeOut = 10;
 
 String defaultToneId = '';
-
+String baseUrl = '';
 String defaultOfferCode = '';
 String productName = '';
 int maxToneCount = 0;

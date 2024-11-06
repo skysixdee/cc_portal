@@ -13,8 +13,11 @@
 
     This is a placeholder for base href that will be replaced by the value of
     the `--base-href` argument provided to `flutter build`.
+    
+    <base href="$FLUTTER_BASE_HREF">
+    <base href="/crbt_cc_portal/">
   -->
-  <base href="$FLUTTER_BASE_HREF">
+  <base href="/crbt_cc_portal/">
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
@@ -40,14 +43,16 @@
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
+  
   <!-- This  below code added for keyckock login  if not need of key clock need to remove-->
-  <script src="http://10.0.13.19:9070/js/keycloak.js"></script>
+  <!-- <script src="http://10.0.13.19:9070/js/keycloak.js"></script> -->
   <!-- This  above code added for keyckock login  if not need of key clock need to remove-->
 </head>
 <body>
   <script>
     window.addEventListener('load', function(ev) {
       // Download main.dart.js
+      
       _flutter.loader.loadEntrypoint({
         serviceWorker: {
           serviceWorkerVersion: serviceWorkerVersion,

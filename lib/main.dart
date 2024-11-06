@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ui_web';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -24,12 +25,14 @@ import 'package:cc_portal/reusable_view/get_user_role.dart';
 import 'package:cc_portal/router/router.dart';
 import 'package:cc_portal/store_manager/store_manager.dart';
 import 'package:cc_portal/utilily/constants.dart';
+import 'package:url_strategy/url_strategy.dart';
 
 late AppController appCont;
 late SharedPreferences prefs;
 late KeycloakService keycloakService;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  setPathUrlStrategy();
   initialize();
 // below code added for key clock login remove if not requiredVVVVVVVVVVVVVVVVV
   try {
@@ -87,6 +90,7 @@ _extractValueFromPropertiesFile() async {
     final String value = await rootBundle.loadString('properties.json');
     final data = await json.decode(value);
     defaultToneId = data['DEFAULT_TONE_ID'];
+    baseUrl = data['BASE_URL'];
     defaultOfferCode = data['DEFAULT_OFFER_CODE'];
     countryCode = data['COUNTRY_CODE'];
     msisdnLength = data['MSISDN_LENGTH'];
