@@ -12,6 +12,10 @@ const int connectionTimeOut = 10;
 
 String defaultToneId = '';
 String baseUrl = '';
+String keyClockBaseUrl = '';
+String realmName = '';
+String clientName = '';
+
 String defaultOfferCode = '';
 String productName = '';
 int maxToneCount = 0;

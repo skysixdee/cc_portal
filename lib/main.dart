@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:ui_web';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -37,7 +36,7 @@ void main() async {
 // below code added for key clock login remove if not requiredVVVVVVVVVVVVVVVVV
   try {
     keycloakService = KeycloakService(KeycloakConfig(
-      url: 'http://10.0.13.19:9070/', // Keycloak auth base url
+      url: '$keyClockBaseUrl/', // Keycloak auth base url
       realm: 'CC-PORTAL',
       clientId: 'CC-PORTAL-SERVICE',
     ));
@@ -91,6 +90,11 @@ _extractValueFromPropertiesFile() async {
     final data = await json.decode(value);
     defaultToneId = data['DEFAULT_TONE_ID'];
     baseUrl = data['BASE_URL'];
+    keyClockBaseUrl = data["KEYCLOCK_BASE_URL"];
+
+    realmName = data["REALM_NAME"];
+    clientName = data["CLIENT_ID"];
+
     defaultOfferCode = data['DEFAULT_OFFER_CODE'];
     countryCode = data['COUNTRY_CODE'];
     msisdnLength = data['MSISDN_LENGTH'];
