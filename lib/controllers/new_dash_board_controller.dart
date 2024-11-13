@@ -54,7 +54,6 @@ class NewDashBoardController extends GetxController {
       isVerified.value = true;
       getSubscriptionDetail(StoreManager().customerNumber);
     }
-    getMyTuneList();
   }
 
   getMyTuneList() async {
@@ -101,6 +100,7 @@ class NewDashBoardController extends GetxController {
       packName = '';
       appCont.isCustomerLoggedIn.value = true;
     } else if (subscriptionModel.respCode == 0) {
+      getMyTuneList();
       userType.value = UserType.existingUser;
 
       packName = '';
@@ -131,7 +131,7 @@ class NewDashBoardController extends GetxController {
 
     StoreManager().setCustomerLoggedin(true);
     StoreManager().setCustomerNumber(msisdn);
-    getMyTuneList();
+    //getMyTuneList();
   }
 
   String getColumnStatusName(String status) {

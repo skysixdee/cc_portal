@@ -508,6 +508,7 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
       bgColor: white,
       textColor: controller.userType == UserType.newUser ? grey : null,
       onTap: () {
+        print("tapped transactionButton");
         if (controller.userType == UserType.newUser) {
           return;
         }
@@ -529,6 +530,7 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
       title: ActivateNewToneStr,
       bgColor: white,
       onTap: () {
+        print("tapped newTuneActivateButton");
         context.goNamed(activateScreenRoute);
       },
     );

@@ -32,13 +32,14 @@ late KeycloakService keycloakService;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setPathUrlStrategy();
+  await _extractValueFromPropertiesFile();
   initialize();
 // below code added for key clock login remove if not requiredVVVVVVVVVVVVVVVVV
   try {
     keycloakService = KeycloakService(KeycloakConfig(
       url: '$keyClockBaseUrl/', // Keycloak auth base url
-      realm: 'CC-PORTAL',
-      clientId: 'CC-PORTAL-SERVICE',
+      realm: realmName,
+      clientId: clientName,
     ));
     bool isAuth = await keycloakService.init(
       initOptions: KeycloakInitOptions(onLoad: 'login-required'),
@@ -81,17 +82,16 @@ initialize() async {
 
   prefs = await SharedPreferences.getInstance();
   StoreManager().initStoreManager();
-  _extractValueFromPropertiesFile();
+  //_extractValueFromPropertiesFile();
 }
 
-_extractValueFromPropertiesFile() async {
+Future<void> _extractValueFromPropertiesFile() async {
   try {
     final String value = await rootBundle.loadString('properties.json');
     final data = await json.decode(value);
     defaultToneId = data['DEFAULT_TONE_ID'];
     baseUrl = data['BASE_URL'];
     keyClockBaseUrl = data["KEYCLOCK_BASE_URL"];
-
     realmName = data["REALM_NAME"];
     clientName = data["CLIENT_ID"];
 
@@ -114,8 +114,9 @@ _extractValueFromPropertiesFile() async {
     // "ENBALE_TONE_CONSENT":true
     print("default tone is ======= $defaultToneId");
   } catch (e) {
-    return '';
+    return;
   }
+  return;
 }
 
 class MyApp extends StatelessWidget {
