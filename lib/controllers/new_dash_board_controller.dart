@@ -1,3 +1,7 @@
+import 'package:cc_portal/Models/consent_modal.dart';
+import 'package:cc_portal/api_calls/pack_consent_api.dart';
+import 'package:cc_portal/api_calls/tone_consent_api.dart';
+import 'package:cc_portal/controllers/consent_controller.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:cc_portal/Models/generic_modal.dart';
@@ -40,7 +44,9 @@ class NewDashBoardController extends GetxController {
   //RxList<SettingsList> settingsList = <SettingsList>[].obs;
 
   List<List<GenericTableViewModel>> tuneTableList = [];
-  List<List<GenericTableViewModel>> tuneConsentTableList = [];
+  // List<List<GenericTableViewModel>> tuneConsentTableList = [];
+  // List<List<GenericTableViewModel>> packConsentTableList = [];
+
   List<List<GenericTableViewModel>> musicTableList = [];
   String packName = '';
   @override
@@ -61,7 +67,8 @@ class NewDashBoardController extends GetxController {
     ToneListModel toneListModel = await toneListApi();
     List<Tonelist> tonelist = toneListModel.tonelist ?? [];
     await _createTableData(tuneTableList, tonelist);
-    await _createTuneConsentData(tuneConsentTableList);
+
+    //  await _createPackConsentData(packConsentTableList,);
     isMaxLimitMessageVisible.value = tonelist.length >= maxToneCount;
     isLoadingTunes.value = false;
   }
@@ -69,7 +76,6 @@ class NewDashBoardController extends GetxController {
   onSubmitButtonAction(String msisdn) async {
     if (msisdn.isEmpty) {
       smSnackBar(enterValidMsisdnStr);
-
       return;
     }
     if (msisdn.length < msisdnLength) {
@@ -282,6 +288,7 @@ class NewDashBoardController extends GetxController {
       smSnackBar(model.message ?? someThingWentWrongStr);
     }
     isLoading.value = false;
+    isLoadingTunes.value = false;
   }
 
   suspendPopup() async {
@@ -393,9 +400,12 @@ Future<void> _createTableData(List<List<GenericTableViewModel>> tuneTableList,
   return;
 }
 
+///////////original
+
 Future<void> _createTuneConsentData(
     List<List<GenericTableViewModel>> tuneConsentTableList) async {
   tuneConsentTableList.clear();
+
   // if (tonelist.isEmpty) {
   //   return;
   // }
@@ -438,3 +448,32 @@ Future<void> _createTuneConsentData(
   //}
   return;
 }
+
+
+
+
+
+
+
+  // gettemplateList(ConsentModel consentlistModel) async {
+  // List<TemplateList> templatelist = consentlistModel.templateList;
+  // //print('hvhygfyg=${templatelist}');
+  // await _createTuneConsentData(tuneConsentTableList, templatelist);
+  // }
+
+//   gettemplateList(String contentId, String msisdn) async {
+//     final ConsentController consentController = Get.find<ConsentController>();
+//  ToneconsentApi(msisdn, contentId: contentId);
+//     await consentController.fetchToneconsent('phoneNumber',
+//         contentId: contentId);
+
+//     ConsentModel modal = consentController.consentResponse.value!;
+//     List<TemplateList> templatelist = modal.templateList;
+//     if (templatelist.isEmpty) {
+//       print('emptyyyyyyyyyyyyyyyyyyyyyyyy');
+//     }
+
+  //   await _createTuneConsentData(tuneConsentTableList, templatelist);
+  //   print("Consent response: ${modal.message}");
+
+  // }

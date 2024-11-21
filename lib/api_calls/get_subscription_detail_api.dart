@@ -18,7 +18,6 @@
 // }
 
 import 'package:cc_portal/Models/get_subscription_modal.dart';
-
 import 'package:cc_portal/network_manager/network_manager.dart';
 import 'package:cc_portal/utilily/urls.dart';
 
@@ -29,6 +28,5 @@ Future<GetSubscriptionModel> getSubscriptionDetailApi(
   Map<String, dynamic> jsonMap =
       await NetworkManager().postResquest(url, jsonData);
   GetSubscriptionModel modal = GetSubscriptionModel.fromJson(jsonMap);
-
   return modal;
 }

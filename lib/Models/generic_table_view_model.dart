@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 class GenericTableViewModel {
   String columnTitle;
   String columnValue;
+  String onViewButtonPressed;
   ChildType childType;
   Object? object;
   RxBool isVisible;
@@ -15,6 +16,7 @@ class GenericTableViewModel {
     required this.isVisible,
     this.columnTitle = 'No title',
     this.columnValue = 'No value ',
+    this.onViewButtonPressed='',
     this.childType = ChildType.none,
     this.object,
     this.row = 0,

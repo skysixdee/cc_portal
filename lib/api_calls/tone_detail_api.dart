@@ -79,6 +79,7 @@ import 'package:cc_portal/utilily/get_transaction_id.dart';
 import 'package:cc_portal/utilily/urls.dart';
 
 Future<ToneDetailModal> getToneDetailApi() async {
+  'http://10.0.10.33:8082/selfcare/subscriber-management/list-tones';
   //String url = 'http://10.0.10.33:8085/selfcare/subscriber-management/list-tones';
   Map<String, dynamic> jsonData = {
     "transactionId": getTransactionId(),

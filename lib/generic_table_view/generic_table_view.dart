@@ -7,6 +7,7 @@ import 'package:cc_portal/reusable_view/reusable_drop_down_button.dart';
 import 'package:cc_portal/reusable_view/sm_text.dart';
 import 'package:cc_portal/reusable_view/table_view.dart';
 import 'package:cc_portal/utilily/colors.dart';
+import 'package:get/get.dart';
 
 class GenericTableView extends StatelessWidget {
   GenericTableView({
@@ -25,11 +26,14 @@ class GenericTableView extends StatelessWidget {
   final Function({GenericTableViewModel? info})? rowChild;
   @override
   Widget build(BuildContext context) {
+    print('list=$list');
     print("list sky === ${list.length}");
     return list.isEmpty
         ? Center(
-            child: SizedBox(
-                height: 200, child: Center(child: SMText(title: "Empty List"))))
+            child: Container(
+                height: 200,
+                color: white,
+                child: Center(child: SMText(title: "Empty List"))))
         : ListView(
             shrinkWrap: true,
             physics: headerScrollable ? null : NeverScrollableScrollPhysics(),
@@ -67,3 +71,5 @@ class GenericTableView extends StatelessWidget {
           );
   }
 }
+
+

@@ -56,7 +56,8 @@ class _BuyTunePopupState extends State<_BuyTunePopup> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: transparent,
+     
+     color: transparent,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Container(

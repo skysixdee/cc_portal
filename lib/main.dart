@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cc_portal/controllers/consent_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -79,6 +80,7 @@ initialize() async {
   Get.lazyPut(() => ActivateTuneController());
 
   Get.lazyPut(() => NewDashBoardController());
+  Get.lazyPut(() => ConsentController());
 
   prefs = await SharedPreferences.getInstance();
   StoreManager().initStoreManager();

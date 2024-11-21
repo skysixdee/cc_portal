@@ -1,3 +1,9 @@
+import 'package:cc_portal/Models/consent_modal.dart';
+import 'package:cc_portal/api_calls/deactivate_api.dart';
+import 'package:cc_portal/api_calls/pack_consent_api.dart';
+import 'package:cc_portal/api_calls/tone_consent_api.dart';
+import 'package:cc_portal/api_calls/upgrade_pack_api.dart';
+import 'package:cc_portal/screens/dashboard_screen/new_widget/pack_consent_table.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
@@ -258,7 +264,9 @@ Widget _cardContainer(Widget child, {Widget? customChild}) {
   );
 }
 
-Widget _moreButton(Offer offer) {
+Widget _moreButton(
+  Offer offer,
+) {
   return ResponsiveBuilder(
     builder: (context, sizingInformation) {
       List<String> menuList = [
@@ -290,15 +298,23 @@ Widget _moreButton(Offer offer) {
               //         DeactivateStr,
               //       ],
               width: 160,
-              onTap: (p0, title) {
+              onTap: (p0, title) async {
                 if (title == upgradePackStr) {
                   openPackUpgrade();
                 }
                 if (title == consentRecordStr) {
+                   NewDashBoardController newDashBoardController = Get.find<NewDashBoardController>();
+
+  
+                 
+                  PackconsentApi("phoneNumber");
                   Get.dialog(Center(
                     child: Material(
                       color: transparent,
-                      child: TuneConsentTable(),
+                      child:  
+                   //  TuneConsentTable(),
+                PackConsentTable()
+                    
                     ),
                   ));
                 }
@@ -325,3 +341,9 @@ Widget _moreButton(Offer offer) {
     },
   );
 }
+
+
+      // Call the method to fetch the pack consent list
+      //  await newDashBoardController.getMyPackConsentList();
+                  //  ConsentModel modal = await consent(msisdn );
+                 // getupgradeApi(); getdeactivateApi();

@@ -1,3 +1,10 @@
+import 'dart:math';
+
+import 'package:cc_portal/Models/consent_modal.dart';
+import 'package:cc_portal/api_calls/pack_consent_api.dart';
+import 'package:cc_portal/api_calls/tone_consent_api.dart';
+import 'package:cc_portal/api_calls/tune_list_api.dart';
+import 'package:cc_portal/controllers/consent_controller.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -39,7 +46,7 @@ class DashboardNewScreen extends StatefulWidget {
 
 class _DashboardNewScreenState extends State<DashboardNewScreen> {
   final NewDashBoardController controller = Get.find();
-  TextEditingController textEditingController = TextEditingController();
+  final TextEditingController textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -301,7 +308,7 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
       return playButton(
           detail.contentId ?? '', detail.contentStreamingUrl ?? '');
     } else if (childType == ChildType.consent) {
-      return viewTuneConsentButton();
+      return viewTuneConsentButton(detail.contentId);
     } else if (childType == ChildType.text) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -336,7 +343,33 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
     return formatted;
   }
 
-  Widget viewTuneConsentButton() {
+  // Widget viewTuneConsentButton() {
+
+  //   return Row(
+  //     mainAxisAlignment: MainAxisAlignment.center,
+  //     crossAxisAlignment: CrossAxisAlignment.center,
+  //     children: [
+  //       SMButton(
+  //         addBorder: true,
+  //         title: viewStr,
+  //         fontWeight: FontWeight.normal,
+  //         textColor: sixdColor,
+  //         onTap: () async {
+  //           // consent1("msisdn",'index' as int);
+
+  //           Get.dialog(Center(
+  //               child:
+  //                   Material(color: transparent, child: TuneConsentTable())));
+  //           print("Tapped");
+  //         },
+  //       ),
+  //     ],
+  //   );
+  // }
+
+  Widget viewTuneConsentButton(String? contentId) {
+    final ConsentController consentController = Get.find<ConsentController>();
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -346,16 +379,79 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
           title: viewStr,
           fontWeight: FontWeight.normal,
           textColor: sixdColor,
-          onTap: () {
-            Get.dialog(Center(
-                child:
-                    Material(color: transparent, child: TuneConsentTable())));
-            print("Tapped");
+          onTap: () async {
+            if (contentId != null) {
+              Get.dialog(
+                Center(
+                  child: Material(
+                    color: transparent,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Obx(() {
+                          return consentController.isLoading.value
+                              ? CircularProgressIndicator()
+                              : TuneConsentTable();
+                        }),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+
+              await consentController.fetchToneconsent('phoneNumber',
+                  contentId: contentId);
+
+              // ConsentModel modal = consentController.consentResponse.value!;
+              // print("Consent response: ${modal.message}");
+//  NewDashBoardController newDashBoardController =
+//                   new NewDashBoardController();
+//               newDashBoardController.gettemplateList(contentId,StoreManager().customerNumber);
+              Get.back();
+             
+            } else {
+              print("Content ID not found.");
+            }
           },
         ),
       ],
     );
   }
+
+// Widget viewTuneConsentButton(String? contentId) {
+
+//   return Row(
+//     mainAxisAlignment: MainAxisAlignment.center,
+//     crossAxisAlignment: CrossAxisAlignment.center,
+//     children: [
+//       SMButton(
+//         addBorder: true,
+//         title: viewStr,
+//         fontWeight: FontWeight.normal,
+//         textColor: sixdColor,
+//         onTap: () async {
+
+//           if (contentId != null) {
+
+//             Get.dialog(
+//               Center(
+//                 child: Material(color: transparent, child: TuneConsentTable()),
+//               ),
+//             );
+
+//             ConsentModel modal = await ToneconsentApi('phoneNumber', contentId: contentId);
+
+//             print("Consent response: ${modal.message}");
+
+//             Get.back();  // Dismiss dialog
+//           } else {
+//             print("Content ID not found.");
+//           }
+//         },
+//       ),
+//     ],
+//   );
+// }
 
   Widget morebutton() {
     return Row(

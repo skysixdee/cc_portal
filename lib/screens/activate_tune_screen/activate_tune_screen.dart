@@ -83,7 +83,7 @@ class ActivateTuneScreen extends StatelessWidget {
                         child: SMButton(
                           height: 43,
                           width: 140,
-                          bgColor: sixdColor,
+                          bgColor:  sixdColor,
                           textColor: white,
                           title: searchCStr,
                           onTap: () {

@@ -12,22 +12,22 @@ import 'package:cc_portal/screens/dashboard_screen/dashboard_new_screen.dart';
 import 'package:cc_portal/utilily/colors.dart';
 import 'package:cc_portal/utilily/constants.dart';
 
-class TuneConsentTable extends StatefulWidget {
-  TuneConsentTable({super.key});
+class PackConsentTable extends StatefulWidget {
+  PackConsentTable({super.key});
 
   @override
-  State<TuneConsentTable> createState() => _TuneConsentTableState();
+  State<PackConsentTable> createState() => _PackConsentTableState();
 }
 
-class _TuneConsentTableState extends State<TuneConsentTable> {
+class _PackConsentTableState extends State<PackConsentTable> {
   NewDashBoardController con = Get.find();
-  late ConsentController consentController;
   ConsentController controller = Get.find();
+  late ConsentController consentController;
 
   @override
   void initState() {
     consentController = Get.put(ConsentController());
-    // TODO: implement initState
+
     super.initState();
   }
 
@@ -45,10 +45,8 @@ class _TuneConsentTableState extends State<TuneConsentTable> {
       child: SizedBox(
         width: 800,
         child: GenericTableView(
-          list: controller.tuneConsentTableList,
+          list: controller.packConsentTableList,
           rowChild: ({info}) {
-            print("tuneConsentTableList=${controller.tuneConsentTableList}");
-
             return info?.childType == ChildType.status
                 ? statusWidget()
                 : templetId(info);
@@ -114,32 +112,3 @@ class _TuneConsentTableState extends State<TuneConsentTable> {
     );
   }
 }
-
-
-
-
-// Widget build(BuildContext context) {
-//   return Padding(
-//     padding: const EdgeInsets.all(28.0),
-//     child: SizedBox(
-//       width: 800,
-//       child: Obx(() {
-       
-//         if (con.isLoading.value) {
-//           return Center(
-//             child: CircularProgressIndicator(),
-//           );
-//         }
-//         // Once data is loaded, display the table
-//         return GenericTableView(
-//           list: con.tuneConsentTableList,
-//           rowChild: ({info}) {
-//             return info?.childType == ChildType.status
-//                 ? statusWidget()
-//                 : templetId(info);
-//           },
-//         );
-//       }),
-//     ),
-//   );
-// }
