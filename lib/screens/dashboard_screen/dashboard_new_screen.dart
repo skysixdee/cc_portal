@@ -368,8 +368,6 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
   // }
 
   Widget viewTuneConsentButton(String? contentId) {
-    final ConsentController consentController = Get.find<ConsentController>();
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -388,19 +386,15 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Obx(() {
-                          return consentController.isLoading.value
-                              ? CircularProgressIndicator()
-                              : TuneConsentTable();
-                        }),
+                        TuneConsentTable(),
                       ],
                     ),
                   ),
                 ),
               );
 
-              await consentController.fetchToneconsent('phoneNumber',
-                  contentId: contentId);
+              // await consentController.fetchToneconsent('phoneNumber',
+              //     contentId: contentId);
 
               // ConsentModel modal = consentController.consentResponse.value!;
               // print("Consent response: ${modal.message}");
@@ -408,7 +402,6 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
 //                   new NewDashBoardController();
 //               newDashBoardController.gettemplateList(contentId,StoreManager().customerNumber);
               Get.back();
-             
             } else {
               print("Content ID not found.");
             }

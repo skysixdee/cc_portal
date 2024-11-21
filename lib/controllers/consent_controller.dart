@@ -1,7 +1,3 @@
-
-
-
-
 import 'package:cc_portal/Models/consent_modal.dart';
 import 'package:cc_portal/Models/generic_table_view_model.dart';
 import 'package:cc_portal/api_calls/pack_consent_api.dart';
@@ -15,109 +11,107 @@ class ConsentController extends GetxController {
 
   List<List<GenericTableViewModel>> tuneConsentTableList = [];
   List<List<GenericTableViewModel>> packConsentTableList = [];
-  
-Future<void> _createPackConsentData(
-    List<List<GenericTableViewModel>> packConsentTableList, ConsentModal consentResponse) async {
-  
-  packConsentTableList.clear();
 
-  if (consentResponse.consentStatus == null || consentResponse.consentStatus.isEmpty ) {
+  Future<void> _createPackConsentData(
+      List<List<GenericTableViewModel>> packConsentTableList,
+      ConsentModal consentResponse) async {
+    packConsentTableList.clear();
+
+    if (consentResponse.consentStatus == null ||
+        consentResponse.consentStatus.isEmpty) {
+      return;
+    }
+
+    packConsentTableList.add([
+      GenericTableViewModel(
+        columnTitle: "Template ID",
+        columnValue: consentResponse.templateId,
+        isVisible: true.obs,
+        childType: ChildType.clickableText,
+        object: consentResponse,
+      ),
+      GenericTableViewModel(
+        columnTitle: "Status",
+        columnValue: consentResponse.consentStatus,
+        isVisible: true.obs,
+        childType: ChildType.status,
+        object: consentResponse,
+      ),
+      GenericTableViewModel(
+        columnTitle: "Send Time",
+        columnValue: consentResponse.sentTimestamp,
+        isVisible: true.obs,
+        object: consentResponse,
+      ),
+      GenericTableViewModel(
+        columnTitle: "Received Time",
+        columnValue: consentResponse.rcvTimestamp,
+        isVisible: true.obs,
+        object: consentResponse,
+      ),
+      GenericTableViewModel(
+        columnTitle: "Received Data",
+        columnValue: consentResponse.message,
+        isVisible: true.obs,
+        object: consentResponse,
+      ),
+    ]);
     return;
   }
 
-  packConsentTableList.add([
-    GenericTableViewModel(
-      columnTitle: "Template ID",
-      columnValue: consentResponse.templateId,
-      isVisible: true.obs,
-      childType: ChildType.clickableText,
-      object: consentResponse,
-    ),
-    GenericTableViewModel(
-      columnTitle: "Status",
-      columnValue: consentResponse.consentStatus,
-      isVisible: true.obs,
-      childType: ChildType.status,
-      object: consentResponse,
-    ),
-    GenericTableViewModel(
-      columnTitle: "Send Time",
-      columnValue: consentResponse.sentTimestamp,
-      isVisible: true.obs,
-      object: consentResponse,
-    ),
-    GenericTableViewModel(
-      columnTitle: "Received Time",
-      columnValue: consentResponse.rcvTimestamp,
-      isVisible: true.obs,
-      object: consentResponse,
-    ),
-    GenericTableViewModel(
-      columnTitle: "Received Data",
-      columnValue: consentResponse.message, 
-      isVisible: true.obs,
-      object: consentResponse,
-    ),
-  ]);
-  return;
-}
+  Future<void> _createTuneConsentData(
+      List<List<GenericTableViewModel>> tuneConsentTableList,
+      ConsentModal consentResponse) async {
+    packConsentTableList.clear();
 
+    if (consentResponse.consentStatus == null ||
+        consentResponse.consentStatus.isEmpty) {
+      return;
+    }
 
-Future<void> _createTuneConsentData(
-    List<List<GenericTableViewModel>> tuneConsentTableList, ConsentModal consentResponse) async {
-  
-  packConsentTableList.clear();
-
-  if (consentResponse.consentStatus == null || consentResponse.consentStatus.isEmpty ) {
+    tuneConsentTableList.add([
+      GenericTableViewModel(
+        columnTitle: "Template ID",
+        columnValue: consentResponse.templateId,
+        isVisible: true.obs,
+        childType: ChildType.clickableText,
+        object: consentResponse,
+      ),
+      GenericTableViewModel(
+        columnTitle: "Status",
+        columnValue: consentResponse.consentStatus,
+        isVisible: true.obs,
+        childType: ChildType.status,
+        object: consentResponse,
+      ),
+      GenericTableViewModel(
+        columnTitle: "Send Time",
+        columnValue: consentResponse.sentTimestamp,
+        isVisible: true.obs,
+        object: consentResponse,
+      ),
+      GenericTableViewModel(
+        columnTitle: "Received Time",
+        columnValue: consentResponse.rcvTimestamp,
+        isVisible: true.obs,
+        object: consentResponse,
+      ),
+      GenericTableViewModel(
+        columnTitle: "Received Data",
+        columnValue: consentResponse.message,
+        isVisible: true.obs,
+        object: consentResponse,
+      ),
+    ]);
     return;
   }
 
-  tuneConsentTableList.add([
-    GenericTableViewModel(
-      columnTitle: "Template ID",
-      columnValue: consentResponse.templateId,
-      isVisible: true.obs,
-      childType: ChildType.clickableText,
-      object: consentResponse,
-    ),
-    GenericTableViewModel(
-      columnTitle: "Status",
-      columnValue: consentResponse.consentStatus,
-      isVisible: true.obs,
-      childType: ChildType.status,
-      object: consentResponse,
-    ),
-    GenericTableViewModel(
-      columnTitle: "Send Time",
-      columnValue: consentResponse.sentTimestamp,
-      isVisible: true.obs,
-      object: consentResponse,
-    ),
-    GenericTableViewModel(
-      columnTitle: "Received Time",
-      columnValue: consentResponse.rcvTimestamp,
-      isVisible: true.obs,
-      object: consentResponse,
-    ),
-    GenericTableViewModel(
-      columnTitle: "Received Data",
-      columnValue: consentResponse.message, 
-      isVisible: true.obs,
-      object: consentResponse,
-    ),
-  ]);
-  return;
-}
-
-
-
-
-
-
- Future<void> fetchPackconsent(String phoneNumber, {String? offerCode, String? contentId}) async {
+  Future<void> fetchPackconsent(String phoneNumber,
+      {String? offerCode, String? contentId}) async {
     try {
       isLoading.value = true;
-      ConsentModal response = await PackconsentApi(phoneNumber, offerCode: offerCode, contentId: contentId);
+      ConsentModal response = await PackconsentApi(phoneNumber,
+          offerCode: offerCode, contentId: contentId);
       consentResponse.value = response;
       await _createPackConsentData(packConsentTableList, response);
     } catch (e) {
@@ -127,10 +121,12 @@ Future<void> _createTuneConsentData(
     }
   }
 
-  Future<void> fetchToneconsent(String phoneNumber, {String? offerCode, String? contentId}) async {
+  Future<void> fetchToneconsent(String phoneNumber,
+      {String? offerCode, String? contentId}) async {
     try {
       isLoading.value = true;
-      ConsentModal response = await ToneconsentApi(phoneNumber, offerCode: offerCode, contentId: contentId);
+      ConsentModal response = await ToneconsentApi(phoneNumber,
+          offerCode: offerCode, contentId: contentId);
       consentResponse.value = response;
       await _createTuneConsentData(tuneConsentTableList, response);
     } catch (e) {
@@ -138,6 +134,7 @@ Future<void> _createTuneConsentData(
     } finally {
       isLoading.value = false;
     }
+    isLoading.value = false;
   }
 }
 

@@ -21,13 +21,11 @@ class PackConsentTable extends StatefulWidget {
 
 class _PackConsentTableState extends State<PackConsentTable> {
   NewDashBoardController con = Get.find();
-  ConsentController controller = Get.find();
+  ConsentController controller = Get.put(ConsentController());
   late ConsentController consentController;
 
   @override
   void initState() {
-    consentController = Get.put(ConsentController());
-
     super.initState();
   }
 

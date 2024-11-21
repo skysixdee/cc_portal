@@ -1,4 +1,5 @@
 import 'package:cc_portal/controllers/consent_controller.dart';
+import 'package:cc_portal/store_manager/store_manager.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,12 +22,15 @@ class TuneConsentTable extends StatefulWidget {
 
 class _TuneConsentTableState extends State<TuneConsentTable> {
   NewDashBoardController con = Get.find();
-  late ConsentController consentController;
+  ConsentController consentController = Get.put(ConsentController());
   ConsentController controller = Get.find();
 
   @override
   void initState() {
-    consentController = Get.put(ConsentController());
+    Get.lazyPut(() => ConsentController());
+    consentController.fetchToneconsent(StoreManager().customerNumber);
+    //consentController = Get.put(ConsentController());
+    print("initState controller");
     // TODO: implement initState
     super.initState();
   }
@@ -34,7 +38,7 @@ class _TuneConsentTableState extends State<TuneConsentTable> {
   @override
   void dispose() {
     Get.delete<ConsentController>();
-
+    print("deleteing controller");
     super.dispose();
   }
 
