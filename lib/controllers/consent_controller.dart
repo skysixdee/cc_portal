@@ -18,40 +18,46 @@ class ConsentController extends GetxController {
     packConsentTableList.clear();
 
     if (consentResponse.consentStatus == null ||
-        consentResponse.consentStatus.isEmpty) {
+        consentResponse.consentStatus!.isEmpty) {
       return;
     }
-
+//format
     packConsentTableList.add([
       GenericTableViewModel(
-        columnTitle: "Template ID",
-        columnValue: consentResponse.templateId,
+        columnTitle: templateIdStr,
+        // columnValue: consentResponse.templateId,
+        columnValue: consentResponse.templateId ?? 'N/A',
+
         isVisible: true.obs,
         childType: ChildType.clickableText,
         object: consentResponse,
       ),
       GenericTableViewModel(
-        columnTitle: "Status",
-        columnValue: consentResponse.consentStatus,
+        columnTitle: statusStr,
+        //  columnValue: consentResponse.consentStatus,
+        columnValue: consentResponse.consentStatus ?? 'N/A',
         isVisible: true.obs,
         childType: ChildType.status,
         object: consentResponse,
       ),
       GenericTableViewModel(
-        columnTitle: "Send Time",
-        columnValue: consentResponse.sentTimestamp,
+        columnTitle: sendTimeStr,
+        //columnValue: consentResponse.sentTimestamp,
+        columnValue: consentResponse.sentTimestamp ?? 'N/A',
         isVisible: true.obs,
         object: consentResponse,
       ),
       GenericTableViewModel(
-        columnTitle: "Received Time",
-        columnValue: consentResponse.rcvTimestamp,
+        columnTitle: receivedTimeStr,
+        //  columnValue: consentResponse.rcvTimestamp,
+        columnValue: consentResponse.rcvTimestamp ?? 'N/A',
         isVisible: true.obs,
         object: consentResponse,
       ),
       GenericTableViewModel(
-        columnTitle: "Received Data",
-        columnValue: consentResponse.message,
+        columnTitle: receivedDataStr,
+        //   columnValue: consentResponse.message,
+        columnValue: consentResponse.message ?? 'N/A',
         isVisible: true.obs,
         object: consentResponse,
       ),
@@ -61,44 +67,55 @@ class ConsentController extends GetxController {
 
   Future<void> _createTuneConsentData(
       List<List<GenericTableViewModel>> tuneConsentTableList,
-      ConsentModal consentResponse) async {
+      ConsentModal consentResponse,
+      {bool isEmpty = false}) async {
     packConsentTableList.clear();
+    if (isEmpty) {
 
-    if (consentResponse.consentStatus == null ||
-        consentResponse.consentStatus.isEmpty) {
+    }
+    else{
+       if (consentResponse.consentStatus == null ||
+        consentResponse.consentStatus!.isEmpty) {
       return;
     }
+    }
+    
 
     tuneConsentTableList.add([
       GenericTableViewModel(
-        columnTitle: "Template ID",
-        columnValue: consentResponse.templateId,
+        columnTitle: templateIdStr,
+        //   columnValue: consentResponse.templateId,
+        columnValue: consentResponse.templateId ?? 'N/A',
         isVisible: true.obs,
         childType: ChildType.clickableText,
         object: consentResponse,
       ),
       GenericTableViewModel(
-        columnTitle: "Status",
-        columnValue: consentResponse.consentStatus,
+        columnTitle: statusStr,
+        // columnValue: consentResponse.consentStatus,
+        columnValue: consentResponse.consentStatus ?? 'N/A',
         isVisible: true.obs,
         childType: ChildType.status,
         object: consentResponse,
       ),
       GenericTableViewModel(
-        columnTitle: "Send Time",
-        columnValue: consentResponse.sentTimestamp,
+        columnTitle: sendTimeStr,
+        // columnValue: consentResponse.sentTimestamp,
+        columnValue: consentResponse.sentTimestamp ?? 'N/A',
         isVisible: true.obs,
         object: consentResponse,
       ),
       GenericTableViewModel(
-        columnTitle: "Received Time",
-        columnValue: consentResponse.rcvTimestamp,
+        columnTitle: receivedTimeStr,
+        // columnValue: consentResponse.rcvTimestamp,
+        columnValue: consentResponse.rcvTimestamp ?? 'N/A',
         isVisible: true.obs,
         object: consentResponse,
       ),
       GenericTableViewModel(
-        columnTitle: "Received Data",
-        columnValue: consentResponse.message,
+        columnTitle: receivedDataStr,
+        // columnValue: consentResponse.message,
+        columnValue: consentResponse.message ?? 'N/A',
         isVisible: true.obs,
         object: consentResponse,
       ),
@@ -130,6 +147,7 @@ class ConsentController extends GetxController {
       consentResponse.value = response;
       await _createTuneConsentData(tuneConsentTableList, response);
     } catch (e) {
+        await _createTuneConsentData(tuneConsentTableList,ConsentModal(),isEmpty: true);
       print('Error fetching ToneconsentApi: $e');
     } finally {
       isLoading.value = false;

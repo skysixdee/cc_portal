@@ -386,7 +386,7 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        TuneConsentTable(),
+                        TuneConsentTable(contentId: contentId,),
                       ],
                     ),
                   ),

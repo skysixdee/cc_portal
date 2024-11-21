@@ -1,4 +1,6 @@
+
 import 'package:cc_portal/controllers/consent_controller.dart';
+import 'package:cc_portal/screens/subscriber_deatil_screen/widget/tone_list_table.dart';
 import 'package:cc_portal/store_manager/store_manager.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -9,13 +11,14 @@ import 'package:cc_portal/generic_table_view/generic_table_view.dart';
 import 'package:cc_portal/reusable_view/sm_text.dart';
 import 'package:cc_portal/reusable_view/status_bullet.dart';
 import 'package:cc_portal/reusable_view/test_style.dart';
-import 'package:cc_portal/screens/dashboard_screen/dashboard_new_screen.dart';
+
 import 'package:cc_portal/utilily/colors.dart';
 import 'package:cc_portal/utilily/constants.dart';
 
 class TuneConsentTable extends StatefulWidget {
-  TuneConsentTable({super.key});
-
+  TuneConsentTable({super.key, required this.contentId});
+  final String contentId;
+  
   @override
   State<TuneConsentTable> createState() => _TuneConsentTableState();
 }
@@ -28,7 +31,8 @@ class _TuneConsentTableState extends State<TuneConsentTable> {
   @override
   void initState() {
     Get.lazyPut(() => ConsentController());
-    consentController.fetchToneconsent(StoreManager().customerNumber);
+    consentController.fetchToneconsent(StoreManager().customerNumber,
+        contentId: widget.contentId);
     //consentController = Get.put(ConsentController());
     print("initState controller");
     // TODO: implement initState
@@ -41,10 +45,12 @@ class _TuneConsentTableState extends State<TuneConsentTable> {
     print("deleteing controller");
     super.dispose();
   }
-
+                     
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Obx((){
+     return con.isLoading.value ? loadingIndicatorView() :
+     Padding(
       padding: const EdgeInsets.all(28.0),
       child: SizedBox(
         width: 800,
@@ -52,7 +58,6 @@ class _TuneConsentTableState extends State<TuneConsentTable> {
           list: controller.tuneConsentTableList,
           rowChild: ({info}) {
             print("tuneConsentTableList=${controller.tuneConsentTableList}");
-
             return info?.childType == ChildType.status
                 ? statusWidget()
                 : templetId(info);
@@ -60,6 +65,7 @@ class _TuneConsentTableState extends State<TuneConsentTable> {
         ),
       ),
     );
+    });
   }
 
   RichText templetId(GenericTableViewModel? info) {
