@@ -4,7 +4,6 @@ import 'package:cc_portal/Models/consent_modal.dart';
 import 'package:cc_portal/api_calls/pack_consent_api.dart';
 import 'package:cc_portal/network_manager/network_manager.dart';
 
-
 import 'package:cc_portal/network_manager/network_manager.dart';
 import 'package:cc_portal/store_manager/store_manager.dart';
 
@@ -13,7 +12,7 @@ Future<ConsentModal> ToneconsentApi(String msisdn,
   String url = 'http://10.0.10.33:3214/selfcare/consent/fetch-details';
 
   offerCode ??= extractOfferCode(msisdn);
-  await Future.delayed(Duration(seconds: 5));
+  await Future.delayed(Duration(seconds: 1));
 
   Map<String, dynamic> jsonData = {
     "msisdn": StoreManager().customerNumber,

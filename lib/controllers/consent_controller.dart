@@ -71,15 +71,12 @@ class ConsentController extends GetxController {
       {bool isEmpty = false}) async {
     packConsentTableList.clear();
     if (isEmpty) {
-
+    } else {
+      if (consentResponse.consentStatus == null ||
+          consentResponse.consentStatus!.isEmpty) {
+        return;
+      }
     }
-    else{
-       if (consentResponse.consentStatus == null ||
-        consentResponse.consentStatus!.isEmpty) {
-      return;
-    }
-    }
-    
 
     tuneConsentTableList.add([
       GenericTableViewModel(
@@ -140,14 +137,17 @@ class ConsentController extends GetxController {
 
   Future<void> fetchToneconsent(String phoneNumber,
       {String? offerCode, String? contentId}) async {
+    isLoading.value = true;
     try {
-      isLoading.value = true;
       ConsentModal response = await ToneconsentApi(phoneNumber,
           offerCode: offerCode, contentId: contentId);
       consentResponse.value = response;
-      await _createTuneConsentData(tuneConsentTableList, response);
+
+      await _createTuneConsentData(tuneConsentTableList, response,
+          isEmpty: response.message == null);
     } catch (e) {
-        await _createTuneConsentData(tuneConsentTableList,ConsentModal(),isEmpty: true);
+      await _createTuneConsentData(tuneConsentTableList, ConsentModal(),
+          isEmpty: true);
       print('Error fetching ToneconsentApi: $e');
     } finally {
       isLoading.value = false;

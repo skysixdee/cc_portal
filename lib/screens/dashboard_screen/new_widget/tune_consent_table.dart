@@ -1,4 +1,3 @@
-
 import 'package:cc_portal/controllers/consent_controller.dart';
 import 'package:cc_portal/screens/subscriber_deatil_screen/widget/tone_list_table.dart';
 import 'package:cc_portal/store_manager/store_manager.dart';
@@ -18,7 +17,7 @@ import 'package:cc_portal/utilily/constants.dart';
 class TuneConsentTable extends StatefulWidget {
   TuneConsentTable({super.key, required this.contentId});
   final String contentId;
-  
+
   @override
   State<TuneConsentTable> createState() => _TuneConsentTableState();
 }
@@ -45,26 +44,28 @@ class _TuneConsentTableState extends State<TuneConsentTable> {
     print("deleteing controller");
     super.dispose();
   }
-                     
+
   @override
   Widget build(BuildContext context) {
-    return Obx((){
-     return con.isLoading.value ? loadingIndicatorView() :
-     Padding(
-      padding: const EdgeInsets.all(28.0),
-      child: SizedBox(
-        width: 800,
-        child: GenericTableView(
-          list: controller.tuneConsentTableList,
-          rowChild: ({info}) {
-            print("tuneConsentTableList=${controller.tuneConsentTableList}");
-            return info?.childType == ChildType.status
-                ? statusWidget()
-                : templetId(info);
-          },
-        ),
-      ),
-    );
+    return Obx(() {
+      return consentController.isLoading.value
+          ? loadingIndicatorView()
+          : Padding(
+              padding: const EdgeInsets.all(28.0),
+              child: SizedBox(
+                width: 800,
+                child: GenericTableView(
+                  list: controller.tuneConsentTableList,
+                  rowChild: ({info}) {
+                    print(
+                        "tuneConsentTableList=${controller.tuneConsentTableList}");
+                    return info?.childType == ChildType.status
+                        ? statusWidget()
+                        : templetId(info);
+                  },
+                ),
+              ),
+            );
     });
   }
 
