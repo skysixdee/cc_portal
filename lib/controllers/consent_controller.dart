@@ -130,8 +130,9 @@ class ConsentController extends GetxController {
 
   Future<void> fetchPackconsent(String phoneNumber,
       {String? offerCode, String? contentId}) async {
+    isLoading.value = true;
+    await Future.delayed(Duration(seconds: 3));
     try {
-      isLoading.value = true;
       ConsentModal response = await PackconsentApi(phoneNumber,
           offerCode: offerCode, contentId: contentId);
       consentResponse.value = response;
@@ -139,10 +140,13 @@ class ConsentController extends GetxController {
           response.respCode != 0 ? ConsentModal() : response,
           isEmpty: response.respCode != 0);
     } catch (e) {
-      print('Error fetching consent: $e');
+      await _createPackConsentData(packConsentTableList, ConsentModal(),
+          isEmpty: true);
+      print('Error fetching PackconsentApi: $e');
     } finally {
       isLoading.value = false;
     }
+    isLoading.value = false;
   }
 
   Future<void> fetchToneconsent(String phoneNumber,

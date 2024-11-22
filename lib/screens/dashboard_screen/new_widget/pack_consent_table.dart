@@ -1,4 +1,5 @@
 import 'package:cc_portal/controllers/consent_controller.dart';
+import 'package:cc_portal/screens/subscriber_deatil_screen/widget/tone_list_table.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,7 +23,7 @@ class PackConsentTable extends StatefulWidget {
 class _PackConsentTableState extends State<PackConsentTable> {
   NewDashBoardController con = Get.find();
   ConsentController controller = Get.put(ConsentController());
-  late ConsentController consentController;
+  // late ConsentController consentController;
 
   @override
   void initState() {
@@ -38,20 +39,25 @@ class _PackConsentTableState extends State<PackConsentTable> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(28.0),
-      child: SizedBox(
-        width: 800,
-        child: GenericTableView(
-          list: controller.packConsentTableList,
-          rowChild: ({info}) {
-            return info?.childType == ChildType.status
-                ? statusWidget()
-                : templetId(info);
-          },
+    return Obx(() {
+      return controller.isLoading.value
+          ? loadingIndicatorView()
+          : SMText(title: "data found");
+      Padding(
+        padding: const EdgeInsets.all(28.0),
+        child: SizedBox(
+          width: 800,
+          child: GenericTableView(
+            list: controller.packConsentTableList,
+            rowChild: ({info}) {
+              return info?.childType == ChildType.status
+                  ? statusWidget()
+                  : templetId(info);
+            },
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   RichText templetId(GenericTableViewModel? info) {
