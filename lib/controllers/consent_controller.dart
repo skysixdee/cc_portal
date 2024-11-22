@@ -14,22 +14,30 @@ class ConsentController extends GetxController {
 
   Future<void> _createPackConsentData(
       List<List<GenericTableViewModel>> packConsentTableList,
-      ConsentModal consentResponse) async {
+      ConsentModal consentResponse,
+      {bool isEmpty = false}) async {
     packConsentTableList.clear();
 
-    if (consentResponse.consentStatus == null ||
-        consentResponse.consentStatus!.isEmpty) {
-      return;
+    if (isEmpty) {
+    } else {
+      if (consentResponse.consentStatus == null ||
+          consentResponse.consentStatus!.isEmpty) {
+        return;
+      }
     }
+
+    // if (consentResponse.consentStatus == null ||
+    //     consentResponse.consentStatus!.isEmpty) {
+    //   return;
+    // }
 //format
     packConsentTableList.add([
       GenericTableViewModel(
         columnTitle: templateIdStr,
         // columnValue: consentResponse.templateId,
         columnValue: consentResponse.templateId ?? 'N/A',
-
         isVisible: true.obs,
-        childType: ChildType.clickableText,
+        childType: isEmpty ? ChildType.none : ChildType.clickableText,
         object: consentResponse,
       ),
       GenericTableViewModel(
@@ -37,7 +45,7 @@ class ConsentController extends GetxController {
         //  columnValue: consentResponse.consentStatus,
         columnValue: consentResponse.consentStatus ?? 'N/A',
         isVisible: true.obs,
-        childType: ChildType.status,
+        childType: isEmpty ? ChildType.none : ChildType.status,
         object: consentResponse,
       ),
       GenericTableViewModel(
@@ -69,7 +77,7 @@ class ConsentController extends GetxController {
       List<List<GenericTableViewModel>> tuneConsentTableList,
       ConsentModal consentResponse,
       {bool isEmpty = false}) async {
-    packConsentTableList.clear();
+    tuneConsentTableList.clear();
     if (isEmpty) {
     } else {
       if (consentResponse.consentStatus == null ||
@@ -84,7 +92,7 @@ class ConsentController extends GetxController {
         //   columnValue: consentResponse.templateId,
         columnValue: consentResponse.templateId ?? 'N/A',
         isVisible: true.obs,
-        childType: ChildType.clickableText,
+        childType: isEmpty ? ChildType.none : ChildType.clickableText,
         object: consentResponse,
       ),
       GenericTableViewModel(
@@ -92,7 +100,7 @@ class ConsentController extends GetxController {
         // columnValue: consentResponse.consentStatus,
         columnValue: consentResponse.consentStatus ?? 'N/A',
         isVisible: true.obs,
-        childType: ChildType.status,
+        childType: isEmpty ? ChildType.none : ChildType.status,
         object: consentResponse,
       ),
       GenericTableViewModel(
@@ -127,7 +135,9 @@ class ConsentController extends GetxController {
       ConsentModal response = await PackconsentApi(phoneNumber,
           offerCode: offerCode, contentId: contentId);
       consentResponse.value = response;
-      await _createPackConsentData(packConsentTableList, response);
+      await _createPackConsentData(packConsentTableList,
+          response.respCode != 0 ? ConsentModal() : response,
+          isEmpty: response.respCode != 0);
     } catch (e) {
       print('Error fetching consent: $e');
     } finally {
@@ -142,9 +152,9 @@ class ConsentController extends GetxController {
       ConsentModal response = await ToneconsentApi(phoneNumber,
           offerCode: offerCode, contentId: contentId);
       consentResponse.value = response;
-
-      await _createTuneConsentData(tuneConsentTableList, response,
-          isEmpty: response.message == null);
+      await _createTuneConsentData(tuneConsentTableList,
+          response.respCode != 0 ? ConsentModal() : response,
+          isEmpty: response.respCode != 0);
     } catch (e) {
       await _createTuneConsentData(tuneConsentTableList, ConsentModal(),
           isEmpty: true);
