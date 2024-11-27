@@ -12,12 +12,13 @@ class ConsentController extends GetxController {
 
   List<List<GenericTableViewModel>> tuneConsentTableList = [];
   List<List<GenericTableViewModel>> packConsentTableList = [];
-   String formatTimestamp(String timestamp) {
+
+  String formatTimestamp(String timestamp) {
     try {
-      DateTime date = DateTime.parse(timestamp);  // Parse the timestamp
-      return DateFormat('dd-MM-yyyy, HH:mm').format(date);  // Format the date
+      DateTime date = DateTime.parse(timestamp);
+      return DateFormat('dd-MM-yyyy, HH:mm').format(date);
     } catch (e) {
-      return 'Invalid Date';  // If parsing fails, return a default value
+      return 'Invalid Date';
     }
   }
 
@@ -41,7 +42,6 @@ class ConsentController extends GetxController {
     // }
 //format
 
-
     packConsentTableList.add([
       GenericTableViewModel(
         columnTitle: templateIdStr,
@@ -62,14 +62,14 @@ class ConsentController extends GetxController {
       GenericTableViewModel(
         columnTitle: sendTimeStr,
         //columnValue: consentResponse.sentTimestamp,
-        columnValue:formatTimestamp(consentResponse.sentTimestamp ?? 'N/A'),
+        columnValue: formatTimestamp(consentResponse.sentTimestamp ?? 'N/A'),
         isVisible: true.obs,
         object: consentResponse,
       ),
       GenericTableViewModel(
         columnTitle: receivedTimeStr,
         //  columnValue: consentResponse.rcvTimestamp,
-        columnValue:formatTimestamp(consentResponse.rcvTimestamp ?? 'N/A'),
+        columnValue: formatTimestamp(consentResponse.rcvTimestamp ?? 'N/A'),
         isVisible: true.obs,
         object: consentResponse,
       ),
@@ -97,8 +97,6 @@ class ConsentController extends GetxController {
       }
     }
 
-    
-
     tuneConsentTableList.add([
       GenericTableViewModel(
         columnTitle: templateIdStr,
@@ -119,14 +117,15 @@ class ConsentController extends GetxController {
       GenericTableViewModel(
         columnTitle: sendTimeStr,
         // columnValue: consentResponse.sentTimestamp,
-        columnValue: formatTimestamp(consentResponse.sentTimestamp ?? 'N/A'),  // Format sentTimestamp
+        columnValue: formatTimestamp(
+            consentResponse.sentTimestamp ?? 'N/A'), // Format sentTimestamp
         isVisible: true.obs,
         object: consentResponse,
       ),
       GenericTableViewModel(
         columnTitle: receivedTimeStr,
         // columnValue: consentResponse.rcvTimestamp,
-        columnValue: formatTimestamp(consentResponse.rcvTimestamp ?? 'N/A'),  
+        columnValue: formatTimestamp(consentResponse.rcvTimestamp ?? 'N/A'),
         isVisible: true.obs,
         object: consentResponse,
       ),
@@ -153,8 +152,11 @@ class ConsentController extends GetxController {
           response.respCode != 0 ? ConsentModal() : response,
           isEmpty: response.respCode != 0);
     } catch (e) {
-      await _createPackConsentData(packConsentTableList, ConsentModal(),
-          isEmpty: true);
+      await _createPackConsentData(
+        packConsentTableList,
+        ConsentModal(),
+        isEmpty: true,
+      );
       print('Error fetching PackconsentApi: $e');
     } finally {
       isLoading.value = false;
@@ -182,5 +184,3 @@ class ConsentController extends GetxController {
     isLoading.value = false;
   }
 }
-
-
