@@ -1,12 +1,9 @@
-import 'dart:io';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
+
 import 'package:popover/popover.dart';
 import 'package:cc_portal/reusable_view/box_shadow.dart';
-import 'package:cc_portal/reusable_view/custom_text_field.dart';
+
 import 'package:cc_portal/reusable_view/reusable_drop_down_button.dart';
 import 'package:cc_portal/screens/dashboard_screen/sky_dashboard_view.dart';
 
@@ -57,7 +54,7 @@ class BulkScreen extends StatelessWidget {
                                           allowedExtensions: ['csv', 'xlsv']);
                                   if (result != null) {
                                     final file = result.files.first;
-                                    print('selected file: ${file.name!}');
+                                    print('selected file: ${file.name}');
                                   }
                                 },
                                 child: Container(

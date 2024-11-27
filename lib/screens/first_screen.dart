@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:popover/popover.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 
 class FirstScreen extends StatelessWidget {
   const FirstScreen({super.key});

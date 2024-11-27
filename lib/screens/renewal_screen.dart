@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
+
 import 'package:cc_portal/controllers/renewal_controller.dart';
 import 'package:cc_portal/reusable_view/custom_table_view/custom_table_view.dart';
 
 class RenewalScreen extends StatelessWidget {
   RenewalScreen({super.key});
-  RenewalController con = Get.put(RenewalController());
+  final RenewalController con = Get.put(RenewalController());
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,7 +23,7 @@ class RenewalScreen extends StatelessWidget {
               headerColumList: con.suspendDetailList[0],
               rowList: con.suspendDetailList,
               childWidget: (row, colum) {
-                return toggleButton(row, colum ?? 0);
+                return toggleButton(row, colum);
               },
             );
           }),
