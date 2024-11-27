@@ -22,9 +22,9 @@ Future<SearchToneModel> searchToneApi(String text, String category,
     "locale": con.isEnglish.value
         ? StoreManager().enLanguageSort
         : StoreManager().otherLanguageSort,
-    "msisdn": "",
+    "msisdn": StoreManager().customerNumber,
     "searchKey": searchKey,
-    "categoryId": idlst,
+    //"categoryId": idlst,
   };
 
   Map<String, dynamic> map =

@@ -1,3 +1,4 @@
+import 'package:cc_portal/enums/role_type.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:keycloak_flutter/keycloak_flutter.dart';
@@ -16,7 +17,7 @@ class StoreManager {
   String otherLanguageSort = 'my';
 
   String languageSort = 'en';
-
+  RoleType roleType = RoleType.agent;
   bool isEnglish = true;
   bool isAgentLoggedIn = false;
   bool isCustomerLoggedIn = false;
