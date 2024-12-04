@@ -1,14 +1,14 @@
-import 'package:cc_portal/Models/consent_modal.dart';
+import 'package:cc_portal/models/consent_modal.dart';
 import 'package:cc_portal/api_calls/pack_consent_api.dart';
 import 'package:cc_portal/api_calls/tone_consent_api.dart';
 import 'package:cc_portal/controllers/consent_controller.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:cc_portal/Models/generic_modal.dart';
-import 'package:cc_portal/Models/generic_table_view_model.dart';
-import 'package:cc_portal/Models/tone_detail_modal.dart';
-import 'package:cc_portal/Models/tone_info.dart';
-import 'package:cc_portal/Models/tone_list_model.dart';
+import 'package:cc_portal/models/generic_table_view_model.dart';
+import 'package:cc_portal/models/tone_detail_modal.dart';
+import 'package:cc_portal/models/tone_info.dart';
+import 'package:cc_portal/models/tone_list_model.dart';
 import 'package:cc_portal/api_calls/delete_tone_api.dart';
 import 'package:cc_portal/api_calls/resume_api.dart';
 
@@ -24,10 +24,10 @@ import 'package:cc_portal/utilily/colors.dart';
 import 'package:cc_portal/utilily/constants.dart';
 import 'package:cc_portal/utilily/strings.dart';
 import 'package:cc_portal/enums/user_type.dart';
-import 'package:cc_portal/Models/list_setting_modal.dart';
+import 'package:cc_portal/models/list_setting_modal.dart';
 import 'package:cc_portal/api_calls/list_settings_api.dart';
 import 'package:cc_portal/store_manager/store_manager.dart';
-import 'package:cc_portal/Models/get_subscription_modal.dart';
+import 'package:cc_portal/models/get_subscription_modal.dart';
 import 'package:cc_portal/reusable_view/open_generic_popup_view.dart';
 import 'package:cc_portal/api_calls/get_subscription_detail_api.dart';
 

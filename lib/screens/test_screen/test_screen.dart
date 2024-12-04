@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
-import 'package:cc_portal/Models/generic_table_view_model.dart';
+import 'package:cc_portal/models/generic_table_view_model.dart';
 import 'package:cc_portal/main.dart';
 import 'package:cc_portal/reusable_view/sm_button.dart';
 import 'package:cc_portal/reusable_view/sm_text.dart';

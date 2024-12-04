@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:cc_portal/Models/offer_list_model.dart';
+import 'package:cc_portal/models/offer_list_model.dart';
 import 'package:cc_portal/network_manager/network_manager.dart';
 import 'package:cc_portal/store_manager/store_manager.dart';
 import 'package:cc_portal/utilily/constants.dart';

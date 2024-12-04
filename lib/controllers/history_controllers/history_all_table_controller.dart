@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:cc_portal/Models/history_all_model.dart';
+import 'package:cc_portal/models/history_all_model.dart';
 import 'package:cc_portal/controllers/history_controllers/history_controller.dart';
 import 'package:cc_portal/enums/visiblity_type.dart';
 import 'package:cc_portal/network_manager/network_manager.dart';

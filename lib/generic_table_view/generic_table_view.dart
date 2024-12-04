@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cc_portal/Models/generic_table_view_model.dart';
+import 'package:cc_portal/models/generic_table_view_model.dart';
 import 'package:cc_portal/generic_table_view/widgets/generic_table_view_menu.dart';
 import 'package:cc_portal/generic_table_view/widgets/table_header_view.dart';
 import 'package:cc_portal/generic_table_view/widgets/table_row_list_view.dart';
@@ -28,42 +28,38 @@ class GenericTableView extends StatelessWidget {
   Widget build(BuildContext context) {
     print('list=$list');
     print("list sky === ${list.length}");
-    return  ListView(
-            shrinkWrap: true,
-            physics: headerScrollable ? null : NeverScrollableScrollPhysics(),
+    return ListView(
+      shrinkWrap: true,
+      physics: headerScrollable ? null : NeverScrollableScrollPhysics(),
+      children: [
+        addMenuButton ? menu ?? menuButton(list[0]) : SizedBox(),
+        Container(
+          clipBehavior: Clip.hardEdge,
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(4)),
+          child: Column(
+            // physics: NeverScrollableScrollPhysics(),
+            // shrinkWrap: true,
             children: [
-              addMenuButton ? menu ?? menuButton(list[0]) : SizedBox(),
+              TableHeaderView(list: list[0]),
               Container(
-                clipBehavior: Clip.hardEdge,
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                child: Column(
-                  // physics: NeverScrollableScrollPhysics(),
-                  // shrinkWrap: true,
+                decoration: BoxDecoration(
+                    border: Border.all(color: greyLight, width: 1)),
+                child: ListView(
+                  shrinkWrap: true,
+                  physics:
+                      headerScrollable ? null : NeverScrollableScrollPhysics(),
                   children: [
-                    TableHeaderView(list: list[0]),
-                    Container(
-                      decoration: BoxDecoration(
-                          border: Border.all(color: greyLight, width: 1)),
-                      child: ListView(
-                        shrinkWrap: true,
-                        physics: headerScrollable
-                            ? null
-                            : NeverScrollableScrollPhysics(),
-                        children: [
-                          TableRowListView(
-                            list: list,
-                            rowChild: rowChild,
-                          ),
-                        ],
-                      ),
+                    TableRowListView(
+                      list: list,
+                      rowChild: rowChild,
                     ),
                   ],
                 ),
               ),
             ],
-          );
+          ),
+        ),
+      ],
+    );
   }
 }
-
-

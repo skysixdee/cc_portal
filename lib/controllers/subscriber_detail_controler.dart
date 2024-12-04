@@ -52,10 +52,10 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:cc_portal/Models/generic_modal.dart';
-import 'package:cc_portal/Models/get_subscription_modal.dart';
+import 'package:cc_portal/models/get_subscription_modal.dart';
 
-import 'package:cc_portal/Models/subscribers_modal.dart';
-import 'package:cc_portal/Models/tone_detail_modal.dart';
+import 'package:cc_portal/models/subscribers_modal.dart';
+import 'package:cc_portal/models/tone_detail_modal.dart';
 import 'package:cc_portal/api_calls/delete_pack_api.dart';
 import 'package:cc_portal/api_calls/pack_detail_api.dart';
 import 'package:cc_portal/api_calls/tone_detail_api.dart';

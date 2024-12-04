@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import 'package:cc_portal/Models/artists_tune_model.dart';
-import 'package:cc_portal/Models/generic_table_view_model.dart';
-import 'package:cc_portal/Models/tone_detail_modal.dart';
-import 'package:cc_portal/Models/tone_info.dart';
+import 'package:cc_portal/models/artists_tune_model.dart';
+import 'package:cc_portal/models/generic_table_view_model.dart';
+import 'package:cc_portal/models/tone_detail_modal.dart';
+import 'package:cc_portal/models/tone_info.dart';
 import 'package:cc_portal/api_calls/search_tone_id_api.dart';
 import 'package:cc_portal/controllers/activate_tune_controller.dart';
 import 'package:cc_portal/reusable_view/custom_table_view/custom_table_view_model.dart';

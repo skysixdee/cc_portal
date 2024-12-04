@@ -1,11 +1,10 @@
-import 'package:cc_portal/Models/consent_modal.dart';
-import 'package:cc_portal/network_manager/network_manager.dart';
-import 'dart:convert';  
-
 import 'dart:convert';
- // Adjust this import according to your project structure
-import 'package:cc_portal/network_manager/network_manager.dart';
+import 'package:cc_portal/utilily/urls.dart';
+import 'package:cc_portal/models/consent_modal.dart';
 import 'package:cc_portal/store_manager/store_manager.dart';
+import 'package:cc_portal/network_manager/network_manager.dart';
+
+// Adjust this import according to your project structure
 
 String? extractOfferCode(String msisdn) {
   String subscriptionResponse = '''
@@ -52,19 +51,18 @@ String? extractOfferCode(String msisdn) {
   return null;
 }
 
-Future<ConsentModal> PackconsentApi(String msisdn, {String? offerCode, String? contentId}) async {
-  String url = 'http://10.0.10.33:3214/selfcare/consent/fetch-details';
-  
-  offerCode ??= extractOfferCode(msisdn);
-  await Future.delayed(Duration(seconds: 1));
-  
+Future<ConsentModal> packConsentApi(String msisdn, String offerCode) async {
+  String url = consentDetailUrl;
+  //'http://10.0.10.33:3214/selfcare/consent/fetch-details';
+  //offerCode ??= extractOfferCode(msisdn);
+
   Map<String, dynamic> jsonData = {
     "msisdn": StoreManager().customerNumber,
-    if (offerCode != null) "offerCode": offerCode,
-    if (contentId != null) "contentId": contentId,
+    "offerCode": offerCode,
   };
 
-  Map<String, dynamic> jsonMap = await NetworkManager().postResquest(url, jsonData);
+  Map<String, dynamic> jsonMap =
+      await NetworkManager().postResquest(url, jsonData);
 
   return ConsentModal.fromJson(jsonMap);
 }

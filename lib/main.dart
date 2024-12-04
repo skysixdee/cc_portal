@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:keycloak_flutter/keycloak_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:cc_portal/Models/keyclock_user_info_model.dart';
+import 'package:cc_portal/models/keyclock_user_info_model.dart';
 
 import 'package:cc_portal/controllers/Tone_list_controller.dart';
 
@@ -56,7 +56,7 @@ void main() async {
         "iskeycloakService.authenticated =========== ${keycloakService.authenticated}");
     if (keycloakService.authenticated as bool) {
       StoreManager().setAgentLoggedin(true);
-      getUserRole();
+      await getUserRole();
       getUserDetail();
     }
 

@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:cc_portal/Models/tone_detail_modal.dart';
+import 'package:cc_portal/models/tone_detail_modal.dart';
 
 ToneListModel toneListModelFromJson(String str) =>
     ToneListModel.fromJson(json.decode(str));

@@ -1,8 +1,9 @@
 import 'package:cc_portal/enums/role_type.dart';
+import 'package:cc_portal/models/role_permission_model.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:keycloak_flutter/keycloak_flutter.dart';
-import 'package:cc_portal/Models/keyclock_user_info_model.dart';
+import 'package:cc_portal/models/keyclock_user_info_model.dart';
 
 import 'package:cc_portal/controllers/new_dash_board_controller.dart';
 import 'package:cc_portal/main.dart';
@@ -17,7 +18,8 @@ class StoreManager {
   String otherLanguageSort = 'my';
 
   String languageSort = 'en';
-  RoleType roleType = RoleType.agent;
+  late RolePermissionModel rolePermission;
+  //RoleType roleType = RoleType.agent;
   bool isEnglish = true;
   bool isAgentLoggedIn = false;
   bool isCustomerLoggedIn = false;

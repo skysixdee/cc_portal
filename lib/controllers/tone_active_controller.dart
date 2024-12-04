@@ -7,8 +7,8 @@ import 'package:get/state_manager.dart';
 import 'package:popover/popover.dart';
 import 'package:cc_portal/Models/generic_modal.dart';
 
-import 'package:cc_portal/Models/tone_info.dart';
-import 'package:cc_portal/Models/tone_search_model.dart';
+import 'package:cc_portal/models/tone_info.dart';
+import 'package:cc_portal/models/tone_search_model.dart';
 import 'package:cc_portal/network_manager/network_manager.dart';
 import 'package:cc_portal/reusable_view/reusable_drop_down_button.dart';
 import 'package:cc_portal/reusable_view/reusable_textfield.dart';

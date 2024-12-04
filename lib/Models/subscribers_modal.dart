@@ -9,7 +9,7 @@
 //     final subscribersModal = subscribersModalFromJson(jsonString);
 
 import 'dart:convert';
-import 'package:cc_portal/Models/get_subscription_modal.dart';
+import 'package:cc_portal/models/get_subscription_modal.dart';
 
 SubscribersModal subscribersModalFromJson(String str) =>
     SubscribersModal.fromJson(json.decode(str));

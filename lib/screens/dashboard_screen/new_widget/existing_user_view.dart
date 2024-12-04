@@ -1,4 +1,4 @@
-import 'package:cc_portal/Models/consent_modal.dart';
+import 'package:cc_portal/models/consent_modal.dart';
 import 'package:cc_portal/api_calls/deactivate_api.dart';
 import 'package:cc_portal/api_calls/pack_consent_api.dart';
 import 'package:cc_portal/api_calls/tone_consent_api.dart';
@@ -21,7 +21,7 @@ import 'package:cc_portal/reusable_view/sm_text.dart';
 
 import 'package:cc_portal/reusable_view/sm_shadow.dart';
 import 'package:cc_portal/reusable_view/status_bullet.dart';
-import 'package:cc_portal/Models/get_subscription_modal.dart';
+import 'package:cc_portal/models/get_subscription_modal.dart';
 import 'package:cc_portal/controllers/new_dash_board_controller.dart';
 
 Widget existingUserView(NewDashBoardController cont) {
@@ -303,19 +303,17 @@ Widget _moreButton(
                   openPackUpgrade();
                 }
                 if (title == consentRecordStr) {
-                   NewDashBoardController newDashBoardController = Get.find<NewDashBoardController>();
-
-  
-                 
-                  PackconsentApi("phoneNumber");
+                  NewDashBoardController dashCont =
+                      Get.find<NewDashBoardController>();
+                  print("SKY======== ${dashCont.offers[p0].offerName}");
+                  //packConsentApi("phoneNumber");
                   Get.dialog(Center(
                     child: Material(
-                      color: transparent,
-                      child:  
-                   //  TuneConsentTable(),
-                PackConsentTable()
-                    
-                    ),
+                        color: transparent,
+                        child:
+                            //  TuneConsentTable(),
+                            PackConsentTable(
+                                packName: dashCont.offers[p0].offerName ?? '')),
                   ));
                 }
                 print("tapped");

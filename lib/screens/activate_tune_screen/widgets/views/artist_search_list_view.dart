@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:cc_portal/Models/artist_searched_model.dart';
+import 'package:cc_portal/models/artist_searched_model.dart';
 import 'package:cc_portal/controllers/search_controllers/search_artist_controller.dart';
 import 'package:cc_portal/generic_table_view/generic_table_view.dart';
 import 'package:cc_portal/reusable_view/custom_table_view/custom_table_view.dart';

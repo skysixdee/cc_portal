@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 //import 'package:http/http.dart' as http; // Import http package for making HTTP requests
-import 'package:cc_portal/Models/copy_tone_modal.dart';
-import 'package:cc_portal/Models/tone_detail_modal.dart';
+import 'package:cc_portal/models/copy_tone_modal.dart';
+import 'package:cc_portal/models/tone_detail_modal.dart';
 import 'package:cc_portal/network_manager/network_manager.dart';
 import 'package:cc_portal/utilily/urls.dart';
 

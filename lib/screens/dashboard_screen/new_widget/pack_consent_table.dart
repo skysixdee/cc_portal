@@ -1,14 +1,10 @@
-
-
-
-
 import 'package:cc_portal/controllers/consent_controller.dart';
 import 'package:cc_portal/screens/subscriber_deatil_screen/widget/tone_list_table.dart';
 import 'package:cc_portal/store_manager/store_manager.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:cc_portal/Models/generic_table_view_model.dart';
+import 'package:cc_portal/models/generic_table_view_model.dart';
 import 'package:cc_portal/controllers/new_dash_board_controller.dart';
 import 'package:cc_portal/generic_table_view/generic_table_view.dart';
 import 'package:cc_portal/reusable_view/sm_text.dart';
@@ -19,8 +15,11 @@ import 'package:cc_portal/utilily/colors.dart';
 import 'package:cc_portal/utilily/constants.dart';
 
 class PackConsentTable extends StatefulWidget {
-  PackConsentTable({super.key, });
- 
+  PackConsentTable({
+    super.key,
+    required this.packName,
+  });
+  final String packName;
 
   @override
   State<PackConsentTable> createState() => _PackConsentTableState();
@@ -28,14 +27,12 @@ class PackConsentTable extends StatefulWidget {
 
 class _PackConsentTableState extends State<PackConsentTable> {
   NewDashBoardController con = Get.find();
-  ConsentController consentController = Get.put(ConsentController());
-  ConsentController controller = Get.find();
+  ConsentController controller = Get.put(ConsentController());
 
   @override
   void initState() {
     Get.lazyPut(() => ConsentController());
-    consentController.fetchPackconsent(StoreManager().customerNumber,
-      );
+    controller.fetchPackconsent(StoreManager().customerNumber, widget.packName);
     //consentController = Get.put(ConsentController());
     print("initState controller");
     // TODO: implement initState
@@ -52,7 +49,7 @@ class _PackConsentTableState extends State<PackConsentTable> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      return consentController.isLoading.value
+      return controller.isLoading.value
           ? loadingIndicatorView()
           : Padding(
               padding: const EdgeInsets.all(28.0),
@@ -79,7 +76,7 @@ class _PackConsentTableState extends State<PackConsentTable> {
           text: info?.columnValue ?? '',
           recognizer: TapGestureRecognizer()
             ..onTap = () {
-              templetIdDescriptionPopup();
+              templetIdDescriptionPopup(info?.columnValue ?? '');
               print("tappedd");
             },
           style: customTextStyle(
@@ -90,32 +87,42 @@ class _PackConsentTableState extends State<PackConsentTable> {
     );
   }
 
-  Future<dynamic> templetIdDescriptionPopup() {
+  Future<dynamic> templetIdDescriptionPopup(String id) {
+    controller.fetchTempletMessage(id);
     return Get.dialog(Center(
       child: Material(
-        color: transparent,
-        child: Container(
-          width: popupWidth,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(4),
-            color: white,
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 40),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SMText(
-                  title: "Display description of Templet id",
-                  fontWeight: FontWeight.normal,
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
+          color: transparent,
+          child: Obx(
+            () {
+              return controller.isLoadingTempletMessage.value
+                  ? loadingIndicatorView()
+                  : Container(
+                      width: popupWidth,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4),
+                        color: white,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20.0, vertical: 40),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Flexible(
+                              child: SMText(
+                                textAlign: TextAlign.center,
+                                title: controller.templetMessage,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+            },
+          )),
     ));
   }
 

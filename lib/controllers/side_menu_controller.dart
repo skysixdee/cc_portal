@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
-import 'package:cc_portal/Models/side_menu_model.dart';
+import 'package:cc_portal/models/side_menu_model.dart';
 import 'package:cc_portal/utilily/images.dart';
 import 'package:cc_portal/utilily/strings.dart';
 import 'package:cc_portal/router/router_name.dart';
 
-import 'package:cc_portal/Models/side_sub_menu_model.dart';
+import 'package:cc_portal/models/side_sub_menu_model.dart';
 
 class SideMenuController extends GetxController {
   String selectedSubMenuTitle = dashBoardStr;

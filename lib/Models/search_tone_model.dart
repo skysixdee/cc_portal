@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:cc_portal/Models/tone_info.dart';
+import 'package:cc_portal/models/tone_info.dart';
 
 SearchToneModel searchToneModelFromJson(String str) =>
     SearchToneModel.fromJson(json.decode(str));

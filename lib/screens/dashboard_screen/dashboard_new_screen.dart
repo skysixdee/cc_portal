@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:cc_portal/Models/consent_modal.dart';
+import 'package:cc_portal/models/consent_modal.dart';
 import 'package:cc_portal/api_calls/pack_consent_api.dart';
 import 'package:cc_portal/api_calls/tone_consent_api.dart';
 import 'package:cc_portal/api_calls/tune_list_api.dart';
@@ -20,11 +20,11 @@ import 'package:cc_portal/router/router_name.dart';
 import 'package:cc_portal/reusable_view/sm_text.dart';
 import 'package:cc_portal/reusable_view/sm_shadow.dart';
 import 'package:cc_portal/reusable_view/sm_button.dart';
-import 'package:cc_portal/Models/tone_detail_modal.dart';
+import 'package:cc_portal/models/tone_detail_modal.dart';
 import 'package:cc_portal/reusable_view/status_bullet.dart';
 import 'package:cc_portal/store_manager/store_manager.dart';
 import 'package:cc_portal/reusable_view/table_tab_rail.dart';
-import 'package:cc_portal/Models/generic_table_view_model.dart';
+import 'package:cc_portal/models/generic_table_view_model.dart';
 import 'package:cc_portal/reusable_view/custom_url_launcher.dart';
 import 'package:cc_portal/reusable_view/buttons/play_button.dart';
 import 'package:cc_portal/controllers/new_dash_board_controller.dart';
@@ -383,12 +383,15 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
                 Center(
                   child: Material(
                     color: transparent,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        TuneConsentTable(contentId: contentId,),
-                      ],
+                    child: TuneConsentTable(
+                      contentId: contentId,
                     ),
+                    // Column(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+
+                    //   ],
+                    // ),
                   ),
                 ),
               );

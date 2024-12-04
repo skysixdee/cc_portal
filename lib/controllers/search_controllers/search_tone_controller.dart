@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 
-import 'package:cc_portal/Models/generic_table_view_model.dart';
-import 'package:cc_portal/Models/search_tone_model.dart';
-import 'package:cc_portal/Models/tone_info.dart';
+import 'package:cc_portal/models/generic_table_view_model.dart';
+import 'package:cc_portal/models/search_tone_model.dart';
+import 'package:cc_portal/models/tone_info.dart';
 import 'package:cc_portal/api_calls/search_text_api.dart';
 import 'package:cc_portal/controllers/activate_tune_controller.dart';
 

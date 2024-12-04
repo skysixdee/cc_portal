@@ -1,25 +1,17 @@
-import 'dart:convert';
-
-import 'package:cc_portal/Models/consent_modal.dart';
-import 'package:cc_portal/api_calls/pack_consent_api.dart';
-import 'package:cc_portal/network_manager/network_manager.dart';
-
-import 'package:cc_portal/network_manager/network_manager.dart';
+import 'package:cc_portal/utilily/urls.dart';
+import 'package:cc_portal/models/consent_modal.dart';
 import 'package:cc_portal/store_manager/store_manager.dart';
+import 'package:cc_portal/network_manager/network_manager.dart';
 
-Future<ConsentModal> ToneconsentApi(String msisdn,
-    {String? offerCode, String? contentId}) async {
-  String url = 'http://10.0.10.33:3214/selfcare/consent/fetch-details';
+Future<ConsentModal> toneConsentApi(String msisdn, String contentId) async {
+  String url =
+      consentDetailUrl; //'http://10.0.10.33:3214/selfcare/consent/fetch-details';
 
-  offerCode ??= extractOfferCode(msisdn);
-  await Future.delayed(Duration(seconds: 1));
+  //offerCode ??= extractOfferCode(msisdn);
 
   Map<String, dynamic> jsonData = {
     "msisdn": StoreManager().customerNumber,
-    if (contentId != null) "contentId": contentId,
-
-    // if (offerCode != null) "offerCode": offerCode,
-    // if (contentId != null) "contentId": contentId,
+    "contentId": contentId,
   };
 
   Map<String, dynamic> jsonMap =

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:cc_portal/Models/generic_table_view_model.dart';
+import 'package:cc_portal/models/generic_table_view_model.dart';
 import 'package:cc_portal/enums/font_name.dart';
 import 'package:cc_portal/reusable_view/sm_text.dart';
 import 'package:cc_portal/utilily/colors.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:cc_portal/Models/subscribers_modal.dart';
+import 'package:cc_portal/models/subscribers_modal.dart';
 import 'package:cc_portal/api_calls/copy_tone_api.dart';
 import 'package:cc_portal/api_calls/pack_detail_api.dart';
 import 'package:cc_portal/api_calls/tone_detail_api.dart';

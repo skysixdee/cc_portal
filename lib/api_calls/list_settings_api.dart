@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:cc_portal/Models/list_settin_modal.dart';
-import 'package:cc_portal/Models/list_setting_modal.dart';
-import 'package:cc_portal/Models/subscribers_modal.dart';
+import 'package:cc_portal/models/list_settin_modal.dart';
+import 'package:cc_portal/models/list_setting_modal.dart';
+import 'package:cc_portal/models/subscribers_modal.dart';
 import 'package:cc_portal/network_manager/network_manager.dart';
 import 'package:cc_portal/utilily/get_transaction_id.dart';
 import 'package:cc_portal/utilily/urls.dart';

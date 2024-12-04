@@ -1,5 +1,5 @@
-enum RoleType {
-  superAdmin,
-  admin,
-  agent,
-}
+// enum RoleType {
+//   superAdmin,
+//   admin,
+//   agent,
+// }

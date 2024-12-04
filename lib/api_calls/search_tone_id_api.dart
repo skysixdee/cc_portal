@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:cc_portal/Models/artists_tune_model.dart';
+import 'package:cc_portal/models/artists_tune_model.dart';
 import 'package:cc_portal/controllers/activate_tune_controller.dart';
 import 'package:cc_portal/network_manager/network_manager.dart';
 import 'package:cc_portal/store_manager/store_manager.dart';

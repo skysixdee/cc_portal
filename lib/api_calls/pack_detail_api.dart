@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cc_portal/Models/subscribers_modal.dart';
+import 'package:cc_portal/models/subscribers_modal.dart';
 import 'package:cc_portal/network_manager/network_manager.dart';
 import 'package:cc_portal/utilily/urls.dart';
 

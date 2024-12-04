@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:cc_portal/Models/generic_table_view_model.dart';
-import 'package:cc_portal/Models/tone_info.dart';
+import 'package:cc_portal/models/generic_table_view_model.dart';
+import 'package:cc_portal/models/tone_info.dart';
 import 'package:cc_portal/controllers/search_controllers/search_tone_controller.dart';
 import 'package:cc_portal/generic_table_view/generic_table_view.dart';
 import 'package:cc_portal/reusable_view/buttons/activate_tune_button.dart';

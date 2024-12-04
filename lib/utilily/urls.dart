@@ -30,3 +30,9 @@ String getPackDetailUrl =
     '$baseUrl/selfcare/subscription-service/get-subscription';
 //http://10.0.10.33:5678
 String toneListUrl = '$baseUrl/selfcare/subscriber-management/list-tones';
+String consentDetailUrl =
+    'http://10.0.10.33:3214/selfcare/consent/fetch-details';
+String templetMessageUrl =
+    'http://10.0.10.33:4768/selfcare/msg_template/fetch-details';
+String rolePermissionUrl =
+    'http://10.0.10.33:4768/selfcare/ccuser_management/role-permissions';

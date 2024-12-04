@@ -17,7 +17,7 @@
 //   //createRowList(modal.offers, phoneNumber);
 // }
 
-import 'package:cc_portal/Models/get_subscription_modal.dart';
+import 'package:cc_portal/models/get_subscription_modal.dart';
 import 'package:cc_portal/network_manager/network_manager.dart';
 import 'package:cc_portal/utilily/urls.dart';
 
