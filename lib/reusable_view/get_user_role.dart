@@ -16,7 +16,7 @@ Future<void> getUserRole() async {
       StoreManager().rolePermission = await rolePermissionApi('2');
     } else {
       //StoreManager().roleType = RoleType.agent;
-      StoreManager().rolePermission = await rolePermissionApi('3');
+      StoreManager().rolePermission = await rolePermissionApi('1');
     }
     listOfRoles.add(role);
   }

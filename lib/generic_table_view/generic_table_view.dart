@@ -26,7 +26,7 @@ class GenericTableView extends StatelessWidget {
   final Function({GenericTableViewModel? info})? rowChild;
   @override
   Widget build(BuildContext context) {
-    print('list=$list');
+    // print('list=$list');
     print("list sky === ${list.length}");
     return ListView(
       shrinkWrap: true,

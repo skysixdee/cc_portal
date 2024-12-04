@@ -1,3 +1,5 @@
+import 'package:cc_portal/router/role_base_screen.dart';
+import 'package:cc_portal/screens/role_screen/role_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -47,6 +49,7 @@ final router = GoRouter(
         tuneListShell(),
         _activateScreenShell(),
         _loginShell(),
+        _roleBaseShell(),
         /*
         MessageTemplateScreenScreen(),
         RenewalScreenScreen(),
@@ -65,15 +68,17 @@ final router = GoRouter(
     // if ((StoreManager().isAgentLoggedIn)) {
     //   return loginRoute;
     // } else {
-    if (!StoreManager().isCustomerLoggedIn) {
-      if (path == tuneListRoute || path == activateScreenRoute) {
-        return dashBoardRoute;
-      } else {
-        return dashBoardRoute;
-      }
-    } else {
-      return null;
-    }
+    print("path is ===========$path");
+    return roleBaseScreen(path);
+    // if (!StoreManager().isCustomerLoggedIn) {
+    //   if (path == tuneListRoute || path == activateScreenRoute) {
+    //     return dashBoardRoute;
+    //   } else {
+    //     return dashBoardRoute;
+    //   }
+    // } else {
+    //   return null;
+    // }
     //}
   },
   errorPageBuilder: (context, state) {
@@ -89,6 +94,20 @@ Widget _errorWidget(BuildContext context, GoRouterState state) {
         // Text()
 
         ),
+  );
+}
+
+StatefulShellBranch _roleBaseShell() {
+  return StatefulShellBranch(
+    routes: <RouteBase>[
+      GoRoute(
+        name: roleRoute,
+        path: roleRoute,
+        builder: (context, state) {
+          return RoleScreen();
+        },
+      ),
+    ],
   );
 }
 
