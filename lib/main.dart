@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cc_portal/common/cdn_script_loader.dart';
 import 'package:cc_portal/controllers/consent_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -34,6 +35,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setPathUrlStrategy();
   await _extractValueFromPropertiesFile();
+  //await cdnScriptLoader();
   initialize();
 // below code added for key clock login remove if not requiredVVVVVVVVVVVVVVVVV
   try {
@@ -49,9 +51,10 @@ void main() async {
     String token = await keycloakService.getToken();
 
     Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
-    StoreManager().keyClockInfo =
-        await keyClockUserInfoModelFromJson(json.encode(decodedToken));
 
+    KeyClockUserInfoModel model = KeyClockUserInfoModel.fromJson(decodedToken);
+    StoreManager().keyClockInfo = model;
+    print("model ========== ${model.realmAccess?.roles}");
     print(
         "iskeycloakService.authenticated =========== ${keycloakService.authenticated}");
     if (keycloakService.authenticated as bool) {

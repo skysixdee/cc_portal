@@ -15,7 +15,10 @@ class RoleScreen extends StatelessWidget {
       color: white,
       child: Center(
         child: SMText(
-          title: 'RoleScreen',
+          fontWeight: FontWeight.normal,
+          textAlign: TextAlign.center,
+          title:
+              'Your role does not have access to this screen. \n Please change your role or contact the administrator.',
         ),
       ),
     );
