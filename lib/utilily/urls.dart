@@ -36,3 +36,5 @@ String templetMessageUrl =
     'http://10.0.10.33:4768/selfcare/msg_template/fetch-details';
 String rolePermissionUrl =
     'http://10.0.10.33:4768/selfcare/ccuser_management/role-permissions';
+String transactionHistoryUrl =
+    'http://10.0.10.33:4768/selfcare/transaction-history-service/get-transactions';

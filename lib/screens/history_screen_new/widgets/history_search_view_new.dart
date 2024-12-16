@@ -14,9 +14,8 @@ import 'package:cc_portal/reusable_view/sm_text.dart';
 import 'package:cc_portal/utilily/colors.dart';
 import 'package:cc_portal/utilily/strings.dart';
 
-class HistorySearchView extends StatelessWidget {
-  HistorySearchView({super.key, required this.textController});
-  final TextEditingController textController;
+class HistorySearchViewNew extends StatelessWidget {
+  HistorySearchViewNew({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -88,15 +87,6 @@ class HistorySearchView extends StatelessWidget {
       title: searchStr,
       bgColor: sixdColor,
       textColor: white,
-    );
-  }
-
-  Widget msisdnInputBuilder() {
-    return CustomReusableTextField(
-      textController: textController,
-      hintText: msisdnCStr,
-      isNumberInput: true,
-      title: msisdnCStr, ////bhavychanges
     );
   }
 

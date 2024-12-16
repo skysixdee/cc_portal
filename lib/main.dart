@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cc_portal/common/cdn_script_loader.dart';
 import 'package:cc_portal/controllers/consent_controller.dart';
+import 'package:cc_portal/controllers/history_controllers/history_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -35,7 +36,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setPathUrlStrategy();
   await _extractValueFromPropertiesFile();
-  //await cdnScriptLoader();
+  await cdnScriptLoader();
+  await Future.delayed(Duration(milliseconds: 300));
   initialize();
 // below code added for key clock login remove if not requiredVVVVVVVVVVVVVVVVV
   try {
@@ -76,7 +78,7 @@ initialize() async {
   appCont = Get.put(AppController());
   Get.lazyPut(() => SubscriberDetailController());
   Get.lazyPut(() => SideMenuController());
-
+  Get.lazyPut(() => HistoryController());
   Get.lazyPut(() => TuneListController());
   Get.lazyPut(() => PlayerController());
 

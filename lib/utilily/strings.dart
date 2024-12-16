@@ -73,7 +73,8 @@ String ToneStatusStr = 'Tone Status';
 
 String ToneNameStr = 'Tone Name';
 String ArtistStr = 'Artist';
-
+String deactivationDateStr = 'DeactivationDate';
+String validityStr = 'ValidityDays';
 String channelIdStr = 'Channel Id';
 String channelStr = 'Channel';
 String searchStr = 'Search';

@@ -9,12 +9,12 @@ class NetworkManager {
   Future<Map<String, dynamic>> postResquest(
       String url, Map<String, dynamic> jsonData) async {
     print("Urls sky========$url");
-
-    HttpClientRequest request = await client.postUrl(Uri.parse(url));
-
-    request.write(json.encode(jsonData));
-    print("json request ${json.encode(jsonData)}");
     try {
+      HttpClientRequest request = await client.postUrl(Uri.parse(url));
+      print("json 1 request ${json.encode(jsonData)}");
+      request.write(json.encode(jsonData));
+      print("json request ${json.encode(jsonData)}");
+
       HttpClientResponse response =
           await request.close().timeout(Duration(seconds: connectionTimeOut));
 
@@ -25,6 +25,7 @@ class NetworkManager {
           Map<String, dynamic> map = json.decode(stringData);
           return map;
         } catch (e) {
+          print("SKY ===decoding error $e");
           String message = someThingWentWrongStr + " Error = ${e.toString()}";
           Map<String, dynamic> valueMap =
               json.decode("""{"message": "${message}"}""");

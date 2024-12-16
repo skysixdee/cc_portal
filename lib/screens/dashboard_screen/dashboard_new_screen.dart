@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:cc_portal/common/date_formate.dart';
 import 'package:cc_portal/models/consent_modal.dart';
 import 'package:cc_portal/api_calls/pack_consent_api.dart';
 import 'package:cc_portal/api_calls/tone_consent_api.dart';
@@ -315,7 +316,8 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SMText(
-            title: _dateFormate(info?.columnValue ?? ''),
+            title: dateFormate(info?.columnValue ??
+                ''), //dateFormate(info?.columnValue ?? ''),
             fontWeight: FontWeight.normal,
           ),
         ],
@@ -323,24 +325,6 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
     } else {
       return SMText(title: "add you widget here");
     }
-  }
-
-  String _dateFormate(String date) {
-    if (date.isEmpty) {
-      return "";
-    }
-    String formatted = '';
-    try {
-      DateTime dateTime = DateTime.parse(date);
-      final DateFormat formatter = DateFormat('dd-MM-yyyy, HH:mm');
-
-      // HH:mm');
-      formatted = formatter.format(dateTime);
-    } catch (e) {
-      formatted = e.toString();
-    }
-
-    return formatted;
   }
 
   // Widget viewTuneConsentButton() {

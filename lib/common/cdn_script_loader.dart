@@ -1,4 +1,3 @@
-/*
 import 'dart:html' as html;
 
 import 'package:cc_portal/utilily/constants.dart';
@@ -8,7 +7,7 @@ Future<String> cdnScriptLoader() async {
     String url = keyClockBaseUrl + '/js/keycloak.js';
     print("key clock url = $url");
     final script = html.ScriptElement()
-      ..src = 'http://10.0.13.19:9070/js/keycloak.js'
+      ..src = url //'http://10.0.13.19:9070/js/keycloak.js'
       ..type = 'text/javascript'
       ..async = true;
 
@@ -19,8 +18,7 @@ Future<String> cdnScriptLoader() async {
     });
     return "";
   } catch (e) {
-    print("erorr is $e");
+    print("erorr in loading script is $e");
     return "";
   }
 }
-*/

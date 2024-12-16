@@ -1,4 +1,5 @@
 import 'package:cc_portal/router/role_base_screen.dart';
+import 'package:cc_portal/screens/history_screen_new/history_screen_new.dart';
 import 'package:cc_portal/screens/role_screen/role_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -11,20 +12,19 @@ import 'package:cc_portal/navigation_bar_view/navigation_bar_view.dart';
 
 import 'package:cc_portal/router/router_name.dart';
 import 'package:cc_portal/screens/Bulk_Screen.dart';
-import 'package:cc_portal/screens/Key_clock/key_clock_screen.dart';
+
 import 'package:cc_portal/screens/Tunelist_screen.dart';
 import 'package:cc_portal/screens/activate_tune_screen/activate_tune_screen.dart';
 import 'package:cc_portal/screens/dashboard_screen/dashboard_new_screen.dart';
-import 'package:cc_portal/screens/history_screen/history_screen.dart';
+
 import 'package:cc_portal/screens/login_page.dart';
-import 'package:cc_portal/screens/test_screen/test_screen.dart';
 
 import 'package:cc_portal/screens/tone_activation_screen.dart';
 
 import 'package:cc_portal/screens/suspend_and_resume_screen/suspend_and_resume_screen.dart';
 
 import 'package:cc_portal/side_menu_view/side_menu_view.dart';
-import 'package:cc_portal/store_manager/store_manager.dart';
+
 import 'package:cc_portal/utilily/colors.dart';
 import 'package:cc_portal/utilily/constants.dart';
 
@@ -217,7 +217,7 @@ StatefulShellBranch _transactionHistoryShell() {
         name: transactionHistoryRoute,
         path: transactionHistoryRoute,
         builder: (context, state) {
-          return HistoryScreen();
+          return HistoryScreenNew();
         },
       ),
     ],
