@@ -28,38 +28,47 @@ class GenericTableView extends StatelessWidget {
   Widget build(BuildContext context) {
     // print('list=$list');
     print("list sky === ${list.length}");
-    return ListView(
-      shrinkWrap: true,
-      physics: headerScrollable ? null : NeverScrollableScrollPhysics(),
-      children: [
-        addMenuButton ? menu ?? menuButton(list[0]) : SizedBox(),
-        Container(
-          clipBehavior: Clip.hardEdge,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(4)),
-          child: Column(
-            // physics: NeverScrollableScrollPhysics(),
-            // shrinkWrap: true,
+    return list.isEmpty
+        ? emptyListWidget()
+        : ListView(
+            shrinkWrap: true,
+            physics: headerScrollable ? null : NeverScrollableScrollPhysics(),
             children: [
-              TableHeaderView(list: list[0]),
+              addMenuButton ? menu ?? menuButton(list[0]) : SizedBox(),
               Container(
-                decoration: BoxDecoration(
-                    border: Border.all(color: greyLight, width: 1)),
-                child: ListView(
-                  shrinkWrap: true,
-                  physics:
-                      headerScrollable ? null : NeverScrollableScrollPhysics(),
+                clipBehavior: Clip.hardEdge,
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(4)),
+                child: Column(
+                  // physics: NeverScrollableScrollPhysics(),
+                  // shrinkWrap: true,
                   children: [
-                    TableRowListView(
-                      list: list,
-                      rowChild: rowChild,
+                    TableHeaderView(list: list[0]),
+                    Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: greyLight, width: 1)),
+                      child: ListView(
+                        shrinkWrap: true,
+                        physics: headerScrollable
+                            ? null
+                            : NeverScrollableScrollPhysics(),
+                        children: [
+                          TableRowListView(
+                            list: list,
+                            rowChild: rowChild,
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
               ),
             ],
-          ),
-        ),
-      ],
-    );
+          );
+  }
+
+  Widget emptyListWidget() {
+    return SizedBox(
+        height: 200, child: Center(child: SMText(title: "list is empty")));
   }
 }

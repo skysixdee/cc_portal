@@ -71,8 +71,8 @@ class SMDropDownButton extends StatelessWidget {
                     ? print("No data to display")
                     : popupOverOpen(ctx);
                 //}
-                print(
-                    "CustomDropDownButton ${MediaQuery.of(context).size} \n ${Get.width}");
+                // print(
+                //     "CustomDropDownButton ${MediaQuery.of(context).size} \n ${Get.width}");
               },
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(cornerRadius),

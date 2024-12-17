@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:cc_portal/common/date_formate.dart';
+import 'package:cc_portal/controllers/history_controllers/history_controller.dart';
 import 'package:cc_portal/models/consent_modal.dart';
 import 'package:cc_portal/api_calls/pack_consent_api.dart';
 import 'package:cc_portal/api_calls/tone_consent_api.dart';
@@ -588,6 +589,8 @@ class _DashboardNewScreenState extends State<DashboardNewScreen> {
         if (controller.userType == UserType.newUser) {
           return;
         }
+        HistoryController con = Get.find();
+        con.transactionHistory();
         context.goNamed(transactionHistoryRoute);
       },
       //bgColor: sixdColor,

@@ -1,5 +1,6 @@
 import 'package:cc_portal/common/date_formate.dart';
 import 'package:cc_portal/reusable_view/sm_text.dart';
+import 'package:cc_portal/utilily/strings.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
@@ -20,21 +21,23 @@ class _HistoryScreenNewState extends State<HistoryScreenNew> {
   HistoryController con = Get.find();
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      shrinkWrap: true,
-      children: [
-        SizedBox(height: 20),
-        headerView(),
-        tableView(),
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: ListView(
+        shrinkWrap: true,
+        children: [
+          SizedBox(height: 20),
+          headerView(),
+          SizedBox(height: 20),
+          tableView(),
+          SizedBox(height: 20),
+        ],
+      ),
     );
   }
 
   Widget headerView() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-      child: HistorySearchViewNew(),
-    );
+    return HistorySearchViewNew();
   }
 
   Widget tableView() {
@@ -43,7 +46,7 @@ class _HistoryScreenNewState extends State<HistoryScreenNew> {
         return con.isLoading.value
             ? loadingIndicatorView()
             : con.historyList.isEmpty
-                ? SMText(title: "empty")
+                ? noTransactionFound()
                 : GenericTableView(
                     list: con.historyList,
                     addMenuButton: true,
@@ -56,5 +59,9 @@ class _HistoryScreenNewState extends State<HistoryScreenNew> {
                   );
       },
     );
+  }
+
+  Widget noTransactionFound() {
+    return Center(child: SMText(title: noTransactionFoundStr));
   }
 }

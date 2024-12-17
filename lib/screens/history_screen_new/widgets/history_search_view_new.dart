@@ -1,22 +1,20 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:cc_portal/controllers/history_controllers/history_controller.dart';
+import 'package:cc_portal/reusable_view/buttons/date_picker_button.dart';
 import 'package:get/get.dart';
 import 'package:popover/popover.dart';
-import 'package:cc_portal/reusable_view/box_shadow.dart';
-import 'package:cc_portal/reusable_view/custom_text_field.dart';
-import 'package:cc_portal/reusable_view/reusable_drop_down_button.dart';
-import 'package:cc_portal/reusable_view/reusable_textfield.dart';
-import 'package:cc_portal/reusable_view/reusable_view_delete.dart';
-import 'package:cc_portal/reusable_view/sm_button.dart';
-import 'package:cc_portal/reusable_view/sm_shadow.dart';
-import 'package:cc_portal/reusable_view/sm_text.dart';
+import 'package:flutter/material.dart';
 import 'package:cc_portal/utilily/colors.dart';
 import 'package:cc_portal/utilily/strings.dart';
+import 'package:cc_portal/common/date_formate.dart';
+import 'package:cc_portal/reusable_view/sm_text.dart';
+import 'package:cc_portal/reusable_view/sm_button.dart';
+import 'package:cc_portal/reusable_view/sm_shadow.dart';
+import 'package:cc_portal/reusable_view/reusable_drop_down_button.dart';
+import 'package:cc_portal/screens/history_screen_new/widgets/date_picker.dart';
 
 class HistorySearchViewNew extends StatelessWidget {
   HistorySearchViewNew({super.key});
-
+  HistoryController con = Get.find();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -37,7 +35,7 @@ class HistorySearchViewNew extends StatelessWidget {
                   children: [
                     // Flexible(child: msisdnInputBuilder()),
                     // const SizedBox(width: 30),
-                    Flexible(child: fromDateBuilder()),
+                    Flexible(child: fromDateBuilder(context)),
                     const SizedBox(width: 30),
                     Flexible(child: toDateBuilder()),
                   ],
@@ -79,6 +77,10 @@ class HistorySearchViewNew extends StatelessWidget {
       title: resetStr,
       bgColor: white,
       addBorder: true,
+      onTap: () {
+        con.resetButtonTap();
+        con.transactionHistory();
+      },
     );
   }
 
@@ -87,47 +89,87 @@ class HistorySearchViewNew extends StatelessWidget {
       title: searchStr,
       bgColor: sixdColor,
       textColor: white,
+      onTap: () {
+        con.transactionHistory();
+      },
     );
   }
 
-  Widget fromDateBuilder() {
-    return ReusbaleDropDownButton(
-      items: [''],
-      title: fromDateCStr,
-      isDisplayPopup: false,
-      onTap: () {
-        print("Button tapped");
+  Widget fromDateBuilder(BuildContext context) {
+    return Obx(
+      () {
+        String val = dateFormate("${con.fromTD}", inFormate: 'dd-MM-yyyy');
+        return DatePickerButton(
+          selectedText: SMText(
+              fontWeight: FontWeight.normal,
+              title: con.isFromChanged.value ? val : val), //"selectedText",
+          title: fromDateCStr,
+          onTap: () {
+            fromDatePicker();
+          },
+        );
       },
-      dropDownIcon: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 4),
-        child: Icon(
-          Icons.calendar_month,
-          size: 16,
-        ),
-      ),
-      direction: PopoverDirection.bottom,
-      hintText: '',
     );
+  }
+
+  void fromDatePicker() {
+    Get.dialog(Center(
+      child: Container(
+          color: white,
+          child: DatePicker(
+            startDateTime: con.fromTD,
+            onConfirm: (p0) {
+              con.isFromChanged.value = true;
+              con.fromTD = p0;
+              // String dat = dateFormate("$p0", inFormate: "yyyy-MM-dd");
+              // print("Date formate ==========$dat");
+              con.isFromChanged.value = false;
+              //Navigator.of(context).pop();
+            },
+          )),
+    ));
+  }
+
+  void toDatePicker() {
+    Get.dialog(Center(
+      child: Container(
+          color: white,
+          child: DatePicker(
+            startDateTime: con.toTD,
+            onConfirm: (p0) {
+              con.toTD = p0;
+              con.isToChanged.value = true;
+              //String dat = dateFormate("$p0", inFormate: "yyyy-MM-dd");
+              con.isToChanged.value = false;
+              //print("Date formate ==========$dat");
+              //Navigator.of(context).pop();
+            },
+          )),
+    ));
   }
 
   Widget toDateBuilder() {
-    return ReusbaleDropDownButton(
-      items: [''],
-      title: toDateCStr,
-      isDisplayPopup: false,
-      onTap: () {
-        print("Button tapped");
+    return Obx(
+      () {
+        String val = dateFormate("${con.toTD}", inFormate: 'dd-MM-yyyy');
+        return DatePickerButton(
+          selectedText: SMText(
+              fontWeight: FontWeight.normal,
+              title: con.isToChanged.value ? val : val), //"selectedText",
+          title: toDateCStr,
+          onTap: () {
+            toDatePicker();
+          },
+        );
       },
-      dropDownIcon: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 4),
-        child: Icon(
-          Icons.calendar_month,
-          size: 16,
-        ),
-      ),
-      direction: PopoverDirection.bottom,
-      hintText: '',
     );
+    // DatePickerButton(
+    //   title: toDateCStr,
+    //   selectedText: SMText(title: "selectedText"),
+    //   onTap: () {
+    //     toDatePicker();
+    //   },
+    // );
   }
 
   BoxDecoration decoration() {

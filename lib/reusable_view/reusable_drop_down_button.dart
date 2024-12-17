@@ -70,8 +70,11 @@ class ReusbaleDropDownButton extends StatelessWidget {
                 if (isDisplayPopup) {
                   popupOverOpen(ctx);
                 }
-                print(
-                    "CustomDropDownButton ${MediaQuery.of(context).size} \n ${Get.width}");
+                if (onTap != null) {
+                  onTap!();
+                }
+                // print(
+                //     "CustomDropDownButton ${MediaQuery.of(context).size} \n ${Get.width}");
               },
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(cornerRadius),

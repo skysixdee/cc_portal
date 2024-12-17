@@ -110,8 +110,9 @@ String welcomeToCustomerCarePortalStr = "Welcome to Customer Care Portal";
 String enterCustomerMsisdnStr = 'Please enter customer msisdn.';
 String enterValidMsisdnStr = 'Enter valid mobile number';
 String enterMobileNumberStr = 'Enter 10 digit mobile number';
-
+String failureStr = 'Failure';
 String dayStr = 'Day';
+String noTransactionFoundStr = 'No Transaction Found';
 String daysStr = 'Days';
 
 String pendingCStr = 'PENDING';
@@ -131,6 +132,7 @@ String cancelCStr = "CANCEL";
 String dailyStr = "Daily";
 String weeklyStr = "Weekly";
 String successCStr = "SUCCESSS";
+String successStr = "Success";
 String selectStr = "Select";
 String okCStr = "OK";
 String switchAccountStr = "Switch Account";

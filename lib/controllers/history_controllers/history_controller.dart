@@ -1,4 +1,5 @@
 import 'package:cc_portal/api_calls/transaction_api.dart';
+import 'package:cc_portal/common/date_formate.dart';
 import 'package:cc_portal/models/generic_table_view_model.dart';
 import 'package:cc_portal/models/history_model.dart';
 import 'package:cc_portal/models/tone_info.dart';
@@ -6,7 +7,13 @@ import 'package:cc_portal/utilily/strings.dart';
 import 'package:get/get.dart';
 
 class HistoryController extends GetxController {
+  DateTime fromTD = DateTime(DateTime.now().year, DateTime.now().month - 1,
+      DateTime.now().day); // DateTime.now();
+  DateTime toTD = DateTime.now();
   RxBool isLoading = false.obs;
+
+  RxBool isFromChanged = true.obs;
+  RxBool isToChanged = true.obs;
   RxList<List<GenericTableViewModel>> historyList =
       <List<GenericTableViewModel>>[].obs;
   @override
@@ -15,9 +22,21 @@ class HistoryController extends GetxController {
     transactionHistory();
   }
 
+  resetButtonTap() {
+    isFromChanged.value = true;
+    isToChanged.value = true;
+    fromTD = DateTime(DateTime.now().year, DateTime.now().month - 1,
+        DateTime.now().day); // DateTime.now();
+    toTD = DateTime.now();
+    isFromChanged.value = false;
+    isToChanged.value = false;
+  }
+
   transactionHistory() async {
     isLoading.value = true;
-    HistoryModel model = await getTransactionApi("2024-12-01", "2024-12-20");
+    String fDate = dateFormate("${fromTD}", inFormate: 'yyyy-MM-dd');
+    String tDate = dateFormate("${toTD}", inFormate: 'yyyy-MM-dd');
+    HistoryModel model = await getTransactionApi(fDate, tDate);
     //model.data
     print("items are ==== ${model.data?.length}");
     createRowList(model.data ?? []);
@@ -66,8 +85,15 @@ class HistoryController extends GetxController {
             object: info,
           ),
           GenericTableViewModel(
-            columnTitle: statusStr,
+            columnTitle: transactionTypeStr,
             columnValue: '${info.transactionType}',
+            isVisible: true.obs,
+            object: info,
+          ),
+          GenericTableViewModel(
+            columnTitle: statusStr,
+            columnValue:
+                (info.basicCause ?? '') == '0' ? successStr : failureStr,
             isVisible: true.obs,
             object: info,
           ),
