@@ -61,25 +61,11 @@ final router = GoRouter(
   ],
   redirect: (context, state) {
     String path = state.fullPath ?? '';
-    //if (path == dashBoardRoute) {
+
     appCont.isEnableBackButton.value = path != dashBoardRoute;
 
-    //}
-    // if ((StoreManager().isAgentLoggedIn)) {
-    //   return loginRoute;
-    // } else {
     print("path is ===========$path");
     return roleBaseScreen(path);
-    // if (!StoreManager().isCustomerLoggedIn) {
-    //   if (path == tuneListRoute || path == activateScreenRoute) {
-    //     return dashBoardRoute;
-    //   } else {
-    //     return dashBoardRoute;
-    //   }
-    // } else {
-    //   return null;
-    // }
-    //}
   },
   errorPageBuilder: (context, state) {
     return MaterialPage(child: _errorWidget(context, state));
