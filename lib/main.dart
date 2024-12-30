@@ -35,47 +35,21 @@ late KeycloakService keycloakService;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setPathUrlStrategy();
+  appCont = Get.put(AppController());
+  prefs = await SharedPreferences.getInstance();
   await _extractValueFromPropertiesFile();
-  await cdnScriptLoader();
-  await Future.delayed(Duration(milliseconds: 300));
-  initialize();
-// below code added for key clock login remove if not requiredVVVVVVVVVVVVVVVVV
-  try {
-    keycloakService = KeycloakService(KeycloakConfig(
-      url: '$keyClockBaseUrl/', // Keycloak auth base url
-      realm: realmName,
-      clientId: clientName,
-    ));
-    bool isAuth = await keycloakService.init(
-      initOptions: KeycloakInitOptions(onLoad: 'login-required'),
-    );
-    print("is aut =========== $isAuth");
-    String token = await keycloakService.getToken();
-
-    Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
-
-    KeyClockUserInfoModel model = KeyClockUserInfoModel.fromJson(decodedToken);
-    StoreManager().keyClockInfo = model;
-    print("model ========== ${model.realmAccess?.roles}");
-    print(
-        "iskeycloakService.authenticated =========== ${keycloakService.authenticated}");
-    if (keycloakService.authenticated as bool) {
-      StoreManager().setAgentLoggedin(true);
-      await getUserRole();
-      getUserDetail();
-    }
-
-    print("is aut =========== ${keycloakService}");
-  } catch (e) {
-    print("error is $e");
+  Get.lazyPut(() => NewDashBoardController());
+  bool isLoaded = await cdnScriptLoader();
+  if (isLoaded) {
+    await keyckockAuth();
   }
-// Above code added for key clock login remove if not required^^^^^^^^^^^^^^^^^
+
+  initialize();
 
   runApp(const MyApp());
 }
 
 initialize() async {
-  appCont = Get.put(AppController());
   Get.lazyPut(() => SubscriberDetailController());
   Get.lazyPut(() => SideMenuController());
   Get.lazyPut(() => HistoryController());
@@ -84,10 +58,8 @@ initialize() async {
 
   Get.lazyPut(() => ActivateTuneController());
 
-  Get.lazyPut(() => NewDashBoardController());
   Get.lazyPut(() => ConsentController());
 
-  prefs = await SharedPreferences.getInstance();
   StoreManager().initStoreManager();
   //_extractValueFromPropertiesFile();
 }

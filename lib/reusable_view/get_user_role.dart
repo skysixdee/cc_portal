@@ -11,4 +11,5 @@ Future<void> getUserRole() async {
   } else if (roles.any((role) => role == "agent")) {
     StoreManager().rolePermission = await rolePermissionApi("1");
   } else {}
+  return;
 }

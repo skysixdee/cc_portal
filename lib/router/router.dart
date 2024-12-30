@@ -1,6 +1,6 @@
-import 'package:cc_portal/router/role_base_screen.dart';
 import 'package:cc_portal/screens/history_screen_new/history_screen_new.dart';
 import 'package:cc_portal/screens/role_screen/role_screen.dart';
+import 'package:cc_portal/store_manager/store_manager.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -41,12 +41,12 @@ final router = GoRouter(
       builder: shellRouteIndex,
       branches: [
         dashBoardShell(),
-        _suspendAndResumeShell(),
-        _toneActivationShell(),
-        _bulkScreenShell(),
+        // _suspendAndResumeShell(),
+        // _toneActivationShell(),
+        // _bulkScreenShell(),
         _transactionHistoryShell(),
-        _copyScreenShell(),
-        tuneListShell(),
+        // _copyScreenShell(),
+        // tuneListShell(),
         _activateScreenShell(),
         _loginShell(),
         _roleBaseShell(),
@@ -65,7 +65,7 @@ final router = GoRouter(
     appCont.isEnableBackButton.value = path != dashBoardRoute;
 
     print("path is ===========$path");
-    return roleBaseScreen(path);
+    return path;
   },
   errorPageBuilder: (context, state) {
     return MaterialPage(child: _errorWidget(context, state));
@@ -97,6 +97,75 @@ StatefulShellBranch _roleBaseShell() {
   );
 }
 
+StatefulShellBranch _loginShell() {
+  return StatefulShellBranch(
+    routes: <RouteBase>[
+      GoRoute(
+        name: loginRoute,
+        path: loginRoute,
+        builder: (context, state) {
+          return LoginPage();
+        },
+      ),
+    ],
+  );
+}
+
+StatefulShellBranch dashBoardShell() {
+  return StatefulShellBranch(
+    routes: <RouteBase>[
+      GoRoute(
+        name: dashBoardRoute,
+        path: dashBoardRoute,
+        builder: (context, state) {
+          bool? isAllowed = StoreManager().rolePermission.screens?.any((scr) =>
+                  scr.screenName == dashBoardRoute.replaceAll("/", "")) ??
+              false;
+          return isAllowed
+              ? DashboardNewScreen()
+              : RoleScreen(); //KeyClockScreen(); //TestScreen(); //
+        },
+      ),
+    ],
+  );
+}
+
+StatefulShellBranch _activateScreenShell() {
+  return StatefulShellBranch(
+    routes: <RouteBase>[
+      GoRoute(
+        name: activateScreenRoute,
+        path: activateScreenRoute,
+        builder: (context, state) {
+          bool? isAllowed = StoreManager().rolePermission.screens?.any((scr) =>
+                  scr.screenName == activateScreenRoute.replaceAll("/", "")) ??
+              false;
+          return isAllowed ? ActivateTuneScreen() : RoleScreen();
+        },
+      ),
+    ],
+  );
+}
+
+StatefulShellBranch _transactionHistoryShell() {
+  return StatefulShellBranch(
+    routes: <RouteBase>[
+      GoRoute(
+        name: transactionHistoryRoute,
+        path: transactionHistoryRoute,
+        builder: (context, state) {
+          bool? isAllowed = StoreManager().rolePermission.screens?.any((scr) =>
+                  scr.screenName ==
+                  transactionHistoryRoute.replaceAll("/", "")) ??
+              false;
+          return isAllowed ? HistoryScreenNew() : RoleScreen();
+        },
+      ),
+    ],
+  );
+}
+
+/*
 StatefulShellBranch _suspendAndResumeShell() {
   return StatefulShellBranch(
     navigatorKey: _sectionNavigatorKey,
@@ -125,49 +194,6 @@ StatefulShellBranch _toneActivationShell() {
     ],
   );
 }
-
-StatefulShellBranch _loginShell() {
-  return StatefulShellBranch(
-    routes: <RouteBase>[
-      GoRoute(
-        name: loginRoute,
-        path: loginRoute,
-        builder: (context, state) {
-          return LoginPage();
-        },
-      ),
-    ],
-  );
-}
-
-StatefulShellBranch dashBoardShell() {
-  return StatefulShellBranch(
-    routes: <RouteBase>[
-      GoRoute(
-        name: dashBoardRoute,
-        path: dashBoardRoute,
-        builder: (context, state) {
-          return DashboardNewScreen(); //KeyClockScreen(); //TestScreen(); //
-        },
-      ),
-    ],
-  );
-}
-
-StatefulShellBranch _activateScreenShell() {
-  return StatefulShellBranch(
-    routes: <RouteBase>[
-      GoRoute(
-        name: activateScreenRoute,
-        path: activateScreenRoute,
-        builder: (context, state) {
-          return ActivateTuneScreen();
-        },
-      ),
-    ],
-  );
-}
-
 StatefulShellBranch tuneListShell() {
   return StatefulShellBranch(
     routes: <RouteBase>[
@@ -196,20 +222,6 @@ StatefulShellBranch _bulkScreenShell() {
   );
 }
 
-StatefulShellBranch _transactionHistoryShell() {
-  return StatefulShellBranch(
-    routes: <RouteBase>[
-      GoRoute(
-        name: transactionHistoryRoute,
-        path: transactionHistoryRoute,
-        builder: (context, state) {
-          return HistoryScreenNew();
-        },
-      ),
-    ],
-  );
-}
-
 StatefulShellBranch _copyScreenShell() {
   return StatefulShellBranch(
     routes: <RouteBase>[
@@ -224,7 +236,7 @@ StatefulShellBranch _copyScreenShell() {
   );
 }
 
-/*
+
 
 StatefulShellBranch MessageTemplateScreenScreen() {
   return StatefulShellBranch(

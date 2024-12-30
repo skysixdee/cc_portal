@@ -21,7 +21,7 @@ Future<OfferListModel> listOfferApi() async {
 
     return offerListModelFromJson(json.encode(map));
   } catch (e) {
-    print("error is ${e}");
+    print("error1 is ${e}");
     return OfferListModel();
   }
 }

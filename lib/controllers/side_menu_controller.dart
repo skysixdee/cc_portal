@@ -51,39 +51,39 @@ class SideMenuController extends GetxController {
   _onSubscriberTap() {
     subMenuList.value = [
       SideSubMenuModel(dashBoardStr, dashBoardRoute),
-      SideSubMenuModel(suspendAndResumeStr, suspendResumeRoute),
-      SideSubMenuModel(toneActivationStr, toneActivationRoute),
+      // SideSubMenuModel(suspendAndResumeStr, suspendResumeRoute),
+      // SideSubMenuModel(toneActivationStr, toneActivationRoute),
       //SideSubMenuModel(toneActivationStr, activateScreenRoute),
-      SideSubMenuModel(bulkUploadStr, bulkUploadRoute),
+      //SideSubMenuModel(bulkUploadStr, bulkUploadRoute),
       SideSubMenuModel(transactionHistoryStr, transactionHistoryRoute),
-      SideSubMenuModel(
-          subscriberDetailAndDeactivationStr, subscriberDetailRoute),
-      SideSubMenuModel(copyToneStr, copyToneRoute),
+      // SideSubMenuModel(
+      //     subscriberDetailAndDeactivationStr, subscriberDetailRoute),
+      // SideSubMenuModel(copyToneStr, copyToneRoute),
     ];
   }
 
   _onRole1Tap() {
     subMenuList.value = [
-      SideSubMenuModel(toneActivationStr, toneActivationRoute),
+      //SideSubMenuModel(toneActivationStr, toneActivationRoute),
       SideSubMenuModel(transactionHistoryStr, transactionHistoryRoute),
     ];
   }
 
   _onRole2Tap() {
     subMenuList.value = [
-      SideSubMenuModel(bulkUploadStr, bulkUploadRoute),
+      //SideSubMenuModel(bulkUploadStr, bulkUploadRoute),
       SideSubMenuModel(transactionHistoryStr, transactionHistoryRoute),
-      SideSubMenuModel(
-          subscriberDetailAndDeactivationStr, subscriberDetailRoute),
-      SideSubMenuModel(copyToneStr, copyToneRoute),
+      // SideSubMenuModel(
+      //     subscriberDetailAndDeactivationStr, subscriberDetailRoute),
+      // SideSubMenuModel(copyToneStr, copyToneRoute),
     ];
   }
 
   _onRole3Tap() {
     subMenuList.value = [
-      SideSubMenuModel(suspendAndResumeStr, suspendResumeRoute),
-      SideSubMenuModel(toneActivationStr, toneActivationRoute),
-      SideSubMenuModel(copyToneStr, copyToneRoute),
+      // SideSubMenuModel(suspendAndResumeStr, suspendResumeRoute),
+      // SideSubMenuModel(toneActivationStr, toneActivationRoute),
+      // SideSubMenuModel(copyToneStr, copyToneRoute),
     ];
   }
 }
