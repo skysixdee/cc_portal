@@ -1,8 +1,3 @@
-import 'package:cc_portal/models/consent_modal.dart';
-import 'package:cc_portal/api_calls/deactivate_api.dart';
-import 'package:cc_portal/api_calls/pack_consent_api.dart';
-import 'package:cc_portal/api_calls/tone_consent_api.dart';
-import 'package:cc_portal/api_calls/upgrade_pack_api.dart';
 import 'package:cc_portal/screens/dashboard_screen/new_widget/pack_consent_table.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -13,7 +8,7 @@ import 'package:cc_portal/common/channal_mapping.dart';
 import 'package:cc_portal/common/day_mapping.dart';
 import 'package:cc_portal/reusable_view/generic_popup_over.dart';
 import 'package:cc_portal/reusable_view/popups/pack_upgrade_popup.dart';
-import 'package:cc_portal/screens/dashboard_screen/new_widget/tune_consent_table.dart';
+
 import 'package:cc_portal/utilily/colors.dart';
 import 'package:cc_portal/utilily/constants.dart';
 import 'package:cc_portal/utilily/strings.dart';

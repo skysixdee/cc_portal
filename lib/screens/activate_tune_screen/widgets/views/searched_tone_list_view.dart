@@ -8,13 +8,12 @@ import 'package:cc_portal/reusable_view/buttons/activate_tune_button.dart';
 
 import 'package:cc_portal/reusable_view/number_pagination.dart';
 import 'package:cc_portal/reusable_view/buttons/play_button.dart';
-import 'package:cc_portal/reusable_view/sm_button.dart';
+
 import 'package:cc_portal/reusable_view/sm_text.dart';
-import 'package:cc_portal/screens/activate_tune_screen/widgets/buy_tune_popup.dart';
+
 import 'package:cc_portal/screens/subscriber_deatil_screen/widget/tone_list_table.dart';
-import 'package:cc_portal/utilily/colors.dart';
+
 import 'package:cc_portal/utilily/constants.dart';
-import 'package:cc_portal/utilily/strings.dart';
 
 class SearchedToneListView extends StatefulWidget {
   const SearchedToneListView({super.key, required this.seachedText});
